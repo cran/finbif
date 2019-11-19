@@ -1,0 +1,172 @@
+---
+title: "Introduction to the finbif package"
+author: "William K. Morris"
+output: 
+  rmarkdown::html_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{1. Introduction to the finbif package}
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, eval = TRUE, echo = FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  cache.path = "cache/"
+)
+```
+The Finnish Biodiversity Information Facility (FinBIF) aggregates Finnish
+biodiversity data from multiple sources in a single open access portal for
+researchers, citizen scientists, industry and government. The `finbif` R
+package provides access to the FinBIF API directly from within R. FinBIF allows
+users of biodiversity information to find, access, combine and visualise data on
+Finnish plants, animals and microorganisms. The finbif R package makes the
+publicly available data in FinBIF accessible from within R. Biodiversity
+information is available on taxonomy and taxon occurrence. Occurrence data can
+be filtered by taxon, time, location and other variables. The data accessed are
+conveniently preformatted for subsequent analyses.
+
+## Installing the finbif package
+You can install the development version of finbif from
+[GitHub](https://github.com),
+```{r install_gh, eval = FALSE}
+remotes::install_github("luomus/finbif")
+```
+
+## Loading the finbif package
+```{r setup}
+library(finbif)
+```
+
+## Getting a FinBIF access token
+To use the FinBIF API you must first request and set a personal access token.
+You can request an API token to be sent to your email address with the function
+`finbif_get_token`.
+```{r request-token, eval = FALSE}
+finbif_request_token("your@email.com")
+```
+
+Copy the access token that was sent to your email and set it as the environment
+variable `FINBIF_ACCESS_TOKEN` either for the current session,
+```{r set-token, eval = FALSE}
+Sys.setenv(
+  FINBIF_ACCESS_TOKEN = "xtmSOIxjPwq0pOMB1WvcZgFLU9QBklauOlonWl8K5oaLIx8RniJLrvcJU4v9H7Et"
+)
+# Note: the above is not a real access token. Do not try using it.
+```
+, or by adding it to a `Renviron` startup file (see
+[here](https://rviews.rstudio.com/2017/04/19/r-for-enterprise-understanding-r-s-startup/)
+for details).
+
+## Working with taxa
+You can check to see if a taxon exists in the FinBIF database.
+```{r taxon-check, cache = TRUE}
+finbif_check_taxa("Ursus arctos")
+```
+
+If the taxon is in the FinBIF database its unique ID is returned. When a taxon
+is not in the FinBIF database it is reported as "not found" and for that taxa
+the list element is `NA`.
+```{r taxon-not-found, cache = TRUE}
+(taxa <- finbif_check_taxa(c("Ursus arctos", "Moomin")))
+taxa[[1]]
+taxa[[2]]
+```
+
+You can also specify the taxonomic rank when searching FinBIF and the search
+will be limited to the specified rank.
+```{r taxon-rank, cache = TRUE}
+finbif_check_taxa(list(species = c("Ursus arctos", "Ursus"), genus = "Ursus"))
+```
+
+The function `finbif_taxa()` can be used for a more general search for taxa in 
+the FinBIF database. Searches can be `exact`, `partial` or `likely` (fuzzy
+matching). Information for a single taxon is returned when using exact or fuzzy
+matching, but multiple taxa, up to a limit, `n`, may be returned when using
+partial matching.
+```{r taxon-search, cache = TRUE}
+birch_search <- finbif_taxa("Betula pendula", 2, "partial")
+str(birch_search$content, max.level = 2, list.len = 8)
+```
+
+## Getting occurrence data
+You can download occurrence data from the FinBIF database as a `data.frame` with
+the `finbif_occurrence()` function.
+```{r occurrence, cache = TRUE}
+finbif_occurrence("Cygnus cygnus", n = 100)
+```
+
+You can search for multiple taxa at once and filter the records with the
+`filter` argument.
+```{r occurrence2, cache = TRUE}
+finbif_occurrence(
+  "Cygnus cygnus", 
+  "Cygnus olor",
+  filter = list(coordinates_uncertainty_max = 100)
+)
+```
+
+See `?filters` and `vignette("filtering")` for more details on filtering FinBIF
+records.
+
+## Plotting occurrence data
+The `finbif` package has a number of inbuilt functions for plotting (see e.g.,
+`breaks_xy()` and `hist_xy()`). There is also an inbuilt dataset that can be
+used to plot the border of Finland (`?finland_map`). Together these utilities
+can be used to plot occurrences after they have been downloaded from FinBIF. For
+example, the following can be used to plot the density of Eurasian Jay
+occurrences from Finland.
+```{r jays, cache = TRUE}
+# Download all the occurrences of Eurasian Jay in Finland
+# that have coordinates accurate to at least 100m
+jays <- finbif_occurrence(
+  taxa   = "Eurasian Jay",
+  filter = c(
+    coordinates_uncertainty_max = 100,
+    country                 = "Finland"
+  ),
+  n      = 2e4,
+  quiet  = TRUE
+)
+```
+
+```{r plot-occurrences, fig.cap = "", fig.width = 5, fig.height = 7, cache = TRUE}
+# Compute the density of occurrences in 1/4 degree cells and plot as a heatmap
+with(
+  data = c(jays, finland_map),
+  expr = {
+    par(mar = c(5, 5, 1, 1), las = 1)
+    # compute a 2d histogram from the occurrences
+    breaks  <- breaks_xy(bbox, .25) # breakpoints every 1/4 of a degree
+    density <- hist_xy(xy = list(lon_wgs84, lat_wgs84), breaks)
+    # plot the histogram as a heatmap
+    image(density,
+          asp    = 2.4,
+          breaks = 2^seq(0, 12), # breakpoints for the gridcell colours
+          col    = hcl.colors(12, rev = TRUE),
+          xlab   = "Longitude",
+          ylab   = "Latitude",
+          panel.first = grid())
+    legend("topright",
+           inset  = c(0, .01),
+           legend = expression(2^12, "", "", 2^6, "", "", 2^0),
+           fill   = hcl.colors(7),
+           border = NA,
+           bty    = "n",
+           adj    = c(0, 0.25), 
+           x.intersp = .2,
+           y.intersp = .5)
+    # add the Finnish border
+    polygon(x = vertices, lwd = .2)
+  }
+)
+```
+
+## Caching
+By default `finbif` uses local filesystem caching for repeated API request. This
+can be turned on or off on a per request or session basis. See `?caching` for
+details.
