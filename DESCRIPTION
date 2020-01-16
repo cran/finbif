@@ -1,14 +1,15 @@
 Package: finbif
 Title: Interface for the 'Finnish Biodiversity Information Facility'
         API
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person(given = "LUOMUS - Finnish Museum of Natural History",
            role = "cph"),
     person(given = "William",
            family = "Morris",
            role = c("aut", "cre"),
-           email = "willi@mmorris.email")
+           email = "willi@mmorris.email",
+           comment = c(ORCID = "0000-0002-8686-4154"))
     )
 Description: A programmatic interface to the 'Finnish Biodiversity Information
     Facility' ('FinBIF') API (<https://api.laji.fi>). 'FinBIF' aggregates
@@ -31,17 +32,19 @@ LazyData: true
 Depends: R (>= 3.5.0)
 Imports: digest, httr, graphics, jsonlite, lubridate, lutz, methods,
         utils
-RoxygenNote: 6.1.1
-Suggests: codemetar, data.tree, ISOcodes, knitr, rmarkdown, ows4R, sf,
-        stats, testthat (>= 2.1.0), usethis, vcr, vdiffr
+RoxygenNote: 7.0.2
+Suggests: codemetar, data.tree, details, ISOcodes, knitr, rmarkdown,
+        ows4R, sf, stats, testthat (>= 2.1.0), usethis, vcr, vdiffr
 X-schema.org-applicationCategory: Biodiversity
-X-schema.org-keywords: FinBIF, specimens, API, web-services,
-        occurrences, species, taxonomy
+X-schema.org-keywords: api, biodiversity, biodiversity-informatics,
+        biodiversity-information, finbif, finbif-access, occurrences,
+        r-package, r-programming, rstats, species, specimens, taxon,
+        taxonomy, web-services
 X-schema.org-isPartOf: https://species.fi
 NeedsCompilation: no
-Packaged: 2019-11-14 02:33:10 UTC; will
+Packaged: 2020-01-16 12:24:55 UTC; will
 Author: LUOMUS - Finnish Museum of Natural History [cph],
-  William Morris [aut, cre]
+  William Morris [aut, cre] (<https://orcid.org/0000-0002-8686-4154>)
 Maintainer: William Morris <willi@mmorris.email>
 Repository: CRAN
-Date/Publication: 2019-11-19 13:30:03 UTC
+Date/Publication: 2020-01-16 13:00:02 UTC

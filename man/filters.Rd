@@ -87,7 +87,7 @@ Filters related to location of record include:
 \itemize{
 \item \code{locality} Character vector.
 Filter by name of locality. Will first try to match strings to the
-countries, provinces, and municipalities (see below) in FinBIF if none of
+countries, provinces, and municipalities (see below) in FinBIF, if none of
 these locality types match exactly then will return records with verbatim
 locality matches in the original records.
 \item \code{country} Character vector.
@@ -122,11 +122,11 @@ A character vector or list of coordinate data. Must be of length 3. The
 first two elements are latitude and longitude and third is the coordinate
 system (currently only \code{"wgs84"} is implemented). Records returned will be
 those for which the center point exactly matches that which is specified.
-\item \code{coordinates_cell_{1k|10k|50k|100k}} Coordinates.
+\item \verb{coordinates_cell_\{1k|10k|50k|100k\}} Coordinates.
 A vector of coordinate data (lat, long). Filter by grid cell at scale \code{*}.
 Where \code{*} is 1, 10, 50 or 100. The coordinates specify the southeast corner
 of the cell. Coordinates system is uniform \code{"kkj"} (also known as "ykj").
-\item \code{coordinates_cell_{1k|10k|50k|100k}_center} Coordinates.
+\item \verb{coordinates_cell_\{1k|10k|50k|100k\}_center} Coordinates.
 As above, except coordinates indicate center of grid cell.
 \item \code{coordinates_source} Character.
 Filter by source of coordinates. Currently accepted values are
@@ -142,14 +142,14 @@ Filters related to time of record include:
 \itemize{
 \item \code{date_range_ymd} Dates.
 An \link[lubridate:Interval-class]{Interval} object or a vector of one to
-two \link[base:Dates]{Date} objects (start and end dates) or objects that
+two \link[base:Dates]{Date} objects (begin and end dates) or objects that
 are coercible to the \link[base:Dates]{Date} class by
 \link[lubridate]{as_date}. When supplying dates as strings, the day or
 month-and-day can be omitted (e.g.,\code{"2001-04"} or \code{"2001"}). Note however,
 that when omitting day, only "\code{-}" is allowed to separate year and month,
-and months must in two-digit/leading zero form. If the start or end dates
-are partial date strings they will be interpreted as the first or last day
-of the month or year (e.g., \code{c(2001, 2003)} is equivalent to
+and months must be in two-digit/leading zero form. If the begin or end
+dates are partial date strings they will be interpreted as the first or
+last day of the month or year (e.g., \code{c(2001, 2003)} is equivalent to
 \code{c("2001-01-01", "2003-12-12")}). If a single date is supplied as a partial
 date string then all records that fall within that month or year will be
 returned (e.g., \code{c("2001-01")} is equivalent to
@@ -157,13 +157,13 @@ returned (e.g., \code{c("2001-01")} is equivalent to
 \item \code{date_range_ym} Dates.
 As above, but days (if supplied) will be ignored.
 \item \code{date_range_d} Integer vector.
-Filter by day of the year (e.g., \code{1} to \code{366}). If start or end date is
-omitted then it is interpreted as the first or last or end day of the year.
+Filter by day of the year (e.g., \code{1} to \code{366}). If begin or end date is
+omitted then it is interpreted as the first or last day of the year.
 \item \code{date_range_md} Character vector.
 Filter by month and day of the year (e.g., \code{"01-01"} to \code{"12-31"}). If
-start or end date is omitted then it is interpreted as the first or last or
-end day of the year.
-\item \code{{first|last}_import_date_{min|max}} Date.
+begin or end date is omitted then it is interpreted as the first or last
+day of the year.
+\item \verb{\{first|last\}_import_date_\{min|max\}} Date.
 Filter by date record was imported. A \link[base:Dates]{Date} object or
 object that is coercible to the \link[base:Dates]{Date} class by
 \link[lubridate]{as_date}.
@@ -205,7 +205,7 @@ Other filters:
 Filter by keywords.
 \item \code{collection} Character vector or \code{finbif_collections()} data.frame.
 Filter by collection. If a character vector can refer to collection ID,
-collection name (in English, Finnish, or Swedish) or abbreviated name.
+collection name (in English) or abbreviated name.
 Use \code{finbif_collections()} to see list of collections and metadata. Can
 also use the results of a call to \code{finbif_collections()} directly to
 filter records.
@@ -232,7 +232,7 @@ Filter by organism sex and sex-related category name or code. Use
 \code{finbif_metadata()} to see list of organism sexes and sex-related
 categories and codes. If \code{"male"} or \code{"female"} is specified then records
 returned will be those with sex specified as male or female respectively
-and those records where the corresponding \code{{male|female}_abundance > 1}.
+and those records where the corresponding \verb{\{male|female\}_abundance > 1}.
 \item \code{event_id} Character.
 Filter by event (list of records, etc.) ID.
 \item \code{document_id} Character.
@@ -289,7 +289,7 @@ species level reliably and linked to the taxon database (\code{TRUE}).
 Return records belonging to surveys or censuses of a given taxon or
 taxonomic group. Specify the taxonomic group with a FinBIF taxon ID. Use
 \code{finbif_check_taxa()} to find taxon IDs.
-\item \code{{record|event|document}_fact} Character vector.
+\item \verb{\{record|event|document\}_fact} Character vector.
 Filter by record, event or document facts. Facts are key-value pairs of the
 form \code{"<fact>=<value>"}. Value can be omitted in which case all records
 with any value recorded for the specified fact will be returned.

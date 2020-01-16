@@ -45,11 +45,13 @@
 #' @importFrom lutz tz_lookup_coords
 #' @export
 
-finbif_occurrence <- function(..., filter, select, order_by, n = 10, page = 1,
-  count_only = FALSE, quiet = FALSE, cache = TRUE, check_taxa = TRUE,
-  on_check_fail = c("warn", "error", "quiet"), date_time = TRUE,
-  date_time_method = "fast", tzone = Sys.timezone(), dwc = FALSE
-  ) {
+finbif_occurrence <- function(
+  ..., filter, select, order_by, sample = FALSE, n = 10, page = 1,
+  count_only = FALSE, quiet = FALSE, cache = getOption("finbif_use_cache"),
+  check_taxa = TRUE, on_check_fail = c("warn", "error", "quiet"),
+  date_time = TRUE, date_time_method = "fast", tzone = Sys.timezone(),
+  dwc = FALSE
+) {
 
   taxa <- select_taxa(
     ..., quiet = quiet, cache = cache, check_taxa = check_taxa,
@@ -59,8 +61,9 @@ finbif_occurrence <- function(..., filter, select, order_by, n = 10, page = 1,
   if (missing(filter)) filter <- NULL
   filter <- c(taxa, filter)
 
-  records <-
-    finbif_records(filter, select, order_by, n, page, count_only, quiet, cache)
+  records <- finbif_records(
+    filter, select, order_by, sample, n, page, count_only, quiet, cache
+  )
 
   if (count_only) return(records[["content"]][["total"]])
 
@@ -73,7 +76,7 @@ finbif_occurrence <- function(..., filter, select, order_by, n = 10, page = 1,
   url  <- attr(df, "url", TRUE)
   time <- attr(df, "time", TRUE)
 
-  names(df) <- var_names[names(df), ifelse(dwc, "dwc", "translated_var")]
+  names(df) <- var_names[names(df), if (dwc) "dwc" else "translated_var"]
 
   if (date_time) {
     if (dwc) {
@@ -139,7 +142,9 @@ select_taxa <- function(..., quiet, cache, check_taxa, on_check_fail) {
       taxa <- list(taxon_name = paste(taxa, collapse = ","))
 
     }
+
   taxa
+
 }
 
 get_date_time <- function(df, date, hour, minute, lat, lon, method, tzone) {

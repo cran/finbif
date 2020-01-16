@@ -16,6 +16,8 @@
 #'   `"reported_name"`.
 #' @param n Integer. How many records to download.
 #' @param page Integer. Which page of records to start downloading from.
+#' @param sample Logical. If `TRUE` randomly sample the records from the FinBIF
+#'   database.
 #' @param count_only Logical. Only return the number of records available.
 #' @param quiet Logical. Suppress the progress indicator for multipage
 #'   downloads.
@@ -30,8 +32,8 @@
 #' @export
 
 finbif_records <- function(
-  filter, select, order_by, n = 10, page = 1, count_only = FALSE, quiet = FALSE,
-  cache = TRUE
+  filter, select, order_by, sample = FALSE, n = 10, page = 1,
+  count_only = FALSE, quiet = FALSE, cache = getOption("finbif_use_cache")
 ) {
 
   max_queries  <- 2000L
@@ -62,15 +64,22 @@ finbif_records <- function(
     if (missing(select)) {
 
       select <- row.names(default_vars)
+      select_ <- default_vars[["translated_var"]]
+      record_id_selected <- TRUE
 
     } else {
 
-      select <- ifelse(
+      select_ <- select
+      select  <- ifelse(
         select == "default_vars",
         list(default_vars[["translated_var"]]),
         select
       )
       select <- unlist(select)
+
+      record_id_selected <- "record_id" %in% select
+      if (!record_id_selected) select <- c("record_id", select)
+
       select_vars <- var_names[var_names[["select"]], ]
       for (var in names(var_names))
         class(select_vars[[var]]) <- class(var_names[[var]])
@@ -101,11 +110,30 @@ finbif_records <- function(
 
     }
 
+    if (sample)
+      query[["orderBy"]] <- paste(
+        "RANDOM",
+        query[["orderBy"]],
+        sep = c("", ",")[[length(query[["orderBy"]]) + 1L]]
+      )
+
   })
 
-  # request ====================================================================
+  request(
+    filter, select, sample, n, page, count_only, quiet, cache, query, max_size,
+    select_, record_id_selected
+  )
 
-  path <- "warehouse/query/"
+}
+
+# request ----------------------------------------------------------------------
+
+request <- function(
+  filter, select, sample, n, page, count_only, quiet, cache, query, max_size,
+  select_, record_id_selected
+) {
+
+  path <- "warehouse/query/unit/"
 
   if (count_only) {
 
@@ -129,11 +157,35 @@ finbif_records <- function(
   n_tot <- resp[[1L]][["content"]][["total"]]
   n <- min(n, n_tot)
 
-  resp <- get_extra_pages(resp, n, max_size, quiet, path, query, cache, select)
+  if (n > max_size) {
+
+    # If random sampling and requesting few records or a large proportion of the
+    # total number of records, it makes more sense to just get all the records
+    # and  sample afterwards and avoid coping with duplicates due to pagination.
+    sample_after_request <- n_tot < max_size * 3L || n / n_tot > .5
+
+    if (sample && sample_after_request) {
+      all_records <- finbif_records(
+        filter, select_, sample = FALSE, n = n_tot, quiet = quiet,
+        cache = cache
+      )
+      return(record_sample(all_records, n, cache))
+    }
+
+    resp <-
+      get_extra_pages(resp, n, max_size, quiet, path, query, cache, select)
+
+    if (sample)
+      resp <- handle_duplicates(
+        resp, filter, select_, max_size, cache, page = length(resp) + 1L, n
+      )
+
+  }
 
   structure(
     resp, class = c("finbif_records_list", "finbif_api_list"), nrec_dnld = n,
-    nrec_avl = n_tot, select = unique(select)
+    nrec_avl = n_tot, select = unique(select), record_id = record_id_selected,
+    cache = cache
   )
 
 }
@@ -156,7 +208,7 @@ get_extra_pages <-
     n_pages <- n %/% query[["pageSize"]]
 
     # Pausing between requests is important if many request will be made
-    sleep <- ifelse(n_pages > 10, 0L, 1L)
+    sleep <- if (n_pages > 10L) 0L else 1L
 
     while (multipage) {
 
@@ -278,4 +330,87 @@ translate <- function(x, translation, pos = -1) {
     row.names(trsltn)[ind]
 
   }
+}
+
+# sample records ---------------------------------------------------------------
+
+record_sample <- function(x, n, cache) {
+
+  n_tot  <- attr(x, "nrec_dnld")
+  select <- attr(x, "select")
+  record_id <- attr(x, "record_id")
+
+  records <- if (cache) {
+    sample_with_seed(n_tot, n_tot - n, gen_seed(x))
+  } else {
+    sample.int(n_tot, n_tot - n)
+  }
+
+  structure(
+    remove_records(x, records),
+    class = c(
+      "finbif_records_sample_list", "finbif_records_list", "finbif_api_list"
+    ),
+    nrec_dnld = n,
+    nrec_avl = n_tot,
+    select = select,
+    record_id = record_id,
+    cache = cache
+  )
+
+}
+
+# handle duplicates ------------------------------------------------------------
+
+handle_duplicates <- function(x, filter, select, max_size, cache, page, n) {
+
+  ids <- lapply(
+    x,
+    function(x)
+      vapply(
+        x[["content"]][["results"]], get_el_recurse, NA_character_,
+        c("unit", "unitId"), "character"
+      )
+  )
+  ids <- unlist(ids)
+
+  duplicates <- which(duplicated(ids))
+
+  x <- remove_records(x, duplicates)
+
+  if (length(ids) - length(duplicates) < n) {
+
+    new_records <- finbif_records(
+      filter, select, sample = TRUE, n = max_size, page = page, cache = cache
+    )
+
+    x[[length(x) + 1L]] <- new_records[[1L]]
+    x <- handle_duplicates(x, filter, select, max_size, cache, page + 1L, n)
+
+  }
+
+  remove_records(x, n = n)
+
+}
+
+# remove records ---------------------------------------------------------------
+
+remove_records <- function(x, records, n) {
+
+  page_sizes <- vapply(x, function(x) x[["content"]][["pageSize"]], integer(1L))
+  if (missing(records)) records <- seq(1L, sum(page_sizes))[-seq(1L, n)]
+  excess_pages <- rep.int(seq_along(x), page_sizes)[records]
+  records <- records - c(0L, cumsum(page_sizes)[-length(x)])[excess_pages]
+  records <- split(records, excess_pages)
+
+  for (i in seq_along(x)) {
+    x[[i]][["content"]][["results"]][records[[as.character(i)]]] <- NULL
+    new_page_size <- length(x[[i]][["content"]][["results"]])
+    x[[i]][["content"]][["pageSize"]] <- new_page_size
+  }
+
+  x[!vapply(x, function(x) x[["content"]][["pageSize"]], integer(1L))] <- NULL
+
+  x
+
 }

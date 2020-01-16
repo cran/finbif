@@ -202,12 +202,184 @@ hr {
 
 <body>
 <p>When getting records from FinBIF there are many options for filtering the data
-before it is downloaded saving bandwidth and local post-processing time. For the
-full list of filtering options see <code>?filters</code>.</p>
+before it is downloaded, saving bandwidth and local post-processing time. For
+the full list of filtering options see <code>?filters</code>.</p>
 
 <h2>Loading finbif</h2>
 
 <pre><code class="r">library(finbif)
+</code></pre>
+
+<h2>Location</h2>
+
+<p>Records can be filtered by the name of a location or by a set of coordinates.</p>
+
+<pre><code class="r">filter1 &lt;- c(country = &quot;Finland&quot;)
+filter2 &lt;- list(coordinates = list(c(60, 68), c(20, 30), &quot;wgs84&quot;))
+par(mfcol = 1:2)
+plot(finbif_occurrence(filter = filter1, n = 1000), main = &quot;Name&quot;)
+plot(finbif_occurrence(filter = filter2, n = 1000), main = &quot;Coordinates&quot;)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt=""/></p>
+
+<p>See <code>?filters</code> section &ldquo;Location&rdquo; for more details</p>
+
+<h2>Time</h2>
+
+<p>The event or import date of records can be used to filter occurrence data from
+FinBIF. The date filters can be a single year, month or date,</p>
+
+<pre><code class="r">finbif_occurrence(filter = list(date_range_ym = c(&quot;2019-12&quot;)))
+</code></pre>
+
+<p><details closed>
+<summary> Click to show/hide output. </summary></p>
+
+<pre><code class="r">
+Records downloaded: 10
+Records available: 7150
+A data.frame [10 x 30]
+       scientific_name abundance lat_wgs84 lon_wgs84           date_time
+1            Pica pica         6   62.7154   23.0893 2019-12-31 08:15:00
+2     Poecile montanus         1   62.7154   23.0893 2019-12-31 08:15:00
+3    Dendrocopos major         2   62.7154   23.0893 2019-12-31 08:15:00
+4      Corvus monedula         8   62.7154   23.0893 2019-12-31 08:15:00
+5      Passer montanus        11   62.7154   23.0893 2019-12-31 08:15:00
+6  Cyanistes caeruleus         5   62.7154   23.0893 2019-12-31 08:15:00
+7          Parus major        20   62.7154   23.0893 2019-12-31 08:15:00
+8     Acanthis flammea        12   62.7154   23.0893 2019-12-31 08:15:00
+9    Passer domesticus        22   62.7154   23.0893 2019-12-31 08:15:00
+10     Chloris chloris         6   62.7154   23.0893 2019-12-31 08:15:00
+...with 0 more records and 25 more variables:
+taxon_rank, country, province, municipality, date_start, date_end,
+hour_start, hour_end, minute_start, minute_end, record_id,
+individual_id, event_id, collection_id, any_issues, record_issue,
+record_reliable, taxon_reliability, document_issue,
+collection_reliability, coordinates_uncertainty, event_issue,
+location_issue, time_issue, duration
+
+</code></pre>
+
+<p></details>
+<br>
+, or for record events, a range as a character vector or an
+<a href="https://lubridate.tidyverse.org/reference/Interval-class.html">Interval</a>
+object.</p>
+
+<pre><code class="r">finbif_occurrence(
+  filter = list(date_range_ymd = c(&quot;2019-06-01&quot;, &quot;2019-12-31&quot;))
+)
+</code></pre>
+
+<p><details closed>
+<summary> Click to show/hide output. </summary></p>
+
+<pre><code class="r">
+Records downloaded: 10
+Records available: 227693
+A data.frame [10 x 30]
+       scientific_name abundance lat_wgs84 lon_wgs84           date_time
+1            Pica pica         6   62.7154   23.0893 2019-12-31 08:15:00
+2     Poecile montanus         1   62.7154   23.0893 2019-12-31 08:15:00
+3    Dendrocopos major         2   62.7154   23.0893 2019-12-31 08:15:00
+4      Corvus monedula         8   62.7154   23.0893 2019-12-31 08:15:00
+5      Passer montanus        11   62.7154   23.0893 2019-12-31 08:15:00
+6  Cyanistes caeruleus         5   62.7154   23.0893 2019-12-31 08:15:00
+7          Parus major        20   62.7154   23.0893 2019-12-31 08:15:00
+8     Acanthis flammea        12   62.7154   23.0893 2019-12-31 08:15:00
+9    Passer domesticus        22   62.7154   23.0893 2019-12-31 08:15:00
+10     Chloris chloris         6   62.7154   23.0893 2019-12-31 08:15:00
+...with 0 more records and 25 more variables:
+taxon_rank, country, province, municipality, date_start, date_end,
+hour_start, hour_end, minute_start, minute_end, record_id,
+individual_id, event_id, collection_id, any_issues, record_issue,
+record_reliable, taxon_reliability, document_issue,
+collection_reliability, coordinates_uncertainty, event_issue,
+location_issue, time_issue, duration
+
+</code></pre>
+
+<p></details>
+<br></p>
+
+<p>Records for a specific season or time-span across all years can also be
+requested.</p>
+
+<pre><code class="r">finbif_occurrence(
+  filter = list(
+    date_range_md = c(begin = &quot;12-21&quot;, end = &quot;12-31&quot;),
+    date_range_md = c(begin = &quot;01-01&quot;, end = &quot;02-20&quot;)
+  )
+)
+</code></pre>
+
+<p><details closed>
+<summary> Click to show/hide output. </summary></p>
+
+<pre><code class="r">
+Records downloaded: 10
+Records available: 1471374
+A data.frame [10 x 30]
+        scientific_name abundance lat_wgs84 lon_wgs84           date_time
+1                  &lt;NA&gt;         1  60.66508  23.60832 2020-01-14 08:47:00
+2                  &lt;NA&gt;         1  60.66508  23.60832 2020-01-14 08:47:00
+3   Fomitopsis pinicola         1  64.97964  25.52697 2020-01-13 22:00:00
+4  Basidioradulum radu…         1  64.97964  25.52697 2020-01-13 22:00:00
+5  Trichaptum abietinum         1  64.97964  25.52697 2020-01-13 22:00:00
+6     Inonotus obliquus         1  64.97964  25.52697 2020-01-13 22:00:00
+7     Dendrocopos major         2  60.42794  22.20052 2020-01-13 22:00:00
+8         Turdus merula         1  60.42794  22.20052 2020-01-13 22:00:00
+9     Pyrrhula pyrrhula         1  60.42794  22.20052 2020-01-13 22:00:00
+10  Carduelis carduelis         1  60.42794  22.20052 2020-01-13 22:00:00
+...with 0 more records and 25 more variables:
+taxon_rank, country, province, municipality, date_start, date_end,
+hour_start, hour_end, minute_start, minute_end, record_id,
+individual_id, event_id, collection_id, any_issues, record_issue,
+record_reliable, taxon_reliability, document_issue,
+collection_reliability, coordinates_uncertainty, event_issue,
+location_issue, time_issue, duration
+
+</code></pre>
+
+<p></details>
+<br></p>
+
+<h2>Data Quality</h2>
+
+<p>You can filter occurrence records by indicators of data quality. See <code>?filters</code>
+section &ldquo;Quality&rdquo; for details.</p>
+
+<pre><code class="r">strict &lt;- c(
+  collection_reliability = 5, coordinates_uncertainty_max = 1,
+  taxon_reliability = &quot;reliable&quot;
+)
+permissive &lt;- list(
+  collection_reliability = 1:5, coordinates_uncertainty_max = 10000,
+  quality_issues = &quot;both&quot;
+)
+c(
+  strict     = finbif_occurrence(filter = strict,     count_only = TRUE),
+  permissive = finbif_occurrence(filter = permissive, count_only = TRUE)
+)
+#&gt;     strict permissive 
+#&gt;     300819   31096863
+</code></pre>
+
+<h2>Collection</h2>
+
+<p>The FinBIF database consists of a number of constituent collections. You can
+filter by collection with either the <code>collection</code> or <code>not_collection</code> filters.
+Use <code>finbif_collections()</code> to see metadata on the FinBIF collections.</p>
+
+<pre><code class="r">finbif_occurrence(
+  filter = c(collection = &quot;iNaturalist&quot;), count_only = TRUE
+)
+#&gt; [1] 15716
+finbif_occurrence(
+  filter = c(collection = &quot;Notebook, general observations&quot;), count_only = TRUE
+)
+#&gt; [1] 585342
 </code></pre>
 
 <h2>Informal taxonomic groups</h2>
@@ -216,30 +388,40 @@ full list of filtering options see <code>?filters</code>.</p>
 <code>Birds</code> or <code>Mammals</code>.</p>
 
 <pre><code class="r">finbif_occurrence(filter = list(informal_group = c(&quot;Birds&quot;, &quot;Mammals&quot;)))
-#&gt; Records downloaded: 10
-#&gt; Records available: 17370561
-#&gt; A data.frame [10 x 30]
-#&gt;        scientific_name abundance lat_wgs84 lon_wgs84           date_time
-#&gt; 1  Capreolus capreolus         1  60.82651  21.34383 2019-08-21 02:30:00
-#&gt; 2      Lepus europaeus         1  60.80257  21.38201 2019-08-21 02:30:00
-#&gt; 3     Sciurus vulgaris         1  60.79812  21.35765 2019-08-21 02:30:00
-#&gt; 4        Vulpes vulpes         1  60.82976  21.26560 2019-08-21 02:30:00
-#&gt; 5        Lepus timidus         1  60.81778  21.33762 2019-08-21 02:30:00
-#&gt; 6        Vulpes vulpes         1  60.42812  22.23448 2019-08-20 21:00:00
-#&gt; 7   Erithacus rubecula         1  60.42820  22.24195 2019-08-20 21:00:00
-#&gt; 8        Vulpes vulpes         1  60.10824  23.52158 2019-08-20 21:00:00
-#&gt; 9     Sciurus vulgaris         1  60.43755  22.24938 2019-08-21 21:00:00
-#&gt; 10     Hirundo rustica        24  63.80152  22.89729 2019-08-20 21:00:00
-#&gt; ...with 0 more records and 25 more variables:
-#&gt; taxon_rank, country, province, municipality, date_start, date_end,
-#&gt; hour_start, hour_end, minute_start, minute_end, record_id,
-#&gt; individual_id, event_id, collection_id, any_issues, record_issue,
-#&gt; record_reliable, taxon_reliability, document_issue,
-#&gt; document_reliablity, coordinate_accuracy, event_issue,
-#&gt; location_issue, time_issue, duration
 </code></pre>
 
-<p>See <code>finbif_informal_groups()</code> for the full list of groups you can filter by. 
+<p><details closed>
+<summary> Click to show/hide output. </summary></p>
+
+<pre><code class="r">
+Records downloaded: 10
+Records available: 17895168
+A data.frame [10 x 30]
+        scientific_name abundance lat_wgs84 lon_wgs84           date_time
+1    Bucephala clangula         6  61.03523  26.13556 2020-01-07 22:00:00
+2         Cygnus cygnus        30  61.03529  26.13553 2020-01-07 22:00:00
+3  Apodemus flavicollis         1  60.43997  22.37462 2020-01-07 22:00:00
+4        Sitta europaea         1  61.04351  26.17732 2020-01-07 22:00:00
+5         Spinus spinus         2  60.88937  26.44874 2020-01-06 22:00:00
+6         Cygnus cygnus        26  60.93560  26.37433 2020-01-06 22:00:00
+7      Mergus merganser        70  60.96558  26.42339 2020-01-06 22:00:00
+8       Melanitta nigra         1  60.96561  26.42340 2020-01-06 22:00:00
+9  Fringilla montifrin…        46  60.94323  26.43148 2020-01-06 22:00:00
+10         Surnia ulula         1  60.99228  26.43129 2020-01-06 22:00:00
+...with 0 more records and 25 more variables:
+taxon_rank, country, province, municipality, date_start, date_end,
+hour_start, hour_end, minute_start, minute_end, record_id,
+individual_id, event_id, collection_id, any_issues, record_issue,
+record_reliable, taxon_reliability, document_issue,
+collection_reliability, coordinates_uncertainty, event_issue,
+location_issue, time_issue, duration
+
+</code></pre>
+
+<p></details>
+<br></p>
+
+<p>See <code>finbif_informal_groups()</code> for the full list of groups you can filter by.
 You can use the same function to see the subgroups that make up a higher
 level informal group:</p>
 
@@ -269,32 +451,42 @@ administrative statuses and short-codes.</p>
 finbif_occurrence(
   filter = list(informal_group = &quot;Birds&quot;, administrative_status = &quot;EU_INVSV&quot;)
 )
-#&gt; Records downloaded: 10
-#&gt; Records available: 425
-#&gt; A data.frame [10 x 30]
-#&gt;         scientific_name abundance lat_wgs84 lon_wgs84           date_time
-#&gt; 1  Alopochen aegyptiaca         2  51.90871  4.532580 2018-10-20 09:10:00
-#&gt; 2  Alopochen aegyptiaca         2  53.37130  6.143095 2017-10-22 06:00:00
-#&gt; 3  Alopochen aegyptiaca         2  53.19242  5.437417 2017-10-24 08:06:00
-#&gt; 4  Alopochen aegyptiaca         3  51.74641  4.535283 2018-10-21 10:00:00
-#&gt; 5  Alopochen aegyptiaca         4  53.36759  6.191796 2018-10-26 08:15:00
-#&gt; 6  Alopochen aegyptiaca         5  53.32081  6.192341 2017-10-23 09:15:00
-#&gt; 7  Alopochen aegyptiaca         6  53.37574  6.207861 2018-10-23 05:30:00
-#&gt; 8  Alopochen aegyptiaca        20  53.32081  6.192341 2017-10-23 09:15:00
-#&gt; 9  Alopochen aegyptiaca        30  52.33990  5.069133 2018-10-22 07:45:00
-#&gt; 10 Alopochen aegyptiaca        36  51.74641  4.535283 2018-10-21 10:00:00
-#&gt; ...with 0 more records and 25 more variables:
-#&gt; taxon_rank, country, province, municipality, date_start, date_end,
-#&gt; hour_start, hour_end, minute_start, minute_end, record_id,
-#&gt; individual_id, event_id, collection_id, any_issues, record_issue,
-#&gt; record_reliable, taxon_reliability, document_issue,
-#&gt; document_reliablity, coordinate_accuracy, event_issue,
-#&gt; location_issue, time_issue, duration
 </code></pre>
+
+<p><details closed>
+<summary> Click to show/hide output. </summary></p>
+
+<pre><code class="r">
+Records downloaded: 10
+Records available: 437
+A data.frame [10 x 30]
+        scientific_name abundance lat_wgs84 lon_wgs84           date_time
+1  Alopochen aegyptiaca         3  52.16081  4.485534 2019-10-22 22:00:00
+2  Alopochen aegyptiaca         4  53.36759  6.191796 2018-10-26 08:15:00
+3  Alopochen aegyptiaca         6  53.37574  6.207861 2018-10-23 05:30:00
+4  Alopochen aegyptiaca        30  52.33990  5.069133 2018-10-22 07:45:00
+5  Alopochen aegyptiaca        36  51.74641  4.535283 2018-10-21 10:00:00
+6  Alopochen aegyptiaca         3  51.74641  4.535283 2018-10-21 10:00:00
+7  Alopochen aegyptiaca         2  51.90871  4.532580 2018-10-20 09:10:00
+8  Alopochen aegyptiaca         2  53.19242  5.437417 2017-10-24 08:06:00
+9  Alopochen aegyptiaca        20  53.32081  6.192341 2017-10-23 09:15:00
+10 Alopochen aegyptiaca         5  53.32081  6.192341 2017-10-23 09:15:00
+...with 0 more records and 25 more variables:
+taxon_rank, country, province, municipality, date_start, date_end,
+hour_start, hour_end, minute_start, minute_end, record_id,
+individual_id, event_id, collection_id, any_issues, record_issue,
+record_reliable, taxon_reliability, document_issue,
+collection_reliability, coordinates_uncertainty, event_issue,
+location_issue, time_issue, duration
+
+</code></pre>
+
+<p></details>
+<br></p>
 
 <h2>IUCN red list</h2>
 
-<p>Filtering can be done by <a href="https://punainenkirja.laji.fi/">IUCN red list</a> 
+<p>Filtering can be done by <a href="https://punainenkirja.laji.fi/">IUCN red list</a>
 category. See <code>finbif_metadata(&quot;red_list&quot;)</code> for the IUCN red list categories and
 their short-codes.</p>
 
@@ -302,28 +494,38 @@ their short-codes.</p>
 finbif_occurrence(
   filter = list(informal_group = &quot;Mammals&quot;, red_list_status = &quot;NT&quot;)
 )
-#&gt; Records downloaded: 10
-#&gt; Records available: 568
-#&gt; A data.frame [10 x 30]
-#&gt;         scientific_name abundance lat_wgs84 lon_wgs84           date_time
-#&gt; 1  Rangifer tarandus f…         1  63.26554  25.36645 2019-06-27 21:00:00
-#&gt; 2  Rangifer tarandus f…         1  64.32293  26.69975 2019-05-26 21:00:00
-#&gt; 3          Ursus arctos         1  62.31940  24.58560 2018-12-31 22:00:00
-#&gt; 4          Ursus arctos         1  62.31940  24.58560 2018-12-31 22:00:00
-#&gt; 5          Castor fiber         1  61.70314  21.79521 2019-04-20 21:00:00
-#&gt; 6  Rangifer tarandus f…         2  63.27123  25.35634 2019-06-27 21:00:00
-#&gt; 7  Rangifer tarandus f…         3  63.13691  22.92659 2019-03-05 22:00:00
-#&gt; 8  Rangifer tarandus f…         4  63.03293  24.32905 2019-06-12 21:00:00
-#&gt; 9  Rangifer tarandus f…         4  60.07458  22.76416 2019-04-10 21:00:00
-#&gt; 10 Rangifer tarandus f…         7  63.13690  22.92677 2019-03-06 22:00:00
-#&gt; ...with 0 more records and 25 more variables:
-#&gt; taxon_rank, country, province, municipality, date_start, date_end,
-#&gt; hour_start, hour_end, minute_start, minute_end, record_id,
-#&gt; individual_id, event_id, collection_id, any_issues, record_issue,
-#&gt; record_reliable, taxon_reliability, document_issue,
-#&gt; document_reliablity, coordinate_accuracy, event_issue,
-#&gt; location_issue, time_issue, duration
 </code></pre>
+
+<p><details closed>
+<summary> Click to show/hide output. </summary></p>
+
+<pre><code class="r">
+Records downloaded: 10
+Records available: 1645
+A data.frame [10 x 30]
+        scientific_name abundance lat_wgs84 lon_wgs84           date_time
+1  Rangifer tarandus f…         4  64.42648  29.11431 2019-10-19 21:00:00
+2  Rangifer tarandus f…         1  64.09919  29.40356 2019-09-22 21:00:00
+3  Rangifer tarandus f…         1  63.79309  29.51080 2019-09-12 21:00:00
+4  Rangifer tarandus f…         1  63.93649  29.59252 2019-07-25 21:00:00
+5  Rangifer tarandus f…         2  63.27123  25.35634 2019-06-27 21:00:00
+6  Rangifer tarandus f…         1  63.26554  25.36645 2019-06-27 21:00:00
+7  Rangifer tarandus f…         4  63.03293  24.32905 2019-06-12 21:00:00
+8  Rangifer tarandus f…         1  64.32293  26.69975 2019-05-26 21:00:00
+9  Rangifer tarandus f…         1  63.54897  24.54795 2019-05-17 21:00:00
+10 Rangifer tarandus f…         7  64.43140  29.11998 2019-04-27 21:00:00
+...with 0 more records and 25 more variables:
+taxon_rank, country, province, municipality, date_start, date_end,
+hour_start, hour_end, minute_start, minute_end, record_id,
+individual_id, event_id, collection_id, any_issues, record_issue,
+record_reliable, taxon_reliability, document_issue,
+collection_reliability, coordinates_uncertainty, event_issue,
+location_issue, time_issue, duration
+
+</code></pre>
+
+<p></details>
+<br></p>
 
 <h2>Habitat type</h2>
 
@@ -337,43 +539,54 @@ records of taxa considered to primarily inhabit forests, yet the locations of
 those records may encompass habitats other than forests).</p>
 
 <pre><code class="r">head(finbif_metadata(&quot;habitat_types&quot;))
-#&gt;   habitat_name                          habitat_code
-#&gt; 1 Forests                               M           
-#&gt; 2 Heath forests                         MK          
-#&gt; 3 Sub-xeric, xeric and barren heath fo… MKK         
-#&gt; 4 Mesic and herb-rich heath forests     MKT         
-#&gt; 5 Herb-rich forests (also spruce-domin… ML          
-#&gt; 6 Dry and mesic herb-rich forests       MLT
+#&gt;   habitat_name                             habitat_code
+#&gt; 1 Forests                                  M           
+#&gt; 2 Heath forests                            MK          
+#&gt; 3 Sub-xeric, xeric and barren heath fores… MKK         
+#&gt; 4 Mesic and herb-rich heath forests        MKT         
+#&gt; 5 Herb-rich forests (also spruce-dominate… ML          
+#&gt; 6 Dry and mesic herb-rich forests          MLT
+</code></pre>
 
-# Search records of taxa for which forests are their primary or secondary
+<pre><code class="r"># Search records of taxa for which forests are their primary or secondary
 # habitat type
 finbif_occurrence(filter = c(primary_secondary_habitat = &quot;M&quot;))
-#&gt; Records downloaded: 10
-#&gt; Records available: 19243360
-#&gt; A data.frame [10 x 30]
-#&gt;        scientific_name abundance lat_wgs84 lon_wgs84           date_time
-#&gt; 1            Pica pica         2  65.70064  24.64242 2019-11-06 05:58:00
-#&gt; 2     Poecile montanus         1  65.70064  24.64242 2019-11-06 05:58:00
-#&gt; 3  Emberiza citrinella         5  65.70064  24.64242 2019-11-06 05:58:00
-#&gt; 4  Capreolus capreolus         1  65.70064  24.64242 2019-11-06 05:58:00
-#&gt; 5    Pyrrhula pyrrhula        15  65.70064  24.64242 2019-11-06 05:58:00
-#&gt; 6  Cyanistes caeruleus        24  65.70064  24.64242 2019-11-06 05:58:00
-#&gt; 7          Parus major        18  65.70064  24.64242 2019-11-06 05:58:00
-#&gt; 8  Bombycilla garrulus         2  65.70064  24.64242 2019-11-06 05:58:00
-#&gt; 9     Acanthis flammea        12  65.70064  24.64242 2019-11-06 05:58:00
-#&gt; 10       Corvus corone         9  65.70064  24.64242 2019-11-06 05:58:00
-#&gt; ...with 0 more records and 25 more variables:
-#&gt; taxon_rank, country, province, municipality, date_start, date_end,
-#&gt; hour_start, hour_end, minute_start, minute_end, record_id,
-#&gt; individual_id, event_id, collection_id, any_issues, record_issue,
-#&gt; record_reliable, taxon_reliability, document_issue,
-#&gt; document_reliablity, coordinates_uncertainty, event_issue,
-#&gt; location_issue, time_issue, duration
 </code></pre>
+
+<p><details closed>
+<summary> Click to show/hide output. </summary></p>
+
+<pre><code class="r">
+Records downloaded: 10
+Records available: 19443255
+A data.frame [10 x 30]
+        scientific_name abundance lat_wgs84 lon_wgs84           date_time
+1  Apodemus flavicollis         1  60.43997  22.37462 2020-01-07 22:00:00
+2        Sitta europaea         1  61.04351  26.17732 2020-01-07 22:00:00
+3  Acanthosoma haemorr…         1  60.80671  26.74877 2020-01-07 22:00:00
+4   Anthocoris confusus         1  60.80671  26.74877 2020-01-07 22:00:00
+5  Scolopostethus thom…         1  60.80671  26.74877 2020-01-07 22:00:00
+6      Antrodia sinuosa         1  63.15110  21.66860 2020-01-06 22:00:00
+7  Phyllotopsis nidula…         1  63.15150  21.67020 2020-01-06 22:00:00
+8  Trichaptum abietinum         1  63.15260  21.67000 2020-01-06 22:00:00
+9  Trichaptum fuscovio…         1  63.15150  21.67020 2020-01-06 22:00:00
+10       Panellus mitis         1  63.15260  21.67000 2020-01-06 22:00:00
+...with 0 more records and 25 more variables:
+taxon_rank, country, province, municipality, date_start, date_end,
+hour_start, hour_end, minute_start, minute_end, record_id,
+individual_id, event_id, collection_id, any_issues, record_issue,
+record_reliable, taxon_reliability, document_issue,
+collection_reliability, coordinates_uncertainty, event_issue,
+location_issue, time_issue, duration
+
+</code></pre>
+
+<p></details>
+<br></p>
 
 <p>You may further refine habitat based searching using a specific habitat type
 qualifier such as &ldquo;sun-exposed&rdquo; or &ldquo;shady&rdquo;. Use
-<code>finbif_metadata(&quot;habitat_qualifiers&quot;)</code> to see the qualifiers available. To 
+<code>finbif_metadata(&quot;habitat_qualifiers&quot;)</code> to see the qualifiers available. To
 specify qualifiers use a named list of character vectors where the names are
 habitat types or subtypes and the elements of the character vectors are the
 qualifier codes.</p>
@@ -383,32 +596,125 @@ qualifier codes.</p>
 #&gt; 4 Broadleaved deciduous trees present J             
 #&gt; 5 Sun-exposed                         PA            
 #&gt; 6 Shady                               VA
+</code></pre>
 
-# Search records of taxa for which forests with sun-exposure and broadleaved
+<pre><code class="r"># Search records of taxa for which forests with sun-exposure and broadleaved
 # deciduous trees are their primary habitat type
 finbif_occurrence(filter = list(primary_habitat = list(M = c(&quot;PA&quot;, &quot;J&quot;))))
-#&gt; Records downloaded: 10
-#&gt; Records available: 105
-#&gt; A data.frame [10 x 30]
-#&gt;     scientific_name abundance lat_wgs84 lon_wgs84           date_time
-#&gt; 1  Pammene fasciana         1  60.00217  23.43591 2019-06-21 21:00:00
-#&gt; 2  Pammene fasciana         1  60.50396  27.72823 2019-05-29 21:00:00
-#&gt; 3  Pammene fasciana         3  60.00217  23.43591 2019-05-07 21:00:00
-#&gt; 4  Pammene fasciana         1  59.96020  20.99521 2017-09-19 21:00:00
-#&gt; 5  Pammene fasciana         2  60.35244  19.83238 2017-08-02 21:00:00
-#&gt; 6  Pammene fasciana         1  60.35244  19.83238 2017-08-02 21:00:00
-#&gt; 7  Pammene fasciana         1  60.35244  19.83238 2017-08-01 21:00:00
-#&gt; 8  Pammene fasciana         1  60.21166  24.90204 2017-07-30 21:00:00
-#&gt; 9  Pammene fasciana         1  60.35244  19.83238 2017-07-30 21:00:00
-#&gt; 10 Pammene fasciana         1  60.35244  19.83238 2017-07-29 21:00:00
-#&gt; ...with 0 more records and 25 more variables:
-#&gt; taxon_rank, country, province, municipality, date_start, date_end,
-#&gt; hour_start, hour_end, minute_start, minute_end, record_id,
-#&gt; individual_id, event_id, collection_id, any_issues, record_issue,
-#&gt; record_reliable, taxon_reliability, document_issue,
-#&gt; document_reliablity, coordinates_uncertainty, event_issue,
-#&gt; location_issue, time_issue, duration
 </code></pre>
+
+<p><details closed>
+<summary> Click to show/hide output. </summary></p>
+
+<pre><code class="r">
+Records downloaded: 10
+Records available: 105
+A data.frame [10 x 30]
+    scientific_name abundance lat_wgs84 lon_wgs84           date_time
+1  Pammene fasciana         1  60.00217  23.43591 2019-06-21 21:00:00
+2  Pammene fasciana         1  60.50396  27.72823 2019-05-29 21:00:00
+3  Pammene fasciana         3  60.00217  23.43591 2019-05-07 21:00:00
+4  Pammene fasciana         1  59.96020  20.99521 2017-09-19 21:00:00
+5  Pammene fasciana         2  60.35244  19.83238 2017-08-02 21:00:00
+6  Pammene fasciana         1  60.35244  19.83238 2017-08-02 21:00:00
+7  Pammene fasciana         1  60.35244  19.83238 2017-08-01 21:00:00
+8  Pammene fasciana         1  60.21166  24.90204 2017-07-30 21:00:00
+9  Pammene fasciana         1  60.35244  19.83238 2017-07-30 21:00:00
+10 Pammene fasciana         1  60.35244  19.83238 2017-07-29 21:00:00
+...with 0 more records and 25 more variables:
+taxon_rank, country, province, municipality, date_start, date_end,
+hour_start, hour_end, minute_start, minute_end, record_id,
+individual_id, event_id, collection_id, any_issues, record_issue,
+record_reliable, taxon_reliability, document_issue,
+collection_reliability, coordinates_uncertainty, event_issue,
+location_issue, time_issue, duration
+
+</code></pre>
+
+<p></details>
+<br></p>
+
+<h2>Status of taxa in Finland</h2>
+
+<p>You can restrict the occurrence records by the status of the taxa in Finland.
+For example you can request records for only rare species.</p>
+
+<pre><code class="r">finbif_occurrence(filter = c(finnish_occurrence_status = &quot;rare&quot;))
+</code></pre>
+
+<p><details closed>
+<summary> Click to show/hide output. </summary></p>
+
+<pre><code class="r">
+Records downloaded: 10
+Records available: 256919
+A data.frame [10 x 30]
+        scientific_name abundance lat_wgs84 lon_wgs84           date_time
+1  Dromius quadrimacul…         1  60.40483  22.42259 2020-01-10 22:00:00
+2  Calodromius spilotus         1  60.20746  25.63819 2020-01-08 22:00:00
+3      Tillus elongatus         1  60.27955  22.20464 2020-01-08 22:00:00
+4  Dromius quadrimacul…         1  60.40462  22.42190 2020-01-07 22:00:00
+5  Psammoecus bipuncta…         1  60.80671  26.74877 2020-01-07 22:00:00
+6  Calodromius spilotus         1  60.05714  24.23511 2020-01-04 22:00:00
+7  Dromius quadrimacul…         1  60.05083  24.26637 2020-01-04 22:00:00
+8  Dromius quadrimacul…         1  60.05535  24.27343 2020-01-04 22:00:00
+9     Acalles echinatus         3  60.26386  24.06557 2020-01-03 22:00:00
+10 Myrmechixenus subte…         1  60.26386  24.06557 2020-01-03 22:00:00
+...with 0 more records and 25 more variables:
+taxon_rank, country, province, municipality, date_start, date_end,
+hour_start, hour_end, minute_start, minute_end, record_id,
+individual_id, event_id, collection_id, any_issues, record_issue,
+record_reliable, taxon_reliability, document_issue,
+collection_reliability, coordinates_uncertainty, event_issue,
+location_issue, time_issue, duration
+
+</code></pre>
+
+<p></details>
+<br>
+Or, by using the negation of occurrence status, you can request records of birds
+excluding those considered vagrants.</p>
+
+<pre><code class="r">finbif_occurrence(
+  filter = list(
+    informal_group                = &quot;birds&quot;,
+    finnish_occurrence_status_neg = sprintf(&quot;vagrant_%sregular&quot;, c(&quot;&quot;, &quot;ir&quot;))
+  )
+)
+</code></pre>
+
+<p><details closed>
+<summary> Click to show/hide output. </summary></p>
+
+<pre><code class="r">
+Records downloaded: 10
+Records available: 17732629
+A data.frame [10 x 30]
+      scientific_name abundance lat_wgs84 lon_wgs84           date_time
+1       Turdus merula         5  60.24014  24.98273 2020-01-12 22:00:00
+2   Passer domesticus         1  60.24014  24.98273 2020-01-12 22:00:00
+3       Spinus spinus         1  60.96301  21.44838 2020-01-11 22:00:00
+4  Anas platyrhynchos         1  61.12859  21.52177 2020-01-11 22:00:00
+5      Turdus pilaris         1  61.41560  22.62856 2020-01-11 22:00:00
+6   Dryocopus martius         1  61.41560  22.62856 2020-01-11 22:00:00
+7         Parus major         1  61.41560  22.62856 2020-01-11 22:00:00
+8           Pica pica         1  61.41560  22.62856 2020-01-11 22:00:00
+9   Dendrocopos major         1  61.41934  22.62869 2020-01-11 22:00:00
+10    Corvus monedula         3  61.41560  22.62856 2020-01-11 22:00:00
+...with 0 more records and 25 more variables:
+taxon_rank, country, province, municipality, date_start, date_end,
+hour_start, hour_end, minute_start, minute_end, record_id,
+individual_id, event_id, collection_id, any_issues, record_issue,
+record_reliable, taxon_reliability, document_issue,
+collection_reliability, coordinates_uncertainty, event_issue,
+location_issue, time_issue, duration
+
+</code></pre>
+
+<p></details>
+<br>
+See <code>finbif_metadata(&quot;finnish_occurrence_status&quot;)</code> for a full list of statuses
+and their descriptions.</p>
 
 </body>
 
