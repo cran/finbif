@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="William K. Morris" />
+
+
+<title>Selecting and ordering variables</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Selecting and ordering variables</h1>
+<h4 class="author">William K. Morris</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#selecting-variables">Selecting variables</a><ul>
+<li><a href="#limiting-variables">Limiting variables</a></li>
+<li><a href="#extra-variables">Extra variables</a></li>
+</ul></li>
+<li><a href="#ordering">Ordering</a><ul>
+<li><a href="#ascending-order">Ascending order</a></li>
+<li><a href="#descending-order">Descending order</a></li>
+<li><a href="#multiple-variables">Multiple variables</a></li>
+<li><a href="#random-sample">Random sample</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p>When requesting data using <code>{finbif}</code> you can select from among (or order by) many variables (properties of the occurrence records). The default set of variables returned is a small subset of those available. Note that not all variables are available for all records. See <code>?variables</code> for details.</p>
+<div id="selecting-variables" class="section level2">
+<h2>Selecting variables</h2>
+<div id="limiting-variables" class="section level3">
+<h3>Limiting variables</h3>
+<p>To retrieve a limited set of variables from FinBIF simply specify the desired variables in the <code>select</code> argument.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">finbif_occurrence</span>(</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="dt">genus  =</span> <span class="st">&quot;Falco&quot;</span>,</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="dt">select =</span> <span class="kw">c</span>(<span class="st">&quot;scientific_name&quot;</span>, <span class="st">&quot;life_stage&quot;</span>, <span class="st">&quot;sex&quot;</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">)</a></code></pre></div>
+<details closed>
+<p><summary> Click to show/hide output. </summary></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; Records downloaded: 10</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; Records available: 280421</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; A data.frame [10 x 3]</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;      scientific_name life_stage sex</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; 1  Falco tinnunculus         NA  NA</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; 2  Falco tinnunculus         NA  NA</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; 3  Falco tinnunculus         NA  NA</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; 4  Falco tinnunculus         NA  NA</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; 5  Falco tinnunculus         NA  NA</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; 6  Falco tinnunculus         NA  NA</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; 7  Falco tinnunculus         NA  NA</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; 8  Falco tinnunculus         NA  NA</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 9  Falco tinnunculus         NA  NA</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 10 Falco tinnunculus         NA  NA</span></a></code></pre></div>
+</details>
+<p><br></p>
+</div>
+<div id="extra-variables" class="section level3">
+<h3>Extra variables</h3>
+<p>To get extra variables as well as the default set, specify the extra variables in addition to the keyword <code>&quot;default_vars&quot;</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">finbif_occurrence</span>(<span class="dt">select =</span> <span class="kw">c</span>(<span class="st">&quot;default_vars&quot;</span>, <span class="st">&quot;life_stage&quot;</span>))</a></code></pre></div>
+<details closed>
+<p><summary> Click to show/hide output. </summary></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; Records downloaded: 10</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; Records available: 34696897</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; A data.frame [10 x 13]</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 1          JX.1110588#7            Aglais io  2         63.13815  21.56879 2020-04-21 12:00:00</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 2          JX.1110588#4       Aglais urticae  6         63.13815  21.56879 2020-04-21 12:00:00</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 3         JX.1110588#10    Nymphalis antiopa  1         63.13815  21.56879 2020-04-21 12:00:00</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 4          JX.1110427#4 Noccaea caerulescen…  1         60.72342  24.84861 2020-04-21 12:00:00</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 5  KE.176/5e5bb8932d0e…       Aglais urticae  1         62.94     26.794   2020-04-21 12:00:00</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 6        JX.1110587#148  Phasianus colchicus  1         60.4088   22.20608 2020-04-21 12:00:00</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 7         JX.1110587#82            Pica pica  7         60.4088   22.20608 2020-04-21 12:00:00</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 8        JX.1110587#121        Ardea cinerea  1         60.4088   22.20608 2020-04-21 12:00:00</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 9        JX.1110587#112     Larus argentatus  3         60.4088   22.20608 2020-04-21 12:00:00</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 10       JX.1110587#115          Picus canus  1         60.4088   22.20608 2020-04-21 12:00:00</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; ...with 0 more records and 7 more variables:</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; record_reliability, record_quality, life_stage</span></a></code></pre></div>
+</details>
+<p><br></p>
+</div>
+</div>
+<div id="ordering" class="section level2">
+<h2>Ordering</h2>
+<p>You can change the order of occurrence records before they are fetched from the server by using the <code>order_by</code> argument. The default ordering is <code>date_start</code> descending, then <code>load_date</code> descending, then <code>reported_name</code>.</p>
+<div id="ascending-order" class="section level3">
+<h3>Ascending order</h3>
+<p>By default occurrence records are ordered by variables in ascending order.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">finbif_occurrence</span>(<span class="st">&quot;Cygnus cygnus&quot;</span>, <span class="dt">order_by =</span> <span class="st">&quot;abundance&quot;</span>)</a></code></pre></div>
+<details closed>
+<p><summary> Click to show/hide output. </summary></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; Records downloaded: 10</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; Records available: 57007</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; A data.frame [10 x 12]</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;               record_id scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; 1    KE.67/9403350#Unit   Cygnus cygnus  1         60.41667  16       1997-04-01 13:00:00</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; 2          MHU.29327372   Cygnus cygnus  1         63.37022  30.37826                &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; 3  KE.176/58c7db302d0e…   Cygnus cygnus  1         61.082    27.78355 2017-04-08 12:00:00</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 4    KE.67/9069501#Unit   Cygnus cygnus  1         52.71667  1.55     1997-01-03 14:00:00</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 5          MHU.12651157   Cygnus cygnus  1         61.21489  23.36719 2006-06-12 12:00:00</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 6    KE.67/9465507#Unit   Cygnus cygnus  1         61.8      22.76667 2000-03-22 12:00:00</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 7    KE.67/9607357#Unit   Cygnus cygnus  1         63.13333  22.43333 2003-06-07 12:00:00</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 8  A.94EBF006-FAD1-482…   Cygnus cygnus  1         61.72481  24.17242                &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; 9          MHU.30415803   Cygnus cygnus  1         60.23968  25.79487                &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; 10         MHU.18161417   Cygnus cygnus  1         62.27627  23.59633 1994-04-30 19:50:00</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; record_reliability, record_quality</span></a></code></pre></div>
+</details>
+<p><br></p>
+</div>
+<div id="descending-order" class="section level3">
+<h3>Descending order</h3>
+<p>You can switch to descending order by prefixing the variable with a dash.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">finbif_occurrence</span>(<span class="st">&quot;Cygnus cygnus&quot;</span>, <span class="dt">order_by =</span> <span class="st">&quot;-abundance&quot;</span>)</a></code></pre></div>
+<details closed>
+<p><summary> Click to show/hide output. </summary></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Records downloaded: 10</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; Records available: 57007</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; A data.frame [10 x 12]</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;           record_id scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; 1       MHU.2981587   Cygnus cygnus  6000      64.4     -14.54    1995-07-05 15:00:00</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 2      MHU.29480894   Cygnus cygnus  2010      64.54597  27.88859 2010-01-01 12:00:00</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 3      MHU.28815250   Cygnus cygnus  1500            NA        NA 2003-04-18 15:00:00</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; 4      MHU.28815110   Cygnus cygnus  1200            NA        NA 2003-04-16 15:00:00</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; 5  KE.8_1209789#134   Cygnus cygnus  1064      62.50172  21.3326  2017-11-04 08:40:00</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; 6    KE.8_1186061#2   Cygnus cygnus  722       60.9717   26.48918 2012-11-04 09:00:00</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; 7  KE.8_1071847#190   Cygnus cygnus  673       60.76462  26.09601 2012-11-07 08:00:00</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; 8       MHU.1072224   Cygnus cygnus  645       64.84588  25.62653 2005-11-05 12:00:00</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; 9       JX.111286#2   Cygnus cygnus  645       64.84588  25.62653 2005-11-05 09:00:00</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; 10     MHU.29306332   Cygnus cygnus  641       62.27627  23.59633 2008-11-20 12:00:00</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; record_reliability, record_quality</span></a></code></pre></div>
+</details>
+<p><br></p>
+</div>
+<div id="multiple-variables" class="section level3">
+<h3>Multiple variables</h3>
+<p>You can specify multiple variables to order by. Sorting primacy is from left to right.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">finbif_occurrence</span>(<span class="st">&quot;Cygnus olor&quot;</span>, <span class="dt">order_by =</span> <span class="kw">c</span>(<span class="st">&quot;municipality&quot;</span>, <span class="st">&quot;-abundance&quot;</span>))</a></code></pre></div>
+<details closed>
+<p><summary> Click to show/hide output. </summary></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; Records downloaded: 10</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; Records available: 24344</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; A data.frame [10 x 12]</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;           record_id scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; 1       JX.133519#2     Cygnus olor  4         61.13908  23.93331 2007-11-04 09:00:00</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; 2       JX.133468#2     Cygnus olor  3         61.13908  23.93331 1990-11-04 09:00:00</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; 3        JX.81211#2     Cygnus olor  3         61.22435  23.73872 1990-11-14 11:00:00</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 4  KE.8_1106444#139     Cygnus olor  2         61.16607  23.91207 2013-11-09 08:30:00</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; 5   KE.8_1025765#50     Cygnus olor  1         61.22435  23.73872 2007-03-01 10:00:00</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; 6      MHU.28634404     Cygnus olor  4         61.13908  23.93331 2007-11-04 12:00:00</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; 7       JX.135405#3     Cygnus olor  6         61.2287   23.92458 2002-11-01 12:00:00</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; 8       JX.135402#3     Cygnus olor  3         61.2287   23.92458 2000-12-22 12:00:00</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; 9      MHU.12868652     Cygnus olor  1         61.2287   23.92458 2006-03-11 12:00:00</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; 10     MHU.29307741     Cygnus olor  1         61.2287   23.92458 2010-05-11 12:00:00</span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></a>
+<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; record_reliability, record_quality</span></a></code></pre></div>
+</details>
+<p><br></p>
+</div>
+<div id="random-sample" class="section level3">
+<h3>Random sample</h3>
+<p>You can also request a random sample (random order) of occurrence records by setting the <code>sample</code> argument to <code>TRUE</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">finbif_occurrence</span>(<span class="dt">sample =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<details closed>
+<p><summary> Click to show/hide output. </summary></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; Records downloaded: 10</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; Records available: 34696897</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; A data.frame [10 x 12]</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt;             record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; 1        MHU.28617380     Poecile montanus  6         60.07116  24.39247 2005-11-05 12:00:00</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt; 2         JX.544412#2      Macaria wauaria  2         60.90432  26.7206  2007-01-01 12:00:00</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; 3  KE.67/4941088#Unit          Parus major  1         60.43333  22.13333 1978-06-14 12:00:00</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; 4        JX.1099912#4          Lutra lutra  1         64.15453  28.28361 2020-02-16 12:00:00</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; 5          MKC.746569 Alchemilla glaucesc…  1         60.24286  24.01753 1906-06-08 12:00:00</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; 6  KE.67/6848719#Unit Phylloscopus trochi…  1         60.48775  26.93416 1994-08-31 12:00:00</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt; 7         JX.468110#2      Mythimna impura  1         60.1622   21.49994 2002-01-01 12:00:00</span></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt; 8        JX.115482#17       Periparus ater  5         62.23926  21.70279 2004-11-06 09:00:00</span></a>
+<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt; 9  KE.67/8872635#Unit Acrocephalus scirpa…  1         60.21319  24.99189 1986-08-11 07:00:00</span></a>
+<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; 10        JX.241328#2     Colocasia coryli  1         62.24982  27.47792 2014-06-09 12:00:00</span></a>
+<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></a>
+<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></a>
+<a class="sourceLine" id="cb12-18" data-line-number="18"><span class="co">#&gt; record_reliability, record_quality</span></a></code></pre></div>
+</details>
+<p><br></p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
