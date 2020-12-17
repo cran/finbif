@@ -50,7 +50,7 @@
 #' @export
 
 finbif_occurrence <- function(
-  ..., filter, select, order_by, sample = FALSE, n = 10, page = 1,
+  ..., filter, select, order_by, aggregate, sample = FALSE, n = 10, page = 1,
   count_only = FALSE, quiet = FALSE, cache = getOption("finbif_use_cache"),
   dwc = FALSE, date_time_method = "fast", check_taxa = TRUE,
   on_check_fail = c("warn", "error"), tzone = getOption("finbif_tz"),
@@ -64,8 +64,19 @@ finbif_occurrence <- function(
   if (missing(filter)) filter <- NULL
   filter <- c(taxa, filter)
 
+  if (missing(aggregate)) {
+
+    aggregate <- "none"
+
+  } else {
+
+    aggregate <- match.arg(aggregate, c("records", "species", "taxa"), TRUE)
+
+  }
+
   records <- finbif_records(
-    filter, select, order_by, sample, n, page, count_only, quiet, cache, dwc
+    filter, select, order_by, aggregate, sample, n, page, count_only, quiet,
+    cache, dwc
   )
 
   if (count_only) return(records[["content"]][["total"]])
@@ -79,43 +90,27 @@ finbif_occurrence <- function(
   url  <- attr(df, "url", TRUE)
   time <- attr(df, "time", TRUE)
 
+  n <- list()
+
+  for (i in paste0("n_", aggregate)) {
+    n[[i]] <- df[[i]]
+    df[[i]] <- NULL
+  }
+
   names(df) <- var_names[names(df), if (dwc) "dwc" else "translated_var"]
+
+  for (i in paste0("n_", aggregate)) df[[i]] <- n[[i]]
 
   select_ <- attr(records, "select_user")
 
-  date_time <-
-    missing(select) ||
-    any(
-      c(
-        "default_vars", "date_time", "eventDateTime", "duration",
-        "samplingEffort"
-      ) %in%
-      select
-    )
+  if (!identical(aggregate, "none"))
+    select_ <- c(select_, paste0("n_", aggregate))
 
-  if (date_time)
-    if (dwc) {
-      df[["eventDateTime"]] <- get_date_time(
-        df, "eventDateStart", "hourStart", "minuteStart",
-        "decimalLatitude", "decimalLongitude", date_time_method, tzone
-      )
-      if ("samplingEffort" %in% select_)
-        df[["samplingEffort"]] <- get_duration(
-          df, "eventDateTime", "eventDateStart", "hourStart",
-          "minuteStart", "decimalLatitude", "decimalLongitude",
-          date_time_method, tzone
-        )
-    } else {
-      df[["date_time"]] <- get_date_time(
-        df, "date_start", "hour_start", "minute_start", "lat_wgs84",
-        "lon_wgs84", date_time_method, tzone
-      )
-      if ("duration" %in% select_)
-        df[["duration"]] <- get_duration(
-          df, "date_time", "date_end", "hour_end", "minute_end", "lat_wgs84",
-          "lon_wgs84", date_time_method, tzone
-        )
-    }
+  df <- compute_date_time(
+    df, select, select_, aggregate, dwc, date_time_method, tzone
+  )
+
+  df <- compute_vars_from_id(df, select_)
 
   structure(
     df[select_],
@@ -167,6 +162,50 @@ select_taxa <- function(..., cache, check_taxa, on_check_fail) {
 
 }
 
+compute_date_time <- function(
+  df, select, select_, aggregate, dwc, date_time_method, tzone
+) {
+
+  date_time <-
+    missing(select) ||
+    any(
+      c(
+        "default_vars", "date_time", "eventDateTime", "duration",
+        "samplingEffort"
+      ) %in%
+        select
+    )
+
+  date_time <- date_time && identical(aggregate, "none")
+
+  if (date_time)
+    if (dwc) {
+      df[["eventDateTime"]] <- get_date_time(
+        df, "eventDateStart", "hourStart", "minuteStart",
+        "decimalLatitude", "decimalLongitude", date_time_method, tzone
+      )
+      if ("samplingEffort" %in% select_)
+        df[["samplingEffort"]] <- get_duration(
+          df, "eventDateTime", "eventDateStart", "hourStart",
+          "minuteStart", "decimalLatitude", "decimalLongitude",
+          date_time_method, tzone
+        )
+    } else {
+      df[["date_time"]] <- get_date_time(
+        df, "date_start", "hour_start", "minute_start", "lat_wgs84",
+        "lon_wgs84", date_time_method, tzone
+      )
+      if ("duration" %in% select_)
+        df[["duration"]] <- get_duration(
+          df, "date_time", "date_end", "hour_end", "minute_end", "lat_wgs84",
+          "lon_wgs84", date_time_method, tzone
+        )
+    }
+
+  df
+
+}
+
 get_date_time <- function(df, date, hour, minute, lat, lon, method, tzone) {
 
   date_time <- lubridate::ymd(df[[date]])
@@ -201,3 +240,27 @@ get_duration <-
     lubridate::as.duration(ans)
 
   }
+
+compute_vars_from_id <- function(df, select_) {
+
+  candidates <- setdiff(select_, df)
+
+  for (i in seq_along(candidates)) {
+
+    id_var_name <- paste0(candidates[[i]], "_id")
+
+    if (utils::hasName(df, id_var_name)) {
+
+      metadata <- get(candidates[[i]])
+
+      var <- metadata[gsub("http://tun.fi/", "", df[[id_var_name]]), 1L]
+
+      df[[candidates[[i]]]] <- ifelse(is.na(var), df[[id_var_name]], var)
+
+    }
+
+  }
+
+  df
+
+}

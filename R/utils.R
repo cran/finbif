@@ -13,7 +13,10 @@ get_next_lowest_factor <-
 #' @noRd
 #' @importFrom methods as
 get_el_recurse <- function(obj, nms, type) {
-  if (length(nms) < 1L) return(if (is.null(obj)) methods::as(NA, type) else obj)
+  if (length(nms) < 1L)
+    return(
+      if (is.null(obj) || identical(obj, "")) methods::as(NA, type) else obj
+    )
   obj <- getElement(obj, nms[[1L]])
   get_el_recurse(obj, nms[-1L], type)
 }
@@ -32,17 +35,18 @@ truncate_string <- function(x, sl = 20L) {
 
 #' @noRd
 truncate_string_to_unique <- function(x) {
+  y <- x[!is.na(x)]
   i <- 0L
   all_equal <- TRUE
-  while (all_equal) {
-    substr(x, i, i) <- " "
+  while (all_equal & length(unique(y)) > 1L) {
+    substr(y, i, i) <- " "
     i <- i + 1L
-    j <- substr(x, i, i)
+    j <- substr(y, i, i)
     all_equal <- all(j == j[[1L]])
   }
-  trimws(x)
+  x[!is.na(x)] <- trimws(y)
+  x
 }
-
 
 # random sampling --------------------------------------------------------------
 
@@ -173,7 +177,7 @@ get_locale <- function() {
         ans <- l
         break
       }
-      if (supported_langs[[l]] %in% supported_langs) {
+      if (l %in% names(supported_langs)) {
         ans <- supported_langs[[l]]
         break
       }

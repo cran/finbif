@@ -1,3 +1,38 @@
+# finbif 0.4.0
+
+#### NEW FEATURES
+
+  - Occurrence record requests can now be made with aggregation,
+    `aggregate = c("records", "species", "taxa")`. This returns the
+    number of records, and/or species or taxa for each combination of
+    the selected variables instead of the occurrence records themselves.
+
+#### MINOR IMPROVEMENTS
+
+  - Error is triggered when attempting to request less than one record.
+
+  - New content on requesting aggregated occurrence records added to
+    vignette: 2. Occurrence records from FinBIF.
+
+#### BUG FIXES
+
+  - Fixed two bugs in print method for FinBIF occurrence records that
+    were triggered when attempting to print only one row of data.
+
+  - Fixed bug triggering error when attempting to print occurrence
+    record objects with zero rows.
+
+  - Fixed bug triggered when trying to print occurrence record data with
+    NA values.
+
+  - Fixed bug causing incorrect subsetting of occurrence records when
+    using logical vectors to subset rows.
+
+  - Fixed bug that printed occurrence records with multi-element data
+    incorrectly when there was a single element.
+
+  - Fixed bug triggered by some system locales (\#1).
+
 # finbif 0.3.1
 
 #### NEW FEATURES

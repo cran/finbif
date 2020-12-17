@@ -27,7 +27,21 @@ as.data.frame.finbif_records <-
     url  <- x[["response"]][["url"]]
     time <- x[["response"]][["date"]]
 
+    aggregation <- attr(x, "aggregate")
+    aggregated <- !identical(aggregation, "none")
     x <- x[["content"]][["results"]]
+
+    if (aggregated) {
+      aggregations <-
+        c(records = "count", species = "speciesCount", taxa = "taxonCount")
+      aggregations <- aggregations[aggregation]
+      counts <- list()
+      for (i in seq_along(aggregations)) {
+        counts[[names(aggregations)[[i]]]] <-
+          vapply(x, getElement, integer(1L), aggregations[[i]])
+      }
+      x <- lapply(x, getElement, "aggregateBy")
+    }
 
     lst <- lapply(
       cols,
@@ -36,9 +50,15 @@ as.data.frame.finbif_records <-
         type_na   <- methods::as(NA, type)
         single    <- var_names[col, "single"]
         localised <- var_names[col, "localised"]
-        el_names <- strsplit(col, "\\.")[[1L]]
-        if (single) return(vapply(x, get_el_recurse, type_na, el_names, type))
-        ans <- lapply(x, get_el_recurse, el_names, type)
+        if (aggregated) {
+          # unit/aggregate always returns data as a single string
+          ans <- vapply(x, getElement, NA_character_, col)
+          ans <- ifelse(ans == "", NA_character_, ans)
+          return(methods::as(ans, type))
+        }
+        col <- strsplit(col, "\\.")[[1L]]
+        if (single) return(vapply(x, get_el_recurse, type_na, col, type))
+        ans <- lapply(x, get_el_recurse, col, type)
         ans <- lapply(ans, unlist)
         if (localised) ans <- vapply(ans, with_locale, type_na, locale)
         ans
@@ -52,6 +72,15 @@ as.data.frame.finbif_records <-
     df <- as.data.frame(lst[cols_split[["TRUE"]]], stringsAsFactors = FALSE)
     df[cols_split[["FALSE"]]] <- lst[cols_split[["FALSE"]]]
     df[["ind"]] <- NULL
+
+    if (aggregated) {
+      aggregation_cols <- paste0("n_", aggregation)
+      cols <- c(cols, aggregation_cols)
+      for (i in seq_along(aggregation)) {
+        df[[aggregation_cols[[i]]]] <- counts[[i]]
+      }
+    }
+
     structure(df[cols], url = url, time = time)
 
   }
@@ -119,7 +148,10 @@ as.data.frame.finbif_records_list <-
     if (has_i) cols <- i
   } else {
     if (has_j) cols <- j
-    if (has_i) rows <- i
+    if (has_i) {
+      if (is.logical(i)) i <- which(rep_len(i, nrow(x)))
+      rows <- i
+    }
   }
 
   ans <- if (has_j) NextMethod("[", drop = drop) else NextMethod("[")
@@ -211,14 +243,17 @@ print.finbif_occ <- function(x, ...) {
   df <- x[seq_len(dsply_nr), , drop = FALSE]
 
   colname_widths <- vapply(names(df), nchar, integer(1L))
+  widths <- colname_widths
 
-  df <- format_cols(df, colname_widths)
-
-  widths <- apply(df, 2L, nchar)
-  # Printed NA values are four characters wide, "<NA>"
-  widths[is.na(widths)] <- 4L
-  widths <- apply(widths, 2L, max, na.rm = TRUE)
-  widths <- pmax(colname_widths, widths)
+  if (nrows) {
+    df <- format_cols(df, colname_widths)
+    widths <- apply(df, 2L, nchar)
+    dim(widths) <- dim(df)
+    # Printed NA values are four characters wide, "<NA>"
+    widths[is.na(widths)] <- 4L
+    widths <- apply(widths, 2L, max, na.rm = TRUE)
+    widths <- pmax(colname_widths, widths)
+  }
 
   dsply_nc <- 0L
   cumulative_width <- if (dsply_nr > 9L) 2L else 1L
@@ -262,7 +297,7 @@ format_cols <- function(df, colname_widths) {
           function(x) length(Filter(isFALSE, is.na(x))), integer(1L)
         )
         df[[i]] <-
-          paste0(df[[i]], " element", ifelse(length(df[[i]]) == 1L, "", "s"))
+          paste0(df[[i]], " element", ifelse(df[[i]] == 1L, "", "s"))
       } else {
         if (class == "uri") df[[i]] <- truncate_string_to_unique(df[[i]])
         if (class %in% c("character", "uri", "factor"))

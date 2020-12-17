@@ -1,6 +1,6 @@
 context("Querying FinBIF occurrence data")
 
-vcr::use_cassette(
+use_cassette(
   "finbif_occurrence", {
 
     test_that(
@@ -11,7 +11,7 @@ vcr::use_cassette(
         expect_s3_class(
           finbif_occurrence(
             species = "Rangifer tarandus fennicus", check_taxa = FALSE,
-            select = "record_id", sample = TRUE
+            select = "municipality", sample = TRUE
           ),
           "finbif_occ"
         )
@@ -35,8 +35,10 @@ vcr::use_cassette(
 
         expect_s3_class(
           finbif_occurrence(
-            "Pteromys volans", select = c("default_vars", "duration"),
-            sample = TRUE, n = 1001, cache = FALSE
+            "Pteromys volans",
+            filter = c(province = "Uusimaa"),
+            select = c("default_vars", "duration"),
+            sample = TRUE, n = 5000, cache = FALSE
           ),
           "finbif_occ"
         )
@@ -81,13 +83,15 @@ vcr::use_cassette(
 
         skip_on_cran()
 
+        n <- 1100L
+
         fungi <- finbif_occurrence(
           filter = c(informal_group = "Fungi and lichens"),
           select = to_native(
             "occurrenceID", "informalTaxonGroup", "taxonID", "vernacularName",
             "default_vars"
           ),
-          n = 1100L
+          n = n
         )
 
         expect_output(print(fungi), "Records downloaded:")
@@ -95,6 +99,12 @@ vcr::use_cassette(
         expect_output(
           print(fungi[c("scientific_name", "common_name")]), "A data"
         )
+
+        expect_output(
+          print(fungi[c(TRUE, rep_len(FALSE, n - 1L)), ]), "Records downloaded:"
+        )
+
+        expect_output(print(fungi[integer(0L), ]), "Records downloaded:")
 
         expect_output(
           print(fungi[1:10, c("scientific_name", "taxon_id")]), "A data"
@@ -111,6 +121,10 @@ vcr::use_cassette(
           "Records downloaded:"
         )
 
+        expect_output(
+          print(finbif_occurrence(aggregate = "species")), "Records downloaded:"
+        )
+
         expect_output(print(finbif_occurrence()), "Records downloaded:")
 
         cat("\nNot comparing plots on R versions greater than 4.0.3\n")
@@ -118,8 +132,7 @@ vcr::use_cassette(
         skip_if(getRversion() > "4.0.3")
 
         expect_doppelganger(
-          paste0("occurrence plot ", if (is_dev_api()) "dev"),
-          plot(fungi)
+          paste0("occurrence plot ", if (is_dev_api()) "dev"), plot(fungi)
         )
 
       }

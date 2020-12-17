@@ -1,5 +1,37 @@
 \name{NEWS}
 \title{News for Package \pkg{finbif}}
+\section{finbif version 0.4.0}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Occurrence record requests can now be made with aggregation,
+        \code{aggregate = c("records", "species", "taxa")}. This returns the
+        number of records, and/or species or taxa for each combination of the
+        selected variables instead of the occurrence records themselves.
+    }
+  }
+  \subsection{MINOR IMPROVEMENTS}{
+    \itemize{
+      \item Error is triggered when attempting to request less than one record.
+      \item New content on requesting aggregated occurrence records added to
+        vignette: 2. Occurrence records from FinBIF.
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed two bugs in print method for FinBIF occurrence records that
+        were triggered when attempting to print only one row of data.
+      \item Fixed bug triggering error when attempting to print occurrence
+        record objects with zero rows.
+      \item Fixed bug triggered when trying to print occurrence record data
+        with NA values.
+      \item Fixed bug causing incorrect subsetting of occurrence records when
+        using logical vectors to subset rows.
+      \item Fixed bug that printed occurrence records with multi-element data
+        incorrectly when there was a single element.
+      \item Fixed bug triggered by some system locales (#1).
+    }
+  }
+}
 \section{finbif version 0.3.1}{
   \subsection{NEW FEATURES}{
     \itemize{
