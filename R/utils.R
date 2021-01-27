@@ -12,12 +12,23 @@ get_next_lowest_factor <-
 
 #' @noRd
 #' @importFrom methods as
+#' @importFrom utils hasName
 get_el_recurse <- function(obj, nms, type) {
+
   if (length(nms) < 1L)
     return(
       if (is.null(obj) || identical(obj, "")) methods::as(NA, type) else obj
     )
-  obj <- getElement(obj, nms[[1L]])
+
+  nm <- nms[[1L]]
+
+  if (!utils::hasName(obj, nm) && any(vapply(obj, utils::hasName, NA, nm))) {
+    obj <- lapply(obj, getElement, nm)
+    obj <- unlist(obj, recursive = FALSE)
+  } else {
+    obj <- getElement(obj, nm)
+  }
+
   get_el_recurse(obj, nms[-1L], type)
 }
 
@@ -35,7 +46,8 @@ truncate_string <- function(x, sl = 20L) {
 
 #' @noRd
 truncate_string_to_unique <- function(x) {
-  y <- x[!is.na(x)]
+  ind <- !is.na(x)
+  y <- x[ind]
   i <- 0L
   all_equal <- TRUE
   while (all_equal & length(unique(y)) > 1L) {
@@ -44,7 +56,8 @@ truncate_string_to_unique <- function(x) {
     j <- substr(y, i, i)
     all_equal <- all(j == j[[1L]])
   }
-  x[!is.na(x)] <- trimws(y)
+  y <- trimws(y)
+  x[ind] <- ifelse(x[ind] == y, y, paste0("\u2026", y))
   x
 }
 

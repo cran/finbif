@@ -17,17 +17,9 @@ if (requireNamespace("vcr")) {
 } else {
 
   vcr_configure <- dummy
-  use_cassette <- dummy
-
-}
-
-if (requireNamespace("vdiffr")) {
-
-  library("vdiffr")
-
-} else {
-
-  expect_doppelganger <- dummy
+  insert_cassette <- dummy
+  eject_cassette <- dummy
+  Sys.setenv(NOT_CRAN = "false")
 
 }
 
@@ -35,3 +27,16 @@ has_dev_api <- function() nchar(Sys.getenv("FINBIF_DEV_ACCESS_TOKEN")) > 0L
 
 is_dev_api <-
   function() identical(getOption("finbif_api_url"), "apitest.laji.fi")
+
+if (requireNamespace("grDevices")) {
+
+  save_svg <- function(code, width = 7, height = 7) {
+    path <- tempfile(fileext = ".svg")
+    svg(path, width = width, height = height, antialias = "none")
+    on.exit(dev.off())
+    code
+
+    path
+  }
+
+}

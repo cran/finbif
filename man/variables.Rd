@@ -237,12 +237,6 @@ Has the record been restricted in some way (e.g., geospatially aggregated).
 What level of restriction has been applied to the record.
 \item \code{restriction_reasons} List.
 List of reasons restriction has been applied.
-\item \code{restriction_reasons_conservation} Logical.
-Has the record been restricted for reasons of conservation.
-\item \code{restriction_reasons_embargo} Logical.
-Has the record been restricted due to a temporary data embargo.
-\item \code{restriction_reasons_custom} Logical.
-Has the record been restricted for other reasons.
 }
 }
 
@@ -278,6 +272,13 @@ Indication of the record's quality.
 
 Other variables:
 \itemize{
+\item \code{collection} Character.
+Collection name. All documents, events, and records belong to a collection
+(e.g., a museum collection, or the datasets collected by a specific
+institution). Collections themselves can be part of a larger
+(super)collection (e.g., all the collections at a specific museum). Only
+the lowest level collection name for a record is returned. Use
+\code{finbif_collections()} to explore the hierarchy of collections.
 \item \code{observers_ids} List.
 List of observer identifiers for the record.
 \item \code{determiner} Character.

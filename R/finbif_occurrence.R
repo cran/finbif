@@ -20,7 +20,7 @@
 #'   outputted date-time. Defaults to system timezone.
 #' @param locale Character. One of the supported two-letter ISO 639-1 language
 #'   codes. Current supported languages are English, Finnish, Swedish, Russian,
-#'   and Sami (Northern). For data where more than one language is available
+#'   and Sámi (Northern). For data where more than one language is available
 #'   the language denoted by `locale` will be preferred while falling back to
 #'   the other languages in the order indicated above.
 #' @return A `data.frame`. If `count_only =  TRUE` an integer.
@@ -128,9 +128,12 @@ select_taxa <- function(..., cache, check_taxa, on_check_fail) {
 
   taxa <- list(...)
   ntaxa <- length(taxa)
+
+  if (identical(ntaxa, 0L)) return(NULL)
+
   ans <- list(taxon_name = paste(taxa, collapse = ","))
 
-  if (ntaxa && check_taxa) {
+  if (check_taxa) {
 
     taxa <-
       if (ntaxa > 1L || !utils::hasName(taxa, "taxa")) {
@@ -140,6 +143,7 @@ select_taxa <- function(..., cache, check_taxa, on_check_fail) {
       }
 
     taxa_invalid <- is.na(taxa)
+    taxa_valid  <- !taxa_invalid
 
     if (any(taxa_invalid)) {
       msg  <- paste(
@@ -153,8 +157,8 @@ select_taxa <- function(..., cache, check_taxa, on_check_fail) {
       )
     }
 
-    if (!all(taxa_invalid))
-      ans <- list(taxon_id = paste(taxa[!taxa_invalid], collapse = ","))
+    if (any(taxa_valid))
+      ans <- list(taxon_id = paste(taxa[taxa_valid], collapse = ","))
 
   }
 
@@ -251,7 +255,18 @@ compute_vars_from_id <- function(df, select_) {
 
     if (utils::hasName(df, id_var_name)) {
 
-      metadata <- get(candidates[[i]])
+      metadata <- if (identical(id_var_name, "collection_id")) {
+
+        collection <-  finbif_collections(
+          select = "collection_name",
+          subcollections = TRUE, supercollections = TRUE, nmin = NA
+        )
+
+      } else {
+
+        get(candidates[[i]])
+
+      }
 
       var <- metadata[gsub("http://tun.fi/", "", df[[id_var_name]]), 1L]
 

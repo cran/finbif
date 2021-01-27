@@ -1,5 +1,28 @@
 \name{NEWS}
 \title{News for Package \pkg{finbif}}
+
+\section{finbif version 0.4.1}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item New functions \code{scientific_name} and \code{common_name} are now
+        available to get scientific and common names for taxa (given a taxon
+        name or FinBIF ID code) or extract names from a \code{finbif_taxa}-
+        class object.
+      \item Add ability to extract complex record variables such as those
+        associated with record media (currently undocumented).
+    }
+  }
+  \subsection{MINOR IMPROVEMENTS}{
+    \itemize{
+      \item Collection name can be selected as a variable for occurrence
+        records. Previously it had to be manually translated from collection ID.
+      \item Variables \code{restriction_reasons_conservation},
+        \code{restriction_reason_embargo} and \code{restriction_reason_custom}
+        are no longer in use upstream and can no longer be selected.
+    }
+  }
+}
+
 \section{finbif version 0.4.0}{
   \subsection{NEW FEATURES}{
     \itemize{
@@ -32,6 +55,7 @@
     }
   }
 }
+
 \section{finbif version 0.3.1}{
   \subsection{NEW FEATURES}{
     \itemize{
@@ -50,6 +74,7 @@
     }
   }
 }
+
 \section{finbif version 0.3.0}{
   \subsection{NEW FEATURES}{
     \itemize{

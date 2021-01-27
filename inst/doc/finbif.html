@@ -15,61 +15,7 @@
 
 <title>Introduction to the finbif package</title>
 
-<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
-// v0.0.1
-// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
-
-document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByClassName("sourceCode");
-  for (var i = 0; i < codeList.length; i++) {
-    var linkList = codeList[i].getElementsByTagName('a');
-    for (var j = 0; j < linkList.length; j++) {
-      if (linkList[j].innerHTML === "") {
-        linkList[j].setAttribute('aria-hidden', 'true');
-      }
-    }
-  }
-});
-</script>
-<style type="text/css">
-a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
-a.anchor-section::before {content: '#';}
-.hasAnchor:hover a.anchor-section {visibility: visible;}
-</style>
-<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
-document.addEventListener('DOMContentLoaded', function() {
-  // Do nothing if AnchorJS is used
-  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
-    return;
-  }
-
-  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-
-  // Do nothing if sections are already anchored
-  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
-    return null;
-  }
-
-  // Use section id when pandoc runs with --section-divs
-  const section_id = function(x) {
-    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
-            ? x.id : '');
-  };
-
-  // Add anchors
-  h.forEach(function(x) {
-    const id = x.id || section_id(x.parentElement);
-    if (id === '') {
-      return null;
-    }
-    let anchor = document.createElement('a');
-    anchor.href = '#' + id;
-    anchor.classList = ['anchor-section'];
-    x.classList.add('hasAnchor');
-    x.appendChild(anchor);
-  });
-});
-</script>
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -83,19 +29,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -115,7 +60,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -172,187 +117,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<style type="text/css">body {
-background-color: #fff;
-margin: 1em auto;
-max-width: 700px;
-overflow: visible;
-padding-left: 2em;
-padding-right: 2em;
-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-font-size: 14px;
-line-height: 1.35;
-}
-#TOC {
-clear: both;
-margin: 0 0 10px 10px;
-padding: 4px;
-width: 400px;
-border: 1px solid #CCCCCC;
-border-radius: 5px;
-background-color: #f6f6f6;
-font-size: 13px;
-line-height: 1.3;
-}
-#TOC .toctitle {
-font-weight: bold;
-font-size: 15px;
-margin-left: 5px;
-}
-#TOC ul {
-padding-left: 40px;
-margin-left: -1.5em;
-margin-top: 5px;
-margin-bottom: 5px;
-}
-#TOC ul ul {
-margin-left: -2em;
-}
-#TOC li {
-line-height: 16px;
-}
-table {
-margin: 1em auto;
-border-width: 1px;
-border-color: #DDDDDD;
-border-style: outset;
-border-collapse: collapse;
-}
-table th {
-border-width: 2px;
-padding: 5px;
-border-style: inset;
-}
-table td {
-border-width: 1px;
-border-style: inset;
-line-height: 18px;
-padding: 5px 5px;
-}
-table, table th, table td {
-border-left-style: none;
-border-right-style: none;
-}
-table thead, table tr.even {
-background-color: #f7f7f7;
-}
-p {
-margin: 0.5em 0;
-}
-blockquote {
-background-color: #f6f6f6;
-padding: 0.25em 0.75em;
-}
-hr {
-border-style: solid;
-border: none;
-border-top: 1px solid #777;
-margin: 28px 0;
-}
-dl {
-margin-left: 0;
-}
-dl dd {
-margin-bottom: 13px;
-margin-left: 13px;
-}
-dl dt {
-font-weight: bold;
-}
-ul {
-margin-top: 0;
-}
-ul li {
-list-style: circle outside;
-}
-ul ul {
-margin-bottom: 0;
-}
-pre, code {
-background-color: #f7f7f7;
-border-radius: 3px;
-color: #333;
-white-space: pre-wrap; 
-}
-pre {
-border-radius: 3px;
-margin: 5px 0px 10px 0px;
-padding: 10px;
-}
-pre:not([class]) {
-background-color: #f7f7f7;
-}
-code {
-font-family: Consolas, Monaco, 'Courier New', monospace;
-font-size: 85%;
-}
-p > code, li > code {
-padding: 2px 0px;
-}
-div.figure {
-text-align: center;
-}
-img {
-background-color: #FFFFFF;
-padding: 2px;
-border: 1px solid #DDDDDD;
-border-radius: 3px;
-border: 1px solid #CCCCCC;
-margin: 0 5px;
-}
-h1 {
-margin-top: 0;
-font-size: 35px;
-line-height: 40px;
-}
-h2 {
-border-bottom: 4px solid #f7f7f7;
-padding-top: 10px;
-padding-bottom: 2px;
-font-size: 145%;
-}
-h3 {
-border-bottom: 2px solid #f7f7f7;
-padding-top: 10px;
-font-size: 120%;
-}
-h4 {
-border-bottom: 1px solid #f7f7f7;
-margin-left: 8px;
-font-size: 105%;
-}
-h5, h6 {
-border-bottom: 1px solid #ccc;
-font-size: 105%;
-}
-a {
-color: #0033dd;
-text-decoration: none;
-}
-a:hover {
-color: #6666ff; }
-a:visited {
-color: #800080; }
-a:visited:hover {
-color: #BB00BB; }
-a[href^="http:"] {
-text-decoration: underline; }
-a[href^="https:"] {
-text-decoration: underline; }
 
-code > span.kw { color: #555; font-weight: bold; } 
-code > span.dt { color: #902000; } 
-code > span.dv { color: #40a070; } 
-code > span.bn { color: #d14; } 
-code > span.fl { color: #d14; } 
-code > span.ch { color: #d14; } 
-code > span.st { color: #d14; } 
-code > span.co { color: #888888; font-style: italic; } 
-code > span.ot { color: #007020; } 
-code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; } 
-code > span.er { color: #a61717; background-color: #e3d2d2; } 
-</style>
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
 
 
 
@@ -374,7 +140,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li><a href="#loading-the-finbif-package">Loading the finbif package</a></li>
 <li><a href="#getting-a-finbif-access-token">Getting a FinBIF access token</a></li>
 <li><a href="#working-with-taxa">Working with taxa</a></li>
-<li><a href="#getting-occurrence-data">Getting occurrence data</a><ul>
+<li><a href="#getting-occurrence-data">Getting occurrence data</a>
+<ul>
 <li><a href="#random-sampling">Random sampling</a></li>
 </ul></li>
 <li><a href="#plotting-occurrence-data">Plotting occurrence data</a></li>
@@ -386,241 +153,247 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="installing-the-finbif-package" class="section level2">
 <h2>Installing the finbif package</h2>
 <p>You can install the current stable version of <code>{finbif}</code> from <a href="https://cran.r-project.org">CRAN</a>,</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;finbif&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;finbif&quot;</span>)</span></code></pre></div>
 <p>You can also install the latest development version of <code>{finbif}</code> from <a href="https://github.com">GitHub</a>,</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;luomus/finbif@dev&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;luomus/finbif@dev&quot;</span>)</span></code></pre></div>
 </div>
 <div id="loading-the-finbif-package" class="section level2">
 <h2>Loading the finbif package</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(finbif)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finbif)</span></code></pre></div>
 </div>
 <div id="getting-a-finbif-access-token" class="section level2">
 <h2>Getting a FinBIF access token</h2>
 <p>To use the FinBIF API you must first request and set a personal access token. You can request an API token to be sent to your email address with the function <code>finbif_get_token()</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">finbif_request_token</span>(<span class="st">&quot;your@email.com&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_request_token</span>(<span class="st">&quot;your@email.com&quot;</span>)</span></code></pre></div>
 <p>Copy the access token that was sent to your email and set it as the environment variable <code>FINBIF_ACCESS_TOKEN</code> either for the current session,</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">Sys.setenv</span>(</span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="dt">FINBIF_ACCESS_TOKEN =</span> <span class="st">&quot;xtmSOIxjPwq0pOMB1WvcZgFLU9QBklauOlonWl8K5oaLIx8RniJLrvcJU4v9H7Et&quot;</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>)</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Note: the above is not a real access token. Do not try using it.</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">FINBIF_ACCESS_TOKEN =</span> <span class="st">&quot;xtmSOIxjPwq0pOMB1WvcZgFLU9QBklauOlonWl8K5oaLIx8RniJLrvcJU4v9H7Et&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: the above is not a real access token. Do not try using it.</span></span></code></pre></div>
 <p>, or by adding it to a <code>Renviron</code> startup file (see <a href="https://rviews.rstudio.com/2017/04/19/r-for-enterprise-understanding-r-s-startup/">here</a> for details).</p>
 </div>
 <div id="working-with-taxa" class="section level2">
 <h2>Working with taxa</h2>
 <p>You can check to see if a taxon exists in the FinBIF database.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">finbif_check_taxa</span>(<span class="st">&quot;Ursus arctos&quot;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; [Ursus arctos] ID: MX.47348</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_check_taxa</span>(<span class="st">&quot;Ursus arctos&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [Ursus arctos] ID: MX.47348</span></span></code></pre></div>
 <p>If the taxon is in the FinBIF database its unique ID is returned. When a taxon is not in the FinBIF database it is reported as “not found” and for that taxa the list element is <code>NA</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>(taxa &lt;-<span class="st"> </span><span class="kw">finbif_check_taxa</span>(<span class="kw">c</span>(<span class="st">&quot;Ursus arctos&quot;</span>, <span class="st">&quot;Moomin&quot;</span>)))</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; [Ursus arctos] ID: MX.47348</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; [Moomin      ] Not found</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>taxa[[<span class="dv">1</span>]]</span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; Ursus arctos </span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt;   &quot;MX.47348&quot;</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a>taxa[[<span class="dv">2</span>]]</span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; Moomin </span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt;     NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(taxa <span class="ot">&lt;-</span> <span class="fu">finbif_check_taxa</span>(<span class="fu">c</span>(<span class="st">&quot;Ursus arctos&quot;</span>, <span class="st">&quot;Moomin&quot;</span>)))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [Ursus arctos] ID: MX.47348</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [Moomin      ] Not found</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>taxa[[<span class="dv">1</span>]]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Ursus arctos </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &quot;MX.47348&quot;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>taxa[[<span class="dv">2</span>]]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Moomin </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     NA</span></span></code></pre></div>
 <p>You can also specify the taxonomic rank when searching FinBIF and the search will be limited to the specified rank.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">finbif_check_taxa</span>(<span class="kw">list</span>(<span class="dt">species =</span> <span class="kw">c</span>(<span class="st">&quot;Ursus arctos&quot;</span>, <span class="st">&quot;Ursus&quot;</span>), <span class="dt">genus =</span> <span class="st">&quot;Ursus&quot;</span>))</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; [species: Ursus arctos] ID: MX.47348</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; [species: Ursus       ] Not found</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; [genus:   Ursus       ] ID: MX.51311</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_check_taxa</span>(<span class="fu">list</span>(<span class="at">species =</span> <span class="fu">c</span>(<span class="st">&quot;Ursus arctos&quot;</span>, <span class="st">&quot;Ursus&quot;</span>), <span class="at">genus =</span> <span class="st">&quot;Ursus&quot;</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [species: Ursus arctos] ID: MX.47348</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [species: Ursus       ] Not found</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [genus:   Ursus       ] ID: MX.51311</span></span></code></pre></div>
 <p>The function <code>finbif_taxa()</code> can be used for a more general search for taxa in the FinBIF database. Searches can be <code>exact</code>, <code>partial</code> or <code>likely</code> (fuzzy matching). Information for a single taxon is returned when using exact or fuzzy matching, but multiple taxa, up to a limit, <code>n</code>, may be returned when using partial matching.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>birch_search &lt;-<span class="st"> </span><span class="kw">finbif_taxa</span>(<span class="st">&quot;Betula pendula&quot;</span>, <span class="dv">2</span>, <span class="st">&quot;partial&quot;</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>birch_search<span class="op">$</span>content</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>birch_search <span class="ot">&lt;-</span> <span class="fu">finbif_taxa</span>(<span class="st">&quot;Betula pendula&quot;</span>, <span class="dv">2</span>, <span class="st">&quot;partial&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>birch_search<span class="sc">$</span>content</span></code></pre></div>
 <details closed>
-<p><summary> Click to show/hide output. </summary></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; [[1]]</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; [[1]]$matchingName</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; [1] &quot;Betula pendula var. pendula&quot;</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; </span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; [[1]]$nameType</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; [1] &quot;MX.scientificName&quot;</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; </span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; [[1]]$id</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; [1] &quot;MX.37994&quot;</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; </span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; [[1]]$scientificName</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt; [1] &quot;Betula pendula var. pendula&quot;</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; </span></span>
-<span id="cb10-15"><a href="#cb10-15"></a><span class="co">#&gt; [[1]]$taxonRank</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a><span class="co">#&gt; [1] &quot;MX.variety&quot;</span></span>
-<span id="cb10-17"><a href="#cb10-17"></a><span class="co">#&gt; </span></span>
-<span id="cb10-18"><a href="#cb10-18"></a><span class="co">#&gt; [[1]]$cursiveName</span></span>
-<span id="cb10-19"><a href="#cb10-19"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb10-20"><a href="#cb10-20"></a><span class="co">#&gt; </span></span>
-<span id="cb10-21"><a href="#cb10-21"></a><span class="co">#&gt; [[1]]$finnish</span></span>
-<span id="cb10-22"><a href="#cb10-22"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb10-23"><a href="#cb10-23"></a><span class="co">#&gt; </span></span>
-<span id="cb10-24"><a href="#cb10-24"></a><span class="co">#&gt; [[1]]$species</span></span>
-<span id="cb10-25"><a href="#cb10-25"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb10-26"><a href="#cb10-26"></a><span class="co">#&gt; </span></span>
-<span id="cb10-27"><a href="#cb10-27"></a><span class="co">#&gt; [[1]]$vernacularName</span></span>
-<span id="cb10-28"><a href="#cb10-28"></a><span class="co">#&gt; [[1]]$vernacularName$fi</span></span>
-<span id="cb10-29"><a href="#cb10-29"></a><span class="co">#&gt; [1] &quot;vihtakoivu&quot;</span></span>
-<span id="cb10-30"><a href="#cb10-30"></a><span class="co">#&gt; </span></span>
-<span id="cb10-31"><a href="#cb10-31"></a><span class="co">#&gt; [[1]]$vernacularName$sv</span></span>
-<span id="cb10-32"><a href="#cb10-32"></a><span class="co">#&gt; [1] &quot;vanlig vårtbjörk&quot;</span></span>
-<span id="cb10-33"><a href="#cb10-33"></a><span class="co">#&gt; </span></span>
-<span id="cb10-34"><a href="#cb10-34"></a><span class="co">#&gt; </span></span>
-<span id="cb10-35"><a href="#cb10-35"></a><span class="co">#&gt; [[1]]$informalGroups</span></span>
-<span id="cb10-36"><a href="#cb10-36"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]</span></span>
-<span id="cb10-37"><a href="#cb10-37"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$id</span></span>
-<span id="cb10-38"><a href="#cb10-38"></a><span class="co">#&gt; [1] &quot;MVL.343&quot;</span></span>
-<span id="cb10-39"><a href="#cb10-39"></a><span class="co">#&gt; </span></span>
-<span id="cb10-40"><a href="#cb10-40"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name</span></span>
-<span id="cb10-41"><a href="#cb10-41"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name$fi</span></span>
-<span id="cb10-42"><a href="#cb10-42"></a><span class="co">#&gt; [1] &quot;Putkilokasvit&quot;</span></span>
-<span id="cb10-43"><a href="#cb10-43"></a><span class="co">#&gt; </span></span>
-<span id="cb10-44"><a href="#cb10-44"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name$sv</span></span>
-<span id="cb10-45"><a href="#cb10-45"></a><span class="co">#&gt; [1] &quot;Kärlväxter&quot;</span></span>
-<span id="cb10-46"><a href="#cb10-46"></a><span class="co">#&gt; </span></span>
-<span id="cb10-47"><a href="#cb10-47"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name$en</span></span>
-<span id="cb10-48"><a href="#cb10-48"></a><span class="co">#&gt; [1] &quot;Vascular plants&quot;</span></span>
-<span id="cb10-49"><a href="#cb10-49"></a><span class="co">#&gt; </span></span>
-<span id="cb10-50"><a href="#cb10-50"></a><span class="co">#&gt; </span></span>
-<span id="cb10-51"><a href="#cb10-51"></a><span class="co">#&gt; </span></span>
-<span id="cb10-52"><a href="#cb10-52"></a><span class="co">#&gt; </span></span>
-<span id="cb10-53"><a href="#cb10-53"></a><span class="co">#&gt; [[1]]$type</span></span>
-<span id="cb10-54"><a href="#cb10-54"></a><span class="co">#&gt; [1] &quot;partialMatches&quot;</span></span>
-<span id="cb10-55"><a href="#cb10-55"></a><span class="co">#&gt; </span></span>
-<span id="cb10-56"><a href="#cb10-56"></a><span class="co">#&gt; </span></span>
-<span id="cb10-57"><a href="#cb10-57"></a><span class="co">#&gt; [[2]]</span></span>
-<span id="cb10-58"><a href="#cb10-58"></a><span class="co">#&gt; [[2]]$matchingName</span></span>
-<span id="cb10-59"><a href="#cb10-59"></a><span class="co">#&gt; [1] &quot;Betula pendula var. carelica&quot;</span></span>
-<span id="cb10-60"><a href="#cb10-60"></a><span class="co">#&gt; </span></span>
-<span id="cb10-61"><a href="#cb10-61"></a><span class="co">#&gt; [[2]]$nameType</span></span>
-<span id="cb10-62"><a href="#cb10-62"></a><span class="co">#&gt; [1] &quot;MX.scientificName&quot;</span></span>
-<span id="cb10-63"><a href="#cb10-63"></a><span class="co">#&gt; </span></span>
-<span id="cb10-64"><a href="#cb10-64"></a><span class="co">#&gt; [[2]]$id</span></span>
-<span id="cb10-65"><a href="#cb10-65"></a><span class="co">#&gt; [1] &quot;MX.37997&quot;</span></span>
-<span id="cb10-66"><a href="#cb10-66"></a><span class="co">#&gt; </span></span>
-<span id="cb10-67"><a href="#cb10-67"></a><span class="co">#&gt; [[2]]$scientificName</span></span>
-<span id="cb10-68"><a href="#cb10-68"></a><span class="co">#&gt; [1] &quot;Betula pendula var. carelica&quot;</span></span>
-<span id="cb10-69"><a href="#cb10-69"></a><span class="co">#&gt; </span></span>
-<span id="cb10-70"><a href="#cb10-70"></a><span class="co">#&gt; [[2]]$scientificNameAuthorship</span></span>
-<span id="cb10-71"><a href="#cb10-71"></a><span class="co">#&gt; [1] &quot;(Merckl.) Hämet-Ahti&quot;</span></span>
-<span id="cb10-72"><a href="#cb10-72"></a><span class="co">#&gt; </span></span>
-<span id="cb10-73"><a href="#cb10-73"></a><span class="co">#&gt; [[2]]$taxonRank</span></span>
-<span id="cb10-74"><a href="#cb10-74"></a><span class="co">#&gt; [1] &quot;MX.variety&quot;</span></span>
-<span id="cb10-75"><a href="#cb10-75"></a><span class="co">#&gt; </span></span>
-<span id="cb10-76"><a href="#cb10-76"></a><span class="co">#&gt; [[2]]$cursiveName</span></span>
-<span id="cb10-77"><a href="#cb10-77"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb10-78"><a href="#cb10-78"></a><span class="co">#&gt; </span></span>
-<span id="cb10-79"><a href="#cb10-79"></a><span class="co">#&gt; [[2]]$finnish</span></span>
-<span id="cb10-80"><a href="#cb10-80"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb10-81"><a href="#cb10-81"></a><span class="co">#&gt; </span></span>
-<span id="cb10-82"><a href="#cb10-82"></a><span class="co">#&gt; [[2]]$species</span></span>
-<span id="cb10-83"><a href="#cb10-83"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb10-84"><a href="#cb10-84"></a><span class="co">#&gt; </span></span>
-<span id="cb10-85"><a href="#cb10-85"></a><span class="co">#&gt; [[2]]$vernacularName</span></span>
-<span id="cb10-86"><a href="#cb10-86"></a><span class="co">#&gt; [[2]]$vernacularName$fi</span></span>
-<span id="cb10-87"><a href="#cb10-87"></a><span class="co">#&gt; [1] &quot;visakoivu&quot;</span></span>
-<span id="cb10-88"><a href="#cb10-88"></a><span class="co">#&gt; </span></span>
-<span id="cb10-89"><a href="#cb10-89"></a><span class="co">#&gt; [[2]]$vernacularName$sv</span></span>
-<span id="cb10-90"><a href="#cb10-90"></a><span class="co">#&gt; [1] &quot;masurbjörk&quot;</span></span>
-<span id="cb10-91"><a href="#cb10-91"></a><span class="co">#&gt; </span></span>
-<span id="cb10-92"><a href="#cb10-92"></a><span class="co">#&gt; </span></span>
-<span id="cb10-93"><a href="#cb10-93"></a><span class="co">#&gt; [[2]]$informalGroups</span></span>
-<span id="cb10-94"><a href="#cb10-94"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]</span></span>
-<span id="cb10-95"><a href="#cb10-95"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$id</span></span>
-<span id="cb10-96"><a href="#cb10-96"></a><span class="co">#&gt; [1] &quot;MVL.343&quot;</span></span>
-<span id="cb10-97"><a href="#cb10-97"></a><span class="co">#&gt; </span></span>
-<span id="cb10-98"><a href="#cb10-98"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name</span></span>
-<span id="cb10-99"><a href="#cb10-99"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name$fi</span></span>
-<span id="cb10-100"><a href="#cb10-100"></a><span class="co">#&gt; [1] &quot;Putkilokasvit&quot;</span></span>
-<span id="cb10-101"><a href="#cb10-101"></a><span class="co">#&gt; </span></span>
-<span id="cb10-102"><a href="#cb10-102"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name$sv</span></span>
-<span id="cb10-103"><a href="#cb10-103"></a><span class="co">#&gt; [1] &quot;Kärlväxter&quot;</span></span>
-<span id="cb10-104"><a href="#cb10-104"></a><span class="co">#&gt; </span></span>
-<span id="cb10-105"><a href="#cb10-105"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name$en</span></span>
-<span id="cb10-106"><a href="#cb10-106"></a><span class="co">#&gt; [1] &quot;Vascular plants&quot;</span></span>
-<span id="cb10-107"><a href="#cb10-107"></a><span class="co">#&gt; </span></span>
-<span id="cb10-108"><a href="#cb10-108"></a><span class="co">#&gt; </span></span>
-<span id="cb10-109"><a href="#cb10-109"></a><span class="co">#&gt; </span></span>
-<span id="cb10-110"><a href="#cb10-110"></a><span class="co">#&gt; </span></span>
-<span id="cb10-111"><a href="#cb10-111"></a><span class="co">#&gt; [[2]]$type</span></span>
-<span id="cb10-112"><a href="#cb10-112"></a><span class="co">#&gt; [1] &quot;partialMatches&quot;</span></span>
-<span id="cb10-113"><a href="#cb10-113"></a><span class="co">#&gt; </span></span>
-<span id="cb10-114"><a href="#cb10-114"></a><span class="co">#&gt; </span></span></code></pre></div>
+<summary>
+Click to show/hide output.
+</summary>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$matchingName</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula pendula var. pendula&quot;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$nameType</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.scientificName&quot;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$id</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.37994&quot;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$scientificName</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula pendula var. pendula&quot;</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$taxonRank</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.variety&quot;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$cursiveName</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$finnish</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$species</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$vernacularName</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$vernacularName$fi</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;vihtakoivu&quot;</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$vernacularName$sv</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;vanlig vårtbjörk&quot;</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$id</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MVL.343&quot;</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name$fi</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Putkilokasvit&quot;</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name$sv</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Kärlväxter&quot;</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name$en</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vascular plants&quot;</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]$type</span></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;partialMatches&quot;</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$matchingName</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula pendula var. carelica&quot;</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$nameType</span></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.scientificName&quot;</span></span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$id</span></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.37997&quot;</span></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$scientificName</span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula pendula var. carelica&quot;</span></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$scientificNameAuthorship</span></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;(Merckl.) Hämet-Ahti&quot;</span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$taxonRank</span></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.variety&quot;</span></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$cursiveName</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$finnish</span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$species</span></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$vernacularName</span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$vernacularName$fi</span></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;visakoivu&quot;</span></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$vernacularName$sv</span></span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;masurbjörk&quot;</span></span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups</span></span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]</span></span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$id</span></span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MVL.343&quot;</span></span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name</span></span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name$fi</span></span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Putkilokasvit&quot;</span></span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name$sv</span></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Kärlväxter&quot;</span></span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name$en</span></span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vascular plants&quot;</span></span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]$type</span></span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;partialMatches&quot;</span></span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
 <div id="getting-occurrence-data" class="section level2">
 <h2>Getting occurrence data</h2>
 <p>You can download occurrence data from the FinBIF database as a <code>data.frame</code> with the <code>finbif_occurrence()</code> function.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">finbif_occurrence</span>(<span class="st">&quot;Cygnus cygnus&quot;</span>, <span class="dt">n =</span> <span class="dv">100</span>)</span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="co">#&gt; Records downloaded: 100</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co">#&gt; Records available: 57008</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#&gt; A data.frame [100 x 12]</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#&gt;               record_id scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; 1  KE.176/5e9dd5782d0e…   Cygnus cygnus  1         62.79256  30.96101 2020-04-20 12:00:00</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#&gt; 2        JX.1108556#265   Cygnus cygnus  2         64.2081   29.03035 2020-04-19 12:00:00</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#&gt; 3         JX.1110250#40   Cygnus cygnus  20        63.12255  24.32082 2020-04-19 05:00:00</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="co">#&gt; 4          JX.1110117#3   Cygnus cygnus  2         65.87333  24.28142 2020-04-19 17:00:00</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="co">#&gt; 5         JX.1110052#46   Cygnus cygnus  2         61.13841  21.64607 2020-04-19 06:35:00</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="co">#&gt; 6         JX.1110024#10   Cygnus cygnus  2         60.32418  22.39303 2020-04-18 12:00:00</span></span>
-<span id="cb11-12"><a href="#cb11-12"></a><span class="co">#&gt; 7          JX.1110008#3   Cygnus cygnus  10        64.17427  25.9137  2020-04-17 12:00:00</span></span>
-<span id="cb11-13"><a href="#cb11-13"></a><span class="co">#&gt; 8         JX.1109958#52   Cygnus cygnus  2         61.32291  28.56818 2020-04-17 05:45:00</span></span>
-<span id="cb11-14"><a href="#cb11-14"></a><span class="co">#&gt; 9          JX.1109939#4   Cygnus cygnus  2         61.2604   28.71105 2020-04-17 12:27:00</span></span>
-<span id="cb11-15"><a href="#cb11-15"></a><span class="co">#&gt; 10         JX.1109952#4   Cygnus cygnus  4         61.2641   28.70687 2020-04-16 11:33:00</span></span>
-<span id="cb11-16"><a href="#cb11-16"></a><span class="co">#&gt; ...with 90 more records and 6 more variables:</span></span>
-<span id="cb11-17"><a href="#cb11-17"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb11-18"><a href="#cb11-18"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="st">&quot;Cygnus cygnus&quot;</span>, <span class="at">n =</span> <span class="dv">100</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 100</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 57008</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [100 x 12]</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  KE.176/5e9dd5782d0e…   Cygnus cygnus  1         62.79256  30.96101 2020-04-20 12:00:00</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        JX.1108556#265   Cygnus cygnus  2         64.2081   29.03035 2020-04-19 12:00:00</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         JX.1110250#40   Cygnus cygnus  20        63.12255  24.32082 2020-04-19 05:00:00</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4          JX.1110117#3   Cygnus cygnus  2         65.87333  24.28142 2020-04-19 17:00:00</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         JX.1110052#46   Cygnus cygnus  2         61.13841  21.64607 2020-04-19 06:35:00</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         JX.1110024#10   Cygnus cygnus  2         60.32418  22.39303 2020-04-18 12:00:00</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7          JX.1110008#3   Cygnus cygnus  10        64.17427  25.9137  2020-04-17 12:00:00</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8         JX.1109958#52   Cygnus cygnus  2         61.32291  28.56818 2020-04-17 05:45:00</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9          JX.1109939#4   Cygnus cygnus  2         61.2604   28.71105 2020-04-17 12:27:00</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10         JX.1109952#4   Cygnus cygnus  4         61.2641   28.70687 2020-04-16 11:33:00</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 90 more records and 6 more variables:</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 <p>You can search for multiple taxa at once and filter the records with the <code>filter</code> argument.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">finbif_occurrence</span>(</span>
-<span id="cb12-2"><a href="#cb12-2"></a>  <span class="st">&quot;Cygnus cygnus&quot;</span>, </span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="st">&quot;Cygnus olor&quot;</span>,</span>
-<span id="cb12-4"><a href="#cb12-4"></a>  <span class="dt">filter =</span> <span class="kw">list</span>(<span class="dt">coordinates_uncertainty_max =</span> <span class="dv">100</span>)</span>
-<span id="cb12-5"><a href="#cb12-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Cygnus cygnus&quot;</span>, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Cygnus olor&quot;</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(<span class="at">coordinates_uncertainty_max =</span> <span class="dv">100</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <details closed>
-<p><summary> Click to show/hide output. </summary></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#&gt; Records available: 11553</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#&gt;             record_id scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt; 1       JX.1110624#19     Cygnus olor  2         60.13623  24.65125 2020-04-21 11:30:00</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#&gt; 2       JX.1110052#46   Cygnus cygnus  2         61.13841  21.64607 2020-04-19 06:35:00</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#&gt; 3  HR.3211/42456319-U     Cygnus olor  1         60.17978  24.93999 2020-04-18 12:00:00</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#&gt; 4        JX.1109939#4   Cygnus cygnus  2         61.2604   28.71105 2020-04-17 12:27:00</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt; 5       JX.1109826#13     Cygnus olor  2         60.79963  21.39606 2020-04-17 11:30:00</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#&gt; 6       JX.1109535#12   Cygnus cygnus  2         66.27089  29.3796  2020-04-15 12:00:00</span></span>
-<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#&gt; 7        JX.1109515#4   Cygnus cygnus  1         65.01262  25.43289 2020-04-14 12:00:00</span></span>
-<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#&gt; 8        JX.1109461#4   Cygnus cygnus  2         60.92088  26.38893 2020-04-14 12:00:00</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#&gt; 9       JX.1109294#76     Cygnus olor  2         60.42794  22.20052 2020-04-13 12:00:00</span></span>
-<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#&gt; 10      JX.1109218#22   Cygnus cygnus  1         61.09307  21.55221 2020-04-13 06:45:00</span></span>
-<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<summary>
+Click to show/hide output.
+</summary>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 11553</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             record_id scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       JX.1110624#19     Cygnus olor  2         60.13623  24.65125 2020-04-21 11:30:00</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       JX.1110052#46   Cygnus cygnus  2         61.13841  21.64607 2020-04-19 06:35:00</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  HR.3211/42456319-U     Cygnus olor  1         60.17978  24.93999 2020-04-18 12:00:00</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        JX.1109939#4   Cygnus cygnus  2         61.2604   28.71105 2020-04-17 12:27:00</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       JX.1109826#13     Cygnus olor  2         60.79963  21.39606 2020-04-17 11:30:00</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6       JX.1109535#12   Cygnus cygnus  2         66.27089  29.3796  2020-04-15 12:00:00</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        JX.1109515#4   Cygnus cygnus  1         65.01262  25.43289 2020-04-14 12:00:00</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8        JX.1109461#4   Cygnus cygnus  2         60.92088  26.38893 2020-04-14 12:00:00</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9       JX.1109294#76     Cygnus olor  2         60.42794  22.20052 2020-04-13 12:00:00</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      JX.1109218#22   Cygnus cygnus  1         61.09307  21.55221 2020-04-13 06:45:00</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br></p>
 <p>See <code>?filters</code> and <code>vignette(&quot;v05_filtering&quot;)</code> for more details on filtering FinBIF records.</p>
 <div id="random-sampling" class="section level3">
 <h3>Random sampling</h3>
 <p>It is possible to request a random sample of records instead of the last <code>n</code> records (or records ordered by some other variable).</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">finbif_occurrence</span>(<span class="st">&quot;Birds&quot;</span>, <span class="dt">sample =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="st">&quot;Birds&quot;</span>, <span class="at">sample =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <details closed>
-<p><summary> Click to show/hide output. </summary></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="co">#&gt; Records available: 17833621</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt;              record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; 1       JX.1027476#519    Fringilla coelebs  1         59.86154  23.16479 1997-06-10 07:20:00</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="co">#&gt; 2  KE.67/11806345#Unit      Corvus monedula  1         60.82859  24.25148 2000-01-01 12:00:00</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt; 3  KE.383/4571#UNIT170      Passer montanus  6         63.05393  25.90933 2015-04-16 12:00:00</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; 4     MKH.20030914#593       Motacilla alba  133       59.81111  22.89545 2003-09-14 12:00:00</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt; 5     MKH.20000726#566         Hirundininae  80        59.81111  22.89545 2000-07-26 12:00:00</span></span>
-<span id="cb15-11"><a href="#cb15-11"></a><span class="co">#&gt; 6   KE.67/8317861#Unit Phoenicurus phoenic…  1         59.83333  21.61667 2002-05-04 13:00:00</span></span>
-<span id="cb15-12"><a href="#cb15-12"></a><span class="co">#&gt; 7     MKH.20140510#553      Alauda arvensis  2         59.81111  22.89545 2014-05-10 12:00:00</span></span>
-<span id="cb15-13"><a href="#cb15-13"></a><span class="co">#&gt; 8   KE.67/5518966#Unit  Aegithalos caudatus  1         59.81667  22.9     1996-10-11 18:00:00</span></span>
-<span id="cb15-14"><a href="#cb15-14"></a><span class="co">#&gt; 9   KE.67/3683617#Unit Acanthis hornemanni…  1         63.95     22.85    2013-10-25 18:00:00</span></span>
-<span id="cb15-15"><a href="#cb15-15"></a><span class="co">#&gt; 10         MHU.1732099      Strix uralensis  1         62.34485  27.10288 2006-04-19 12:00:00</span></span>
-<span id="cb15-16"><a href="#cb15-16"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb15-17"><a href="#cb15-17"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb15-18"><a href="#cb15-18"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<summary>
+Click to show/hide output.
+</summary>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 17833621</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       JX.1027476#519    Fringilla coelebs  1         59.86154  23.16479 1997-06-10 07:20:00</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  KE.67/11806345#Unit      Corvus monedula  1         60.82859  24.25148 2000-01-01 12:00:00</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  KE.383/4571#UNIT170      Passer montanus  6         63.05393  25.90933 2015-04-16 12:00:00</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     MKH.20030914#593       Motacilla alba  133       59.81111  22.89545 2003-09-14 12:00:00</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     MKH.20000726#566         Hirundininae  80        59.81111  22.89545 2000-07-26 12:00:00</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6   KE.67/8317861#Unit Phoenicurus phoenic…  1         59.83333  21.61667 2002-05-04 13:00:00</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     MKH.20140510#553      Alauda arvensis  2         59.81111  22.89545 2014-05-10 12:00:00</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   KE.67/5518966#Unit  Aegithalos caudatus  1         59.81667  22.9     1996-10-11 18:00:00</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9   KE.67/3683617#Unit Acanthis hornemanni…  1         63.95     22.85    2013-10-25 18:00:00</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10         MHU.1732099      Strix uralensis  1         62.34485  27.10288 2006-04-19 12:00:00</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -629,48 +402,50 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h2>Plotting occurrence data</h2>
 <p>The <code>{finbif}</code> package has a number of inbuilt functions for plotting (see e.g., <code>breaks_xy()</code> and <code>hist_xy()</code>). There is also an inbuilt dataset that can be used to plot the border of Finland (<code>?finland_map</code>). Together these utilities can be used to plot occurrences after they have been downloaded from FinBIF. For example, the following can be used to plot the density of Eurasian Jay occurrences from Finland.</p>
 <details closed>
-<p><summary><span title>Click to show/hide code.</span></summary></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Download all the occurrences of Eurasian Jay in Finland</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="co"># that have coordinates accurate to at least 100m</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>jays &lt;-<span class="st"> </span><span class="kw">finbif_occurrence</span>(</span>
-<span id="cb16-4"><a href="#cb16-4"></a>  <span class="dt">taxa   =</span> <span class="st">&quot;Eurasian Jay&quot;</span>,</span>
-<span id="cb16-5"><a href="#cb16-5"></a>  <span class="dt">filter =</span> <span class="kw">c</span>(</span>
-<span id="cb16-6"><a href="#cb16-6"></a>    <span class="dt">coordinates_uncertainty_max =</span> <span class="dv">100</span>,</span>
-<span id="cb16-7"><a href="#cb16-7"></a>    <span class="dt">country                     =</span> <span class="st">&quot;Finland&quot;</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a>  ),</span>
-<span id="cb16-9"><a href="#cb16-9"></a>  <span class="dt">n      =</span> <span class="fl">2e4</span>,</span>
-<span id="cb16-10"><a href="#cb16-10"></a>  <span class="dt">quiet  =</span> <span class="ot">TRUE</span></span>
-<span id="cb16-11"><a href="#cb16-11"></a>)</span>
-<span id="cb16-12"><a href="#cb16-12"></a></span>
-<span id="cb16-13"><a href="#cb16-13"></a><span class="co"># Compute the density of occurrences in 1/4 degree cells and plot as a heatmap</span></span>
-<span id="cb16-14"><a href="#cb16-14"></a><span class="kw">with</span>(</span>
-<span id="cb16-15"><a href="#cb16-15"></a>  <span class="dt">data =</span> <span class="kw">c</span>(jays, finland_map),</span>
-<span id="cb16-16"><a href="#cb16-16"></a>  <span class="dt">expr =</span> {</span>
-<span id="cb16-17"><a href="#cb16-17"></a>    <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">las =</span> <span class="dv">1</span>)</span>
-<span id="cb16-18"><a href="#cb16-18"></a>    <span class="co"># compute a 2d histogram from the occurrences</span></span>
-<span id="cb16-19"><a href="#cb16-19"></a>    breaks  &lt;-<span class="st"> </span><span class="kw">breaks_xy</span>(bbox, <span class="fl">.25</span>) <span class="co"># breakpoints every 1/4 of a degree</span></span>
-<span id="cb16-20"><a href="#cb16-20"></a>    density &lt;-<span class="st"> </span><span class="kw">hist_xy</span>(<span class="dt">xy =</span> <span class="kw">list</span>(lon_wgs84, lat_wgs84), breaks)</span>
-<span id="cb16-21"><a href="#cb16-21"></a>    <span class="co"># plot the histogram as a heatmap</span></span>
-<span id="cb16-22"><a href="#cb16-22"></a>    <span class="kw">image</span>(density,</span>
-<span id="cb16-23"><a href="#cb16-23"></a>          <span class="dt">asp    =</span> <span class="fl">2.4</span>,</span>
-<span id="cb16-24"><a href="#cb16-24"></a>          <span class="dt">breaks =</span> <span class="dv">2</span><span class="op">^</span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">12</span>), <span class="co"># breakpoints for the gridcell colours</span></span>
-<span id="cb16-25"><a href="#cb16-25"></a>          <span class="dt">col    =</span> <span class="kw">hcl.colors</span>(<span class="dv">12</span>, <span class="dt">rev =</span> <span class="ot">TRUE</span>),</span>
-<span id="cb16-26"><a href="#cb16-26"></a>          <span class="dt">xlab   =</span> <span class="st">&quot;Longitude&quot;</span>,</span>
-<span id="cb16-27"><a href="#cb16-27"></a>          <span class="dt">ylab   =</span> <span class="st">&quot;Latitude&quot;</span>,</span>
-<span id="cb16-28"><a href="#cb16-28"></a>          <span class="dt">panel.first =</span> <span class="kw">grid</span>())</span>
-<span id="cb16-29"><a href="#cb16-29"></a>    <span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>,</span>
-<span id="cb16-30"><a href="#cb16-30"></a>           <span class="dt">inset  =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">.01</span>),</span>
-<span id="cb16-31"><a href="#cb16-31"></a>           <span class="dt">legend =</span> <span class="kw">expression</span>(<span class="dv">2</span><span class="op">^</span><span class="dv">12</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="dv">2</span><span class="op">^</span><span class="dv">6</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="dv">2</span><span class="op">^</span><span class="dv">0</span>),</span>
-<span id="cb16-32"><a href="#cb16-32"></a>           <span class="dt">fill   =</span> <span class="kw">hcl.colors</span>(<span class="dv">7</span>),</span>
-<span id="cb16-33"><a href="#cb16-33"></a>           <span class="dt">border =</span> <span class="ot">NA</span>,</span>
-<span id="cb16-34"><a href="#cb16-34"></a>           <span class="dt">bty    =</span> <span class="st">&quot;n&quot;</span>,</span>
-<span id="cb16-35"><a href="#cb16-35"></a>           <span class="dt">adj    =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>), </span>
-<span id="cb16-36"><a href="#cb16-36"></a>           <span class="dt">x.intersp =</span> <span class="fl">.2</span>,</span>
-<span id="cb16-37"><a href="#cb16-37"></a>           <span class="dt">y.intersp =</span> <span class="fl">.5</span>)</span>
-<span id="cb16-38"><a href="#cb16-38"></a>    <span class="co"># add the Finnish border</span></span>
-<span id="cb16-39"><a href="#cb16-39"></a>    <span class="kw">polygon</span>(<span class="dt">x =</span> vertices, <span class="dt">lwd =</span> <span class="fl">.2</span>)</span>
-<span id="cb16-40"><a href="#cb16-40"></a>  }</span>
-<span id="cb16-41"><a href="#cb16-41"></a>)</span></code></pre></div>
+<summary>
+<span title>Click to show/hide code.</span>
+</summary>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download all the occurrences of Eurasian Jay in Finland</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># that have coordinates accurate to at least 100m</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>jays <span class="ot">&lt;-</span> <span class="fu">finbif_occurrence</span>(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">taxa   =</span> <span class="st">&quot;Eurasian Jay&quot;</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">c</span>(</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">coordinates_uncertainty_max =</span> <span class="dv">100</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">country                     =</span> <span class="st">&quot;Finland&quot;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n      =</span> <span class="fl">2e4</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">quiet  =</span> <span class="cn">TRUE</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the density of occurrences in 1/4 degree cells and plot as a heatmap</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(jays, finland_map),</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">expr =</span> {</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># compute a 2d histogram from the occurrences</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    breaks  <span class="ot">&lt;-</span> <span class="fu">breaks_xy</span>(bbox, .<span class="dv">25</span>) <span class="co"># breakpoints every 1/4 of a degree</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    density <span class="ot">&lt;-</span> <span class="fu">hist_xy</span>(<span class="at">xy =</span> <span class="fu">list</span>(lon_wgs84, lat_wgs84), breaks)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the histogram as a heatmap</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">image</span>(density,</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">asp    =</span> <span class="fl">2.4</span>,</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">breaks =</span> <span class="dv">2</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">12</span>), <span class="co"># breakpoints for the gridcell colours</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">col    =</span> <span class="fu">hcl.colors</span>(<span class="dv">12</span>, <span class="at">rev =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab   =</span> <span class="st">&quot;Longitude&quot;</span>,</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>          <span class="at">ylab   =</span> <span class="st">&quot;Latitude&quot;</span>,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.first =</span> <span class="fu">grid</span>())</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>           <span class="at">inset  =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">01</span>),</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend =</span> <span class="fu">expression</span>(<span class="dv">2</span><span class="sc">^</span><span class="dv">12</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="dv">2</span><span class="sc">^</span><span class="dv">6</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="dv">2</span><span class="sc">^</span><span class="dv">0</span>),</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill   =</span> <span class="fu">hcl.colors</span>(<span class="dv">7</span>),</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>           <span class="at">border =</span> <span class="cn">NA</span>,</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>           <span class="at">bty    =</span> <span class="st">&quot;n&quot;</span>,</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">adj    =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>), </span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">x.intersp =</span> .<span class="dv">2</span>,</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">y.intersp =</span> .<span class="dv">5</span>)</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add the Finnish border</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">polygon</span>(<span class="at">x =</span> vertices, <span class="at">lwd =</span> .<span class="dv">2</span>)</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </details>
 <p><img src="data:image/png;base64,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" /></p>
 </div>
