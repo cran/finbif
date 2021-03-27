@@ -18,7 +18,7 @@ finbif_occurrence(
   quiet = FALSE,
   cache = getOption("finbif_use_cache"),
   dwc = FALSE,
-  date_time_method = "fast",
+  date_time_method,
   check_taxa = TRUE,
   on_check_fail = c("warn", "error"),
   tzone = getOption("finbif_tz"),
@@ -45,13 +45,15 @@ descending order append a \code{-} to the front of the variable (e.g.,
 \code{"reported_name"}.}
 
 \item{aggregate}{Character. If missing, returns full records. If one or more
-of \code{"records"}, \code{"species"}, or \code{"taxa"} aggregates combinations of the
-selected variables by counting records, species and/or taxa.}
+of \code{"records"}, \code{"species"}, \code{"taxa"}, or \code{"events"} aggregates
+combinations of the selected variables by counting records, species, taxa,
+or events. Aggregation by event cannot be done in combination with any of
+the other aggregation types.}
 
 \item{sample}{Logical. If \code{TRUE} randomly sample the records from the FinBIF
 database.}
 
-\item{n}{Integer. How many records to download.}
+\item{n}{Integer. How many records to download/import.}
 
 \item{page}{Integer. Which page of records to start downloading from.}
 
@@ -66,8 +68,10 @@ downloads.}
 
 \item{date_time_method}{Character. Passed to \code{lutz::tz_lookup_coords()} when
 \code{date_time} and/or \code{duration} variables have been selected. Default is
-\code{"fast"}. Use \code{date_time_method = "accurate"} (requires package \code{sf}) for
-greater accuracy.}
+\code{"fast"} when  less than 100,000 records are requested and \code{"none"} when
+more. Using method \code{"none"} assumes all records are in timezone
+"Europe/Helsinki", Use \code{date_time_method = "accurate"} (requires package
+\code{sf}) for greater accuracy at the cost of slower computation.}
 
 \item{check_taxa}{Logical. Check first that taxa are in the FinBIF database.
 If true only records that match known taxa (have a valid taxon ID) are

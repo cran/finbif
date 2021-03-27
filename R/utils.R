@@ -3,22 +3,25 @@
 # misc -------------------------------------------------------------------------
 
 #' @noRd
-to_sentence_case <- function(string)
+to_sentence_case <- function(string) {
   paste0(substring(toupper(string), 1L, 1L), substring(tolower(string), 2L))
+}
 
 #' @noRd
-get_next_lowest_factor <-
-  function(x, y) if (x %% y) get_next_lowest_factor(x, y - 1L) else y
+get_next_lowest_factor <- function(x, y) {
+  if (x %% y) get_next_lowest_factor(x, y - 1L) else y
+}
 
 #' @noRd
 #' @importFrom methods as
 #' @importFrom utils hasName
 get_el_recurse <- function(obj, nms, type) {
 
-  if (length(nms) < 1L)
+  if (length(nms) < 1L) {
     return(
       if (is.null(obj) || identical(obj, "")) methods::as(NA, type) else obj
     )
+  }
 
   nm <- nms[[1L]]
 
@@ -30,12 +33,17 @@ get_el_recurse <- function(obj, nms, type) {
   }
 
   get_el_recurse(obj, nms[-1L], type)
+
 }
 
 #' @noRd
-pb_head <- function(msg) {
+pb_head <- function(msg, quiet = FALSE) {
   gap <- nchar(msg) + 15L
-  message("  |=== ", msg, " ", rep("=", max(0L, getOption("width") - gap)), "|")
+  if (!quiet) {
+    message(
+      "  |=== ", msg, " ", rep("=", max(0L, getOption("width") - gap)), "|"
+    )
+  }
 }
 
 #' @noRd
@@ -59,6 +67,52 @@ truncate_string_to_unique <- function(x) {
   y <- trimws(y)
   x[ind] <- ifelse(x[ind] == y, y, paste0("\u2026", y))
   x
+}
+
+#' @noRd
+value <- function(obj) obj
+
+#' @noRd
+col_type_string <- function(dwc) {
+  if (dwc) {
+    "dwc"
+  } else {
+    "translated_var"
+  }
+}
+
+#' @noRd
+det_datetime_method <- function(method, n) {
+  if (missing(method)) {
+    if (n < 1e5) {
+      method <- "fast"
+    } else {
+      method <- "none"
+    }
+  }
+  method
+}
+
+#' @noRd
+nlines <- function(x, header = TRUE) {
+  on.exit(close(con))
+  if (inherits(x, "unz")) {
+    con <- summary(x)
+    con <- con[["description"]]
+    con <- strsplit(con, ":")
+    con <- con[[1L]]
+    con <- unz(con[[1L]], con[[2L]], "rb")
+  } else {
+    con <- file(x, open = "rb")
+  }
+  n <- 0L
+  cond <- TRUE
+  while (cond) {
+    chunk <- readBin(con, "raw", 65536L)
+    n <- n + sum(chunk == as.raw(10L))
+    cond <- !identical(chunk, raw(0L))
+  }
+  n - header
 }
 
 # random sampling --------------------------------------------------------------
@@ -94,13 +148,15 @@ gen_seed.finbif_records_list <- function(x, ...) {
 # modified from https://github.com/reside-ic/defer/blob/master/R/defer.R
 
 #' @noRd
-deferrable_error <- function(message)
+deferrable_error <- function(message) {
   withRestarts({
-    calls <- sys.calls()
-    call <- calls[[max(length(calls) - 1L, 1L)]]
-    stop(error(message, "deferrable_error", call = call, calls = calls))
-  },
-  continue_deferrable_error = function(...) NULL)
+      calls <- sys.calls()
+      call <- calls[[max(length(calls) - 1L, 1L)]]
+      stop(error(message, "deferrable_error", call = call, calls = calls))
+    },
+    continue_deferrable_error = function(...) NULL
+  )
+}
 
 #' @noRd
 defer_errors <- function(expr, handler = stop) {
@@ -122,7 +178,7 @@ defer_errors <- function(expr, handler = stop) {
 }
 
 #' @noRd
-deferred_errors <- function(errors, handler, calls, value = NULL)
+deferred_errors <- function(errors, handler, calls, value = NULL) {
   if (length(errors)) {
     err <- list(errors = errors, value = value)
     class(err) <- c("dfrd_errors", "error", "condition")
@@ -130,12 +186,14 @@ deferred_errors <- function(errors, handler, calls, value = NULL)
   } else {
     value
   }
+}
 
 #' @noRd
-error <- function(message, class, ...)
+error <- function(message, class, ...) {
   structure(
     list(message = message, ...), class = c(class, "error", "condition")
   )
+}
 
 #' @export
 #' @noRd
@@ -179,6 +237,8 @@ to_dwc <- function(...) to_(list(...), "translated_var", "dwc")
 to_native <- function(...) to_(list(...), "dwc", "translated_var")
 
 # localization -----------------------------------------------------------------
+
+#' @noRd
 get_locale <- function() {
   ans <- supported_langs[[1L]]
   sys_lang <- c(Sys.getenv(c("LANGUAGE", "LANG")), Sys.getlocale("LC_COLLATE"))

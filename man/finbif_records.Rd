@@ -17,7 +17,8 @@ finbif_records(
   quiet = FALSE,
   cache = getOption("finbif_use_cache"),
   dwc = FALSE,
-  seed
+  seed,
+  df = FALSE
 )
 }
 \arguments{
@@ -37,13 +38,15 @@ descending order append a \code{-} to the front of the variable (e.g.,
 \code{"reported_name"}.}
 
 \item{aggregate}{Character. If missing, returns full records. If one or more
-of \code{"records"}, \code{"species"}, or \code{"taxa"} aggregates combinations of the
-selected variables by counting records, species and/or taxa.}
+of \code{"records"}, \code{"species"}, \code{"taxa"}, or \code{"events"} aggregates
+combinations of the selected variables by counting records, species, taxa,
+or events. Aggregation by event cannot be done in combination with any of
+the other aggregation types.}
 
 \item{sample}{Logical. If \code{TRUE} randomly sample the records from the FinBIF
 database.}
 
-\item{n}{Integer. How many records to download.}
+\item{n}{Integer. How many records to download/import.}
 
 \item{page}{Integer. Which page of records to start downloading from.}
 
@@ -59,6 +62,9 @@ downloads.}
 \item{seed}{Integer. Set a seed for randomly sampling records. Note that the
 server currently ignores seed setting and this argument currently has
 little effect.}
+
+\item{df}{Logical. Should the data.frame representation of the records be
+returned as an attribute?}
 }
 \value{
 A \code{finbif_api} or \code{finbif_api_list} object.

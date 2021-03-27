@@ -20,70 +20,74 @@
 #' @importFrom methods as
 #' @importFrom utils txtProgressBar setTxtProgressBar
 #' @export
-as.data.frame.finbif_records <-
-  function(x,  ..., locale = getOption("finbif_locale")) {
+as.data.frame.finbif_records <- function(
+  x,  ..., locale = getOption("finbif_locale")
+) {
 
-    cols <- attr(x, "select")
-    url  <- x[["response"]][["url"]]
-    time <- x[["response"]][["date"]]
+  cols <- attr(x, "select")
+  url  <- x[["response"]][["url"]]
+  time <- x[["response"]][["date"]]
 
-    aggregation <- attr(x, "aggregate")
-    aggregated <- !identical(aggregation, "none")
-    x <- x[["content"]][["results"]]
+  aggregation <- attr(x, "aggregate")
+  aggregated <- !identical(aggregation, "none")
+  x <- x[["content"]][["results"]]
 
-    if (aggregated) {
-      aggregations <-
-        c(records = "count", species = "speciesCount", taxa = "taxonCount")
-      aggregations <- aggregations[aggregation]
-      counts <- list()
-      for (i in seq_along(aggregations)) {
-        counts[[names(aggregations)[[i]]]] <-
-          vapply(x, getElement, integer(1L), aggregations[[i]])
-      }
-      x <- lapply(x, getElement, "aggregateBy")
-    }
-
-    lst <- lapply(
-      cols,
-      function(col) {
-        type      <- var_names[col, "type"]
-        type_na   <- methods::as(NA, type)
-        single    <- var_names[col, "single"]
-        localised <- var_names[col, "localised"]
-        if (aggregated) {
-          # unit/aggregate always returns data as a single string
-          ans <- vapply(x, getElement, NA_character_, col)
-          ans <- ifelse(ans == "", NA_character_, ans)
-          return(methods::as(ans, type))
-        }
-        col <- strsplit(col, "\\.")[[1L]]
-        if (single) return(vapply(x, get_el_recurse, type_na, col, type))
-        ans <- lapply(x, get_el_recurse, col, type)
-        ans <- lapply(ans, unlist)
-        if (localised) ans <- vapply(ans, with_locale, type_na, locale)
-        ans
-      }
+  if (aggregated) {
+    aggregations <- c(
+      records = "count", species = "speciesCount", taxa = "taxonCount",
+      events = "count"
     )
-
-    names(lst) <- cols
-    cols_split <- split(cols, var_names[cols, "single"])
-    cols_split[["TRUE"]] <- c("ind", cols_split[["TRUE"]])
-    lst <- c(list(ind = seq_along(x)), lst)
-    df <- as.data.frame(lst[cols_split[["TRUE"]]], stringsAsFactors = FALSE)
-    df[cols_split[["FALSE"]]] <- lst[cols_split[["FALSE"]]]
-    df[["ind"]] <- NULL
-
-    if (aggregated) {
-      aggregation_cols <- paste0("n_", aggregation)
-      cols <- c(cols, aggregation_cols)
-      for (i in seq_along(aggregation)) {
-        df[[aggregation_cols[[i]]]] <- counts[[i]]
-      }
+    aggregations <- aggregations[aggregation]
+    counts <- list()
+    for (i in seq_along(aggregations)) {
+      counts[[names(aggregations)[[i]]]] <- vapply(
+        x, getElement, integer(1L), aggregations[[i]]
+      )
     }
-
-    structure(df[cols], url = url, time = time)
-
+    x <- lapply(x, getElement, "aggregateBy")
   }
+
+  lst <- lapply(
+    cols,
+    function(col) {
+      type      <- var_names[col, "type"]
+      type_na   <- methods::as(NA, type)
+      single    <- var_names[col, "single"]
+      localised <- var_names[col, "localised"]
+      if (aggregated) {
+        # unit/aggregate always returns data as a single string
+        ans <- vapply(x, getElement, NA_character_, col)
+        ans <- ifelse(ans == "", NA_character_, ans)
+        return(methods::as(ans, type))
+      }
+      col <- strsplit(col, "\\.")[[1L]]
+      if (single) return(vapply(x, get_el_recurse, type_na, col, type))
+      ans <- lapply(x, get_el_recurse, col, type)
+      ans <- lapply(ans, unlist)
+      if (localised) ans <- vapply(ans, with_locale, type_na, locale)
+      ans
+    }
+  )
+
+  names(lst) <- cols
+  cols_split <- split(cols, var_names[cols, "single"])
+  cols_split[["TRUE"]] <- c("ind", cols_split[["TRUE"]])
+  lst <- c(list(ind = seq_along(x)), lst)
+  df <- as.data.frame(lst[cols_split[["TRUE"]]], stringsAsFactors = FALSE)
+  df[cols_split[["FALSE"]]] <- lst[cols_split[["FALSE"]]]
+  df[["ind"]] <- NULL
+
+  if (aggregated) {
+    aggregation_cols <- paste0("n_", aggregation)
+    cols <- c(cols, aggregation_cols)
+    for (i in seq_along(aggregation)) {
+      df[[aggregation_cols[[i]]]] <- counts[[i]]
+    }
+  }
+
+  structure(df[cols], url = url, time = time)
+
+}
 
 #' @noRd
 with_locale <- function(x, locale = getOption("finbif_locale")) {
@@ -94,42 +98,50 @@ with_locale <- function(x, locale = getOption("finbif_locale")) {
 
 #' @rdname as.data.frame.finbif_records
 #' @export
-as.data.frame.finbif_records_list <-
-  function(x, ..., locale = getOption("finbif_locale"), quiet = TRUE) {
+as.data.frame.finbif_records_list <- function(
+  x, ..., locale = getOption("finbif_locale"), quiet = TRUE
+) {
 
-    n <- length(x)
-    if (!quiet) {
-      pb <- utils::txtProgressBar(0L, n, style = 3L)
-      on.exit(close(pb))
-    }
-
-    df <- lapply(
-      seq_len(n),
-      function(i) {
-        if (!quiet) utils::setTxtProgressBar(pb, i)
-        as.data.frame(x[[i]], locale = locale)
-      }
-    )
-
-    url  <- do.call(c, lapply(df, attr, "url", TRUE))
-    time <- do.call(c, lapply(df, attr, "time", TRUE))
-
-    df <- do.call(rbind, df)
-
-    if (inherits(x, "finbif_records_sample_list")) {
-      records <- if (attr(x, "cache")) {
-        sample_with_seed(nrow(df), nrow(df), gen_seed(x))
-      } else {
-        sample.int(nrow(df))
-      }
-      df <- df[records, ]
-    }
-
-    if (!attr(x, "record_id")) df[["unit.unitId"]] <- NULL
-
-    structure(df, url = url, time = time)
-
+  n <- length(x)
+  if (!quiet) {
+    pb <- utils::txtProgressBar(0L, n, style = 3L)
+    on.exit(close(pb))
   }
+
+  df <- lapply(
+    seq_len(n),
+    function(i) {
+      if (!quiet) utils::setTxtProgressBar(pb, i)
+      x_df <- attr(x[[i]], "df")
+      if (is.null(x_df)) {
+        as.data.frame(x[[i]], locale = locale)
+      } else {
+        x_df
+      }
+    }
+  )
+
+  url  <- do.call(c, lapply(df, attr, "url", TRUE))
+  time <- do.call(c, lapply(df, attr, "time", TRUE))
+
+  df <- do.call(rbind, df)
+
+  record_id <- df[["unit.unitId"]]
+
+  if (inherits(x, "finbif_records_sample_list")) {
+    records <- if (attr(x, "cache")) {
+      sample_with_seed(nrow(df), nrow(df), gen_seed(x))
+    } else {
+      sample.int(nrow(df))
+    }
+    df <- df[records, ]
+  }
+
+  if (!attr(x, "record_id")) df[["unit.unitId"]] <- NULL
+
+  structure(df, url = url, time = time, record_id = record_id)
+
+}
 
 # accessor methods -------------------------------------------------------------
 
@@ -156,13 +168,33 @@ as.data.frame.finbif_records_list <-
   }
 
   ans <- if (has_j) NextMethod("[", drop = drop) else NextMethod("[")
-  ans <-
-    structure(as.data.frame(ans, stringsAsFactors = FALSE), class = class(x))
+  ans <- structure(
+    as.data.frame(ans, stringsAsFactors = FALSE), class = class(x)
+  )
   attr <- attributes(x)
   attr[["row.names"]] <- as.integer(rows)
+  attr[["record_id"]] <- attr[["record_id"]][as.integer(rows)]
   mostattributes(ans) <- attr
   names(ans) <- if (is.character(cols)) cols else names(x)[cols]
   ans
+}
+
+# rbind methods ----------------------------------------------------------------
+
+#' @noRd
+#' @export
+rbind.finbif_occ <- function(...) {
+
+  ans <- rbind.data.frame(...)
+
+  l <- list(...)
+
+  for (i in c("nrec_dnld", "nrec_avl", "url", "time", "record_id")) {
+    attr(ans, i) <- unlist(lapply(l, attr, i))
+  }
+
+  ans
+
 }
 
 # print methods ----------------------------------------------------------------
@@ -231,14 +263,14 @@ print.finbif_metadata_df <- function(x, ..., right = FALSE) {
 #' @export
 print.finbif_occ <- function(x, ...) {
 
-  nrec_dnld <- attr(x, "nrec_dnld")
-  nrec_avl  <- attr(x, "nrec_avl")
+  dwdth <- getOption("width")
+
   ncols     <- ncol(x)
   nrows     <- nrow(x)
   dsply_nr  <- min(10L, nrows)
 
-  if (length(nrec_dnld)) cat("Records downloaded: ", nrec_dnld, "\n", sep = "")
-  if (length(nrec_avl)) cat("Records available: ", nrec_avl, "\n", sep = "")
+  records_msg(x, dwdth, nrec_dnld = "downloaded", nrec_avl = "available")
+
   cat("A data.frame [", nrows, " x ", ncols, "]\n", sep = "")
 
   df <- x[seq_len(dsply_nr), , drop = FALSE]
@@ -262,7 +294,7 @@ print.finbif_occ <- function(x, ...) {
   for (i in widths) {
     ind <- dsply_nc + 1L
     cumulative_width <- cumulative_width + 1L + widths[[ind]]
-    if (cumulative_width > getOption("width")) break
+    if (cumulative_width > dwdth) break
     dsply_nc <- ind
   }
 
@@ -282,6 +314,26 @@ print.finbif_occ <- function(x, ...) {
 }
 
 #' @noRd
+records_msg <- function(x, width, ...) {
+  l <- list(...)
+
+  for (i in seq_along(l)) {
+
+    n <- attr(x, names(l)[[i]])
+
+    if (!identical(length(n), 0L)) {
+
+      suf <- paste0("Records ", l[[i]], ": ")
+      n <- truncate_string(paste(n, collapse = " + "), width - nchar(suf) - 2L)
+      cat(suf, n, "\n", sep = "")
+
+    }
+
+  }
+
+}
+
+#' @noRd
 format_cols <- function(df, colname_widths) {
 
   for (i in names(df)) {
@@ -291,25 +343,27 @@ format_cols <- function(df, colname_widths) {
     single <- var_names[ind, "single"] || var_names[ind, "localised"]
 
     # Variables may not necessarily be in the var_names object
-    if (length(class))
+    if (length(class)) {
       if (!single) {
         df[[i]] <- vapply(
           df[[i]],
           function(x) length(Filter(isFALSE, is.na(x))), integer(1L)
         )
-        df[[i]] <-
-          paste0(df[[i]], " element", ifelse(df[[i]] == 1L, "", "s"))
+        df[[i]] <- paste0(df[[i]], " element", ifelse(df[[i]] == 1L, "", "s"))
       } else {
         if (class == "uri") df[[i]] <- truncate_string_to_unique(df[[i]])
-        if (class %in% c("character", "uri", "factor"))
+        if (class %in% c("character", "uri", "factor")) {
           df[[i]] <- truncate_string(df[[i]])
-        if (class %in% c("double", "integer"))
+        }
+        if (class %in% c("double", "integer")) {
           df[[i]] <- formatC(
             df[[i]],
             colname_widths[[i]] - 2L, colname_widths[[i]],
             flag = "- "
           )
+        }
       }
+    }
 
   }
 
@@ -367,8 +421,8 @@ print_extras <- function(x, extra_rows, extra_cols, dsply_cols) {
 plot.finbif_occ <- function(
   x, ..., xlab = "Longitude", ylab = "Latitude",
   panel.first = grid(lwd = 2), # nolint
-  asp = 1 / cos(mean(range(x["lat_wgs84"])) * pi / 180),
-  pch = 19, cex = .5, las = 1
+  asp = 1 / cos(mean(range(x["lat_wgs84"])) * pi / 180), pch = 19, cex = .5,
+  las = 1
 ) {
   stopifnot(exists("lon_wgs84", x) && exists("lat_wgs84", x))
   graphics::plot.default(

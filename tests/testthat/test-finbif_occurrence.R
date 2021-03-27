@@ -36,7 +36,7 @@ test_that(
           "Pteromys volans",
           filter = c(province = "Uusimaa"),
           select = c("default_vars", "duration"),
-          sample = TRUE, n = 5000, cache = FALSE
+          sample = TRUE, n = 5000, cache = FALSE, date_time_method = "none"
         )
       )
     )
@@ -133,8 +133,10 @@ test_that(
     if (
       requireNamespace("grDevices") && !identical(.Platform$OS.type, "windows")
     )
-      expect_snapshot_file(save_svg(
-        plot(fungi, axes = FALSE, xlab = NA, ylab = NA, panel.first = NULL)),
+      expect_snapshot_file(
+        save_svg(
+          plot(fungi, axes = FALSE, xlab = NA, ylab = NA, panel.first = NULL)
+        ),
         "fungi.svg"
       )
 
@@ -156,6 +158,14 @@ test_that(
 
     expect_error(
       finbif_occurrence("not a valid taxa", on_check_fail = "error")
+    )
+
+    expect_error(
+      finbif_occurrence(filter = list(coordinates = list(c(60, 68), c(20, 30))))
+    )
+
+    expect_error(
+      finbif_occurrence(filter = list(NULL), aggregate = "records", n = 2e5)
     )
 
   }
@@ -196,3 +206,33 @@ test_that(
 )
 
 suppressMessages(eject_cassette("finbif_occurrence_collection"))
+
+test_that(
+  "can make a multifilter request", {
+
+    skip_on_cran()
+
+    expect_s3_class(finbif_occurrence(filter = list(NULL, NULL)), "finbif_occ")
+
+  }
+)
+
+suppressMessages(insert_cassette("finbif_occurrence_aggregate_events"))
+
+test_that(
+  "can aggregate by events", {
+
+    skip_on_cran()
+
+    expect_s3_class(
+      finbif_occurrence(
+        filter = c(location_id = "MNP.798"), aggregate = "events"
+      ),
+      "finbif_occ"
+    )
+
+  }
+
+)
+
+suppressMessages(eject_cassette("finbif_occurrence_aggregate_events"))

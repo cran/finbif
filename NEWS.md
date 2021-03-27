@@ -1,3 +1,28 @@
+# finbif 0.5.0
+
+#### NEW FEATURES
+
+-   Getting records from FinBIF can now be speed up (\~1.5x) with
+    asynchronous processing. If the `future` package is available and an
+    asynchronous strategy (e.g., `plan(multisession, workers = 2)`) is
+    selected then downloading records and processing them will occur
+    simultaneously in separate threads, often leading to a significant
+    speed up over sequential processing.
+
+-   Occurrence records can now be requested using multiple sets of
+    filters at the same time. If a list of filters (with unnamed
+    elements) is supplied then a record request will be made for each
+    set of filters and the results of all requests combined and all
+    duplicate records removed.
+
+-   Occurrence records can now be read directly from FinBIF download
+    request files. The function `finbif_occurrence_load` can load data
+    from a local file or remotely using a persistent identifier URI
+    (e.g., `http://tun.fi/HBF.49381`).
+
+-   Aggregation of records can now be performed at the recording "event"
+    level as well as the "record"" level.
+
 # finbif 0.4.1
 
 #### NEW FEATURES

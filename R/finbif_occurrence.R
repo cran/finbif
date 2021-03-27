@@ -9,8 +9,10 @@
 #' @inheritParams finbif_records
 #' @param date_time_method Character. Passed to `lutz::tz_lookup_coords()` when
 #'   `date_time` and/or `duration` variables have been selected. Default is
-#'   `"fast"`. Use `date_time_method = "accurate"` (requires package `sf`) for
-#'   greater accuracy.
+#'   `"fast"` when  less than 100,000 records are requested and `"none"` when
+#'   more. Using method `"none"` assumes all records are in timezone
+#'    "Europe/Helsinki", Use `date_time_method = "accurate"` (requires package
+#'     `sf`) for greater accuracy at the cost of slower computation.
 #' @param check_taxa Logical. Check first that taxa are in the FinBIF database.
 #'   If true only records that match known taxa (have a valid taxon ID) are
 #'   returned.
@@ -52,59 +54,71 @@
 finbif_occurrence <- function(
   ..., filter, select, order_by, aggregate, sample = FALSE, n = 10, page = 1,
   count_only = FALSE, quiet = FALSE, cache = getOption("finbif_use_cache"),
-  dwc = FALSE, date_time_method = "fast", check_taxa = TRUE,
+  dwc = FALSE, date_time_method, check_taxa = TRUE,
   on_check_fail = c("warn", "error"), tzone = getOption("finbif_tz"),
   locale = getOption("finbif_locale")
 ) {
 
-  taxa <- select_taxa(..., cache = cache, check_taxa = check_taxa,
+  taxa <- select_taxa(
+    ..., cache = cache, check_taxa = check_taxa,
     on_check_fail = match.arg(on_check_fail)
   )
 
-  if (missing(filter)) filter <- NULL
-  filter <- c(taxa, filter)
+  date_time_method <- det_datetime_method(date_time_method, n = sum(n))
 
-  if (missing(aggregate)) {
+  if (missing(filter) || is.null(filter)) {
 
-    aggregate <- "none"
+    filter <- NULL
 
   } else {
 
-    aggregate <- match.arg(aggregate, c("records", "species", "taxa"), TRUE)
+    if (is.null(names(filter))) {
+
+      stopifnot(
+        "only one filter set can be used with aggregation" = missing(aggregate)
+      )
+
+      multi_request <- multi_req(
+        taxa, filter, select, order_by, sample, n, page, count_only, quiet,
+        cache, dwc, date_time_method, tzone, locale
+      )
+
+      return(multi_request)
+
+    }
 
   }
 
+  filter <- c(taxa, filter)
+
   records <- finbif_records(
     filter, select, order_by, aggregate, sample, n, page, count_only, quiet,
-    cache, dwc
+    cache, dwc, df = TRUE
   )
+
+  aggregate <- attr(records, "aggregate", TRUE)
 
   if (count_only) return(records[["content"]][["total"]])
 
   # Don't need a processing progress bar if only one page of records
-  if (length(records) < 2L) quiet <- TRUE
+  quiet <- quiet || length(records) < 2L
 
-  if (!quiet) pb_head("Processing data")
+  pb_head("Processing data", quiet = quiet)
 
   df   <- as.data.frame(records, locale = locale, quiet = quiet)
   url  <- attr(df, "url", TRUE)
   time <- attr(df, "time", TRUE)
+  record_id <- attr(df, "record_id", TRUE)
 
-  n <- list()
+  n_col_nms <- grep("^n_", names(df), value = TRUE)
 
-  for (i in paste0("n_", aggregate)) {
-    n[[i]] <- df[[i]]
-    df[[i]] <- NULL
-  }
+  ind <- !names(df) %in% n_col_nms
 
-  names(df) <- var_names[names(df), if (dwc) "dwc" else "translated_var"]
-
-  for (i in paste0("n_", aggregate)) df[[i]] <- n[[i]]
+  names(df)[ind] <- var_names[names(df)[ind], col_type_string(dwc)]
 
   select_ <- attr(records, "select_user")
 
-  if (!identical(aggregate, "none"))
-    select_ <- c(select_, paste0("n_", aggregate))
+  select_ <- c(select_, n_col_nms)
 
   df <- compute_date_time(
     df, select, select_, aggregate, dwc, date_time_method, tzone
@@ -119,14 +133,15 @@ finbif_occurrence <- function(
     nrec_avl  = attr(records, "nrec_avl", TRUE),
     url       = url,
     time      = time,
-    dwc       = dwc
+    dwc       = dwc,
+    record_id = record_id
   )
 
 }
 
 select_taxa <- function(..., cache, check_taxa, on_check_fail) {
 
-  taxa <- list(...)
+  taxa <- c(...)
   ntaxa <- length(taxa)
 
   if (identical(ntaxa, 0L)) return(NULL)
@@ -135,12 +150,11 @@ select_taxa <- function(..., cache, check_taxa, on_check_fail) {
 
   if (check_taxa) {
 
-    taxa <-
-      if (ntaxa > 1L || !utils::hasName(taxa, "taxa")) {
-        unlist(finbif_check_taxa(taxa, cache = cache))
-      } else {
-        unlist(finbif_check_taxa(..., cache = cache))
-      }
+    if (ntaxa > 1L || !utils::hasName(taxa, "taxa")) {
+      taxa <- unlist(finbif_check_taxa(taxa, cache = cache))
+    } else {
+      taxa <- unlist(finbif_check_taxa(..., cache = cache))
+    }
 
     taxa_invalid <- is.na(taxa)
     taxa_valid  <- !taxa_invalid
@@ -157,8 +171,9 @@ select_taxa <- function(..., cache, check_taxa, on_check_fail) {
       )
     }
 
-    if (any(taxa_valid))
+    if (any(taxa_valid)) {
       ans <- list(taxon_id = paste(taxa[taxa_valid], collapse = ","))
+    }
 
   }
 
@@ -170,41 +185,47 @@ compute_date_time <- function(
   df, select, select_, aggregate, dwc, date_time_method, tzone
 ) {
 
-  date_time <-
-    missing(select) ||
-    any(
-      c(
-        "default_vars", "date_time", "eventDateTime", "duration",
-        "samplingEffort"
-      ) %in%
-        select
-    )
+  vars <- c(
+    "date_time", "eventDateTime", "duration", "samplingEffort"
+  )
 
-  date_time <- date_time && identical(aggregate, "none")
+  if (missing(select)) {
 
-  if (date_time)
+    date_time <- identical("none", aggregate)
+
+  } else {
+
+    if (identical("none", aggregate)) vars <- c(vars, "default_vars")
+    date_time <- any(vars %in% select)
+
+  }
+
+  if (date_time) {
     if (dwc) {
       df[["eventDateTime"]] <- get_date_time(
         df, "eventDateStart", "hourStart", "minuteStart",
         "decimalLatitude", "decimalLongitude", date_time_method, tzone
       )
-      if ("samplingEffort" %in% select_)
+      if ("samplingEffort" %in% select_) {
         df[["samplingEffort"]] <- get_duration(
           df, "eventDateTime", "eventDateStart", "hourStart",
           "minuteStart", "decimalLatitude", "decimalLongitude",
           date_time_method, tzone
         )
+      }
     } else {
       df[["date_time"]] <- get_date_time(
         df, "date_start", "hour_start", "minute_start", "lat_wgs84",
         "lon_wgs84", date_time_method, tzone
       )
-      if ("duration" %in% select_)
+      if ("duration" %in% select_) {
         df[["duration"]] <- get_duration(
           df, "date_time", "date_end", "hour_end", "minute_end", "lat_wgs84",
           "lon_wgs84", date_time_method, tzone
         )
+      }
     }
+  }
 
   df
 
@@ -219,35 +240,54 @@ get_date_time <- function(df, date, hour, minute, lat, lon, method, tzone) {
   # midnight)
   lubridate::hour(date_time) <- 12L
 
-  if (!is.null(df[[hour]]))
-    lubridate::hour(date_time) <-
-      ifelse(is.na(df[[hour]]), lubridate::hour(date_time), df[[hour]])
+  if (!is.null(df[[hour]])) {
+    lubridate::hour(date_time) <- ifelse(
+      is.na(df[[hour]]), lubridate::hour(date_time), df[[hour]]
+    )
+  }
 
-  if (!is.null(df[[minute]]))
-    lubridate::minute(date_time) <-
-      ifelse(is.na(df[[minute]]), lubridate::minute(date_time), df[[minute]])
+  if (!is.null(df[[minute]])) {
+    lubridate::minute(date_time) <- ifelse(
+      is.na(df[[minute]]), lubridate::minute(date_time), df[[minute]]
+    )
+  }
 
-  tz <- lutz::tz_lookup_coords(df[[lat]], df[[lon]], method, FALSE)
-  lubridate::force_tzs(
-    date_time, tzones = ifelse(is.na(tz), "", tz), tzone_out = tzone
-  )
-}
+  method <- match.arg(method, c("none", "fast", "accurate"), TRUE)
 
-get_duration <-
-  function(df, date_time, date, hour, minute, lat, lon, method, tzone) {
+  if (identical(method, "none")) {
 
-    date_time_end <-
-      get_date_time(df, date, hour, minute, lat, lon, method, tzone)
+    tz_in <- "Europe/Helsinki"
+    date_time <- lubridate::force_tz(date_time, tz_in)
+    lubridate::with_tz(date_time, tzone)
 
-    ans <- lubridate::interval(df[[date_time]], date_time_end)
-    ans <- ifelse(is.na(df[[minute]]) | is.na(df[[hour]]), NA, ans)
-    lubridate::as.duration(ans)
+  } else {
+
+    tz_in <- lutz::tz_lookup_coords(df[[lat]], df[[lon]], method, FALSE)
+    lubridate::force_tzs(
+      date_time, tzones = ifelse(is.na(tz_in), "", tz_in), tzone_out = tzone
+    )
 
   }
 
+}
+
+get_duration <- function(
+  df, date_time, date, hour, minute, lat, lon, method, tzone
+) {
+
+  date_time_end <- get_date_time(
+    df, date, hour, minute, lat, lon, method, tzone
+  )
+
+  ans <- lubridate::interval(df[[date_time]], date_time_end)
+  ans <- ifelse(is.na(df[[minute]]) | is.na(df[[hour]]), NA, ans)
+  lubridate::as.duration(ans)
+
+}
+
 compute_vars_from_id <- function(df, select_) {
 
-  candidates <- setdiff(select_, df)
+  candidates <- setdiff(select_, names(df))
 
   for (i in seq_along(candidates)) {
 
@@ -255,16 +295,16 @@ compute_vars_from_id <- function(df, select_) {
 
     if (utils::hasName(df, id_var_name)) {
 
-      metadata <- if (identical(id_var_name, "collection_id")) {
+      if (identical(id_var_name, "collection_id")) {
 
-        collection <-  finbif_collections(
-          select = "collection_name",
-          subcollections = TRUE, supercollections = TRUE, nmin = NA
+        metadata <- finbif_collections(
+          select = "collection_name", subcollections = TRUE,
+          supercollections = TRUE, nmin = NA
         )
 
       } else {
 
-        get(candidates[[i]])
+        metadata <- get(candidates[[i]])
 
       }
 
@@ -277,5 +317,47 @@ compute_vars_from_id <- function(df, select_) {
   }
 
   df
+
+}
+
+multi_req <- function(
+  taxa, filter, select, order_by, sample, n, page, count_only, quiet, cache,
+  dwc, date_time_method, tzone, locale
+) {
+
+  ans <- vector("list", length(filter))
+
+  rep_args <- c(
+    "sample", "n", "page", "quiet", "cache", "date_time_method", "tzone",
+    "locale"
+  )
+
+  for (arg in rep_args) {
+
+    assign(arg, rep_len(get(arg), length(ans)))
+
+  }
+
+  for (i in seq_along(ans)) {
+
+    ans[[i]] <- finbif_occurrence(
+      taxa, filter = filter[[i]], select = select, order_by = order_by,
+      sample = sample[[i]], n = n[[i]], page = page[[i]],
+      count_only = count_only, quiet = quiet[[i]], cache = cache[[i]],
+      dwc = dwc, date_time_method = date_time_method[[i]], check_taxa = FALSE,
+      tzone = tzone[[i]], locale = locale[[i]]
+    )
+
+  }
+
+  if (!count_only) {
+
+    ans <- do.call(rbind, ans)
+    dups <- duplicated(attr(ans, "record_id"))
+    ans <- ans[!dups, ]
+
+  }
+
+  ans
 
 }

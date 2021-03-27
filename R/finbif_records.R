@@ -19,11 +19,13 @@
 #'   `"-date_start"`). Default order is `"-date_start"` > `"-load_data"` >
 #'   `"reported_name"`.
 #' @param aggregate Character. If missing, returns full records. If one or more
-#'   of `"records"`, `"species"`, or `"taxa"` aggregates combinations of the
-#'   selected variables by counting records, species and/or taxa.
+#'   of `"records"`, `"species"`, `"taxa"`, or `"events"` aggregates
+#'   combinations of the selected variables by counting records, species, taxa,
+#'   or events. Aggregation by event cannot be done in combination with any of
+#'   the other aggregation types.
 #' @param sample Logical. If `TRUE` randomly sample the records from the FinBIF
 #'   database.
-#' @param n Integer. How many records to download.
+#' @param n Integer. How many records to download/import.
 #' @param page Integer. Which page of records to start downloading from.
 #' @param count_only Logical. Only return the number of records available.
 #' @param quiet Logical. Suppress the progress indicator for multipage
@@ -33,6 +35,8 @@
 #' @param seed Integer. Set a seed for randomly sampling records. Note that the
 #'   server currently ignores seed setting and this argument currently has
 #'   little effect.
+#' @param df Logical. Should the data.frame representation of the records be
+#'   returned as an attribute?
 #' @return A `finbif_api` or `finbif_api_list` object.
 #' @examples \dontrun{
 #'
@@ -45,25 +49,22 @@
 finbif_records <- function(
   filter, select, order_by, aggregate, sample = FALSE, n = 10, page = 1,
   count_only = FALSE, quiet = FALSE, cache = getOption("finbif_use_cache"),
-  dwc = FALSE, seed
+  dwc = FALSE, seed, df = FALSE
 ) {
 
   max_queries        <- 2000L
   max_size           <- 1000L
   nmax               <- max_queries * max_size
   n                  <- as.integer(n)
-  var_type           <- if (dwc) "dwc" else "translated_var"
-  record_id_selected <- TRUE
-
-  if (missing(aggregate)) aggregate <- "none"
-
-  aggregate <- match.arg(
-    aggregate, c("none", "records", "species", "taxa"), TRUE
-  )
+  var_type           <- col_type_string(dwc)
 
   defer_errors({
 
     check_n(n, nmax)
+
+    # aggregation ==============================================================
+
+    aggregate <- infer_aggregation(aggregate)
 
     # filter ===================================================================
 
@@ -79,11 +80,11 @@ finbif_records <- function(
 
     # select ===================================================================
 
-    select <-
-      infer_selection(aggregate, select, var_type, dwc, record_id_selected)
+    select <- infer_selection(aggregate, select, var_type)
 
-    query[[select_type(aggregate, "selected", "aggregateBy")]] <-
-      paste(select[["query"]], collapse = ",")
+    select_param <- switch(aggregate[[1L]], none = "selected", "aggregateBy")
+
+    query[[select_param]] <- paste(select[["query"]], collapse = ",")
 
     # order ====================================================================
 
@@ -104,37 +105,74 @@ finbif_records <- function(
 
     }
 
-    if (sample)
+    if (sample) {
       query[["orderBy"]] <- paste(
         if (missing(seed)) "RANDOM" else paste0("RANDOM:", as.integer(seed)),
         query[["orderBy"]],
         sep = c("", ",")[[length(query[["orderBy"]]) + 1L]]
       )
+    }
 
   })
 
-  request(
+  ans <- request(
     filter, select[["query"]], sample, n, page, count_only, quiet, cache, query,
-    max_size, select[["user"]], select[["record_id_selected"]], dwc, aggregate
+    max_size, select[["user"]], select[["record_id_selected"]], dwc, aggregate,
+    df
   )
+
+  if (df) {
+    ind <- length(ans)
+    attr(ans[[ind]], "df") <- as.data.frame(ans[[ind]])
+  }
+
+  ans
+
+}
+
+# aggregation ------------------------------------------------------------------
+
+infer_aggregation <- function(aggregate) {
+
+  if (missing(aggregate)) {
+     aggregate <- "none"
+  }
+
+  aggregate <- match.arg(
+    aggregate, c("none", "records", "species", "taxa", "events"), TRUE
+  )
+
+  cond <- "events" %in% aggregate && length(aggregate) > 1L
+
+  if (cond) {
+    deferrable_error(
+      "Aggregating by events cannot by combined with other aggregations"
+    )
+  }
+
+  aggregate
 
 }
 
 # selection --------------------------------------------------------------------
 
-infer_selection <- function(
-  aggregate, select, var_type, dwc, record_id_selected
-) {
+infer_selection <- function(aggregate, select, var_type) {
+
+  date_time_vars <- var_names[var_names[["date"]], ]
+  default_vars <- var_names["unit.linkings.taxon.scientificName", ]
+  select_type <- "aggregate"
+
+  if (identical(aggregate, "events")) {
+
+    default_vars <- var_names["gathering.gatheringId", ]
+    select_type <- "aggregate_events"
+
+  }
 
   if (identical(aggregate, "none")) {
 
     default_vars <- var_names[var_names[["default_var"]], ]
-    date_time_vars <- var_names[var_names[["date"]], ]
-
-  } else {
-
-    default_vars <- var_names["unit.linkings.taxon.scientificName", ]
-    date_time_vars <- NULL
+    select_type <- "select"
 
   }
 
@@ -142,10 +180,14 @@ infer_selection <- function(
 
     select <- row.names(default_vars)
     select_ <- default_vars[[var_type]]
+    record_id_selected <- FALSE
 
-    # Missing 'select' implies default selection which implies date-time calc
-    # needed
-    select <- unique(c(select, row.names(date_time_vars)))
+    if (identical(aggregate, "none")) {
+      # Missing 'select' implies default selection which implies date-time calc
+      # needed
+      select <- unique(c(select, row.names(date_time_vars)))
+      record_id_selected <- TRUE
+    }
 
   } else {
 
@@ -159,22 +201,24 @@ infer_selection <- function(
     select <- setdiff(select, deselect)
     select_ <- select
 
-    record_id_selected <- any(c("record_id", "occurrenceID") %in% select)
-    if (!record_id_selected && identical(aggregate, "none"))
-      select <- c(if (dwc) "occurrenceID" else "record_id", select)
+    record_id_selected <- var_names["unit.unitId", var_type] %in% select
 
-    date_time <- any(
-      c("date_time", "eventDateTime", "duration", "samplingEffort") %in%
-        select
-    )
+    if (!record_id_selected && identical(aggregate, "none")) {
+      select <- c(var_names["unit.unitId", var_type], select)
+    }
 
-    if (date_time && identical(aggregate, "none"))
+    vars <-  c("date_time", "eventDateTime", "duration", "samplingEffort")
+    date_time <- any(vars %in% select)
+
+    if (date_time) {
       select <- unique(c(select, date_time_vars[[var_type]]))
+    }
 
-    select_vars <- var_names[var_names[["select"]], var_type, drop = FALSE]
+    select_vars <- var_names[var_names[[select_type]], var_type, drop = FALSE]
     class(select_vars[[var_type]]) <- class(var_names[[var_type]])
-    select <-
-      translate(select, "select_vars", list(select_vars = select_vars))
+    select <- translate(
+      select, "select_vars", list(select_vars = select_vars)
+    )
 
     vars_computed_from_id <- grepl("^computed_var_from_id", select)
 
@@ -187,8 +231,9 @@ infer_selection <- function(
         ind <- match(row.names(vars_computed_from_id)[[i]], select)
         computed_var <- vars_computed_from_id[i, "translated_var"]
         id_var <- paste0(computed_var, "_id")
-        select[[ind]] <-
-          translate(id_var, "select_vars", list(select_vars = select_vars))
+        select[[ind]] <- translate(
+          id_var, "select_vars", list(select_vars = select_vars)
+        )
 
       }
 
@@ -207,21 +252,21 @@ infer_selection <- function(
 
 request <- function(
   filter, select, sample, n, page, count_only, quiet, cache, query, max_size,
-  select_, record_id_selected, dwc, aggregate
+  select_, record_id_selected, dwc, aggregate, df
 ) {
 
-  path <- "warehouse/query/unit/"
+  path <- "warehouse/query/"
 
   if (count_only && identical(aggregate, "none")) {
 
     query[["selected"]] <- NULL
     query[["orderBy"]]  <- NULL
-    path <- paste0(path, "count")
+    path <- paste0(path, "unit/count")
     return(api_get(path, query, cache))
 
   }
 
-  path <- paste0(path, select_type(aggregate, "list", "aggregate"))
+  path <- paste0(path, select_endpoint(aggregate))
 
   if (count_only) {
 
@@ -238,14 +283,7 @@ request <- function(
   query[["page"]] <- page
   query[["pageSize"]] <- min(n, max_size)
 
-  resp <- list(
-    structure(
-      api_get(path, query, cache),
-      class = c("finbif_records", "finbif_api"),
-      select = unique(select),
-      aggregate = aggregate
-    )
-  )
+  resp <- list(records_obj(path, query, cache, select, aggregate))
 
   n_tot <- resp[[1L]][["content"]][["total"]]
   n <- min(n, n_tot)
@@ -260,19 +298,20 @@ request <- function(
     if (sample && sample_after_request) {
       all_records <- finbif_records(
         filter, select_, sample = FALSE, n = n_tot, quiet = quiet,
-        cache = cache, dwc = dwc
+        cache = cache, dwc = dwc, df = df
       )
       return(record_sample(all_records, n, cache))
     }
 
     resp <- get_extra_pages(
-      resp, n, max_size, quiet, path, query, cache, select, aggregate
+      resp, n, max_size, quiet, path, query, cache, select, aggregate, df
     )
 
-    if (sample)
+    if (sample) {
       resp <- handle_duplicates(
-        resp, filter, select_, max_size, cache, n, seed = 1L, dwc
+        resp, filter, select_, max_size, cache, n, seed = 1L, dwc, df
       )
+    }
 
   }
 
@@ -284,56 +323,73 @@ request <- function(
 
 }
 
+# construct request ------------------------------------------------------------
+
+records_obj <- function(path, query, cache, select, aggregate) {
+  structure(
+    api_get(path, query, cache),
+    class = c("finbif_records", "finbif_api"),
+    select = unique(select),
+    aggregate = aggregate
+  )
+}
+
 # record pagination ------------------------------------------------------------
 
-get_extra_pages <-
-  function(resp, n, max_size, quiet, path, query, cache, select, aggregate) {
+get_extra_pages <- function(
+  resp, n, max_size, quiet, path, query, cache, select, aggregate, df
+) {
 
-    multipage <- n > max_size
+  multipage <- n > max_size
 
-    if (multipage && !quiet) {
-      pb_head("Fetching data")
-      pb <- utils::txtProgressBar(0L, floor(n / max_size), style = 3L)
-      on.exit(close(pb))
+  if (multipage && !quiet) {
+    pb_head("Fetching data")
+    pb <- utils::txtProgressBar(0L, floor(n / max_size), style = 3L)
+    on.exit(close(pb))
+  }
+
+  i <- 1L
+  query[["page"]] <- query[["page"]] + 1L
+  n_pages <- n %/% query[["pageSize"]]
+
+  has_future <- requireNamespace("future", quietly = TRUE)
+
+  if (has_future) value <- future::value
+
+  while (multipage) {
+
+    if (!quiet) utils::setTxtProgressBar(pb, i)
+
+    if (query[["page"]] > n_pages) {
+
+      excess_records <- n %% query[["pageSize"]]
+      last_record <- query[["pageSize"]] * n_pages
+      if (last_record == n) break
+      query[["pageSize"]] <- get_next_lowest_factor(last_record, excess_records)
+      query[["page"]] <- last_record / query[["pageSize"]] + 1L
+      n_pages <- n %/% query[["pageSize"]]
+
     }
 
-    i <- 1L
+    delayedAssign("res", records_obj(path, query, cache, select, aggregate))
+
+    if (has_future) {
+      res <- future::future(records_obj(path, query, cache, select, aggregate))
+    }
+
+    if (df) attr(resp[[i]], "df") <- as.data.frame(resp[[i]])
+
+    i <- i + 1L
+
+    resp[[i]] <- value(res)
+
     query[["page"]] <- query[["page"]] + 1L
-    n_pages <- n %/% query[["pageSize"]]
-
-    # Pausing between requests is important if many request will be made
-    sleep <- if (n_pages > 10L) 0L else 1L
-
-    while (multipage) {
-
-      Sys.sleep(sleep)
-      if (!quiet) utils::setTxtProgressBar(pb, i)
-      i <- i + 1L
-
-      if (query[["page"]] > n_pages) {
-        excess_records <- n %% query[["pageSize"]]
-        last_record <- query[["pageSize"]] * n_pages
-        if (last_record == n) break
-        query[["pageSize"]] <-
-          get_next_lowest_factor(last_record, excess_records)
-        query[["page"]] <- last_record / query[["pageSize"]] + 1L
-        n_pages <- n %/% query[["pageSize"]]
-      }
-
-      resp[[i]] <- structure(
-        api_get(path, query, cache),
-        class = c("finbif_records", "finbif_api"),
-        select = unique(select),
-        aggregate = aggregate
-      )
-
-      query[["page"]] <- query[["page"]] + 1L
-
-    }
-
-    resp
 
   }
+
+  resp
+
+}
 
 # parsing filters --------------------------------------------------------------
 
@@ -347,8 +403,9 @@ parse_filters <- function(filter) {
     # the filter might not exist
     if (is.na(finbif_filter_names[[i]])) next
 
-    if (filter_names[finbif_filter_names[[i]], "translated_values"])
+    if (filter_names[finbif_filter_names[[i]], "translated_values"]) {
       filter[[i]] <- translate(filter[[i]], names(filter)[[i]])
+    }
 
     if (grepl("^(not_){0,1}collection$", names(filter)[[i]])) { # nolint
 
@@ -364,12 +421,14 @@ parse_filters <- function(filter) {
           select = NA, supercollections = TRUE, nmin = NA
         )
 
-        for (cl in c("id", "collection_name", "abbreviation"))
+        for (cl in c("id", "collection_name", "abbreviation")) {
           class(env[[names(filter)[[i]]]][[cl]]) <- "translation"
+        }
 
         filter[[i]] <- translate(filter[[i]], names(filter)[[i]], env)
 
       }
+
     }
 
     if (identical(filter_names[finbif_filter_names[[i]], "class"], "coords")) {
@@ -378,11 +437,16 @@ parse_filters <- function(filter) {
       check_coordinates(finbif_filter_names[[i]], filter[["coordinates"]])
 
       filter[[i]] <- do.call(coords, as.list(filter[[i]]))
+
     }
 
-    if (identical(filter_names[finbif_filter_names[[i]], "class"], "date"))
-      filter[[i]] <-
-        do.call(dates, c(list(names(filter)[[i]]), as.list(filter[[i]])))
+    if (identical(filter_names[finbif_filter_names[[i]], "class"], "date")) {
+
+      filter[[i]] <- do.call(
+        dates, c(list(names(filter)[[i]]), as.list(filter[[i]]))
+      )
+
+    }
 
     filter[[i]] <- paste(
       filter[[i]], collapse = filter_names[finbif_filter_names[[i]], "sep"]
@@ -398,26 +462,21 @@ parse_filters <- function(filter) {
 
 check_coordinates <- function(filter_names, filter) {
 
-  if (
-    identical(filter_names, "coordinates") &&
-    (
-      length(filter) < 3L ||
-      (
-        !utils::hasName(filter, "system")  &&
-        !identical(names(filter[[3]]), "") &&
-        !is.null(names(filter))
-      )
-    )
-  )
+  cond <- !is.null(names(filter)) && !identical(names(filter[[3]]), "")
+  cond <- !utils::hasName(filter, "system") && cond
+  cond <- length(filter) < 3L || cond
+  cond <- identical(filter_names, "coordinates") && cond
 
-    deferrable_error("Invalid coordinates: system not specified")
+  if (cond) deferrable_error("Invalid coordinates: system not specified")
 
 }
 
 # translation ------------------------------------------------------------------
 
 translate <- function(x, translation, pos = -1) {
+
   trsltn <- get(translation, pos)
+
   # Some filters have multi-level values to translate (e.g., primary_habitat)
   if (is.list(x)) {
 
@@ -429,8 +488,10 @@ translate <- function(x, translation, pos = -1) {
   } else {
 
     ind <- rep(NA_integer_, length(x))
+
     # multilevel filters have data.frames a level below
     if (!is.data.frame(trsltn)) trsltn <- trsltn[[1L]]
+
     for (i in trsltn) {
       if (inherits(i, "translation")) {
         ind_ <- match(tolower(x), tolower(i))
@@ -438,10 +499,14 @@ translate <- function(x, translation, pos = -1) {
       }
     }
 
-    if (anyNA(ind)) for (err in x[is.na(ind)])
-      deferrable_error(
-        paste0("Invalid name in ", gsub("_", " ", translation), ": ", err)
-      )
+    if (anyNA(ind)) {
+      for (err in x[is.na(ind)]) {
+        deferrable_error(
+          paste0("Invalid name in ", gsub("_", " ", translation), ": ", err)
+        )
+      }
+    }
+
     row.names(trsltn)[ind]
 
   }
@@ -455,10 +520,10 @@ record_sample <- function(x, n, cache) {
   select <- attr(x, "select")
   record_id <- attr(x, "record_id")
 
-  records <- if (cache) {
-    sample_with_seed(n_tot, n_tot - n, gen_seed(x))
+  if (cache) {
+    records <- sample_with_seed(n_tot, n_tot - n, gen_seed(x))
   } else {
-    sample.int(n_tot, n_tot - n)
+    records <- sample.int(n_tot, n_tot - n)
   }
 
   structure(
@@ -477,41 +542,44 @@ record_sample <- function(x, n, cache) {
 
 # handle duplicates ------------------------------------------------------------
 
-handle_duplicates <-
-  function(x, filter, select, max_size, cache, n, seed, dwc) {
+handle_duplicates <- function(
+  x, filter, select, max_size, cache, n, seed, dwc, df
+) {
 
-    ids <- lapply(
-      x,
-      function(x)
-        vapply(
-          x[["content"]][["results"]], get_el_recurse, NA_character_,
-          c("unit", "unitId"), "character"
-        )
-    )
-    ids <- unlist(ids)
-
-    duplicates <- which(duplicated(ids))
-
-    x <- remove_records(x, duplicates)
-
-    if (length(ids) - length(duplicates) < n) {
-
-      new_records <- finbif_records(
-        filter, select, sample = TRUE, n = max_size, cache = cache,
-        dwc = dwc, seed = seed
+  ids <- lapply(
+    x,
+    function(x) {
+      vapply(
+        x[["content"]][["results"]], get_el_recurse, NA_character_,
+        c("unit", "unitId"), "character"
       )
-
-      x[[length(x) + 1L]] <- new_records[[1L]]
-
-      x <- handle_duplicates(
-        x, filter, select, max_size, cache, n, seed + 1L, dwc
-      )
-
     }
+  )
 
-    remove_records(x, n = n)
+  ids <- unlist(ids)
+
+  duplicates <- which(duplicated(ids))
+
+  x <- remove_records(x, duplicates)
+
+  if (length(ids) - length(duplicates) < n) {
+
+    new_records <- finbif_records(
+      filter, select, sample = TRUE, n = max_size, cache = cache, dwc = dwc,
+      seed = seed, df = df
+    )
+
+    x[[length(x) + 1L]] <- new_records[[1L]]
+
+    x <- handle_duplicates(
+      x, filter, select, max_size, cache, n, seed + 1L, dwc, df
+    )
 
   }
+
+  remove_records(x, n = n)
+
+}
 
 # remove records ---------------------------------------------------------------
 
@@ -524,7 +592,11 @@ remove_records <- function(x, records, n) {
   records <- split(records, excess_pages)
 
   for (i in seq_along(x)) {
-    x[[i]][["content"]][["results"]][records[[as.character(i)]]] <- NULL
+    ind <- records[[as.character(i)]]
+    x[[i]][["content"]][["results"]][ind] <- NULL
+    if (!is.null(ind)) {
+      attr(x[[i]], "df") <- attr(x[[i]], "df")[-ind, ]
+    }
     new_page_size <- length(x[[i]][["content"]][["results"]])
     x[[i]][["content"]][["pageSize"]] <- new_page_size
   }
@@ -539,20 +611,27 @@ remove_records <- function(x, records, n) {
 
 check_n <- function(n, nmax) {
 
-  if (n > nmax)
+  if (n > nmax) {
     deferrable_error(paste("Cannot download more than", nmax, "records"))
+  }
 
-  if (n < 1L)
+  if (n < 1L) {
     deferrable_error(paste("Cannot request less than 1 record"))
+  }
 
 }
 
-select_type <- function(aggregate, yes, no) {
-
-  if (identical(aggregate, "none")) yes else no
-
+select_endpoint <- function(aggregate) {
+  switch(
+    aggregate[[1L]],
+    none = "unit/list",
+    events = "gathering/aggregate",
+    "unit/aggregate"
+  )
 }
 
 taxa_counts <- function(aggregate) {
+
   if (any(aggregate %in% c("species", "taxa"))) "true"
+
 }
