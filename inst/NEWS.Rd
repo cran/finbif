@@ -1,6 +1,15 @@
 \name{NEWS}
 \title{News for Package \pkg{finbif}}
 
+\section{finbif version 0.6.1}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed a regression in the last release that prevented collection
+        names being converted from their URIs.
+    }
+  }
+}
+
 \section{finbif version 0.6.0}{
   \subsection{NEW FEATURES}{
     \itemize{

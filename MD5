@@ -1,7 +1,7 @@
-f7e07a6eec76e35f9be1e41cd07c4e04 *DESCRIPTION
+764ccc157fd5d8ee836b5fd04ea8e04d *DESCRIPTION
 3a2365a43dcca4c4affacf5f83784bda *LICENSE
 fef95b85f9ae1285d34c157d168d56ad *NAMESPACE
-872cfbb85bd07c7c63d68b0099509922 *NEWS.md
+670ac4a945abc7a9e8c22127628d8ed1 *NEWS.md
 6e8d0f01086976b8f40201544603f3a3 *R/api_get.R
 24794c957ec998304be636f5c45620a3 *R/caching.R
 391941777ba16dc5633fb6402768ebf5 *R/coords.R
@@ -14,7 +14,7 @@ e9145ec4572de6660e7b2474fac69f77 *R/finbif_clear_cache.R
 bbecee7fad43a71ac4da1b52e6a3af7e *R/finbif_collections.R
 113412516a5f937694e72a04432144bf *R/finbif_informal_groups.R
 0de5f445c24072979aadd0635931f28e *R/finbif_metadata.R
-949dc6df36c78f0f8cf876fa480e6fdd *R/finbif_occurrence.R
+c6c922e029e260969a22087a6a8d1c85 *R/finbif_occurrence.R
 8028532f8ded0862c9af7a41dc3a8fac *R/finbif_occurrence_load.R
 81e4befde95eff77c42645f8d619da20 *R/finbif_records.R
 e776c2fd2c9816a7e63e2eb002a2bf75 *R/finbif_request_token.R
@@ -26,11 +26,11 @@ c2e80d48ae3b78028cd157ecda6b7732 *R/methods.R
 d7d685aa9b5ca41df41f5fecd672540e *R/utils.R
 0d1c22fe16cf631634a54ddf679ab160 *R/variables.R
 3be11ad99419228420a72c5fb240d854 *R/zzz.R
-a5a05fd8cf19f4c1cc10e16055cb53b8 *README.md
+abe20a74f30fa313468cb03c3fdd2445 *README.md
 a4cfd48fa509bf0f0732577edde1e4bc *build/vignette.rds
 450e5562a0d5ed12a86b2dc9ec51c3af *data/finland_map.rda
 d846f63988a3c01302fa67cb0fd5dd95 *inst/CITATION
-6fb8df638b0c4175891636dc92b6a89c *inst/NEWS.Rd
+4d675461d6b702b63d62c9fbab502e30 *inst/NEWS.Rd
 f1a7a8059b36e7b37af5011a2702f356 *inst/doc/finbif.Rmd
 788e4bd0198251bb2e62eb56fe077b0e *inst/doc/finbif.html
 b819405012838ea57d891b36c0f12a28 *inst/doc/v02_occurrence_data.Rmd
@@ -269,7 +269,7 @@ ea1fab3819ab7fdcfdfdb40b06f430a7 *tests/api-dev-cassettes/finbif_taxa.yml
 389a26c26c06bda7d6d71e55c525808c *tests/cassettes/finbif_collections.yml
 a8d44afd6d4e8e0c5ef99e20459d5626 *tests/cassettes/finbif_occurrence.yml
 12d4c925e8e33f93f626efddb1540f2b *tests/cassettes/finbif_occurrence_aggregate_events.yml
-fae7ef7be32f3fbfee0e0c2c2aff2dde *tests/cassettes/finbif_occurrence_collection.yml
+dfddb4bba3eaf39d6da57af15ae7d855 *tests/cassettes/finbif_occurrence_collection.yml
 47e5f738622e152001ee441234d07e06 *tests/cassettes/finbif_occurrence_date_time_ISO8601.yml
 41c3dcbd7f3320e3ed7c553a77d25375 *tests/cassettes/finbif_occurrence_has_media.yml
 7878be92c6ec241955aa9d22f86d5afe *tests/cassettes/finbif_occurrence_load.yml
@@ -291,7 +291,7 @@ e3ffec847fba8e40e4973c3fd6d3f5dd *tests/testthat/test-finbif_api_get.R
 a6aab4dd91671fe9f160ae257f0d98b7 *tests/testthat/test-finbif_clear_cache.R
 653c62b83091a57f51f622ac71307fab *tests/testthat/test-finbif_collections.R
 923b661379565f53ac15d12aef9b60f2 *tests/testthat/test-finbif_dates.R
-b461c79ef243fb7c282a53edc24e2434 *tests/testthat/test-finbif_occurrence.R
+ed75e34e21ca71f44111783cd0f844db *tests/testthat/test-finbif_occurrence.R
 8d104ba93ecc120b15f7edd72a26a053 *tests/testthat/test-finbif_records.R
 32f363ec3abb82466ebaf409c1fe5035 *tests/testthat/test-finbif_request_token.R
 03b4205e5c661af8215bfdf4c131af16 *tests/testthat/test-finbif_taxa.R
