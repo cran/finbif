@@ -24,9 +24,11 @@ A programmatic interface to the 'Finnish Biodiversity Information
 
 \describe{
 \item{\code{finbif_api_url}}{Character. The base url of the API to query. Default:
-\code{"api.laji.fi"}}
+\code{"https://api.laji.fi"}}
 \item{\code{finbif_api_version}}{Character. The API version to use. Default:
 \code{"v0"}}
+\item{\code{finbif_allow_query}}{Logical. Should remote API queries by allowed.
+Default: \code{TRUE}}
 \item{\code{finbif_use_cache}}{Logical. Should API queries by cached. Default:
 \code{TRUE}}
 \item{\code{finbif_cache_path}}{Character. The path to the directory where to

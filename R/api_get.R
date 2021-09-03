@@ -21,7 +21,7 @@ api_get <- function(path, query, cache) {
   version <- getOption("finbif_api_version")
 
   if (cache) {
-    hash <- digest::digest(list(url, version, path, query))
+    hash <- digest::digest(list(sub(".*://", "", url), version, path, query))
     fcp <- getOption("finbif_cache_path")
     if (is.null(fcp)) {
       ans <- get_cache(hash)
@@ -34,15 +34,20 @@ api_get <- function(path, query, cache) {
     }
   }
 
+  stopifnot(
+    "Request not cached and option:finbif_allow_query = FALSE" =
+      getOption("finbif_allow_query")
+  )
+
   email <- getOption("finbif_email")
   if (!is.null(email)) query <- c(query, list(personEmail = email))
 
   # Pausing between requests is important if many request will be made
-  Sys.sleep(1L)
+  Sys.sleep(1 / getOption("finbif_rate_limit"))
 
   resp <- httr::RETRY(
     "GET",
-    sprintf("https://%s/%s/%s", url, version, path),
+    sprintf("%s/%s/%s", url, version, path),
     httr::user_agent(
       paste0(
         "https://github.com/luomus/finbif#",
@@ -70,7 +75,7 @@ api_get <- function(path, query, cache) {
   }
 
   parsed <- jsonlite::fromJSON(
-    httr::content(resp, "text"), simplifyVector = FALSE
+    httr::content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE
   )
 
   if (httr::status_code(resp) != 200L) {
@@ -94,6 +99,7 @@ api_get <- function(path, query, cache) {
   )
 
   ans
+
 }
 
 get_calling_function <- function(pkg) {

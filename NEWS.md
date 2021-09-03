@@ -1,3 +1,27 @@
+# finbif 0.6.2
+
+#### NEW FEATURES
+
+-   New package option, `finbif_allow_query`, with default value,
+    `TRUE`. If set to `FALSE` then remote API queries will trigger an
+    error meaning only cached requests will run if a cache is found.
+
+-   Records can now be aggregated by document.
+
+#### MINOR IMPROVEMENTS
+
+-   A client-side error will be triggered if an attempt is made to
+    filter by taxon and aggregate data by event with
+    `finbif_occurrence`.
+
+#### BUG FIXES
+
+-   Fix bug preventing loading of FinBIF archives that is triggered when
+    all variables are selected with `select = "all"`.
+
+-   Fix bug preventing `finbif_occ` objects from printing when one or
+    more columns contain missing data only.
+
 # finbif 0.6.1
 
 #### BUG FIXES
@@ -48,7 +72,7 @@
     `select = "all"`.
 
 -   New option, `drop_na`, to drop columns that only contain missing
-    data added to `finbif_occurrence` and `finbif_occurrence` load.
+    data added to `finbif_occurrence` and `finbif_occurrence_load`.
 
 -   User can now select columns multiple times and rename them on the
     fly by using a named character vector as the value of the 'select'

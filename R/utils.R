@@ -12,9 +12,11 @@ drop_na_col <- function(df, which = TRUE) {
   is_na <- lapply(df, is.na)
   is_na <- vapply(is_na, all, logical(1L))
 
-  attr(df, "column_names") <- attr(df, "column_names")[!is_na]
+  cond <- !is_na | !which
 
-  df[, !is_na | !which, drop = FALSE]
+  attr(df, "column_names") <- attr(df, "column_names")[cond]
+
+  df[, cond, drop = FALSE]
 
 }
 
@@ -280,7 +282,7 @@ to_ <- function(x, from, to) {
 #'
 #' @param ... Character. Variable names to convert. For `to_dwc` and `to_native`
 #'   the names must be in the opposite format. For `from_schema` the names must
-#'   be from the FinBIF schema (e.g., names returned https://api.laji.fi) or
+#'   be from the FinBIF schema (e.g., names returned by https://api.laji.fi) or
 #'   a FinBIF download file (citable or lite).
 #' @param to Character. Type of variable names to convert to.
 #' @param file Character. For variable names that are derived from a FinBIF

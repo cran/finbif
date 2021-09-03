@@ -127,7 +127,7 @@ finbif_occurrence_load <- function(
 
   if (select_all) {
 
-    select[["user"]] <- TRUE
+    select[["user"]] <- names(df)
 
   } else {
 
@@ -518,6 +518,13 @@ get_zip <- function(url, quiet, cache, write_file) {
     progress <- httr::progress()
 
   }
+
+  stopifnot(
+    "Request not cached and option:finbif_allow_query = FALSE" =
+      getOption("finbif_allow_query")
+  )
+
+  Sys.sleep(1 / getOption("finbif_rate_limit"))
 
   resp <- httr::RETRY(
     "GET", url, httr::write_disk(zip, overwrite = TRUE), progress

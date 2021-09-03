@@ -1,9 +1,11 @@
 #' @section Package options:
 #' \describe{
 #' \item{`finbif_api_url`}{Character. The base url of the API to query. Default:
-#'   `"api.laji.fi"`}
+#'   `"https://api.laji.fi"`}
 #' \item{`finbif_api_version`}{Character. The API version to use. Default:
 #'   `"v0"`}
+#' \item{`finbif_allow_query`}{Logical. Should remote API queries by allowed.
+#'   Default: `TRUE`}
 #' \item{`finbif_use_cache`}{Logical. Should API queries by cached. Default:
 #'   `TRUE`}
 #' \item{`finbif_cache_path`}{Character. The path to the directory where to

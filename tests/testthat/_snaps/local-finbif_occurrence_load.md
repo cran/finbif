@@ -59,10 +59,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality"]
+              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
             }
           },
-          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality"]
+          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
         },
         "names": {
           "type": "character",
@@ -206,10 +206,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality"]
+              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
             }
           },
-          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality"]
+          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
         },
         "names": {
           "type": "character",
@@ -353,10 +353,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality"]
+              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
             }
           },
-          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality"]
+          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
         },
         "names": {
           "type": "character",
@@ -500,10 +500,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
             }
           },
-          "value": []
+          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
         },
         "names": {
           "type": "character",
@@ -647,10 +647,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality"]
+              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
             }
           },
-          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality"]
+          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
         },
         "names": {
           "type": "character",
@@ -794,10 +794,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality"]
+              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
             }
           },
-          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality"]
+          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
         },
         "names": {
           "type": "character",
@@ -941,10 +941,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality", "record_fact__imageUrl", "record_fact__imageCount", "record_fact__areaInSqMeters"]
+              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality", "record_fact__imageUrl", "record_fact__imageCount", "record_fact__areaInSqMeters"]
             }
           },
-          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "record_quality", "record_fact__imageUrl", "record_fact__imageCount", "record_fact__areaInSqMeters"]
+          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality", "record_fact__imageUrl", "record_fact__imageCount", "record_fact__areaInSqMeters"]
         },
         "names": {
           "type": "character",
@@ -1050,6 +1050,14 @@
       "value": ["Records downloaded: 221", "Records available: 221", "A data.frame [280 x 4]", "   recID recOrder lonWGS84 latWGS84", "1  …0992  5        29.0657  65.0436", "2  …0995  6        29.0657  65.0436", "3  …0998  2        29.0657  65.0436", "4  …1001  7        29.0657  65.0436", "5  …1004  4        29.0657  65.0436", "6  …1007  8        29.0657  65.0436", "7  …1010  0        29.0657  65.0436", "8  …1013  3        29.0657  65.0436", "9  …1016  1        29.0657  65.0436", "10 …3721  3        26.1574  61.2484", "...with 270 more records"]
     }
 
+---
+
+    {
+      "type": "character",
+      "attributes": {},
+      "value": ["Records downloaded: 221", "Records available: 221", "A data.frame [280 x 119]", "   record_id record_order        reported_name record_issue record_issue_source", "1      …0992  5                    Carex flava           NA                  NA", "2      …0995  6           Scorpidium scorpioi…           NA                  NA", "3      …0998  2           Phragmites australis           NA                  NA", "4      …1001  7                Drosera anglica           NA                  NA", "5      …1004  4               Molinia caerulea           NA                  NA", "6      …1007  8           Trichophorum cespit…           NA                  NA", "7      …1010  0           Dactylorhiza incarn…           NA                  NA", "8      …1013  3                    Carex flava           NA                  NA", "9      …1016  1                 Carex viridula           NA                  NA", "10     …3721  3            Nowellia curvifolia           NA                  NA", "...with 270 more records and 114 more variables:", "record_issue_message, reported_taxon_confidence, taxon_id, scientific_name,", "common_name_finnish, common_name_english, common_name_swedish, taxonomic_order,", "red_list_status, taxon_checklist, abundance_verbatim, annotated_taxon_id,", "abundance, pair_abundance, invasive_control, record_quality, superrecord_basis,", "record_basis, type_specimen, determiner, sex, life_stage, is_wild,", "record_keywords, is_breeding_location, individual_id, record_notes,", "record_annotation_count, record_media_count, sample_count, event_id,", "event_order, section, event_issue, event_issue_source, event_issue_message,", "time_issue, time_issue_source, time_issue_message, location_issue,", "location_issue_source, location_issue_message, date_start, date_end,", "hour_start, hour_end, formatted_date_time, team, lat_min_wgs84, lat_max_wgs84,", "lon_min_wgs84, lon_max_wgs84, lat_wgs84, lon_wgs84, lat_min_euref,", "lat_max_euref, lon_min_euref, lon_max_euref, lat_min_kkj, lat_max_kkj,", "lon_min_kkj, lon_max_kkj, lat_10_kkj, lon_10_kkj, lat_1_kkj, lon_1_kkj,", "century, decade, year, month, day, ordinal_day_start, ordinal_day_end,", "coordinates_uncertainty, coordinates_source, country_id, province,", "municipality_name, country_source, province_source, municipality_source,", "higher_geography, country_verbatim, municipality_verbatim, province_verbatim,", "province_verbatim2, locality, event_notes, event_media_count, document_id,", "restriction_level, restriction_reasons, is_partial, collection_id, license,", "collection_quality, document_issue, document_issue_source,", "document_issue_message, source_id, location_id, document_keywords,", "first_load_date, load_date, date_created, modified_date, document_notes,", "document_media_count, abundance_unit, footprint_wgs84, informal_group_english,", "informal_group_finnish, lat_euref, lon_euref"]
+    }
+
 # can load data from a lite download
 
     {
@@ -1111,10 +1119,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "record_quality"]
+              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
             }
           },
-          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "record_quality"]
+          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
         },
         "names": {
           "type": "character",
@@ -1210,7 +1218,7 @@
         "url": {
           "type": "character",
           "attributes": {},
-          "value": ["/tmp/RtmpEPV0vX/file1dc95a6f7c00.tsv"]
+          "value": ["/tmp/RtmpJrwX89/file4f81789c375d.tsv"]
         },
         "nrow": {
           "type": "integer",
@@ -1258,10 +1266,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["record_id", "scientific_name"]
+              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
             }
           },
-          "value": ["record_id", "scientific_name"]
+          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
         },
         "names": {
           "type": "character",
@@ -1357,7 +1365,7 @@
         "url": {
           "type": "character",
           "attributes": {},
-          "value": ["/tmp/RtmpEPV0vX/file1dc9554c3ca0.tsv"]
+          "value": ["/tmp/RtmpJrwX89/file4f811c069212.tsv"]
         },
         "nrow": {
           "type": "integer",
@@ -1405,10 +1413,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["record_id", "scientific_name"]
+              "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
             }
           },
-          "value": ["record_id", "scientific_name"]
+          "value": ["record_id", "scientific_name", "abundance", "lat_wgs84", "lon_wgs84", "date_time", "coordinates_uncertainty", "any_issues", "requires_verification", "requires_identification", "record_reliability", "record_quality"]
         },
         "names": {
           "type": "character",
