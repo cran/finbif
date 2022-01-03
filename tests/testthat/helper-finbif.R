@@ -1,6 +1,6 @@
 dummy <- function(...) NULL
 
-if (requireNamespace("vcr", quietly = TRUE)) {
+if (requireNamespace("vcr", quietly = TRUE) && dir.exists("../cassettes")) {
 
   library("vcr")
   invisible(
@@ -10,7 +10,8 @@ if (requireNamespace("vcr", quietly = TRUE)) {
       record = "new_episodes",
       filter_sensitive_data = list(
         "<finbif_token>"     = Sys.getenv("FINBIF_ACCESS_TOKEN"),
-        "<finbif_dev_token>" = Sys.getenv("FINBIF_DEV_ACCESS_TOKEN")
+        "<finbif_dev_token>" = Sys.getenv("FINBIF_DEV_ACCESS_TOKEN"),
+        "<finbif_dl_token>" = Sys.getenv("FINBIF_RESTRICTED_FILE_ACCESS_TOKEN")
       )
     )
   )

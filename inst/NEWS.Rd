@@ -1,6 +1,27 @@
 \name{NEWS}
 \title{News for Package \pkg{finbif}}
 
+\section{finbif version 0.6.3}{
+  \subsection{MINOR IMPROVEMENTS}{
+    \itemize{
+      \item Argument \code{drop_na_facts} has been changed to
+        \code{drop_facts_na} for function \code{finbif_occurrence_load} to
+        avoid problems due to partial matching of argument \code{drop_na}.
+      \item Data quality description has been appended to description field in
+        \code{data.frame} returned by \code{finbif_collections()}.
+      \item Occurrence record filtering can now be done using open-ended date
+        ranges.
+      \item New administrative statuses added.
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fix bug in importing of file downloads triggered by string quotation
+        errors.
+    }
+  }
+}
+
 \section{finbif version 0.6.2}{
   \subsection{NEW FEATURES}{
     \itemize{

@@ -47,10 +47,9 @@
 #' )
 #'
 #' }
-#' @importFrom methods as
 #' @importFrom utils hasName
-#' @importFrom lubridate as_datetime as.duration force_tzs format_ISO8601 hour
-#' @importFrom lubridate interval minute ymd
+#' @importFrom lubridate as_datetime as.duration as.interval force_tzs
+#' @importFrom lubridate format_ISO8601 hour interval minute ymd
 #' @importFrom lutz tz_lookup_coords
 #' @export
 
@@ -67,7 +66,7 @@ finbif_occurrence <- function(
     on_check_fail = match.arg(on_check_fail)
   )
 
-  date_time_method <- det_datetime_method(date_time_method, n = sum(n))
+  date_time_method <- det_datetime_method(date_time_method, n = n)
 
   if (missing(filter) || is.null(filter)) {
 
@@ -93,6 +92,21 @@ finbif_occurrence <- function(
   }
 
   filter <- c(taxa, filter)
+
+
+  if (!is.finite(n) || is.factor(n) || n < 0) {
+
+    n <- finbif_records(
+      filter, select, order_by, aggregate, sample,
+      n = getOption("finbif_max_page_size"), page, count_only, quiet,
+      cache, dwc, df = TRUE, seed
+    )
+
+    n <- attr(n, "nrec_avl")
+
+    n <- pmax(n, getOption("finbif_max_page_size"))
+
+  }
 
   records <- finbif_records(
     filter, select, order_by, aggregate, sample, n, page, count_only, quiet,
@@ -131,6 +145,12 @@ finbif_occurrence <- function(
 
   df <- compute_epsg(df, select_, dwc)
 
+  df <- compute_abundance(df, select_, dwc)
+
+  df <- compute_citation(df, select_, dwc, record_id)
+
+  df <- coordinates_uncertainty(df, select_, dwc)
+
   df <- structure(
     df[select_],
     class     = c("finbif_occ", "data.frame"),
@@ -148,6 +168,8 @@ finbif_occurrence <- function(
   drop_na_col(df, drop_na)
 
 }
+
+#' @noRd
 
 select_taxa <- function(..., cache, check_taxa, on_check_fail) {
 
@@ -191,6 +213,8 @@ select_taxa <- function(..., cache, check_taxa, on_check_fail) {
 
 }
 
+#' @noRd
+
 compute_date_time <- function(
   df, select, select_, aggregate, dwc, date_time_method, tzone
 ) {
@@ -214,39 +238,39 @@ compute_date_time <- function(
   if (date_time) {
     if (dwc) {
       df[["eventDateTime"]] <- get_date_time(
-        df, "eventDateStart", "hourStart", "minuteStart",
+        df, "eventDateStart", "month", "day", "hourStart", "minuteStart",
         "decimalLatitude", "decimalLongitude", date_time_method, tzone
       )
       if ("samplingEffort" %in% select_) {
         df[["samplingEffort"]] <- get_duration(
-          df, "eventDateTime", "eventDateEnd", "hourEnd",
-          "minuteEnd", "decimalLatitude", "decimalLongitude",
+          df, "eventDateTime", "eventDateEnd", "month", "day", "hourStart",
+          "hourEnd", "minuteEnd", "decimalLatitude", "decimalLongitude",
           date_time_method, tzone
         )
       }
       if ("eventDate" %in% select_) {
         df[["eventDate"]] <- get_iso8601(
-          df, "eventDateTime", "eventDateStart", "hourStart", "minuteStart",
-          "eventDateEnd", "hourEnd", "minuteEnd", "decimalLatitude",
-          "decimalLongitude", date_time_method, tzone
+          df, "eventDateTime", "month", "day", "eventDateStart", "hourStart",
+          "minuteStart", "eventDateEnd", "hourEnd", "minuteEnd",
+          "decimalLatitude", "decimalLongitude", date_time_method, tzone
         )
       }
     } else {
       df[["date_time"]] <- get_date_time(
-        df, "date_start", "hour_start", "minute_start", "lat_wgs84",
-        "lon_wgs84", date_time_method, tzone
+        df, "date_start", "month", "day", "hour_start", "minute_start",
+        "lat_wgs84", "lon_wgs84", date_time_method, tzone
       )
       if ("duration" %in% select_) {
         df[["duration"]] <- get_duration(
-          df, "date_time", "date_end", "hour_end", "minute_end", "lat_wgs84",
-          "lon_wgs84", date_time_method, tzone
+          df, "date_time", "date_end", "month", "day", "hour_start", "hour_end",
+          "minute_end", "lat_wgs84", "lon_wgs84", date_time_method, tzone
         )
       }
       if ("date_time_ISO8601" %in% select_) {
         df[["date_time_ISO8601"]] <- get_iso8601(
-          df, "date_time", "date_start", "hour_start", "minute_start",
-          "date_end", "hour_end", "minute_end", "lat_wgs84", "lon_wgs84",
-          date_time_method, tzone
+          df, "date_time", "month", "day", "date_start", "hour_start",
+          "minute_start", "date_end", "hour_end", "minute_end", "lat_wgs84",
+          "lon_wgs84", date_time_method, tzone
         )
       }
     }
@@ -256,7 +280,11 @@ compute_date_time <- function(
 
 }
 
-get_date_time <- function(df, date, hour, minute, lat, lon, method, tzone) {
+#' @noRd
+
+get_date_time <- function(
+  df, date, month, day, hour, minute, lat, lon, method, tzone
+) {
 
   date_time <- lubridate::ymd(df[[date]])
   date_time <- lubridate::as_datetime(date_time)
@@ -283,44 +311,76 @@ get_date_time <- function(df, date, hour, minute, lat, lon, method, tzone) {
 
     tz_in <- "Europe/Helsinki"
     date_time <- lubridate::force_tz(date_time, tz_in)
-    lubridate::with_tz(date_time, tzone)
+    date_time <- lubridate::with_tz(date_time, tzone)
 
   } else {
 
     tz_in <- lutz::tz_lookup_coords(df[[lat]], df[[lon]], method, FALSE)
-    lubridate::force_tzs(
-      date_time, tzones = ifelse(is.na(tz_in), "", tz_in), tzone_out = tzone
+    date_time <- lubridate::force_tzs(
+      date_time, tzones = ifelse(is.na(tz_in), tzone, tz_in), tzone_out = tzone
     )
 
   }
 
+  ind <- is.na(df[[month]]) | is.na(df[[day]])
+
+  date_time[ind] <- lubridate::as_datetime(NA_integer_, tz = tzone)
+
+  date_time
+
 }
 
+#' @noRd
+
 get_duration <- function(
-  df, date_time, date, hour, minute, lat, lon, method, tzone
+  df, date_time, date, month, day, hour_start, hour_end, minute, lat, lon,
+  method, tzone
 ) {
 
   date_time_end <- get_date_time(
-    df, date, hour, minute, lat, lon, method, tzone
+    df, date, month, day, hour_end, minute, lat, lon, method, tzone
   )
 
-  ans <- lubridate::interval(df[[date_time]], date_time_end)
-  missing_interval <- lubridate::interval(NA_character_)
-  ans <- ifelse(is.na(df[[minute]]) | is.na(df[[hour]]), missing_interval, ans)
+  ind <-
+    is.na(df[[hour_start]]) |
+    is.na(df[[hour_end]])   |
+    is.na(df[[date_time]])  |
+    is.na(date_time_end)
+
+  na_interval <- lubridate::as.interval(rep_len(NA_integer_, length(ind)))
+
+  ans <- na_interval
+
+  ans[!ind] <- lubridate::interval(df[!ind, date_time], date_time_end[!ind])
+
+  ind <- !is.na(ans) & ans == 0
+
+  ans[ind] <- na_interval[ind]
+
   lubridate::as.duration(ans)
 
 }
 
+#' @noRd
+
 get_iso8601 <- function(
-  df, date_time, date_start, hour_start, minute_start, date_end, hour_end,
-  minute_end, lat, lon, method, tzone
+  df, date_time, month, day, date_start, hour_start, minute_start, date_end,
+  hour_end, minute_end, lat, lon, method, tzone
 ) {
 
   date_time_end <- get_date_time(
-    df, date_end, hour_end, minute_end, lat, lon, method, tzone
+    df, date_end, month, day, hour_end, minute_end, lat, lon, method, tzone
   )
 
-  ans <- lubridate::interval(df[[date_time]], date_time_end)
+  ind <- is.na(df[[date_time]]) | is.na(date_time_end)
+
+  ans <- lubridate::interval(
+    rep_len("1970-01-01/1970-01-01", length(ind)), tzone = tzone
+  )
+
+  ans[!ind] <- lubridate::interval(df[!ind, date_time], date_time_end[!ind])
+
+  ans[ind] <- lubridate::as.interval(NA_integer_)
 
   ans <- lubridate::format_ISO8601(ans, usetz = TRUE)
 
@@ -351,9 +411,19 @@ get_iso8601 <- function(
     ans
   )
 
-  ifelse(is.na(df[[date_start]]), NA_character_, ans)
+  ifelse(
+    is.na(ans),
+    ifelse(
+      df[[date_start]] == df[[date_end]],
+      df[[date_start]],
+      paste(df[[date_start]], df[[date_end]], sep = "/")
+    ),
+    ans
+  )
 
 }
+
+#' @noRd
 
 compute_vars_from_id <- function(df, select_, dwc, locale) {
 
@@ -406,40 +476,155 @@ compute_vars_from_id <- function(df, select_, dwc, locale) {
 
 }
 
+#' @noRd
+
 compute_epsg <- function(df, select_, dwc) {
 
-  select_ <- var_names[, col_type_string(dwc)] %in% select_
+  select_ <- match(select_, var_names[, col_type_string(dwc)])
 
   select_ <- row.names(var_names[select_, ])
 
-  epsg <- c("euref", "kkj", "wgs84")
+  crs <- c(computed_var_epsg = "", computed_var_fp_epsg = "footprint")
 
-  names(epsg) <- epsg
+  for (i in seq_along(crs)) {
 
-  epsg[] <- paste0("_", epsg, "$")
+    epsg <- c("euref", "kkj", "wgs84")
 
-  epsg <- lapply(epsg, grepl, var_names[select_, "translated_var"])
+    names(epsg) <- epsg
 
-  epsg <- lapply(epsg, c, TRUE)
+    epsg[] <- paste0(crs[[i]], "_", epsg, "$")
 
-  epsg <- lapply(epsg, which)
+    epsg <- lapply(epsg, grepl, var_names[select_, "translated_var"])
 
-  epsg <- vapply(epsg, min, integer(1L), USE.NAMES = TRUE)
+    epsg <- lapply(epsg, c, TRUE)
 
-  epsg <- names(which.min(epsg))
+    epsg <- lapply(epsg, which)
 
-  epsg <- switch(
-    epsg,
-    euref = "EPSG:3067", kkj = "EPSG:2393", wgs84 = "EPSG:4326", NA_character_
-  )
+    epsg <- vapply(epsg, min, integer(1L), USE.NAMES = TRUE)
 
-  epsg <- rep_len(epsg, nrow(df))
+    epsg <- names(which.min(epsg))
 
-  df[[var_names[["computed_var_epsg", col_type_string(dwc)]]]] <- epsg
+    epsg <- switch(
+      epsg,
+      euref = "EPSG:3067",
+      kkj = "EPSG:2393",
+      wgs84 = "EPSG:4326",
+      NA_character_
+    )
+
+    epsg <- rep_len(epsg, nrow(df))
+
+    df[[var_names[[names(crs)[[i]], col_type_string(dwc)]]]] <- epsg
+
+  }
 
   df
 
 }
+
+#' @noRd
+
+compute_abundance <- function(df, select_, dwc) {
+
+  type <- col_type_string(dwc)
+
+  abundance_ <- var_names[["computed_var_abundance", type]]
+
+  occurrence_status_ <- var_names[["computed_var_occurrence_status", type]]
+
+  abundance_i <- var_names[["unit.interpretations.individualCount", type]]
+
+  abundance_v <- var_names[["unit.abundanceString", type]]
+
+  if (abundance_ %in% select_ || occurrence_status_ %in% select_) {
+
+    abundance <- ifelse(
+      df[[abundance_i]] == 1L,
+      ifelse(grepl("1", df[[abundance_v]]), 1L, NA_integer_),
+      df[[abundance_i]]
+    )
+
+    if (abundance_ %in% select_) {
+
+      df[[abundance_]] <- abundance
+
+    }
+
+    if (occurrence_status_ %in% select_) {
+
+      occurrence_status <- ifelse(
+        is.na(abundance) | abundance > 0L, "present", "absent"
+      )
+
+      df[[occurrence_status_]] <- occurrence_status
+
+    }
+
+  }
+
+  df
+
+}
+
+#' @noRd
+
+compute_citation <- function(df, select_, dwc, record_id) {
+
+  type <- col_type_string(dwc)
+
+  citation <- var_names[["computed_var_citation", type]]
+
+  source <- var_names[["document.sourceId", type]]
+
+  document_id <- var_names[["document.documentId", type]]
+
+  if (citation %in% select_) {
+
+    df[[citation]] <- ifelse(
+      df[[source]] == "http://tun.fi/KE.3",
+      df[[document_id]],
+      record_id
+    )
+
+    df[[citation]] <- paste(df[[citation]], "Source: FinBIF")
+
+  }
+
+  df
+
+}
+
+#' @noRd
+
+coordinates_uncertainty <- function(df, select_, dwc) {
+
+  type <- col_type_string(dwc)
+
+  coord_uncert_ <- var_names[["computed_var_coordinates_uncertainty", type]]
+
+  coord_uncert_i <- var_names[[
+    "gathering.interpretations.coordinateAccuracy", type
+  ]]
+
+  source <- var_names[["document.sourceId", type]]
+
+  if (coord_uncert_ %in% select_) {
+
+    coord_uncert <- ifelse(
+      df[[source]] == "http://tun.fi/KE.3" & df[[coord_uncert_i]] == 1,
+      NA_real_,
+      df[[coord_uncert_i]]
+    )
+
+    df[[coord_uncert_]] <- coord_uncert
+
+  }
+
+  df
+
+}
+
+#' @noRd
 
 multi_req <- function(
   taxa, filter, select, order_by, sample, n, page, count_only, quiet, cache,

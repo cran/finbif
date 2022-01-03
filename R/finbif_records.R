@@ -179,6 +179,16 @@ infer_selection <- function(aggregate, select, var_type) {
     "aggregate"
   )
 
+  abundance_vars <- c(
+    "unit.interpretations.individualCount", "unit.abundanceString"
+  )
+
+  coordinates_uncertainty_vars <- c(
+    "gathering.interpretations.coordinateAccuracy", "document.sourceId"
+  )
+
+  citation_vars <- c("document.documentId", "document.sourceId")
+
   if (missing(select)) {
 
     select <- row.names(default_vars)
@@ -186,9 +196,14 @@ infer_selection <- function(aggregate, select, var_type) {
     record_id_selected <- FALSE
 
     if (identical(aggregate, "none")) {
-      # Missing 'select' implies default selection which implies date-time calc
-      # needed
-      select <- unique(c(select, row.names(date_time_vars)))
+      # Missing 'select' implies default selection which implies date-time,
+      # abundance and coord uncertainty calc needed
+      select <- unique(
+        c(
+          select, row.names(date_time_vars), abundance_vars,
+          coordinates_uncertainty_vars
+        )
+      )
       record_id_selected <- TRUE
     }
 
@@ -219,6 +234,42 @@ infer_selection <- function(aggregate, select, var_type) {
 
     if (date_time) {
       select <- unique(c(select, date_time_vars[[var_type]]))
+    }
+
+    vars <- c(
+      "abundance", "individualCount", "occurrence_status", "occurrenceStatus"
+    )
+
+    abundance <- any(vars %in% select)
+
+    if (abundance) {
+
+      select <- unique(c(select, var_names[abundance_vars, var_type]))
+
+    }
+
+    vars <- c("coordinates_uncertainty", "coordinateUncertaintyInMeters")
+
+    coordinates_uncertainty <- any(vars %in% select)
+
+    if (coordinates_uncertainty) {
+
+      select <- unique(
+        c(select, var_names[coordinates_uncertainty_vars, var_type])
+      )
+
+    }
+
+    vars <- c("citation", "bibliographicCitation")
+
+    citation <- any(vars %in% select)
+
+    if (citation) {
+
+      select <- unique(
+        c(select, var_names[citation_vars, var_type])
+      )
+
     }
 
     select_vars <- var_names[var_names[[select_type]], var_type, drop = FALSE]

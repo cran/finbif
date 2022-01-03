@@ -58,6 +58,21 @@ finbif_collections <- function(
     col_md, col_count, by.x = "id", by.y = "aggregate_by", all.x = TRUE
   )
 
+  collections[["data_description"]] <- collections[["description"]]
+
+  collections[["description"]] <- ifelse(
+    is.na(collections[["data_quality_description"]]),
+    collections[["description"]],
+    do.call(
+      paste,
+      list(
+        collections[["description"]],
+        collections[["data_quality_description"]],
+        sep = "\nData_quality: "
+      )
+    )
+  )
+
   row.names(collections) <- collections[["id"]]
   # Sometimes collections dont have a "has_children" field
   ind <- collections[["has_children"]]
@@ -182,7 +197,7 @@ get_collections <- function(qry, path, nms, id, cache) {
 
 get_swagger <- function(cache) {
 
-  url <- "https://api.laji.fi/explorer/swagger.json"
+  url <- paste0(getOption("finbif_api_url"), "/explorer/swagger.json")
 
   if (cache) {
 

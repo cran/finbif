@@ -288,3 +288,55 @@ test_that(
 )
 
 suppressMessages(eject_cassette("finbif_occurrence_date_time_ISO8601"))
+
+suppressMessages(insert_cassette("finbif_occurrence_status"))
+
+test_that(
+  "can create occurrence status", {
+
+    skip_on_cran()
+
+    expect_s3_class(
+      finbif_occurrence(select = "occurrence_status"), "finbif_occ"
+    )
+
+  }
+
+)
+
+suppressMessages(eject_cassette("finbif_occurrence_status"))
+
+suppressMessages(insert_cassette("finbif_citation"))
+
+test_that(
+  "can create citation", {
+
+    skip_on_cran()
+
+    expect_s3_class(finbif_occurrence(select = "citation"), "finbif_occ")
+
+  }
+
+)
+
+suppressMessages(eject_cassette("finbif_citation"))
+
+suppressMessages(insert_cassette("finbif_get_all"))
+
+test_that(
+  "can get all records", {
+
+    skip_on_cran()
+
+    expect_s3_class(
+      finbif_occurrence(
+        filter = c(collection = "HR.778"), select = "record_id", n = -1
+      ),
+      "finbif_occ"
+    )
+
+  }
+
+)
+
+suppressMessages(eject_cassette("finbif_get_all"))

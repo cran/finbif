@@ -13,6 +13,8 @@ test_that(
     unzip(zip, tsv, exdir = tempdir())
     file.copy(paste(tempdir(), tsv, sep = "/"), tsv)
 
+    options(finbif_tz = "Etc/UTC")
+
     expect_identical(
       335L,
       finbif_occurrence_load(tsv, count_only = TRUE)
@@ -25,7 +27,7 @@ test_that(
       finbif_occurrence_load(tsv, n = nrows, count_only = TRUE)
     )
 
-    options(finbif_cache_path = "../write-files")
+    options(finbif_cache_path = "../write-files", finbif_tz = Sys.timezone())
 
     file_path <-
       "../write-files/finbif_cache_file_4c64a068da60f708c4e928701ec538ef"
@@ -119,32 +121,45 @@ test_that(
       style = "json2"
     )
 
-  }
-
-)
-
-test_that(
-  "can load data from a lite download", {
-
     expect_snapshot_value(
-      finbif_occurrence_load("laji-data.tsv", tzone = "Etc/UTC"),
+      capture.output(
+        print(
+          finbif_occurrence_load("HBF.6968.zip", facts = list(event = "fact"))
+        )
+      ),
       style = "json2"
     )
 
-    skip_on_cran()
-
-    expect_snapshot_value(
-      finbif_occurrence_load("laji-data.ods", tzone = "Etc/UTC"),
-      style = "json2", ignore_attr = "url"
-    )
-
-    expect_snapshot_value(
-      finbif_occurrence_load("laji-data.xlsx", tzone = "Etc/UTC"),
-      style = "json2", ignore_attr = "url"
-    )
-
   }
+
 )
+
+if (!identical(.Platform$OS.type, "windows")) {
+
+  test_that(
+    "can load data from a lite download", {
+
+        expect_snapshot_value(
+          finbif_occurrence_load("laji-data.tsv", tzone = "Etc/UTC"),
+          style = "json2"
+        )
+
+      skip_on_cran()
+
+      expect_snapshot_value(
+        finbif_occurrence_load("laji-data.ods", tzone = "Etc/UTC"),
+        style = "json2", ignore_attr = "url"
+      )
+
+      expect_snapshot_value(
+        finbif_occurrence_load("laji-data.xlsx", tzone = "Etc/UTC"),
+        style = "json2", ignore_attr = "url"
+      )
+
+    }
+  )
+
+}
 
 test_that(
   "with invalid URL returns an error message", {

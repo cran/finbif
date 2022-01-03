@@ -33,6 +33,11 @@
 #'   `{tidyr}` packages are available.
 #' @param type_convert_facts Logical. Should facts be converted from character
 #'   to numeric or integer data where applicable?
+#' @param drop_facts_na Logical. Should missing or "all `NA`" facts be dropped?
+#'   Any value other than a length one logical vector with the value of TRUE
+#'   will be interpreted as FALSE. Argument is ignored if `drop_na` is TRUE for
+#'   all variables explicitly or via recycling. To only drop some
+#'   missing/`NA`-data facts use `drop_na` argument.
 #' @inheritParams finbif_records
 #' @inheritParams finbif_occurrence
 #' @return A `data.frame`, or if `count_only =  TRUE` an integer.
@@ -53,7 +58,8 @@ finbif_occurrence_load <- function(
   file, select, n = -1, count_only = FALSE, quiet = FALSE,
   cache = getOption("finbif_use_cache"), dwc = FALSE, date_time_method,
   tzone = getOption("finbif_tz"), write_file = tempfile(), dt, keep_tsv = FALSE,
-  facts = list(), type_convert_facts = TRUE, drop_na = FALSE
+  facts = list(), type_convert_facts = TRUE, drop_na = FALSE,
+  drop_facts_na = drop_na
 ) {
 
   file <- preprocess_data_file(file)
@@ -171,16 +177,23 @@ finbif_occurrence_load <- function(
 
   for (fact_type in fact_types) {
 
-    facts_df <- read_finbif_tsv(
-      file,
-      select = list(
-        all = TRUE,
-        deselect = character(),
-        type = "translated_var"
+    stopifnot(
+      "Invalid fact type" = fact_type %in% c("record", "event", "document")
+    )
+
+    facts_df <- try(
+      read_finbif_tsv(
+        file,
+        select = list(
+          all = TRUE,
+          deselect = character(),
+          type = "translated_var"
+        ),
+        n = -1L,
+        count_only, quiet, cache, write_file, dt, keep_tsv,
+        facts = fact_type
       ),
-      n = -1L,
-      count_only, quiet, cache, write_file, dt, keep_tsv,
-      facts = fact_type
+      silent = TRUE
     )
 
     id <- switch(
@@ -191,7 +204,8 @@ finbif_occurrence_load <- function(
     )
 
     facts_df <- spread_facts(
-      facts_df, facts[[fact_type]], fact_type, id, type_convert_facts
+      facts_df, facts[[fact_type]], fact_type, id, type_convert_facts,
+      drop_facts_na
     )
 
     select[["user"]] <- c(
@@ -210,12 +224,15 @@ finbif_occurrence_load <- function(
 
     short_nms <- short_nms[names(df)]
 
-    short_fcts <- unlist(facts)
+    short_fcts <- grep("_fact__", names(df), value = TRUE)
 
-    short_fcts <- gsub("http://tun.fi/", "", short_fcts)
+    short_fcts <- sub("^.*_fact__", "", short_fcts)
+
+    short_fcts <- sub("http://tun.fi/", "", short_fcts)
 
     short_fcts <- abbreviate(
-      short_fcts, 8L, FALSE, strict = TRUE, method = "both.sides"
+      short_fcts, 9 - ceiling(log10(length(short_fcts) + .1)), FALSE,
+      strict = TRUE, method = "both.sides"
     )
     short_fcts <- paste0("f", seq_along(short_fcts), short_fcts)
 
@@ -249,13 +266,13 @@ read_finbif_tsv <- function(
 
   file <- as.character(file)
 
-  ptrn <- "http://tun.fi/HBF."
+  ptrn <- "^https?://.+?/HBF\\."
 
-  is_url <- grepl(ptrn, file, fixed = TRUE)
+  is_url <- grepl(ptrn, file)
 
   if (is_url) {
 
-    file <- gsub(ptrn, "", file)
+    file <- sub(ptrn, "", file)
 
   }
 
@@ -281,7 +298,7 @@ read_finbif_tsv <- function(
 
   if (grepl("^[0-9]*$", file)) {
 
-    url <- sprintf("https://dw.laji.fi/download/HBF.%s", file)
+    url <- sprintf("%s/HBF.%s", getOption("finbif_dl_url"), file)
 
     tsv <- sprintf("%sHBF.%s.tsv", tsv_prefix, file)
 
@@ -403,7 +420,9 @@ attempt_read <- function(
 
   }
 
-  stopifnot("invalid file or missing file(s)!" = success)
+  names(success) <- c(as.character(unlist(df)), "")[[1L]]
+
+  do.call(stopifnot, list(success))
 
   df
 
@@ -526,8 +545,18 @@ get_zip <- function(url, quiet, cache, write_file) {
 
   Sys.sleep(1 / getOption("finbif_rate_limit"))
 
+  query <- list()
+
+  auth <- Sys.getenv("FINBIF_RESTRICTED_FILE_ACCESS_TOKEN")
+
+  if (!identical(auth, "")) {
+
+    query <- list(personToken = auth)
+
+  }
+
   resp <- httr::RETRY(
-    "GET", url, httr::write_disk(zip, overwrite = TRUE), progress
+    "GET", url, httr::write_disk(zip, overwrite = TRUE), progress, query = query
   )
 
   if (!quiet) message("")
@@ -597,7 +626,7 @@ dt_read <- function(select, n, quiet, dt, keep_tsv = FALSE, ...) {
 
   args <- list(
     ..., nrows = 0, showProgress = quiet, data.table = dt, na.strings = "",
-    quote = "\"", sep = "\t", fill = TRUE, check.names = FALSE, header = TRUE
+    quote = "", sep = "\t", fill = TRUE, check.names = FALSE, header = TRUE
   )
 
   if (utils::hasName(args, "zip")) {
@@ -715,7 +744,7 @@ dt_read <- function(select, n, quiet, dt, keep_tsv = FALSE, ...) {
 #' @noRd
 rd_read <- function(x, file, tsv, n, select, keep_tsv) {
 
-  df <- utils::read.delim(x, nrows = 1L, na.strings = "", quote = "\"")
+  df <- utils::read.delim(x, nrows = 1L, na.strings = "", quote = "")
 
   cols <- fix_issue_vars(names(df))
 
@@ -772,7 +801,21 @@ deselect <- function(select, file_vars) {
 }
 
 #' @noRd
-spread_facts <-  function(facts, select, type, id, type_convert_facts) {
+spread_facts <-  function(
+  facts, select, type, id, type_convert_facts, drop_facts_na
+) {
+
+  if (inherits(facts, "try-error")) {
+
+    facts <- data.frame(
+      Parent = NA_character_,
+      Fact = NA_character_,
+      Value = NA_character_,
+      IntValue = NA_character_,
+      DecimalValue = NA_character_
+    )
+
+  }
 
   missing_facts <- character()
 
@@ -790,6 +833,8 @@ spread_facts <-  function(facts, select, type, id, type_convert_facts) {
       "Selected fact(s) - ", paste(missing_facts, collapse = ", "),
       " - could not be found in dataset", call. = FALSE
     )
+
+    missing_facts <- missing_facts[!isTRUE(drop_facts_na)]
 
   }
 
@@ -836,7 +881,7 @@ spread_facts <-  function(facts, select, type, id, type_convert_facts) {
 
   attr(facts, "id") <- id
 
-  facts
+  unique(facts)
 
 }
 
@@ -1000,7 +1045,7 @@ write_tsv <- function(df) {
 
   file <- tempfile(fileext = ".tsv")
 
-  write.table(df, file, quote = TRUE, sep = "\t", na = "", row.names = FALSE)
+  write.table(df, file, quote = FALSE, sep = "\t", na = "", row.names = FALSE)
 
   file
 

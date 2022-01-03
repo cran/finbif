@@ -1,8 +1,8 @@
 #' @noRd
-#' @importFrom lubridate as_date period rollback
+#' @importFrom lubridate as_date period rollback int_end int_start
 parse_date <- function(x) {
 
-  if (is.null(x)) return(x)
+  if (is.null(x) || identical(as.character(x), "")) return(x)
   if (grepl("^\\d{4}$", x)) return(structure(x, class = "y"))
   if (grepl("^\\d{4}-\\d{2}$", x)) return(structure(x, class = "ym"))
 
@@ -45,13 +45,22 @@ date_range_ymd <- function(x, y, format = "%Y-%m-%d") {
   x <- parse_date(x)
   y <- parse_date(y)
 
-  if (is.null(x) || is.null(y) || inherits(x, class(y))) {
-    if (inherits(x, "Date")) x <- format.Date(x, format)
-    if (inherits(y, "Date")) y <- format.Date(y, format)
+  if ("" %in% list(x, y) || is.null(x) || is.null(y) || inherits(x, class(y))) {
+    x <- format_date(x, format)
+    y <- format_date(y, format)
     return(paste(c(x, y), collapse = "/"))
   }
 
   date_range_ymd2(x, y, format)
+
+}
+
+#' @noRd
+format_date <- function(x, format) {
+
+  if (inherits(x, "Date")) x <- format.Date(x, format)
+
+  x
 
 }
 
