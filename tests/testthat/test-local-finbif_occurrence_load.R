@@ -23,7 +23,7 @@ test_that(
     finbif_clear_cache()
 
     expect_identical(
-      nrows,
+      335L,
       finbif_occurrence_load(tsv, n = nrows, count_only = TRUE)
     )
 
@@ -139,7 +139,7 @@ if (!identical(.Platform$OS.type, "windows")) {
     "can load data from a lite download", {
 
       expect_snapshot_value(
-        finbif_occurrence_load("laji-data.tsv", tzone = "Etc/UTC"),
+        finbif_occurrence_load("laji-data.tsv", tzone = "Etc/UTC", dt = FALSE),
         style = "json2"
       )
 
@@ -176,6 +176,28 @@ test_that(
     )
 
     options(finbif_cache_path = tempdir())
+
+  }
+)
+
+test_that(
+  "large download returns an error message", {
+
+    skip_on_cran()
+
+    Sys.setenv("FINBIF_FILE_SIZE_LIMIT" = "52e3")
+
+    file_path <-
+      "../write-files/finbif_cache_file_4c64a068da60f708c4e928701ec538ef"
+
+    expect_error(
+      finbif_occurrence_load(
+        49381L, cache = FALSE, quiet = TRUE, write_file = file_path
+      ),
+      "File download too large"
+    )
+
+    Sys.unsetenv("FINBIF_FILE_SIZE_LIMIT")
 
   }
 )

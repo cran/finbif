@@ -5,6 +5,7 @@
 #' @importFrom utils packageVersion
 
 api_get <- function(path, query, cache) {
+
   finbif_access_token <- token()
 
   if (is.null(finbif_access_token)) {
@@ -42,20 +43,29 @@ api_get <- function(path, query, cache) {
   email <- getOption("finbif_email")
   if (!is.null(email)) query <- c(query, list(personEmail = email))
 
+  finbif_restricted_access_token <- Sys.getenv(
+    "FINBIF_RESTRICTED_ACCESS_TOKEN", "unset"
+  )
+
+  query <- switch(
+    finbif_restricted_access_token,
+    unset = query,
+    c(query, list(permissionToken = finbif_restricted_access_token))
+  )
+
   # Pausing between requests is important if many request will be made
   Sys.sleep(1 / getOption("finbif_rate_limit"))
+
+  agent <- paste0(
+    "https://github.com/luomus/finbif#", utils::packageVersion("finbif")
+  )
+
+  agent <- Sys.getenv("FINBIF_USER_AGENT", agent)
 
   resp <- httr::RETRY(
     "GET",
     sprintf("%s/%s/%s", url, version, path),
-    httr::user_agent(
-      paste0(
-        "https://github.com/luomus/finbif#",
-        utils::packageVersion("finbif"),
-        ":",
-        get_calling_function("finbif")
-      )
-    ),
+    httr::user_agent(paste0(agent, ":", get_calling_function("finbif"))),
     httr::accept_json(),
     query = c(query, list(access_token = finbif_access_token)),
     times = getOption("finbif_retry_times"),
@@ -70,6 +80,10 @@ api_get <- function(path, query, cache) {
   )
 
   notoken <- sub(paste0("&personEmail=", email), "", notoken)
+
+  notoken <- sub(
+    paste0("&permissionToken=", finbif_restricted_access_token), "", notoken
+  )
 
   resp[["url"]] <- notoken
   resp[["request"]][["url"]] <- notoken

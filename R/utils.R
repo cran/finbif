@@ -35,19 +35,30 @@ get_next_lowest_factor <- function(x, y) {
 #' @importFrom utils hasName
 get_el_recurse <- function(obj, nms, type) {
 
+  type_na <- methods::as(NA, type)
+
   if (length(nms) < 1L) {
     return(
-      if (is.null(obj) || identical(obj, "")) methods::as(NA, type) else obj
+      if (is.null(obj) || identical(obj, "")) type_na else obj
     )
   }
 
   nm <- nms[[1L]]
 
   if (is.null(names(obj)) && any(vapply(obj, utils::hasName, NA, nm))) {
+
     obj <- lapply(obj, getElement, nm)
+
+    null_elements <- vapply(obj, is.null, NA)
+
+    obj[null_elements] <- type_na
+
     obj <- unlist(obj, recursive = FALSE)
+
   } else {
+
     obj <- getElement(obj, nm)
+
   }
 
   get_el_recurse(obj, nms[-1L], type)
@@ -121,25 +132,45 @@ det_datetime_method <- function(method, n) {
 }
 
 #' @noRd
-nlines <- function(x, header = TRUE) {
-  on.exit(close(con))
-  if (inherits(x, "unz")) {
-    con <- summary(x)
-    con <- con[["description"]]
-    con <- strsplit(con, ":")
-    con <- con[[1L]]
-    con <- unz(con[[1L]], con[[2L]], "rb")
+#' @importFrom tools file_ext
+open_tsv_connection <- function(file, tsv, mode = "rt") {
+
+  if (!identical(tools::file_ext(file), "tsv")) {
+
+    con <- unz(file, tsv, mode)
+
   } else {
-    con <- file(x, open = "rb")
+
+    con <- file(file, mode)
+
   }
+
+  con
+
+}
+
+#' @noRd
+nlines <- function(file, tsv) {
+
+  on.exit(close(con))
+
+  con <- open_tsv_connection(file, tsv, "rb")
+
   n <- 0L
+
   cond <- TRUE
+
   while (cond) {
+
     chunk <- readBin(con, "raw", 65536L)
+
     n <- n + sum(chunk == as.raw(10L))
+
     cond <- !identical(chunk, raw(0L))
+
   }
-  n - header
+
+  n - 1L
 }
 
 #' @noRd
@@ -302,8 +333,6 @@ to_ <- function(x, from, to) {
 #' @param to Character. Type of variable names to convert to.
 #' @param file Character. For variable names that are derived from a FinBIF
 #'   download file which type of file.
-#' @param locale Character. For variable names from a lite download file which
-#'   locale the file is in.
 #'
 #' @return Character vector.
 #'
@@ -320,8 +349,7 @@ to_native <- function(...) to_(list(...), "dwc", "translated_var")
 #' @rdname to_dwc
 #' @export
 from_schema <- function(
-  ..., to = c("native", "dwc", "short"), file = c("none", "citable", "lite"),
-  locale = c("en", "fi", "sv")
+  ..., to = c("native", "dwc", "short"), file = c("none", "citable", "lite")
 ) {
 
   nms <- make.names(c(...))

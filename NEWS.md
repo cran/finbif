@@ -1,3 +1,22 @@
+# finbif 0.6.5
+
+#### NEW FEATURES
+
+  - New variables and filters (currently undocumented) have been added
+    for the forthcoming Finnish atlas of breeding birds.
+
+  - Skip rows argument added to `finbif_occurrence_load` so files can be
+    read in chunks.
+
+#### MINOR IMPROVEMENTS
+
+  - For clarity, KKJ coordinate reference system is now refered to as
+    YKJ.
+
+  - When selecting all available variables for download file imports
+    using `finbif_occurrence_load` "extra" variables will no longer be
+    automatically added.
+
 # finbif 0.6.4
 
 #### MINOR IMPROVEMENTS

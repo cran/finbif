@@ -43,6 +43,8 @@
 #'   and Sámi (Northern). For data where more than one language is available
 #'   the language denoted by `locale` will be preferred while falling back to
 #'   the other languages in the order indicated above.
+#' @param skip Integer. The number of lines of the data file to skip before
+#'   beginning to read data (not including the header).
 #' @inheritParams finbif_records
 #' @inheritParams finbif_occurrence
 #' @return A `data.frame`, or if `count_only =  TRUE` an integer.
@@ -64,7 +66,7 @@ finbif_occurrence_load <- function(
   cache = getOption("finbif_use_cache"), dwc = FALSE, date_time_method,
   tzone = getOption("finbif_tz"), write_file = tempfile(), dt, keep_tsv = FALSE,
   facts = list(), type_convert_facts = TRUE, drop_na = FALSE,
-  drop_facts_na = drop_na, locale = getOption("finbif_locale")
+  drop_facts_na = drop_na, locale = getOption("finbif_locale"), skip = 0
 ) {
 
   file <- preprocess_data_file(file)
@@ -75,7 +77,7 @@ finbif_occurrence_load <- function(
   short <- FALSE
   deselect <- character()
 
-  if (!missing(select) && select %in% c("all", "short")) {
+  if (!missing(select) && any(c("all", "short") %in% select)) {
 
     short <- identical(select[[1L]], "short")
 
@@ -101,7 +103,8 @@ finbif_occurrence_load <- function(
   n <- as.integer(n)
 
   df <- read_finbif_tsv(
-    file, select, n, count_only, quiet, cache, write_file, dt, keep_tsv
+    file, select, n, count_only, quiet, cache, write_file, dt, keep_tsv,
+    skip = skip
   )
 
   if (count_only) {
@@ -122,7 +125,7 @@ finbif_occurrence_load <- function(
 
   select[["facts"]] <- fact_types
 
-  df <- new_vars(df, deselect, file_vars)
+  df <- new_vars(df, deselect, file_vars, !select[["all"]])
 
   record_id <- file_vars[["translated_var"]] == "record_id"
 
@@ -130,19 +133,21 @@ finbif_occurrence_load <- function(
 
   record_id <- df[[record_id]]
 
-  df <- expand_lite_cols(df)
+  df <- expand_lite_cols(df, !select[["all"]])
 
   names(df) <- file_vars[names(df), var_type]
 
-  df <- compute_vars_from_id(df, select[["user"]], dwc, locale)
+  df <- compute_vars_from_id(
+    df, select[["user"]], dwc, locale, !select[["all"]]
+  )
 
-  df <- compute_abundance(df, select[["user"]], dwc)
+  df <- compute_abundance(df, select[["user"]], dwc, !select[["all"]])
 
-  df <- compute_citation(df, select[["user"]], dwc, record_id)
+  df <- compute_citation(df, select[["user"]], dwc, record_id, !select[["all"]])
 
-  df <- coordinates_uncertainty(df, select[["user"]], dwc)
+  df <- coordinates_uncertainty(df, select[["user"]], dwc, !select[["all"]])
 
-  df <- compute_scientific_name(df, select[["user"]], dwc)
+  df <- compute_scientific_name(df, select[["user"]], dwc, !select[["all"]])
 
   for (i in names(df)) {
 
@@ -150,7 +155,7 @@ finbif_occurrence_load <- function(
 
   }
 
-  if (select_all) {
+  if (select[["all"]]) {
 
     select[["user"]] <- names(df)
 
@@ -164,8 +169,6 @@ finbif_occurrence_load <- function(
     )
 
     df <- any_issues(df, select[["user"]], var_type)
-
-    df <- compute_vars_from_id(df, select[["user"]], dwc)
 
     for (extra_var in setdiff(select[["user"]], names(df))) {
 
@@ -276,7 +279,7 @@ read_finbif_tsv <- function(
   file,
   select = list(all = TRUE, deselect = character(), type = "translated_var"),
   n = -1L, count_only = FALSE, quiet = FALSE, cache = TRUE,
-  write_file = tempfile(), dt, keep_tsv, facts = "none"
+  write_file = tempfile(), dt, keep_tsv, facts = "none", skip = 0
 ) {
 
   file <- as.character(file)
@@ -325,7 +328,9 @@ read_finbif_tsv <- function(
 
   }
 
-  df <- attempt_read(file, tsv, select, count_only, n, quiet, dt, keep_tsv)
+  df <- attempt_read(
+    file, tsv, select, count_only, n, quiet, dt, keep_tsv, skip
+  )
 
   if (count_only) {
 
@@ -347,12 +352,13 @@ read_finbif_tsv <- function(
 
 #' @noRd
 attempt_read <- function(
-  file, tsv, select, count_only, n, quiet, dt, keep_tsv
+  file, tsv, select, count_only, n, quiet, dt, keep_tsv, skip
 ) {
 
   if (missing(dt)) {
 
     use_dt <- TRUE
+
     dt <- FALSE
 
   } else {
@@ -361,85 +367,46 @@ attempt_read <- function(
 
   }
 
-  con <- unz(file, tsv)
-  warn <- getOption("warn")
-  on.exit(options(warn = warn))
-  options(warn = 2L)
-
   all <- identical(n, -1L)
 
-  for (i in list(con, file)) {
+  if (count_only) {
 
-    df <- try(
+    nlines(file, tsv)
 
-      if (count_only) {
+  } else {
 
-        if (all) {
+    n_rows <- NULL
 
-          nlines(i)
+    if (!all) {
 
-        } else {
-
-          n
-
-        }
-
-      } else {
-
-        n_rows <- NULL
-
-        if (!all) {
-
-          n_rows <- nlines(i)
-
-        }
-
-        if (has_pkgs("data.table") && use_dt) {
-
-          input <- as.character(i)
-
-          df <- switch(
-            tools::file_ext(input),
-            tsv = dt_read(select, n, quiet, dt, input = input),
-            dt_read(
-              select, n, quiet, dt, keep_tsv,
-              zip = list(input = input, tsv = tsv)
-            )
-          )
-
-        } else {
-
-          df <- rd_read(i, file, tsv, n, select, keep_tsv)
-
-        }
-
-        attr(df, "nrow") <- n_rows
-
-        df
-
-      },
-
-      silent = TRUE
-
-    )
-
-    try(close(i), silent = TRUE)
-
-    success <- !inherits(df, "try-error")
-
-    if (success) {
-
-      break
+      n_rows <- nlines(file, tsv)
 
     }
 
+    if (has_pkgs("data.table") && use_dt) {
+
+      input <- as.character(file)
+
+      df <- switch(
+        tools::file_ext(input),
+        tsv = dt_read(select, n, quiet, dt, input = input, skip = skip),
+        dt_read(
+          select, n, quiet, dt, keep_tsv, skip,
+          zip = list(input = input, tsv = tsv)
+        )
+      )
+
+    } else {
+
+      df <- rd_read(file, tsv, n, select, keep_tsv, skip)
+
+    }
+
+    attr(df, "nrow") <- n_rows
+
+    df
+
   }
-
-  names(success) <- c(as.character(unlist(df)), "")[[1L]]
-
-  do.call(stopifnot, list(success))
-
-  df
 
 }
 
@@ -465,7 +432,7 @@ fix_issue_vars <- function(x) {
 }
 
 #' @noRd
-new_vars <- function(df, deselect, file_vars) {
+new_vars <- function(df, deselect, file_vars, add = TRUE) {
 
   if (is.null(attr(df, "file_cols"))) {
 
@@ -490,9 +457,13 @@ new_vars <- function(df, deselect, file_vars) {
 
   new_vars <- setdiff(nms, c(nms_df, ss))
 
-  for (i in new_vars) {
+  if (add) {
 
-    df[[i]] <- rep_len(NA, nrow(df))
+    for (i in new_vars) {
+
+      df[[i]] <- rep_len(NA, nrow(df))
+
+    }
 
   }
 
@@ -511,21 +482,19 @@ get_zip <- function(url, quiet, cache, write_file) {
 
     if (is.null(fcp)) {
 
-      zip <- get_cache(hash)
+      cache_file <- get_cache(hash)
 
-      if (!is.null(zip)) {
+      if (!is.null(cache_file)) {
 
-        return(zip)
+        return(cache_file)
 
       }
 
-      zip <- write_file
-
       on.exit({
 
-        if (!is.null(zip)) {
+        if (!is.null(write_file)) {
 
-          set_cache(zip, hash)
+          set_cache(write_file, hash)
 
         }
 
@@ -533,11 +502,11 @@ get_zip <- function(url, quiet, cache, write_file) {
 
     } else {
 
-      zip <- file.path(fcp, paste0("finbif_cache_file_", hash))
+      write_file <- file.path(fcp, paste0("finbif_cache_file_", hash))
 
-      if (file.exists(zip)) {
+      if (file.exists(write_file)) {
 
-        return(zip)
+        return(write_file)
 
       }
 
@@ -573,7 +542,7 @@ get_zip <- function(url, quiet, cache, write_file) {
   resp <- httr::RETRY(
     "GET",
     url,
-    httr::write_disk(zip, overwrite = TRUE),
+    httr::write_disk(write_file, overwrite = TRUE),
     progress,
     query = query,
     times = getOption("finbif_retry_times"),
@@ -584,17 +553,32 @@ get_zip <- function(url, quiet, cache, write_file) {
     terminate_on = 404L
   )
 
+  fs <- file.size(write_file)
+
+  fl <- Sys.getenv("FINBIF_FILE_SIZE_LIMIT")
+
+  fl <- as.integer(fl)
+
+  if (isTRUE(fs > fl)) {
+
+    stop("File download too large; err_name: too_large", call. = FALSE)
+
+  }
+
   if (!quiet) message("")
 
   code <- httr::status_code(resp)
 
   if (!identical(code, 200L)) {
 
-    stop(sprintf("File request failed [%s]", code), call. = FALSE)
+    stop(
+      sprintf("File request failed [%s]; err_name: request_failed", code),
+      call. = FALSE
+    )
 
   }
 
-  zip
+  write_file
 
 }
 
@@ -657,11 +641,12 @@ any_issues <- function(df, select_user, var_type) {
 }
 
 #' @noRd
-dt_read <- function(select, n, quiet, dt, keep_tsv = FALSE, ...) {
+dt_read <- function(select, n, quiet, dt, keep_tsv = FALSE, skip, ...) {
 
   args <- list(
-    ..., nrows = 0, showProgress = quiet, data.table = dt, na.strings = "",
-    quote = "", sep = "\t", fill = TRUE, check.names = FALSE, header = TRUE
+    ..., nrows = 0, showProgress = !quiet, data.table = dt, na.strings = "",
+    quote = "", sep = "\t", fill = TRUE, check.names = FALSE, header = TRUE,
+    skip = 0L
   )
 
   if (utils::hasName(args, "zip")) {
@@ -705,6 +690,12 @@ dt_read <- function(select, n, quiet, dt, keep_tsv = FALSE, ...) {
 
   file_vars <- infer_file_vars(cols)
 
+  if (attr(file_vars, "lite")) {
+
+    args[["quote"]] <- "\""
+
+  }
+
   if (select[["all"]]) {
 
     args[["select"]] <- which(!cols %in% deselect(select, file_vars))
@@ -724,17 +715,24 @@ dt_read <- function(select, n, quiet, dt, keep_tsv = FALSE, ...) {
       )
     }
 
-    ind <- file_vars[["translated_vars"]] == "formatted_date_time"
-
-    select[["query"]] <- switch(
-      attr(file_vars, "locale"),
-      none = select[["query"]],
-      c(select[["queary"]], rownames(file_vars[ind, ]))
-    )
-
     select_vars <-  var_names[select[["query"]], select[["type"]]]
 
     select_vars <- file_vars[[select[["type"]]]] %in% select_vars
+
+    expand_vars <- c(
+      "formatted_taxon_name", "formatted_date_time",
+      "coordinates_euref", "coordinates_1_ykj", "coordinates_10_ykj",
+      "coordinates_1_center_ykj", "coordinates_10_center_ykj"
+    )
+
+    expand_vars <- file_vars[["translated_var"]] %in% expand_vars
+
+    select_vars <- switch(
+      attr(file_vars, "locale"),
+      none = select_vars,
+      select_vars | expand_vars
+    )
+
     select_vars <- row.names(file_vars[select_vars, ])
 
     args[["select"]] <- which(cols %in% select_vars)
@@ -758,15 +756,26 @@ dt_read <- function(select, n, quiet, dt, keep_tsv = FALSE, ...) {
 
   }
 
-  args[["colClasses"]] <- file_vars[cols, "type"]
-  args[["colClasses"]] <- ifelse(
-    is.na(args[["colClasses"]]), "character", args[["colClasses"]]
-  )
-
   args[["nrows"]] <- as.double(n)
   args[["check.names"]] <- TRUE
+  args[["skip"]] <- skip + 1L
+  args[["header"]] <- FALSE
 
   df <- do.call(data.table::fread, args)
+
+  names(df) <- cols[args[["select"]]]
+
+  classes <- file_vars[cols, "type"]
+
+  classes <- classes[args[["select"]]]
+
+  classes <- ifelse(is.na(classes), "character", classes)
+
+  for (i in seq_along(df)) {
+
+    df[[i]] <- suppressWarnings(methods::as(df[[i]], classes[[i]]))
+
+  }
 
   attr(df, "file_vars") <- file_vars
 
@@ -777,13 +786,9 @@ dt_read <- function(select, n, quiet, dt, keep_tsv = FALSE, ...) {
 }
 
 #' @noRd
-rd_read <- function(x, file, tsv, n, select, keep_tsv) {
+rd_read <- function(file, tsv, n, select, keep_tsv, skip) {
 
-  df <- utils::read.delim(x, nrows = 1L, na.strings = "", quote = "")
-
-  cols <- fix_issue_vars(names(df))
-
-  file_vars <- infer_file_vars(cols)
+  quote <- ""
 
   if (keep_tsv && !identical(tools::file_ext(file), "tsv")) {
 
@@ -799,26 +804,52 @@ rd_read <- function(x, file, tsv, n, select, keep_tsv) {
 
   }
 
+  con <- open_tsv_connection(file, tsv, "")
+
+  df <- utils::read.delim(
+    con, nrows = 1L, na.strings = "", quote = quote, skip = 0L
+  )
+
+  cols <- fix_issue_vars(names(df))
+
+  file_vars <- infer_file_vars(cols)
+
+  if (attr(file_vars, "lite")) {
+
+    quote <- "\""
+
+  }
+
   if (identical(as.integer(n), 0L)) {
 
     df <- df[0L, ]
 
   } else {
 
-    if (inherits(x, "connection")) {
+    con <- open_tsv_connection(file, tsv, "")
 
-      x <- unz(file, tsv)
+    df <- utils::read.delim(
+      con, header = FALSE, quote = quote, na.strings = "",
+      nrows = max(abs(n), 1L) * sign(n), skip = skip + 1L
+    )
+
+    classes <- file_vars[cols, "type"]
+
+    classes <- ifelse(is.na(classes), "character", classes)
+
+    for (i in seq_along(df)) {
+
+      df[[i]] <- suppressWarnings(methods::as(df[[i]], classes[[i]]))
 
     }
 
-    df <- utils::read.delim(
-      x, nrows = max(abs(n), 1L) * sign(n), na.strings = "",
-      colClasses =  file_vars[cols, "type"], quote = "\""
-    )
-
   }
 
-  df <- df[!cols %in% deselect(select, file_vars)]
+  idx <- !cols %in% deselect(select, file_vars)
+
+  df <- df[idx]
+
+  names(df) <- cols[idx]
 
   attr(df, "file_vars") <- file_vars
 
@@ -996,7 +1027,7 @@ convert_col_type <- function(col) {
 
   if (is.list(col)) {
 
-    col <- vapply(col, paste, character(1L), collapse = ", ")
+    col <- vapply(col, paste_col, character(1L))
 
   }
 
@@ -1031,6 +1062,15 @@ convert_col_type <- function(col) {
   }
 
   col
+
+}
+
+#' @noRd
+paste_col <- function(x) {
+
+  x[is.na(x)] <- ""
+
+  paste(x, collapse = ", ")
 
 }
 
@@ -1118,17 +1158,17 @@ write_tsv <- function(df) {
 }
 
 #' @noRd
-expand_lite_cols <- function(df) {
+expand_lite_cols <- function(df, add = TRUE) {
 
   file_vars <- attr(df, "file_vars")
 
   cols <- c(
-    "formatted_taxon_name", "formatted_date_time", "coordinates_euref",
-    "coordinates_1_kkj", "coordinates_10_kkj", "coordinates_1_center_kkj",
-    "coordinates_10_center_kkj"
+    "formatted_taxon_name", "formatted_date_time",
+    "coordinates_euref", "coordinates_1_ykj", "coordinates_10_ykj",
+    "coordinates_1_center_ykj", "coordinates_10_center_ykj"
   )
 
-  cols <- which(file_vars[["translated_var"]] %in% cols)
+  cols <- which(file_vars[["translated_var"]] %in% cols[add])
 
   for (col in cols) {
 
@@ -1163,12 +1203,12 @@ expand_lite_cols <- function(df) {
           "minute_start", "minute_end"
         ),
         coordinates_euref = c(
-           "lat_min_euref", "lat_max_euref", "lon_min_euref", "lon_max_euref"
+          "lat_min_euref", "lat_max_euref", "lon_min_euref", "lon_max_euref"
         ),
-        coordinates_1_kkj = c("lon_1_kkj", "lat_1_kkj"),
-        coordinates_10_kkj = c("lon_10_kkj", "lat_10_kkj"),
-        coordinates_1_center_kkj = c("lon_1_center_kkj", "lat_1_center_kkj"),
-        coordinates_10_center_kkj = c("lon_10_center_kkj", "lat_10_center_kkj")
+        coordinates_1_ykj = c("lon_1_ykj", "lat_1_ykj"),
+        coordinates_10_ykj = c("lon_10_ykj", "lat_10_ykj"),
+        coordinates_1_center_ykj = c("lon_1_center_ykj", "lat_1_center_ykj"),
+        coordinates_10_center_ykj = c("lon_10_center_ykj", "lat_10_center_ykj")
       )
 
       new_cols <- file_vars[["translated_var"]] %in% new_cols
