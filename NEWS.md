@@ -1,3 +1,24 @@
+# finbif 0.6.6
+
+#### NEW FEATURES
+
+  - New option to exclude all records with any NA values for any of the
+    selected variables added to `finbif_occurrence`.
+
+#### MINOR IMPROVEMENTS
+
+  - The warning/error message returned when an invalid taxon is
+    requested with `finbif_occurrence` has been made more detailed,
+    warning the user they may be using synonyms or other invalid taxon
+    names.
+
+#### BUG FIXES
+
+  - Fix applied for a print method error triggered by clashing class
+    names.
+
+  - Fixed issue with ordering by some variables.
+
 # finbif 0.6.5
 
 #### NEW FEATURES

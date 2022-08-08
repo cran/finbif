@@ -35,6 +35,8 @@
 #' @param seed Integer. Set a seed for randomly sampling records.
 #' @param df Logical. Should the data.frame representation of the records be
 #'   returned as an attribute?
+#' @param exclude_na Logical. Should records where all selected variables have
+#'   non-NA values only be returned.
 #' @return A `finbif_api` or `finbif_api_list` object.
 #' @examples \dontrun{
 #'
@@ -47,7 +49,7 @@
 finbif_records <- function(
   filter, select, order_by, aggregate, sample = FALSE, n = 10, page = 1,
   count_only = FALSE, quiet = FALSE, cache = getOption("finbif_use_cache"),
-  dwc = FALSE, seed, df = FALSE
+  dwc = FALSE, seed, df = FALSE, exclude_na = FALSE
 ) {
 
   max_size <- getOption("finbif_max_page_size")
@@ -99,6 +101,7 @@ finbif_records <- function(
       class(order_vars[[var_type]]) <- class(var_names[[var_type]])
       order_by <-
         translate(order_by, "order_vars", list(order_vars = order_vars))
+      order_by <- order_by_computed_var(order_by)
       order_by[desc_order] <- paste(order_by[desc_order], "DESC")
       query[["orderBy"]] <- paste(order_by, collapse = ",")
 
@@ -114,10 +117,12 @@ finbif_records <- function(
 
   })
 
+  query <- na_exclude(query, exclude_na, select_param)
+
   ans <- request(
     filter, select[["query"]], sample, n, page, count_only, quiet, cache, query,
     max_size, select[["user"]], select[["record_id_selected"]], dwc, aggregate,
-    df, seed
+    df, seed, exclude_na
   )
 
   if (df && !count_only) {
@@ -329,7 +334,7 @@ infer_selection <- function(aggregate, select, var_type) {
 
 request <- function(
   filter, select, sample, n, page, count_only, quiet, cache, query, max_size,
-  select_, record_id_selected, dwc, aggregate, df, seed
+  select_, record_id_selected, dwc, aggregate, df, seed, exclude_na
 ) {
 
   path <- getOption("finbif_warehouse_query")
@@ -375,7 +380,7 @@ request <- function(
     if (sample && sample_after_request) {
       all_records <- finbif_records(
         filter, select_, sample = FALSE, n = n_tot, quiet = quiet,
-        cache = cache, dwc = dwc, df = df
+        cache = cache, dwc = dwc, df = df, exclude_na = exclude_na
       )
       return(record_sample(all_records, n, cache))
     }
@@ -389,7 +394,7 @@ request <- function(
       if (missing(seed)) seed <- 1L
 
       resp <- handle_duplicates(
-        resp, filter, select_, max_size, cache, n, seed, dwc, df
+        resp, filter, select_, max_size, cache, n, seed, dwc, df, exclude_na
       )
 
     }
@@ -637,7 +642,7 @@ record_sample <- function(x, n, cache) {
 # handle duplicates ------------------------------------------------------------
 
 handle_duplicates <- function(
-  x, filter, select, max_size, cache, n, seed, dwc, df
+  x, filter, select, max_size, cache, n, seed, dwc, df, exclude_na
 ) {
 
   ids <- lapply(
@@ -660,13 +665,13 @@ handle_duplicates <- function(
 
     new_records <- finbif_records(
       filter, select, sample = TRUE, n = max_size, cache = cache, dwc = dwc,
-      seed = seed, df = df
+      seed = seed, df = df, exclude_na = exclude_na
     )
 
     x[[length(x) + 1L]] <- new_records[[1L]]
 
     x <- handle_duplicates(
-      x, filter, select, max_size, cache, n, seed + 1L, dwc, df
+      x, filter, select, max_size, cache, n, seed + 1L, dwc, df, exclude_na
     )
 
   }
@@ -728,5 +733,36 @@ select_endpoint <- function(aggregate) {
 taxa_counts <- function(aggregate) {
 
   if (any(aggregate %in% c("species", "taxa"))) "true"
+
+}
+
+order_by_computed_var <- function(order_by) {
+
+  lt <- c(
+    scientific_name = "unit.linkings.taxon.scientificName",
+    abundance = "unit.interpretations.individualCount",
+    date_time = "gathering.eventDate.begin",
+    coordinates_uncertainty = "gathering.interpretations.coordinateAccuracy"
+  )
+
+  names(lt) <- paste0("computed_var_", names(lt))
+
+  ans <- lt[order_by]
+
+  ans <- ifelse(is.na(ans), order_by, ans)
+
+  as.character(ans)
+
+}
+
+na_exclude <- function(query, exclude_na, select_param) {
+
+  if (exclude_na) {
+
+    query[["hasValue"]] <- query[[select_param]]
+
+  }
+
+  query
 
 }
