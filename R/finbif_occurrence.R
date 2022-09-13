@@ -20,16 +20,15 @@
 #'   of `"warn"` (default) or `"error"`.
 #' @param tzone Character. If `date_time` has been selected the timezone of the
 #'   outputted date-time. Defaults to system timezone.
-#' @param locale Character. One of the supported two-letter ISO 639-1 language
-#'   codes. Current supported languages are English, Finnish, Swedish, Russian,
-#'   and Sámi (Northern). For data where more than one language is available
-#'   the language denoted by `locale` will be preferred while falling back to
-#'   the other languages in the order indicated above.
 #' @param drop_na Logical. A vector indicating which columns to check for
 #'   missing data. Values recycled to the number of columns. Defaults to all
 #'   columns.
 #' @param aggregate_counts Logical. Should count variables be returned when
 #'   using aggregation.
+#' @param unlist Logical. Should variables that contain non atomic data be
+#'  concatenated into a string separated by ";"?
+#' @param facts Character vectors. Extra variables to be extracted from record,
+#'  event and document "facts".
 #' @return A `data.frame`. If `count_only =  TRUE` an integer.
 #' @examples \dontrun{
 #'
@@ -57,11 +56,12 @@
 
 finbif_occurrence <- function(
   ..., filter, select, order_by, aggregate, sample = FALSE, n = 10, page = 1,
-  count_only = FALSE, quiet = FALSE, cache = getOption("finbif_use_cache"),
-  dwc = FALSE, date_time_method, check_taxa = TRUE,
-  on_check_fail = c("warn", "error"), tzone = getOption("finbif_tz"),
-  locale = getOption("finbif_locale"), seed, drop_na = FALSE,
-  aggregate_counts = TRUE, exclude_na = FALSE
+  count_only = FALSE, quiet = getOption("finbif_hide_progress"),
+  cache = getOption("finbif_use_cache"), dwc = FALSE, date_time_method,
+  check_taxa = TRUE, on_check_fail = c("warn", "error"),
+  tzone = getOption("finbif_tz"), locale = getOption("finbif_locale"), seed,
+  drop_na = FALSE, aggregate_counts = TRUE, exclude_na = FALSE, unlist = FALSE,
+  facts
 ) {
 
   taxa <- select_taxa(
@@ -85,7 +85,7 @@ finbif_occurrence <- function(
 
       multi_request <- multi_req(
         taxa, filter, select, order_by, sample, n, page, count_only, quiet,
-        cache, dwc, date_time_method, tzone, locale, exclude_na
+        cache, dwc, date_time_method, tzone, locale, exclude_na, unlist, facts
       )
 
       return(multi_request)
@@ -96,12 +96,14 @@ finbif_occurrence <- function(
 
   filter <- c(taxa, filter)
 
+  include_facts <- !missing(facts)
+
   if (!is.finite(n) || is.factor(n) || n < 0) {
 
     n <- finbif_records(
       filter, select, order_by, aggregate, sample,
       n = getOption("finbif_max_page_size"), page, count_only, quiet,
-      cache, dwc, df = TRUE, seed, exclude_na
+      cache, dwc, df = TRUE, seed, exclude_na, locale, include_facts
     )
 
     n <- attr(n, "nrec_avl")
@@ -112,7 +114,7 @@ finbif_occurrence <- function(
 
   records <- finbif_records(
     filter, select, order_by, aggregate, sample, n, page, count_only, quiet,
-    cache, dwc, df = TRUE, seed, exclude_na
+    cache, dwc, df = TRUE, seed, exclude_na, locale, include_facts
   )
 
   aggregate <- attr(records, "aggregate", TRUE)
@@ -155,6 +157,12 @@ finbif_occurrence <- function(
 
   df <- compute_scientific_name(df, select_, dwc)
 
+  df <- compute_red_list_status(df, select_, dwc)
+
+  df <- extract_facts(df, facts, dwc)
+
+  select_ <- c(select_, name_chr_vec(facts))
+
   df <- structure(
     df[select_],
     class     = c("finbif_occ", "data.frame"),
@@ -166,6 +174,8 @@ finbif_occurrence <- function(
     column_names = select_,
     record_id = record_id
   )
+
+  df <- unlist_cols(df, select_, unlist)
 
   names(df) <- names(select_)
 
@@ -455,25 +465,47 @@ compute_vars_from_id <- function(df, select_, dwc, locale, add = TRUE) {
 
       } else {
 
-        ptrn <- "^name_"
+        ptrn <- "^name_|^description_"
 
         metadata <- get(to_native(candidates[[k]]))
 
+        if (!inherits(metadata, "data.frame")) {
+
+          r <- unlist(lapply(metadata, row.names))
+
+          metadata <- do.call(rbind, c(metadata, make.row.names = FALSE))
+
+          row.names(metadata) <- r
+
+        }
+
       }
 
-      i <- gsub("http://tun.fi/", "", df[[id_var_name]])
+      id_var <- df[[id_var_name]]
 
       j <- grep(ptrn, names(metadata))
 
-      var <- metadata[i, j, drop = FALSE]
+      names(metadata) <- gsub(ptrn, "", names(metadata))
 
-      names(var) <- gsub(ptrn, "", names(var))
+      i <- lapply(id_var, remove_domain)
 
-      var <- apply(var, 1L, as.list)
+      var <- lapply(i, function(i) metadata[i, j, drop = FALSE])
 
-      var <- vapply(var, with_locale, NA_character_, locale)
+      var <- lapply(var, apply, 1L, as.list)
 
-      df[[candidates[[k]]]] <- ifelse(is.na(var), df[[id_var_name]], var)
+      var <- lapply(var, vapply, with_locale, NA_character_, locale)
+
+      df[[candidates[[k]]]] <- mapply(
+        function(x, y) unname(ifelse(is.na(x), y, x)),
+        var, id_var,
+        SIMPLIFY = FALSE, USE.NAMES = FALSE
+      )
+
+      if (!is.list(id_var)) {
+
+        df[[candidates[[k]]]] <- unlist(df[[candidates[[k]]]])
+
+      }
 
     }
 
@@ -660,9 +692,40 @@ compute_scientific_name <- function(df, select_, dwc, add = TRUE) {
 
 #' @noRd
 
+compute_red_list_status <- function(df, select_, dwc, add = TRUE) {
+
+  type <- col_type_string(dwc)
+
+  red_list_status <- var_names[["computed_var_red_list_status", type]]
+
+  red_list_status_id <-
+    var_names[["unit.linkings.taxon.latestRedListStatusFinland.status", type]]
+
+  red_list_status_year <-
+    var_names[["unit.linkings.taxon.latestRedListStatusFinland.year", type]]
+
+  if (red_list_status %in% select_ && add) {
+
+    df[[red_list_status]] <- ifelse(
+      is.na(df[[red_list_status_id]]),
+      NA_character_,
+      paste(
+        sub("http://tun.fi/MX.iucn", "", df[[red_list_status_id]]),
+        df[[red_list_status_year]]
+      )
+    )
+
+  }
+
+  df
+
+}
+
+#' @noRd
+
 multi_req <- function(
   taxa, filter, select, order_by, sample, n, page, count_only, quiet, cache,
-  dwc, date_time_method, tzone, locale, exclude_na
+  dwc, date_time_method, tzone, locale, exclude_na, unlist, facts
 ) {
 
   ans <- vector("list", length(filter))
@@ -685,7 +748,8 @@ multi_req <- function(
       sample = sample[[i]], n = n[[i]], page = page[[i]],
       count_only = count_only, quiet = quiet[[i]], cache = cache[[i]],
       dwc = dwc, date_time_method = date_time_method[[i]], check_taxa = FALSE,
-      tzone = tzone[[i]], locale = locale[[i]], exclude_na = exclude_na[[i]]
+      tzone = tzone[[i]], locale = locale[[i]], exclude_na = exclude_na[[i]],
+      unlist = unlist, facts = facts
     )
 
   }
@@ -699,5 +763,73 @@ multi_req <- function(
   }
 
   ans
+
+}
+
+#' @noRd
+
+unlist_cols <- function(df, cols, unlist) {
+
+  if (unlist) {
+
+    for (i in cols) {
+
+      if (is.list(df[[i]]) && !grepl("Fact|fact_", i)) {
+
+        df[[i]] <- vapply(df[[i]], concat_string, character(1L))
+
+      }
+
+    }
+
+  }
+
+  df
+
+}
+
+#' @noRd
+
+extract_facts <- function(df, facts, dwc) {
+
+  if (!missing(facts)) {
+
+    names <- c(
+      "unit.facts.fact", "gathering.facts.fact", "document.facts.fact"
+    )
+
+    values <- c(
+      "unit.facts.value", "gathering.facts.value", "document.facts.value"
+    )
+
+    df[facts] <- NA_character_
+
+    for (fact in facts) {
+
+      for (level in 1L:3L) {
+
+        idx <- lapply(
+          df[[var_names[[names[[level]], col_type_string(dwc)]]]], `==`, fact
+        )
+
+        vk <- mapply(
+          function(v, k) ifelse(length(v[k]) > 0L, v[k], NA_character_),
+          df[[var_names[[values[[level]], col_type_string(dwc)]]]],
+          idx
+        )
+
+        if (!all(is.na(vk))) {
+
+          df[[fact]] <- vk
+
+        }
+
+      }
+
+    }
+
+  }
+
+  df
 
 }

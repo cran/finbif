@@ -1,6 +1,36 @@
 \name{NEWS}
 \title{News for Package \pkg{finbif}}
 
+\section{finbif version 0.7.0}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item New function \code{taxon_id} that returns FinBIF taxon identifiers
+        given a scientific name, vernacular name or other taxon identifier.
+      \item New filters \code{complete_list_taxon_id} and
+        \code{complete_list_type} now available.
+      \item New global option \code{finbif_hide_progress} to suppress progress
+        bars when downloading, importing or processing FinBIF records.
+      \item For the sake of clarity and consistency the term "administrative
+        status" is now refered to as "regulatory status" throughout.
+      \item Regulatory status, informal taxonomic group and habitat data are now
+        localised.
+      \item Option \code{unlist} added to \code{finbif_occurrence} that casts
+        list columns to strings. If a cell has multiple values the values are
+        cast to a string separated by semi-colons.
+      \item New argument \code{facts} added to \code{finbif_occurrence} that
+        can be used to automatically extract facts when downloading occurrence
+        records.
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed bug triggered by incorrect data type applied to
+        \code{taxonomic_order}.
+      \item Fixed bug preventing locale switching of vernacular name data.
+    }
+  }
+}
+
 \section{finbif version 0.6.6}{
   \subsection{NEW FEATURES}{
     \itemize{

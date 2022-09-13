@@ -62,7 +62,8 @@
 #' @export
 
 finbif_occurrence_load <- function(
-  file, select, n = -1, count_only = FALSE, quiet = FALSE,
+  file, select, n = -1, count_only = FALSE,
+  quiet = getOption("finbif_hide_progress"),
   cache = getOption("finbif_use_cache"), dwc = FALSE, date_time_method,
   tzone = getOption("finbif_tz"), write_file = tempfile(), dt, keep_tsv = FALSE,
   facts = list(), type_convert_facts = TRUE, drop_na = FALSE,
@@ -91,7 +92,7 @@ finbif_occurrence_load <- function(
 
   }
 
-  defer_errors(select <- infer_selection("none", select, var_type))
+  defer_errors(select <- infer_selection("none", select, FALSE, var_type))
 
   fact_types <- names(which(vapply(facts, length, integer(1L)) > 0L))
 

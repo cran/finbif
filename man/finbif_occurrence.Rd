@@ -15,7 +15,7 @@ finbif_occurrence(
   n = 10,
   page = 1,
   count_only = FALSE,
-  quiet = FALSE,
+  quiet = getOption("finbif_hide_progress"),
   cache = getOption("finbif_use_cache"),
   dwc = FALSE,
   date_time_method,
@@ -26,7 +26,9 @@ finbif_occurrence(
   seed,
   drop_na = FALSE,
   aggregate_counts = TRUE,
-  exclude_na = FALSE
+  exclude_na = FALSE,
+  unlist = FALSE,
+  facts
 )
 }
 \arguments{
@@ -64,7 +66,7 @@ database.}
 \item{count_only}{Logical. Only return the number of records available.}
 
 \item{quiet}{Logical. Suppress the progress indicator for multipage
-downloads.}
+downloads. Defaults to value of option \code{finbif_hide_progress}.}
 
 \item{cache}{Logical. Use cached data.}
 
@@ -104,6 +106,12 @@ using aggregation.}
 
 \item{exclude_na}{Logical. Should records where all selected variables have
 non-NA values only be returned.}
+
+\item{unlist}{Logical. Should variables that contain non atomic data be
+concatenated into a string separated by ";"?}
+
+\item{facts}{Character vectors. Extra variables to be extracted from record,
+event and document "facts".}
 }
 \value{
 A \code{data.frame}. If \code{count_only =  TRUE} an integer.

@@ -30,19 +30,19 @@ genus only and not identified to a lower taxonomic level).
 If \code{TRUE} (default) return records for taxa not found in the FinBIF
 taxonomic database as well as taxa that are in the FinBIF database. Or, if
 \code{FALSE} limit records to only those of taxa found in the FinBIF database.
-\item \code{informal_group} Character vector.
+\item \code{informal_groups} Character vector.
 Filter by informal taxonomic groups. Only including informal groups linked
 to the recorded taxa in the FinBIF database. Use the function
 \code{\link[=finbif_informal_groups]{finbif_informal_groups()}} to see the informal taxonomic groups available
 in FinBIF.
-\item \code{informal_group_reported} Character vector.
+\item \code{informal_groups_reported} Character vector.
 Filter by informal taxonomic groups including groups reported directly with
 the record and those linked to the recorded taxa in the FinBIF database.
 Use the function \code{\link[=finbif_informal_groups]{finbif_informal_groups()}} to see the informal taxonomic
 groups available in FinBIF.
-\item \code{administrative_status} Character vector.
-Filter by administrative status code. Use the function
-\code{\link[=finbif_metadata]{finbif_metadata()}} to see administrative statuses and codes.
+\item \code{regulatory_status} Character vector.
+Filter by regulatory status code. Use the function
+\code{\link[=finbif_metadata]{finbif_metadata()}} to see regulatory statuses and codes.
 \item \code{red_list_status} Character vector.
 Filter by IUCN red list status code. Use the function \code{\link[=finbif_metadata]{finbif_metadata()}}
 to see red list statuses and codes.
@@ -305,6 +305,15 @@ form \code{"<fact>=<value>"}. Value can be omitted in which case all records
 with any value recorded for the specified fact will be returned.
 \item \code{has_sample} Logical.
 Record includes a sample or samples (e.g., a DNA sample or preparation).
+\item \code{complete_list_type} Filter by complete list type. Records made during
+monitoring that produces taxon lists for a given group of taxa (e.g.,
+birds) can include all species observed with breeding status recorded for
+each observed species (\code{all_species_and_breeding}), all species observed
+without breeding status recorded for all species observed, all species
+observed with or without breeding status recorded for all observed species
+(\code{all_species}), or only some of the species observed (\code{incomplete}).
+\item \code{complete_list_taxon_id} Filter by the taxon ID of the target group (e.g.,
+birds) for a complete list.
 }
 }
 

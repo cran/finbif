@@ -14,12 +14,14 @@ finbif_records(
   n = 10,
   page = 1,
   count_only = FALSE,
-  quiet = FALSE,
+  quiet = getOption("finbif_hide_progress"),
   cache = getOption("finbif_use_cache"),
   dwc = FALSE,
   seed,
   df = FALSE,
-  exclude_na = FALSE
+  exclude_na = FALSE,
+  locale = getOption("finbif_locale"),
+  include_facts = FALSE
 )
 }
 \arguments{
@@ -54,7 +56,7 @@ database.}
 \item{count_only}{Logical. Only return the number of records available.}
 
 \item{quiet}{Logical. Suppress the progress indicator for multipage
-downloads.}
+downloads. Defaults to value of option \code{finbif_hide_progress}.}
 
 \item{cache}{Logical. Use cached data.}
 
@@ -67,6 +69,14 @@ returned as an attribute?}
 
 \item{exclude_na}{Logical. Should records where all selected variables have
 non-NA values only be returned.}
+
+\item{locale}{Character. One of the supported two-letter ISO 639-1 language
+codes. Current supported languages are English, Finnish, Swedish, Russian,
+and Sámi (Northern). For data where more than one language is available
+the language denoted by \code{locale} will be preferred while falling back to
+the other languages in the order indicated above.}
+
+\item{include_facts}{Logical. Should all "fact" variables be included?}
 }
 \value{
 A \code{finbif_api} or \code{finbif_api_list} object.

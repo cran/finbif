@@ -87,7 +87,7 @@ truncate_string_to_unique <- function(x) {
   y <- x[ind]
   i <- 0L
   all_equal <- TRUE
-  while (all_equal & length(unique(y)) > 1L) {
+  while (all_equal && length(unique(y)) > 1L) {
     substr(y, i, i) <- " "
     i <- i + 1L
     j <- substr(y, i, i)
@@ -183,6 +183,8 @@ has_pkgs <- function(...) {
 #' @noRd
 name_chr_vec <- function(x, unique = TRUE, na.rm = TRUE) { # nolint
 
+  if (missing(x)) return(NULL)
+
   stopifnot(inherits(x, "character"))
 
   if (na.rm) {
@@ -214,10 +216,25 @@ name_chr_vec <- function(x, unique = TRUE, na.rm = TRUE) { # nolint
 }
 
 #' @noRd
-with_locale <- function(x, locale = getOption("finbif_locale")) {
-  if (identical(length(x), 0L)) return(NA_character_)
-  if (identical(length(x), 1L)) return(x[[1L]])
-  x[[intersect(c(locale, setdiff(supported_langs, locale)), names(x))[[1L]]]]
+remove_domain <- function(x, domain = "tun.fi", protocol =  "http") {
+
+  sub(sprintf("^%s://%s/", protocol, domain), "", x)
+
+}
+
+#' @noRd
+concat_string <- function(x) {
+
+  if (any(!is.na(x))) {
+
+    paste(x, collapse = "; ")
+
+  } else {
+
+    NA_character_
+
+  }
+
 }
 
 # random sampling --------------------------------------------------------------
@@ -394,4 +411,11 @@ get_locale <- function() {
 
   ans
 
+}
+
+#' @noRd
+with_locale <- function(x, locale = getOption("finbif_locale")) {
+  if (identical(length(x), 0L)) return(NA_character_)
+  if (identical(length(x), 1L)) return(x[[1L]])
+  x[[intersect(c(locale, setdiff(supported_langs, locale)), names(x))[[1L]]]]
 }

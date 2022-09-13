@@ -66,6 +66,26 @@ test_that(
 )
 
 test_that(
+  "can get a small random sample", {
+
+    skip_on_cran()
+
+    x <- finbif_occurrence(
+      filter = c(n_total_records_max = 2000), aggregate = "records", n = 100
+    )
+
+    x <- subset(x, n_records < 3000, scientific_name_interpreted)
+
+    expect_s3_class(
+      finbif_occurrence(x[[1, 1]], sample = TRUE, n = 1001, quiet = TRUE),
+      "finbif_occ"
+    )
+
+  }
+
+)
+
+test_that(
   "can return a count", {
 
     skip_on_cran()
@@ -89,7 +109,7 @@ test_that(
     n <- 1100L
 
     fungi <- finbif_occurrence(
-      filter = c(informal_group = "Fungi and lichens"),
+      filter = c(informal_groups = "Fungi and lichens"),
       select = to_native(
         "occurrenceID", "informalTaxonGroups", "taxonID", "vernacularName",
         "default_vars"
@@ -131,15 +151,16 @@ test_that(
 
     expect_output(print(finbif_occurrence()), "Records downloaded:")
 
-    if (
-      requireNamespace("grDevices") && !identical(.Platform$OS.type, "windows")
-    )
+    if (has_grd && !identical(.Platform$OS.type, "windows")) {
+
       expect_snapshot_file(
         save_svg(
           plot(fungi, axes = FALSE, xlab = NA, ylab = NA, panel.first = NULL)
         ),
-        "fungi.svg"
+        if (is_main_branch) "fungi.svg" else "fungi-dev.svg"
       )
+
+    }
 
   }
 )
@@ -156,6 +177,8 @@ test_that(
 
 test_that(
   "returns errors appropriately", {
+
+    skip_on_cran()
 
     expect_error(
       finbif_occurrence("not a valid taxa", on_check_fail = "error")
@@ -341,3 +364,78 @@ test_that(
 )
 
 suppressMessages(eject_cassette("finbif_get_all"))
+
+suppressMessages(insert_cassette("finbif_unlist"))
+
+test_that(
+  "can concatenate list cols", {
+
+    skip_on_cran()
+
+    expect_s3_class(
+      finbif_occurrence(select = "informal_groups", unlist = TRUE),
+      "finbif_occ"
+    )
+
+  }
+
+)
+
+suppressMessages(eject_cassette("finbif_unlist"))
+
+suppressMessages(insert_cassette("finbif_red_list"))
+
+test_that(
+  "can compute red list status", {
+
+    skip_on_cran()
+
+    expect_s3_class(
+      finbif_occurrence(select = "red_list_status"),
+      "finbif_occ"
+    )
+
+  }
+
+)
+
+suppressMessages(eject_cassette("finbif_red_list"))
+
+suppressMessages(insert_cassette("finbif_primary_habitat"))
+
+test_that(
+  "can compute primary habitat type from ID", {
+
+    skip_on_cran()
+
+    expect_s3_class(
+      finbif_occurrence(select = "primary_habitat"),
+      "finbif_occ"
+    )
+
+  }
+
+)
+
+suppressMessages(eject_cassette("finbif_primary_habitat"))
+
+suppressMessages(insert_cassette("finbif_extract_facts"))
+
+test_that(
+  "can extract facts", {
+
+    skip_on_cran()
+
+    expect_s3_class(
+      fb_occurrence(
+        select = "record_id", filter = c(collection = "HR.48"),
+        facts = "weightInGrams", sample = TRUE
+      ),
+      "finbif_occ"
+    )
+
+  }
+
+)
+
+suppressMessages(eject_cassette("finbif_extract_facts"))

@@ -1,3 +1,36 @@
+# finbif 0.7.0
+
+#### NEW FEATURES
+
+  - New function `taxon_id` that returns FinBIF taxon identifiers given
+    a scientific name, vernacular name or other taxon identifier.
+
+  - New filters `complete_list_taxon_id` and `complete_list_type` now
+    available.
+
+  - New global option `finbif_hide_progress` to suppress progress bars
+    when downloading, importing or processing FinBIF records.
+
+  - For the sake of clarity and consistency the term "administrative
+    status" is now refered to as "regulatory status" throughout.
+
+  - Regulatory status, informal taxonomic group and habitat data are now
+    localised.
+
+  - Option `unlist` added to `finbif_occurrence` that casts list columns
+    to strings. If a cell has multiple values the values are cast to a
+    string separated by semi-colons.
+
+  - New argument `facts` added to `finbif_occurrence` that can be used
+    to automatically extract facts when downloading occurrence records.
+
+#### BUG FIXES
+
+  - Fixed bug triggered by incorrect data type applied to
+    `taxonomic_order`.
+
+  - Fixed bug preventing locale switching of vernacular name data.
+
 # finbif 0.6.6
 
 #### NEW FEATURES

@@ -16,7 +16,7 @@
 finbif_metadata <- function(which) {
 
   metadata_name <- c(
-    "admin_status",
+    "regulatory_status",
     "red_list",
     "country",
     "province",
@@ -47,7 +47,7 @@ finbif_metadata <- function(which) {
 
     ans <- switch(
       which,
-      admin_status              = md_admin_status(),
+      regulatory_status         = md_regulatory_status(),
       red_list                  = md_red_list(),
       country                   = md_countries(),
       province                  = md_provinces(),
@@ -73,12 +73,24 @@ finbif_metadata <- function(which) {
 
 }
 
-md_admin_status <- function() {
-  df <- administrative_status
-  df <- df[order(df[["translated_status"]]), ]
-  structure(
-    df, row.names = seq_len(nrow(df)), names = c("status_name", "status_code")
-  )
+md_regulatory_status <- function() {
+
+  df <- regulatory_status
+
+  locale <- getOption("finbif_locale")
+
+  col <- paste0("description_", locale)
+
+  if (!col %in% names(df)) {
+
+    col <- "description_en"
+
+  }
+
+  df <- df[order(df[[col]]), c("status_code", col)]
+
+  structure(df, row.names = seq_len(nrow(df)))
+
 }
 
 md_red_list <- function() {
@@ -127,17 +139,47 @@ md_finnish_occurrence_status <- function() {
 }
 
 md_habitat_types <- function() {
+
   df <- primary_habitat[["habitat_types"]]
+
+  locale <- getOption("finbif_locale")
+
+  col <- paste0("name_", locale)
+
+  if (!col %in% names(df)) {
+
+    col <- "name_en"
+
+  }
+
+  df <- df[order(df[[col]]), c("code", col)]
+
   structure(
-    df, row.names = seq_len(nrow(df)), names = c("habitat_name", "habitat_code")
+    df, row.names = seq_len(nrow(df)),
+    names = c("habitat_code", "habitat_description")
   )
+
 }
 
 md_habitat_qualifiers <- function() {
+
   df <- primary_habitat[["specific_habitat_types"]]
+
+  locale <- getOption("finbif_locale")
+
+  col <- paste0("name_", locale)
+
+  if (!col %in% names(df)) {
+
+    col <- "name_en"
+
+  }
+
+  df <- df[order(df[[col]]), c("code", col)]
+
   structure(
     df, row.names = seq_len(nrow(df)),
-    names = c("qualifier_name", "qualifier_code")
+    names = c("qualifier_code", "qualifier_description")
   )
 }
 
