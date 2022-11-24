@@ -31,11 +31,10 @@ get_next_lowest_factor <- function(x, y) {
 }
 
 #' @noRd
-#' @importFrom methods as
 #' @importFrom utils hasName
 get_el_recurse <- function(obj, nms, type) {
 
-  type_na <- methods::as(NA, type)
+  type_na <- cast_to_type(NA, type)
 
   if (length(nms) < 1L) {
     return(
@@ -132,10 +131,9 @@ det_datetime_method <- function(method, n) {
 }
 
 #' @noRd
-#' @importFrom tools file_ext
 open_tsv_connection <- function(file, tsv, mode = "rt") {
 
-  if (!identical(tools::file_ext(file), "tsv")) {
+  if (!grepl("\\.tsv$", file)) {
 
     con <- unz(file, tsv, mode)
 
@@ -225,15 +223,32 @@ remove_domain <- function(x, domain = "tun.fi", protocol =  "http") {
 #' @noRd
 concat_string <- function(x) {
 
-  if (any(!is.na(x))) {
+  idx <- !is.na(x)
 
-    paste(x, collapse = "; ")
+  if (any(idx)) {
+
+    paste(x[idx], collapse = "; ")
 
   } else {
 
     NA_character_
 
   }
+
+}
+
+#' @noRd
+cast_to_type <- function(x, type) {
+
+  f <- switch(
+    type,
+    character = as.character,
+    double = as.double,
+    integer = as.integer,
+    logical = as.logical
+  )
+
+  f(x)
 
 }
 

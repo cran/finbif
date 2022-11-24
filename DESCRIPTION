@@ -1,7 +1,7 @@
 Package: finbif
 Title: Interface for the 'Finnish Biodiversity Information Facility'
         API
-Version: 0.7.0
+Version: 0.7.1
 Authors@R: c(
     person(given = "Finnish Museum of Natural History - Luomus",
            role = "cph"),
@@ -30,9 +30,8 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Depends: R (>= 3.5.0)
-Imports: digest, graphics, httr, jsonlite, lubridate, lutz, methods,
-        tools, utils
-RoxygenNote: 7.2.1
+Imports: digest, graphics, httr, lubridate, lutz, utils
+RoxygenNote: 7.2.2
 Suggests: data.table, dplyr, future, gert, grDevices, here, knitr,
         readODS, readxl, rmarkdown, testthat (>= 2.1.0), tidyr, vcr,
         webfakes
@@ -44,9 +43,9 @@ X-schema.org-keywords: api, biodiversity, biodiversity-informatics,
         taxonomy, web-services
 X-schema.org-isPartOf: https://species.fi
 NeedsCompilation: no
-Packaged: 2022-09-13 11:11:30 UTC; atlanci
+Packaged: 2022-11-24 10:41:09 UTC; atlanci
 Author: Finnish Museum of Natural History - Luomus [cph],
   William K. Morris [aut, cre] (<https://orcid.org/0000-0002-8686-4154>)
 Maintainer: William K. Morris <willi@mmorris.email>
 Repository: CRAN
-Date/Publication: 2022-09-13 11:30:02 UTC
+Date/Publication: 2022-11-24 11:00:02 UTC

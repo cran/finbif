@@ -93,11 +93,13 @@
 #' Variables related to abundance, sex and life history include:
 #'
 #' - `abundance` Integer.
+#'   Number of individuals recorded.
+#' - `abundance_interpreted` Integer.
 #'   Number of individuals recorded or inferred from the record. Note that many
-#'   records with `abundance = 1` only indicate the record is of one individual
-#'   and may not necessarily imply that this was the abundance at that specified
-#'   place and time (e.g., a preserved museum specimen consisting of a single
-#'   individual).
+#'   records with `abundance_interpreted == 1L` only indicate the record is of
+#'   one individual and may not necessarily imply that this was the abundance at
+#'   that specified place and time (e.g., a preserved museum specimen consisting
+#'   of a single individual).
 #' - `{female|male}_abundance` Integer.
 #'   Number of female or male individuals recorded.
 #' - `pair_abundance` Integer.
@@ -135,13 +137,14 @@
 #'   location of the record in either EUREF, YKJ or WGS84 coordinate systems.
 #' - `country` Character.
 #'   The country of the record's location.
-#' - `province` Character.
-#'   The administrative area directly below the level of country. For data from
-#'   Finland FinBIF uses the concept of
+#' - `region` Character.
+#'   The administrative area directly below the level of country.
+#' - `bio_province` Character.
+#'   For data from Finland FinBIF uses the concept of
 #'   [Biogeographical Province](https://laji.fi/en/theme/emk). See link for
 #'   details.
 #' - `municipality`. Character.
-#'   Administrative level below province.
+#'   Administrative level below region
 #' - `higher_geography` Character.
 #'   Geographic place name that is at higher level than country.
 #' - `line_length_m` Integer.
@@ -150,6 +153,11 @@
 #'   The size of record's location in meters squared.
 #' - `is_breeding_location` Logical.
 #'   Whether or not the occurrence is recorded at a known breeding location.
+#' - `location_id` Character.
+#'   A location ID in the form of a URI.
+#' - `section` Integer.
+#'   A numeric identifier for a sub-location of a location (e.g., a specific
+#'   part of a transect that undergoes repeated surveys.)
 #'
 #' @section Time:
 #' Variables related to time of record include:
@@ -216,7 +224,7 @@
 #'   Has the record been restricted in some way (e.g., geospatially aggregated).
 #' - `restriction_level` Character.
 #'   What level of restriction has been applied to the record.
-#' - `restriction_reasons` List.
+#' - `restriction_reason` List.
 #'   List of reasons restriction has been applied.
 #'
 #' @section Data quality:

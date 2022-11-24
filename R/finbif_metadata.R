@@ -19,7 +19,8 @@ finbif_metadata <- function(which) {
     "regulatory_status",
     "red_list",
     "country",
-    "province",
+    "region",
+    "bio_province",
     "municipality",
     "bird_assoc_area",
     "finnish_occurrence_status",
@@ -50,7 +51,8 @@ finbif_metadata <- function(which) {
       regulatory_status         = md_regulatory_status(),
       red_list                  = md_red_list(),
       country                   = md_countries(),
-      province                  = md_provinces(),
+      region                    = md_regions(),
+      bio_province              = md_bio_provinces(),
       municipality              = md_municipalities(),
       bird_assoc_area           = md_bird_assoc_areas(),
       finnish_occurrence_status = md_finnish_occurrence_status(),
@@ -109,9 +111,17 @@ md_countries <- function() {
   )
 }
 
-md_provinces <- function() {
+md_regions <- function() {
   structure(
-    province, row.names = seq_len(nrow(province)),
+    region,
+    row.names = seq_len(nrow(region)),
+    names = c("english_name", "finnish_name", "swedish_name")
+  )
+}
+
+md_bio_provinces <- function() {
+  structure(
+    bio_province, row.names = seq_len(nrow(bio_province)),
     names = c("english_name", "finnish_name", "alpha_code", "country")
   )
 }
@@ -184,22 +194,29 @@ md_habitat_qualifiers <- function() {
 }
 
 md_life_stages <- function() {
-  structure(life_stage, row.names = seq_len(nrow(life_stage)))
+  structure(
+    life_stage,
+    row.names = seq_len(nrow(life_stage)),
+    names =  c("english_name", "finnish_name", "swedish_name")
+  )
 }
 
 md_record_basis <- function() {
   structure(
-    record_basis[c("description", "name_en")],
+    record_basis[c("name_en", "name_fi", "name_sv")],
     row.names = seq_len(nrow(record_basis)),
-    names = c("basis_description", "basis_name")
+    names =  c("english_name", "finnish_name", "swedish_name")
   )
 }
 
 md_restriction_reasons <- function() {
   structure(
-    restriction_reason[c("value", "enumeration")],
+    restriction_reason,
     row.names = seq_len(nrow(restriction_reason)),
-    names = c("reason_description", "reason_name")
+    names = c(
+      "label", "english_description", "finnish_description",
+      "swedish_description"
+    )
   )
 }
 
@@ -213,9 +230,9 @@ md_restriction_levels <- function() {
 
 md_sex_categories <- function() {
   structure(
-    sex[order(sex[["category"]]), c("category", "code")],
+    sex[order(sex[["name_en"]]), ],
     row.names = seq_len(nrow(sex)),
-    names = c("category_name", "category_code")
+    names = c("code", "english_name", "finnish_name", "swedish_name")
   )
 }
 

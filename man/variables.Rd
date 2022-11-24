@@ -104,11 +104,13 @@ Was the taxon considered Finnish before (if any) annotation?
 Variables related to abundance, sex and life history include:
 \itemize{
 \item \code{abundance} Integer.
+Number of individuals recorded.
+\item \code{abundance_interpreted} Integer.
 Number of individuals recorded or inferred from the record. Note that many
-records with \code{abundance = 1} only indicate the record is of one individual
-and may not necessarily imply that this was the abundance at that specified
-place and time (e.g., a preserved museum specimen consisting of a single
-individual).
+records with \code{abundance_interpreted == 1L} only indicate the record is of
+one individual and may not necessarily imply that this was the abundance at
+that specified place and time (e.g., a preserved museum specimen consisting
+of a single individual).
 \item \verb{\{female|male\}_abundance} Integer.
 Number of female or male individuals recorded.
 \item \code{pair_abundance} Integer.
@@ -149,13 +151,14 @@ Well-Known Text (WKT) representation of the geographic shape defining the
 location of the record in either EUREF, YKJ or WGS84 coordinate systems.
 \item \code{country} Character.
 The country of the record's location.
-\item \code{province} Character.
-The administrative area directly below the level of country. For data from
-Finland FinBIF uses the concept of
+\item \code{region} Character.
+The administrative area directly below the level of country.
+\item \code{bio_province} Character.
+For data from Finland FinBIF uses the concept of
 \href{https://laji.fi/en/theme/emk}{Biogeographical Province}. See link for
 details.
 \item \code{municipality}. Character.
-Administrative level below province.
+Administrative level below region
 \item \code{higher_geography} Character.
 Geographic place name that is at higher level than country.
 \item \code{line_length_m} Integer.
@@ -164,6 +167,11 @@ The length of linear locations (e.g., line transect surveys).
 The size of record's location in meters squared.
 \item \code{is_breeding_location} Logical.
 Whether or not the occurrence is recorded at a known breeding location.
+\item \code{location_id} Character.
+A location ID in the form of a URI.
+\item \code{section} Integer.
+A numeric identifier for a sub-location of a location (e.g., a specific
+part of a transect that undergoes repeated surveys.)
 }
 }
 
@@ -236,7 +244,7 @@ Variables related to restricted records include:
 Has the record been restricted in some way (e.g., geospatially aggregated).
 \item \code{restriction_level} Character.
 What level of restriction has been applied to the record.
-\item \code{restriction_reasons} List.
+\item \code{restriction_reason} List.
 List of reasons restriction has been applied.
 }
 }

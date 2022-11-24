@@ -1,6 +1,35 @@
 \name{NEWS}
 \title{News for Package \pkg{finbif}}
 
+\section{finbif version 0.7.1}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item New function \code{finbif_mod_date} to get last modified date for
+        FinBIF occurrence data.
+      \item Region is now a selectable variable for \code{finbif_occurrence}
+        and can also be used to filter records.
+    }
+  }
+  \subsection{MINOR IMPROVEMENTS}{
+    \itemize{
+      \item For the sake of clarity "province" is now referred to as
+        "bio-province".
+      \item Many variables, including \code{sex}, \code{life_stage} and
+        \code{record_quality} are now localised.
+      \item The variable \code{restriction_reasons} is now referred to in the
+        singular as \code{restriction_reason}.
+      \item For consistency, \code{lang} argument to \code{finbif_collections}
+        has been changed to \code{locale}.
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed bug that caused locale to be set incorrectly for multipage
+        requests.
+    }
+  }
+}
+
 \section{finbif version 0.7.0}{
   \subsection{NEW FEATURES}{
     \itemize{

@@ -80,7 +80,7 @@ finbif_records <- function(
 
     } else {
 
-      parsed_filters <- parse_filters(filter, aggregate)
+      parsed_filters <- parse_filters(filter, aggregate, locale)
 
       query <- lapply(parsed_filters, paste, collapse = ",")
 
@@ -359,6 +359,16 @@ infer_computed_vars <- function(select, var_type) {
 
   }
 
+  region_vars <- c("region", "stateProvince")
+
+  if (any(region_vars %in% select)) {
+
+    region_vars <- "gathering.interpretations.finnishMunicipality"
+
+    select <- unique(c(select, var_names[region_vars, var_type]))
+
+  }
+
   select
 
 }
@@ -421,7 +431,8 @@ request <- function(
     }
 
     resp <- get_extra_pages(
-      resp, n, max_size, quiet, path, query, cache, select, aggregate, df
+      resp, n, max_size, quiet, path, query, cache, select, aggregate, df,
+      locale
     )
 
     if (sample) {
@@ -459,7 +470,7 @@ records_obj <- function(path, query, cache, select, aggregate) {
 # record pagination ------------------------------------------------------------
 
 get_extra_pages <- function(
-  resp, n, max_size, quiet, path, query, cache, select, aggregate, df
+  resp, n, max_size, quiet, path, query, cache, select, aggregate, df, locale
 ) {
 
   multipage <- n > max_size
@@ -499,7 +510,7 @@ get_extra_pages <- function(
       res <- future::future(records_obj(path, query, cache, select, aggregate))
     }
 
-    if (df) attr(resp[[i]], "df") <- as.data.frame(resp[[i]])
+    if (df) attr(resp[[i]], "df") <- as.data.frame(resp[[i]], locale = locale)
 
     i <- i + 1L
 
@@ -515,7 +526,7 @@ get_extra_pages <- function(
 
 # parsing filters --------------------------------------------------------------
 
-parse_filters <- function(filter, aggregate) {
+parse_filters <- function(filter, aggregate, locale) {
 
   filter <- as.list(filter)
   finbif_filter_names <- translate(names(filter), "filter_names")
@@ -550,7 +561,7 @@ parse_filters <- function(filter, aggregate) {
         env <- list()
 
         env[[names(filter)[[i]]]] <- finbif_collections(
-          select = NA, supercollections = TRUE, nmin = NA
+          select = NA, supercollections = TRUE, nmin = NA, locale = locale
         )
 
         for (cl in c("id", "collection_name", "abbreviation")) {

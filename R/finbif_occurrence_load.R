@@ -57,8 +57,6 @@
 #' @importFrom digest digest
 #' @importFrom httr progress RETRY status_code write_disk
 #' @importFrom utils hasName head read.delim tail unzip write.table
-#' @importFrom methods as
-#' @importFrom tools file_ext
 #' @export
 
 finbif_occurrence_load <- function(
@@ -114,13 +112,15 @@ finbif_occurrence_load <- function(
 
   }
 
+  file_vars <- attr(df, "file_vars")
+
+  df <- localise_enums(df, file_vars, locale)
+
   n_recs <- attr(df, "nrow")
 
   url <- attr(df, "url")
 
   names(df) <- fix_issue_vars(names(df))
-
-  file_vars <- attr(df, "file_vars")
 
   fact_types <- select_facts(fact_types, attr(file_vars, "lite"))
 
@@ -136,13 +136,15 @@ finbif_occurrence_load <- function(
 
   df <- expand_lite_cols(df, !select[["all"]])
 
-  names(df) <- file_vars[names(df), var_type]
+  nms <- file_vars[names(df), var_type]
+
+  names(df) <- ifelse(is.na(nms), names(df), nms)
 
   df <- compute_vars_from_id(
     df, select[["user"]], dwc, locale, !select[["all"]]
   )
 
-  df <- compute_abundance(df, select[["user"]], dwc, !select[["all"]])
+  df <- compute_abundance(df, select[["user"]], dwc, locale, !select[["all"]])
 
   df <- compute_citation(df, select[["user"]], dwc, record_id, !select[["all"]])
 
@@ -175,7 +177,7 @@ finbif_occurrence_load <- function(
 
       ind <- var_names[[var_type]] == extra_var
 
-      df[[extra_var]] <- methods::as(
+      df[[extra_var]] <- cast_to_type(
         rep_len(NA, nrow(df)), var_names[ind, "type"]
       )
 
@@ -256,6 +258,12 @@ finbif_occurrence_load <- function(
     short_fcts <- paste0("f", seq_along(short_fcts), short_fcts)
 
     short_nms[is.na(short_nms)] <- short_fcts
+
+    missing <- which(short_nms == "f")
+
+    short_nms[missing] <- abbreviate(
+      gsub("[^A-Za-z]", "", names(df)[missing]), 10L
+    )
 
     names(df) <- short_nms
 
@@ -388,14 +396,18 @@ attempt_read <- function(
 
       input <- as.character(file)
 
-      df <- switch(
-        tools::file_ext(input),
-        tsv = dt_read(select, n, quiet, dt, input = input, skip = skip),
-        dt_read(
+      if (grepl("\\.tsv$", input)) {
+
+        df <- dt_read(select, n, quiet, dt, input = input, skip = skip)
+
+      } else {
+
+        df <- dt_read(
           select, n, quiet, dt, keep_tsv, skip,
           zip = list(input = input, tsv = tsv)
         )
-      )
+
+      }
 
     } else {
 
@@ -408,6 +420,23 @@ attempt_read <- function(
     df
 
   }
+
+}
+
+#' @noRd
+localise_enums <- function(df, file_vars, locale) {
+
+  for (i in names(df)) {
+
+    if (i %in% row.names(file_vars) && isTRUE(file_vars[[i, "localised"]])) {
+
+      df[[i]] <- localise_labels(df[[i]], i, file_vars, locale)
+
+    }
+
+  }
+
+  df
 
 }
 
@@ -608,7 +637,7 @@ add_nas <- function(df, nm, var_type, file_vars) {
 
     }
 
-    ans <- methods::as(ans, file_vars[ind, "type"])
+    ans <- cast_to_type(ans, file_vars[ind, "type"])
 
   }
 
@@ -774,7 +803,7 @@ dt_read <- function(select, n, quiet, dt, keep_tsv = FALSE, skip, ...) {
 
   for (i in seq_along(df)) {
 
-    df[[i]] <- suppressWarnings(methods::as(df[[i]], classes[[i]]))
+    df[[i]] <- cast_to_type(df[[i]], classes[[i]])
 
   }
 
@@ -791,7 +820,7 @@ rd_read <- function(file, tsv, n, select, keep_tsv, skip) {
 
   quote <- ""
 
-  if (keep_tsv && !identical(tools::file_ext(file), "tsv")) {
+  if (keep_tsv && !grepl("\\.tsv$", file)) {
 
     unzip <- "internal"
 
@@ -840,7 +869,7 @@ rd_read <- function(file, tsv, n, select, keep_tsv, skip) {
 
     for (i in seq_along(df)) {
 
-      df[[i]] <- suppressWarnings(methods::as(df[[i]], classes[[i]]))
+      df[[i]] <- cast_to_type(df[[i]], classes[[i]])
 
     }
 
@@ -1089,15 +1118,15 @@ infer_file_vars <- function(cols) {
     file_vars <- lite_download_file_vars
 
     locale <- lapply(lite_download_file_vars, intersect, cols)
-    locale <- lapply(locale, sort)
-    locale <- vapply(locale, identical, logical(1L), sort(cols))
+    locale <- vapply(locale, length, integer(1L))
+    locale <- which(locale == max(locale))
 
     stopifnot(
       "File has field names incompatible with this {finbif} R package version" =
-        any(locale)
-    )
+        length(locale) == 1L
+     )
 
-    locale <- names(which(locale))[[1L]]
+    locale <- names(locale)[[1L]]
 
     rownames(file_vars) <- file_vars[[locale]]
 
@@ -1114,9 +1143,17 @@ infer_file_vars <- function(cols) {
 #' @noRd
 preprocess_data_file <- function(file) {
 
-  ext <- tools::file_ext(file)
+  if (grepl("\\.ods$", file)) {
 
-  file <- switch(ext, ods = from_ods(file), xlsx = from_xlsx(file), file)
+    file <- from_ods(file)
+
+  }
+
+  if (grepl("\\.xlsx$", file)) {
+
+    file <- from_xlsx(file)
+
+  }
 
   file
 

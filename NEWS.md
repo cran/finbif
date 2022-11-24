@@ -1,3 +1,32 @@
+# finbif 0.7.1
+
+#### NEW FEATURES
+
+  - New function `finbif_mod_date` to get last modified date for FinBIF
+    occurrence data.
+
+  - Region is now a selectable variable for `finbif_occurrence` and can
+    also be used to filter records.
+
+#### MINOR IMPROVEMENTS
+
+  - For the sake of clarity "province" is now referred to as
+    "bio-province".
+
+  - Many variables, including `sex`, `life_stage` and `record_quality`
+    are now localised.
+
+  - The variable `restriction_reasons` is now referred to in the
+    singular as `restriction_reason`.
+
+  - For consistency, `lang` argument to `finbif_collections` has been
+    changed to `locale`.
+
+#### BUG FIXES
+
+  - Fixed bug that caused locale to be set incorrectly for multipage
+    requests.
+
 # finbif 0.7.0
 
 #### NEW FEATURES

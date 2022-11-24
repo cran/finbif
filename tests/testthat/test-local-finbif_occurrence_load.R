@@ -160,6 +160,15 @@ test_that(
       )
     )
 
+    expect_snapshot_value(
+      capture.output(
+        print(
+          finbif_occurrence_load("HBF.6968.zip", select = "all")
+        )
+      ),
+      style = "json2"
+    )
+
   }
 
 )
@@ -227,6 +236,22 @@ test_that(
     )
 
     Sys.unsetenv("FINBIF_FILE_SIZE_LIMIT")
+
+  }
+)
+
+test_that(
+  "importing files with unknown columns works", {
+
+    expect_snapshot_value(
+      finbif_occurrence_load("HBF.49382.zip", tzone = "Etc/UTC"),
+      style = "json2"
+    )
+
+    expect_snapshot_value(
+      finbif_occurrence_load("laji-data-new-col.tsv", tzone = "Etc/UTC"),
+      style = "json2"
+    )
 
   }
 )

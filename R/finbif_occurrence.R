@@ -149,7 +149,7 @@ finbif_occurrence <- function(
 
   df <- compute_epsg(df, select_, dwc)
 
-  df <- compute_abundance(df, select_, dwc)
+  df <- compute_abundance(df, select_, dwc, locale)
 
   df <- compute_citation(df, select_, dwc, record_id)
 
@@ -158,6 +158,8 @@ finbif_occurrence <- function(
   df <- compute_scientific_name(df, select_, dwc)
 
   df <- compute_red_list_status(df, select_, dwc)
+
+  df <- compute_region(df, select_, dwc)
 
   df <- extract_facts(df, facts, dwc)
 
@@ -303,45 +305,52 @@ get_date_time <- function(
   df, date, month, day, hour, minute, lat, lon, method, tzone
 ) {
 
-  date_time <- lubridate::ymd(df[[date]])
-  date_time <- lubridate::as_datetime(date_time)
+  date_time <- as.POSIXct(character(), tz = tzone)
 
-  # When there is no hour assume the hour is midday (i.e., don't assume
-  # midnight)
-  lubridate::hour(date_time) <- 12L
+  if (nrow(df) > 0L) {
 
-  if (!is.null(df[[hour]])) {
-    lubridate::hour(date_time) <- ifelse(
-      is.na(df[[hour]]), lubridate::hour(date_time), df[[hour]]
-    )
+    date_time <- lubridate::ymd(df[[date]])
+    date_time <- lubridate::as_datetime(date_time)
+
+    # When there is no hour assume the hour is midday (i.e., don't assume
+    # midnight)
+    lubridate::hour(date_time) <- 12L
+
+    if (!is.null(df[[hour]])) {
+      lubridate::hour(date_time) <- ifelse(
+        is.na(df[[hour]]), lubridate::hour(date_time), df[[hour]]
+      )
+    }
+
+    if (!is.null(df[[minute]])) {
+      lubridate::minute(date_time) <- ifelse(
+        is.na(df[[minute]]), lubridate::minute(date_time), df[[minute]]
+      )
+    }
+
+    method <- match.arg(method, c("none", "fast", "accurate"), TRUE)
+
+    if (identical(method, "none")) {
+
+      tz_in <- "Europe/Helsinki"
+      date_time <- lubridate::force_tz(date_time, tz_in)
+      date_time <- lubridate::with_tz(date_time, tzone)
+
+    } else {
+
+      tz_in <- lutz::tz_lookup_coords(df[[lat]], df[[lon]], method, FALSE)
+      date_time <- lubridate::force_tzs(
+        date_time, tzones = ifelse(is.na(tz_in), tzone, tz_in),
+        tzone_out = tzone
+      )
+
+    }
+
+    ind <- is.na(df[[month]]) | is.na(df[[day]])
+
+    date_time[ind] <- lubridate::as_datetime(NA_integer_, tz = tzone)
+
   }
-
-  if (!is.null(df[[minute]])) {
-    lubridate::minute(date_time) <- ifelse(
-      is.na(df[[minute]]), lubridate::minute(date_time), df[[minute]]
-    )
-  }
-
-  method <- match.arg(method, c("none", "fast", "accurate"), TRUE)
-
-  if (identical(method, "none")) {
-
-    tz_in <- "Europe/Helsinki"
-    date_time <- lubridate::force_tz(date_time, tz_in)
-    date_time <- lubridate::with_tz(date_time, tzone)
-
-  } else {
-
-    tz_in <- lutz::tz_lookup_coords(df[[lat]], df[[lon]], method, FALSE)
-    date_time <- lubridate::force_tzs(
-      date_time, tzones = ifelse(is.na(tz_in), tzone, tz_in), tzone_out = tzone
-    )
-
-  }
-
-  ind <- is.na(df[[month]]) | is.na(df[[day]])
-
-  date_time[ind] <- lubridate::as_datetime(NA_integer_, tz = tzone)
 
   date_time
 
@@ -460,7 +469,7 @@ compute_vars_from_id <- function(df, select_, dwc, locale, add = TRUE) {
 
         metadata <- finbif_collections(
           select = ptrn, subcollections = TRUE,
-          supercollections = TRUE, nmin = NA
+          supercollections = TRUE, nmin = NA, locale = locale
         )
 
       } else {
@@ -563,7 +572,7 @@ compute_epsg <- function(df, select_, dwc, add = TRUE) {
 
 #' @noRd
 
-compute_abundance <- function(df, select_, dwc, add = TRUE) {
+compute_abundance <- function(df, select_, dwc, locale, add = TRUE) {
 
   type <- col_type_string(dwc)
 
@@ -591,8 +600,15 @@ compute_abundance <- function(df, select_, dwc, add = TRUE) {
 
     if (occurrence_status_ %in% select_) {
 
+      status <- switch(
+        locale,
+        fi = c("paikalla", "poissa"),
+        sv = c("n\u00e4rvarande", "fr\u00e5nvarande"),
+        c("present", "absent")
+      )
+
       occurrence_status <- ifelse(
-        is.na(abundance) | abundance > 0L, "present", "absent"
+        is.na(abundance) | abundance > 0L, status[[1L]], status[[2L]]
       )
 
       df[[occurrence_status_]] <- occurrence_status
@@ -721,6 +737,25 @@ compute_red_list_status <- function(df, select_, dwc, add = TRUE) {
 
 }
 
+compute_region <- function(df, select_, dwc, add = TRUE) {
+
+  type <- col_type_string(dwc)
+
+  region <- var_names[["computed_var_region", type]]
+
+  municipality_id <-
+    var_names[["gathering.interpretations.finnishMunicipality", type]]
+
+  if (region %in% select_ && add) {
+
+    df[[region]] <- municipality[basename(df[[municipality_id]]), "region"]
+
+  }
+
+  df
+
+}
+
 #' @noRd
 
 multi_req <- function(
@@ -831,5 +866,38 @@ extract_facts <- function(df, facts, dwc) {
   }
 
   df
+
+}
+
+#' Get last modified date for FinBIF occurrence records
+#'
+#' Get last modified date for filtered occurrence data from FinBIF.
+#'
+#' @aliases fb_last_mod
+#'
+#' @inheritParams finbif_occurrence
+#' @return A `Date` object
+#' @examples \dontrun{
+#'
+#' # Get last modified date for Whooper Swan occurrence records from Finland
+#' finbif_last_mod("Cygnus cygnus", filter = c(country = "Finland"))
+#'
+#' }
+#' @export
+finbif_last_mod <- function(..., filter) {
+
+  res <- finbif_occurrence(
+    ..., filter = filter, select = "load_date", order_by = "-load_date", n = 1L
+  )
+
+  ans <- as.Date(character())
+
+  if (nrow(res) > 0L) {
+
+    ans <- as.Date(res[["load_date"]][[1L]])
+
+  }
+
+  ans
 
 }
