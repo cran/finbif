@@ -1,6 +1,15 @@
 \name{NEWS}
 \title{News for Package \pkg{finbif}}
 
+\section{finbif version 0.7.2}{
+  \subsection{MINOR IMPROVEMENTS}{
+    \itemize{
+      \item Updated deprecated use of tidy::pivot_wider.
+      \item Added new filters and variables from upstream API.
+    }
+  }
+}
+
 \section{finbif version 0.7.1}{
   \subsection{NEW FEATURES}{
     \itemize{

@@ -506,7 +506,7 @@ get_zip <- function(url, quiet, cache, write_file) {
 
   if (cache) {
 
-    hash <- digest::digest(url)
+    hash <- digest::digest(sub(":\\d+", "", url))
 
     fcp <- getOption("finbif_cache_path")
 
@@ -524,7 +524,7 @@ get_zip <- function(url, quiet, cache, write_file) {
 
         if (!is.null(write_file)) {
 
-          set_cache(write_file, hash)
+          set_cache(list(data = write_file, hash = hash))
 
         }
 
@@ -957,7 +957,7 @@ spread_facts <-  function(
     )
 
     facts <- tidyr::pivot_wider(
-      facts, 1L, names_from = 2L, values_from = 3L, values_fn = list,
+      facts, id_cols = 1L, names_from = 2L, values_from = 3L, values_fn = list,
       values_fill = list(NA)
     )
 

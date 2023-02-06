@@ -1,3 +1,11 @@
+# finbif 0.7.2
+
+#### MINOR IMPROVEMENTS
+
+  - Updated deprecated use of tidy::pivot\_wider.
+
+  - Added new filters and variables from upstream API.
+
 # finbif 0.7.1
 
 #### NEW FEATURES

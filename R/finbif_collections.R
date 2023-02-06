@@ -39,21 +39,32 @@ finbif_collections <- function(
 
   col_md_nms <- names(swagger[["definitions"]][["Collection"]][["properties"]])
 
-  col_md <- get_collections(
-    list(lang = locale), "collections", col_md_nms, "id", cache
+  col_md <- list(
+    qry = list(lang = locale),
+    path = "collections",
+    nms = col_md_nms,
+    id = "id",
+    cache = cache
   )
+
+  col_md <- get_collections(col_md)
 
   col_count_nms <- names(
     swagger[["definitions"]][["DwQuery_AggregateRow"]][["properties"]]
   )
-  col_count <- get_collections(
-    list(
+
+  col_counts <- list(
+    qry = list(
       aggregateBy = "document.collectionId", onlyCount = FALSE,
       pessimisticDateRangeHandling = TRUE
     ),
-    paste0(getOption("finbif_warehouse_query"), "unit/aggregate"),
-    col_count_nms, "aggregateBy", cache
+    path = paste0(getOption("finbif_warehouse_query"), "unit/aggregate"),
+    nms = col_count_nms,
+    id = "aggregateBy",
+    cache = cache
   )
+
+  col_count <- get_collections(col_counts)
 
   collections <- merge(
     col_md, col_count, by.x = "id", by.y = "aggregate_by", all.x = TRUE
@@ -134,15 +145,26 @@ finbif_collections <- function(
 
 }
 
-get_collections <- function(qry, path, nms, id, cache) {
-  qry <- c(qry, list(page = 0L, pageSize = 1000L))
+get_collections <- function(obj) {
+  nms <- obj[["nms"]]
+  qry <- c(obj[["qry"]], list(page = 0L, pageSize = 1000L))
   collections <- list()
   total <- 1L
 
   while (total > qry[["page"]] * qry[["pageSize"]]) {
+
     qry[["page"]] <- qry[["page"]] + 1L
-    collections[[qry[["page"]]]] <- api_get(path, qry, cache)
+
+    collections[[qry[["page"]]]] <- api_get(
+      list(
+        path = obj[["path"]],
+        query = qry,
+        cache = obj[["cache"]]
+      )
+    )
+
     total <- collections[[qry[["page"]]]][["content"]][["total"]]
+
   }
 
   for (i in c("content", "results")) {
@@ -179,8 +201,8 @@ get_collections <- function(qry, path, nms, id, cache) {
 
   collections[nms[["TRUE"]]] <- list_cols
 
-  collections[[id]] <- gsub(
-    "^http:\\/\\/tun\\.fi\\/", "", collections[[id]]
+  collections[[obj[["id"]]]] <- gsub(
+    "^http:\\/\\/tun\\.fi\\/", "", collections[[obj[["id"]]]]
   )
 
   names(collections) <- sub("\\.", "_", names(collections))
@@ -220,7 +242,7 @@ get_swagger <- function(cache) {
 
         if (!is.null(ans)) {
 
-          set_cache(ans, hash)
+          set_cache(list(data = ans, hash = hash))
 
         }
 

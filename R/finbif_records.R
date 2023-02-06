@@ -206,6 +206,7 @@ infer_selection <- function(aggregate, select, include_facts, var_type) {
           "unit.interpretations.individualCount", "unit.abundanceString",
           "gathering.interpretations.coordinateAccuracy",
           "unit.linkings.taxon.scientificName", "unit.taxonVerbatim",
+          "unit.linkings.taxon.scientificNameAuthorship", "unit.author",
           "document.sourceId"
         )
       )
@@ -339,6 +340,7 @@ infer_computed_vars <- function(select, var_type) {
 
     scientific_name_vars <- c(
       "unit.linkings.taxon.scientificName", "unit.taxonVerbatim",
+      "unit.linkings.taxon.scientificNameAuthorship", "unit.author",
       "document.sourceId"
     )
 
@@ -388,7 +390,7 @@ request <- function(
     query[["selected"]] <- NULL
     query[["orderBy"]]  <- NULL
     path <- paste0(path, "unit/count")
-    return(api_get(path, query, cache))
+    return(api_get(list(path = path, query = query, cache = cache)))
 
   }
 
@@ -398,7 +400,7 @@ request <- function(
 
     query[["page"]] <- 1L
     query[["pageSize"]] <- 1L
-    resp <- api_get(path, query, cache)
+    resp <- api_get(list(path = path, query = query, cache = cache))
     resp[["content"]] <- list(total = resp[["content"]][["total"]])
     return(resp)
 
@@ -460,7 +462,7 @@ request <- function(
 
 records_obj <- function(path, query, cache, select, aggregate) {
   structure(
-    api_get(path, query, cache),
+    api_get(list(path = path, query = query, cache = cache)),
     class = c("finbif_records", "finbif_api"),
     select = unique(select),
     aggregate = aggregate
@@ -579,15 +581,13 @@ parse_filters <- function(filter, aggregate, locale) {
       # Coordinates filter must have a system defined
       check_coordinates(finbif_filter_names[[i]], filter[["coordinates"]])
 
-      filter[[i]] <- do.call(coords, as.list(filter[[i]]))
+      filter[[i]] <- coords(filter[[i]])
 
     }
 
     if (identical(filter_names[finbif_filter_names[[i]], "class"], "date")) {
 
-      filter[[i]] <- do.call(
-        dates, c(list(names(filter)[[i]]), as.list(filter[[i]]))
-      )
+      filter[[i]] <- dates(c(list(filter = names(filter)[[i]]), filter[[i]]))
 
     }
 
