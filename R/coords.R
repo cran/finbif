@@ -6,18 +6,46 @@ coords <- function(obj) {
 
   nms <- c("lat", "lon", "system", "ratio")
 
-  names(obj) <- nms[seq_along(obj)]
+  obj_seq <- seq_along(obj)
 
-  coords <- paste(obj[["lat"]], obj[["lon"]], sep = ":")
+  names(obj) <- nms[obj_seq]
 
-  if (is.null(obj[["system"]])) return(coords)
+  lat <- obj[["lat"]]
 
-  obj[["system"]] <- toupper(obj[["system"]])
+  lon <- obj[["lon"]]
 
-  obj[["system"]] <- match.arg(obj[["system"]], c("WGS84", "EUREF", "YKJ"))
+  lat <- paste(lat, collapse = ":")
 
-  if (is.null(obj[["ratio"]])) return(paste(coords, obj[["system"]], sep = ":"))
+  lon <- paste(lon, collapse = ":")
 
-  paste(coords, obj[["system"]], obj[["ratio"]], sep = ":")
+  ans <- paste(lat, lon, sep = ":")
+
+  sys <- obj[["system"]]
+
+  has_sys <- !is.null(sys)
+
+  if (has_sys) {
+
+    sys <- toupper(sys)
+
+    systems <- c("WGS84", "EUREF", "YKJ")
+
+    sys <- match.arg(sys, systems)
+
+    ans <- paste(ans, sys, sep = ":")
+
+    ratio <- obj[["ratio"]]
+
+    has_ratio <- !is.null(ratio)
+
+    if (has_ratio) {
+
+      ans <- paste(ans, ratio, sep = ":")
+
+    }
+
+  }
+
+  ans
 
 }

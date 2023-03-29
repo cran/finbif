@@ -21,13 +21,18 @@
 #'
 #' # Get collection metadata
 #' collections <- finbif_collections()
+#'
 #' }
-#' @importFrom utils hasName
+#' @importFrom httr content
 #' @export
 
 finbif_collections <- function(
-  filter, select, subcollections = TRUE, supercollections = FALSE,
-  locale = getOption("finbif_locale"), nmin = 0,
+  filter,
+  select,
+  subcollections = TRUE,
+  supercollections = FALSE,
+  locale = getOption("finbif_locale"),
+  nmin = 0,
   cache = getOption("finbif_use_cache")
 ) {
 
@@ -37,180 +42,343 @@ finbif_collections <- function(
 
   swagger <- httr::content(swagger)
 
-  col_md_nms <- names(swagger[["definitions"]][["Collection"]][["properties"]])
+  swagger <- swagger[["definitions"]]
+
+  col_md_nms <- swagger[["Collection"]]
+
+  col_md_nms <- col_md_nms[["properties"]]
+
+  col_md_nms <- names(col_md_nms)
+
+  qry <- list(lang = locale)
 
   col_md <- list(
-    qry = list(lang = locale),
-    path = "collections",
-    nms = col_md_nms,
-    id = "id",
-    cache = cache
+    qry = qry, path = "collections", nms = col_md_nms, id = "id", cache = cache
   )
 
   col_md <- get_collections(col_md)
 
-  col_count_nms <- names(
-    swagger[["definitions"]][["DwQuery_AggregateRow"]][["properties"]]
+  col_count_nms <- swagger[["DwQuery_AggregateRow"]]
+
+  col_count_nms <- col_count_nms[["properties"]]
+
+  col_count_nms <- names(col_count_nms)
+
+  qry <- list(
+    aggregateBy = "document.collectionId",
+    onlyCount = FALSE,
+    pessimisticDateRangeHandling = TRUE
   )
 
+  finbif_warehouse_query <- getOption("finbif_warehouse_query")
+
+  path <- paste0(finbif_warehouse_query, "unit/aggregate")
+
   col_counts <- list(
-    qry = list(
-      aggregateBy = "document.collectionId", onlyCount = FALSE,
-      pessimisticDateRangeHandling = TRUE
-    ),
-    path = paste0(getOption("finbif_warehouse_query"), "unit/aggregate"),
+    qry = qry,
+    path = path,
     nms = col_count_nms,
     id = "aggregateBy",
     cache = cache
   )
 
-  col_count <- get_collections(col_counts)
+  col_counts <- get_collections(col_counts)
 
   collections <- merge(
-    col_md, col_count, by.x = "id", by.y = "aggregate_by", all.x = TRUE
+    col_md, col_counts, by.x = "id", by.y = "aggregate_by", all.x = TRUE
   )
 
-  collections[["data_description"]] <- collections[["description"]]
+  descriptions <- collections[["description"]]
+
+  collections[["data_description"]] <- descriptions
+
+  data_quality_description <- collections[["data_quality_description"]]
+
+  na_data_quality_description <- is.na(data_quality_description)
+
+  descriptions_with_quality <- paste(
+    descriptions, data_quality_description, sep = "\nData quality: "
+  )
 
   collections[["description"]] <- ifelse(
-    is.na(collections[["data_quality_description"]]),
-    collections[["description"]],
-    do.call(
-      paste,
-      list(
-        collections[["description"]],
-        collections[["data_quality_description"]],
-        sep = "\nData quality: "
-      )
-    )
+    na_data_quality_description, descriptions, descriptions_with_quality
   )
 
-  row.names(collections) <- collections[["id"]]
-  # Sometimes collections dont have a "has_children" field
-  ind <- collections[["has_children"]]
-  ind <- ind & !is.na(ind)
-  parent_collections <- row.names(collections)[ind]
+  collection_ids <- collections[["id"]]
+
+  row.names(collections) <- collection_ids
+
+  # Sometimes collections don't have a "has_children" field
+  has_children <- collections[["has_children"]]
+
+  has_children_not_na <- !is.na(has_children)
+
+  has_children_and_not_na <- has_children & has_children_not_na
+
+  parent_collections <- collection_ids[has_children_and_not_na]
+
+  collections_part_of <- collections[["is_part_of"]]
 
   for (collection in parent_collections) {
-    if (is.na(collections[collection, "count"]))
-      collections[collection, "count"] <- sum(
-        collections[collections[["is_part_of"]] == collection, "count"],
-        na.rm = TRUE
-      )
+
+    collection_count <- collections[collection, "count"]
+
+    collection_count_na <- is.na(collection_count)
+
+    if (collection_count_na) {
+
+      collection_part_of <- collections_part_of == collection
+
+      collection_part_of_counts <- collections[collection_part_of, "count"]
+
+      collection_count <- sum(collection_part_of_counts, na.rm = TRUE)
+
+      collections[collection, "count"] <- collection_count
+
+    }
+
   }
 
-  if (!is.na(nmin)) {
-    collections <- collections[
-      !is.na(collections[["count"]]) & collections[["count"]] > nmin,
-    ]
+  has_nmin <- !is.na(nmin)
+
+  if (has_nmin) {
+
+    collections_count <- collections[["count"]]
+
+    has_count <- !is.na(collections_count)
+
+    collection_count_enough <- collections_count > nmin
+
+    include_rows <- has_count & collection_count_enough
+
+    collections <- collections[include_rows, ]
+
   }
 
   if (!subcollections) {
-    collections <- collections[is.na(collections[["is_part_of"]]), ]
+
+    include_rows <- is.na(collections_part_of)
+
+    collections <- collections[include_rows, ]
+
   }
 
   if (!supercollections) {
-    collections <- collections[!collections[["has_children"]], ]
+
+    collections <- collections[!has_children, ]
+
   }
 
-  if (missing(filter)) {
-    rows <- rep_len(TRUE, nrow(collections))
-  } else {
+  n_collections <- nrow(collections)
+
+  rows <- rep_len(TRUE, n_collections)
+
+  has_filter <- !missing(filter)
+
+  parent_frame <- parent.frame()
+
+  if (has_filter) {
+
     call <- substitute(filter)
-    rows <- eval(call, collections, parent.frame())
-    if (!is.logical(rows)) {
-       deferrable_error("'Collections filter must be logical")
+
+    rows <- eval(call, collections, parent_frame)
+
+    rows_are_logical <- !is.logical(rows)
+
+    if (rows_are_logical) {
+
+      deferrable_error("Collections filter must be a logical vector")
+
     }
-    rows <- rows & !is.na(rows)
+
+    rows_not_na <- !is.na(rows)
+
+    rows <- rows & rows_not_na
+
   }
 
-  if (missing(select)) {
-    cols <- c(
-      "collection_name", "abbreviation", "description", "online_url",
-      "has_children", "is_part_of", "data_quality", "methods",
-      "collection_type", "taxonomic_coverage", "geographic_coverage",
-      "temporal_coverage", "secure_level", "count"
-    )
-  } else {
-    col_ind <- as.list(seq_along(collections))
-    names(col_ind) <- names(collections)
-    cols <- eval(substitute(select), col_ind, parent.frame())
-    if (all(is.na(cols)) || is.null(cols)) cols <- TRUE
-  }
+  has_select <- !missing(select)
 
-  structure(
-    collections[rows, cols, drop = FALSE],
-    class = c("finbif_collections", "finbif_metadata_df", "data.frame")
+  cols <- c(
+    "collection_name",
+    "abbreviation",
+    "description",
+    "online_url",
+    "has_children",
+    "is_part_of",
+    "data_quality",
+    "methods",
+    "collection_type",
+    "taxonomic_coverage",
+    "geographic_coverage",
+    "temporal_coverage",
+    "secure_level",
+    "count"
   )
+
+  if (has_select)  {
+
+    cols_seq <- seq_along(collections)
+
+    cols_seq <- as.list(cols_seq)
+
+    col_names <- names(collections)
+
+    names(cols_seq) <- col_names
+
+    call <- substitute(select)
+
+    cols <- eval(call, cols_seq, parent_frame)
+
+    cond <- is.null(cols) || all_na(cols)
+
+    if (cond) {
+
+      cols <- TRUE
+
+    }
+
+  }
+
+  collections <- collections[rows, cols, drop = FALSE]
+
+  class <- c("finbif_collections", "finbif_metadata_df", "data.frame")
+
+  structure(collections, class = class)
 
 }
 
-get_collections <- function(obj) {
-  nms <- obj[["nms"]]
-  qry <- c(obj[["qry"]], list(page = 0L, pageSize = 1000L))
-  collections <- list()
-  total <- 1L
+#' @noRd
 
-  while (total > qry[["page"]] * qry[["pageSize"]]) {
+get_collections <- function(col_obj) {
 
-    qry[["page"]] <- qry[["page"]] + 1L
+  nms <- col_obj[["nms"]]
 
-    collections[[qry[["page"]]]] <- api_get(
-      list(
-        path = obj[["path"]],
-        query = qry,
-        cache = obj[["cache"]]
-      )
-    )
+  qry <- col_obj[["qry"]]
 
-    total <- collections[[qry[["page"]]]][["content"]][["total"]]
+  path <- col_obj[["path"]]
+
+  cache <- col_obj[["cache"]]
+
+  page <- 0L
+
+  page_size <- 1000L
+
+  page_args <- list(page = page, pageSize = page_size)
+
+  qry <- c(qry, page_args)
+
+  collections_list <- list()
+
+  cond <- TRUE
+
+  while (cond) {
+
+    page <- page + 1L
+
+    qry[["page"]] <- page
+
+    query_obj <- list(path = path, query = qry, cache = cache)
+
+    resp <- api_get(query_obj)
+
+    collections_list[[page]] <- resp
+
+    content <- resp[["content"]]
+
+    total <- content[["total"]]
+
+    cond <- total > page * page_size
 
   }
 
-  for (i in c("content", "results")) {
-    collections <- lapply(collections, getElement, i)
+  elements <- c("content", "results")
+
+  for (i in elements) {
+
+    collections_list <- lapply(collections_list, getElement, i)
+
   }
 
-  collections <- do.call(c, collections)
+  collections_list <- do.call(c, collections_list)
 
-  collections <- lapply(
-    seq_along(nms),
-    function(i) {
-      lapply(
-        collections,
-        function(x) {
-          ans <- getElement(x, nms[i])
-          if (is.null(ans)) NA else ans
-        }
-      )
+  collections_seq <- seq_along(collections_list)
+
+  for (i in collections_seq) {
+
+    collections_i <- collections_list[[i]]
+
+    for (nm in nms) {
+
+      ans <- collections_i[[nm]]
+
+      ans_is_null <- is.null(ans)
+
+      if (ans_is_null) {
+
+        ans <- NA
+
+      }
+
+      collections_i[[nm]] <- ans
+
     }
-  )
 
-  names(collections) <- nms
+    collections_list[[i]] <- collections_i
 
-  lth_of_els <- lapply(collections, function(x) max(unlist(lapply(x, length))))
-  nms <- split(nms, lth_of_els > 1L)
+  }
 
-  list_cols <- collections[nms[["TRUE"]]]
+  collections <- list()
 
-  collections <- lapply(collections[nms[["FALSE"]]], unlist)
+  for (nm in nms) {
+
+    collections_nm <- lapply(collections_list, getElement, nm)
+
+    collections[[nm]] <- collections_nm
+
+  }
+
+  lth_of_els <- lapply(collections, lapply, length)
+
+  lth_of_els <- lapply(lth_of_els, unlist)
+
+  lth_of_els <- vapply(lth_of_els, max, 0L)
+
+  mt_one_el <- lth_of_els > 1L
+
+  nms <- split(nms, mt_one_el)
+
+  nms_mt_one_el <- nms[["TRUE"]]
+
+  list_cols <- collections[nms_mt_one_el, drop = FALSE]
+
+  nms_one_el <- nms[["FALSE"]]
+
+  one_el_cols <- collections[nms_one_el, drop = FALSE]
+
+  collections <- lapply(one_el_cols, unlist)
 
   collections <- as.data.frame(
-    collections, col.names = nms[["FALSE"]], stringsAsFactors = FALSE
+    collections, col.names = nms_one_el, stringsAsFactors = FALSE
   )
 
-  collections[nms[["TRUE"]]] <- list_cols
+  collections[nms_mt_one_el] <- list_cols
 
-  collections[[obj[["id"]]]] <- gsub(
-    "^http:\\/\\/tun\\.fi\\/", "", collections[[obj[["id"]]]]
-  )
+  id <- col_obj[["id"]]
 
-  names(collections) <- sub("\\.", "_", names(collections))
-  names(collections) <- gsub(
-    "([a-z])([A-Z])", "\\1_\\L\\2", names(collections), perl = TRUE
-  )
+  collections_id <- collections[[id]]
 
-  collections
+  collections_id <- gsub("^http:\\/\\/tun\\.fi\\/", "", collections_id)
+
+  collections[[id]] <- collections_id
+
+  col_names <- names(collections)
+
+  col_names <- sub("\\.", "_", col_names)
+
+  col_names <- gsub("([a-z])([A-Z])", "\\1_\\L\\2", col_names, perl = TRUE)
+
+  structure(collections, names = col_names)
 
 }
 
@@ -220,7 +388,9 @@ get_collections <- function(obj) {
 
 get_swagger <- function(cache) {
 
-  url <- paste0(getOption("finbif_api_url"), "/explorer/swagger.json")
+  fb_api_url <- getOption("finbif_api_url")
+
+  url <- paste0(fb_api_url, "/explorer/swagger.json")
 
   if (cache) {
 
@@ -228,64 +398,78 @@ get_swagger <- function(cache) {
 
     fcp <- getOption("finbif_cache_path")
 
-    if (is.null(fcp)) {
+    fcp_is_null <- is.null(fcp)
 
-      ans <- get_cache(hash)
+    if (fcp_is_null) {
 
-      if (!is.null(ans)) {
+      cache <- get_cache(hash)
 
-        return(ans)
+      has_cache <- !is.null(cache)
+
+      if (has_cache) {
+
+        return(cache)
 
       }
 
-      on.exit(
+      on.exit({
 
-        if (!is.null(ans)) {
+        cache_obj <- list(data = ans, hash = hash)
 
-          set_cache(list(data = ans, hash = hash))
+        set_cache(cache_obj)
 
-        }
-
-      )
+      })
 
     } else {
 
-      cache_file <- file.path(fcp, paste0("finbif_cache_file_", hash))
+      file_nm <- paste0("finbif_cache_file_", hash)
 
-      if (file.exists(cache_file)) {
+      cache_file <- file.path(fcp, file_nm)
 
-        return(readRDS(cache_file))
+      has_cache_file <- file.exists(cache_file)
+
+      if (has_cache_file) {
+
+        cache <- readRDS(cache_file)
+
+        return(cache)
 
       }
 
-      on.exit(
+      on.exit({
 
-        if (!is.null(ans)) {
+        saveRDS(ans, cache_file)
 
-          saveRDS(ans, cache_file)
-
-        }
-
-      )
+      })
 
     }
 
   }
 
-  stopifnot(
-    "Request not cached and option:finbif_allow_query = FALSE" =
-      getOption("finbif_allow_query")
-  )
+  allow <- getOption("finbif_allow_query")
 
-  Sys.sleep(1 / getOption("finbif_rate_limit"))
+  stopifnot("Request not cached and option:finbif_allow_query = FALSE" = allow)
 
-  ans <- httr::RETRY(
-    "GET",
+  rate_limit <- getOption("finbif_rate_limit")
+
+  sleep <- 1 / rate_limit
+
+  Sys.sleep(sleep)
+
+  times <- getOption("finbif_retry_times")
+
+  pause_base <- getOption("finbif_retry_pause_base")
+
+  pause_cap <- getOption("finbif_retry_pause_cap")
+
+  pause_min <- getOption("finbif_retry_pause_min")
+
+  ans <- httr::RETRY("GET",
     url,
-    times = getOption("finbif_retry_times"),
-    pause_base = getOption("finbif_retry_pause_base"),
-    pause_cap = getOption("finbif_retry_pause_cap"),
-    pause_min = getOption("finbif_retry_pause_min"),
+    times = times,
+    pause_base = pause_base,
+    pause_cap = pause_cap,
+    pause_min = pause_min,
     terminate_on = 404L
   )
 

@@ -25,7 +25,7 @@ test_that(
     expect_s3_class(
       finbif_occurrence(
         "Rangifer tarandus fennicus",
-        select = c("record_id", "date_start", "lat_wgs84", "lon_wgs84"),
+        select = c("record_id", "date_start", "lat_wgs84", "lon_wgs84", "epsg"),
         exclude_na = TRUE
       ),
       "finbif_occ"
@@ -151,14 +151,21 @@ test_that(
 
     expect_output(print(finbif_occurrence()), "Records downloaded:")
 
-    if (has_grd && !identical(.Platform$OS.type, "windows")) {
+    has_grd <- requireNamespace("grDevices", quietly = TRUE)
 
-      expect_snapshot_file(
-        save_svg(
-          plot(fungi, axes = FALSE, xlab = NA, ylab = NA, panel.first = NULL)
-        ),
-        if (is_main_branch) "fungi.svg" else "fungi-dev.svg"
-      )
+    not_windows <- !identical(.Platform$OS.type, "windows")
+
+    if (has_grd && not_windows) {
+
+      path <- tempfile(fileext = ".svg")
+
+      grDevices::svg(path, width = 7, height = 7, antialias = "none")
+
+      plot(fungi, axes = FALSE, xlab = NA, ylab = NA, panel.first = NULL)
+
+      dev.off()
+
+      expect_snapshot_file(path, "fungi.svg")
 
     }
 

@@ -7,24 +7,25 @@
 \usage{
 finbif_informal_groups(
   group,
-  limit = 50,
+  limit = 5,
   quiet = FALSE,
   locale = getOption("finbif_locale")
 )
 }
 \arguments{
-\item{group}{Character. Optional, if supplied only display this group and
-its subgroups.}
+\item{group}{Character. Optional, if supplied only display this top-level
+group and its subgroups.}
 
-\item{limit}{Integer. The maximum number informal groups to display.}
+\item{limit}{Integer. The maximum number top-level informal groups (and their
+sub-groups) to display.}
 
 \item{quiet}{Logical. Return informal group names without displaying them.}
 
 \item{locale}{Character. One of the supported two-letter ISO 639-1 language
-codes. Current supported languages are English, Finnish, Swedish, Russian,
-and Sámi (Northern). For data where more than one language is available
-the language denoted by \code{locale} will be preferred while falling back to
-the other languages in the order indicated above.}
+codes. Current supported languages are English, Finnish and Swedish. For
+data where more than one language is available the language denoted by
+\code{locale} will be preferred while falling back to the other languages in the
+order indicated above.}
 }
 \value{
 A character vector (invisibly).
@@ -37,5 +38,6 @@ Display the informal taxonomic groups used in the FinBIF database.
 
 # Display the informal taxonomic groups used by FinBIF
 finbif_informal_groups()
+
 }
 }

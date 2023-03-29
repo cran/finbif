@@ -6,10 +6,10 @@
 \title{Get FinBIF records}
 \usage{
 finbif_records(
-  filter,
-  select,
-  order_by,
-  aggregate,
+  filter = NULL,
+  select = NULL,
+  order_by = NULL,
+  aggregate = "none",
   sample = FALSE,
   n = 10,
   page = 1,
@@ -17,7 +17,7 @@ finbif_records(
   quiet = getOption("finbif_hide_progress"),
   cache = getOption("finbif_use_cache"),
   dwc = FALSE,
-  seed,
+  seed = NULL,
   df = FALSE,
   exclude_na = FALSE,
   locale = getOption("finbif_locale"),
@@ -40,11 +40,12 @@ descending order append a \code{-} to the front of the variable (e.g.,
 \code{"-date_start"}). Default order is \code{"-date_start"} > \code{"-load_data"} >
 \code{"reported_name"}.}
 
-\item{aggregate}{Character. If missing, returns full records. If one or more
-of \code{"records"}, \code{"species"}, \code{"taxa"}, \code{"events"} or \code{"documents"}
-aggregates combinations of the selected variables by counting records,
-species, taxa, events or documents. Aggregation by events or documents
-cannot be done in combination with any of the other aggregation types.}
+\item{aggregate}{Character. If \code{"none"} (default), returns full records. If
+one or more of \code{"records"}, \code{"species"}, \code{"taxa"}, \code{"individuals"},
+\code{"pairs"}, \code{"events"} or \code{"documents"}; aggregates combinations of the
+selected variables by counting records, species, taxa, individuals or
+events or documents. Aggregation by events or documents cannot be done in
+combination with any of the other aggregation types.}
 
 \item{sample}{Logical. If \code{TRUE} randomly sample the records from the FinBIF
 database.}
@@ -71,10 +72,10 @@ returned as an attribute?}
 non-NA values only be returned.}
 
 \item{locale}{Character. One of the supported two-letter ISO 639-1 language
-codes. Current supported languages are English, Finnish, Swedish, Russian,
-and Sámi (Northern). For data where more than one language is available
-the language denoted by \code{locale} will be preferred while falling back to
-the other languages in the order indicated above.}
+codes. Current supported languages are English, Finnish and Swedish. For
+data where more than one language is available the language denoted by
+\code{locale} will be preferred while falling back to the other languages in the
+order indicated above.}
 
 \item{include_facts}{Logical. Should all "fact" variables be included?}
 }
@@ -82,12 +83,15 @@ the other languages in the order indicated above.}
 A \code{finbif_api} or \code{finbif_api_list} object.
 }
 \description{
-Download records from FinBIF.
+Download records from FinBIF. The function \code{finbif_records()} and its
+associated classes and methods have been deprecated and user access will be
+removed in the next release of the finbif package.
 }
 \examples{
 \dontrun{
 
 # Get the last 100 records from FinBIF
 finbif_records(n = 100)
+
 }
 }

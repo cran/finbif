@@ -1,6 +1,24 @@
 \name{NEWS}
 \title{News for Package \pkg{finbif}}
 
+\section{finbif version 0.8.0}{
+  \subsection{DEPRECATION}{
+    \itemize{
+      \item Mapping utilities \code{finland_map}, \code{breaks_xy},
+        \code{hist_xy} and the plot method for \code{finbif_occ} objects have
+        been deprecated as they are out-of-scope.
+      \item User access to \code{finbif_records} and its classes and methods is
+        deprecated in favour of \code{finbif_occurrence}.
+    }
+  }
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Record aggregations with \code{finbif_occurrence} can now include
+        "individual" and "pair" sums.
+    }
+  }
+}
+
 \section{finbif version 0.7.2}{
   \subsection{MINOR IMPROVEMENTS}{
     \itemize{
@@ -49,7 +67,7 @@
       \item New global option \code{finbif_hide_progress} to suppress progress
         bars when downloading, importing or processing FinBIF records.
       \item For the sake of clarity and consistency the term "administrative
-        status" is now refered to as "regulatory status" throughout.
+        status" is now referred to as "regulatory status" throughout.
       \item Regulatory status, informal taxonomic group and habitat data are now
         localised.
       \item Option \code{unlist} added to \code{finbif_occurrence} that casts

@@ -23,7 +23,10 @@ conversion.}
 A \code{data.frame}.
 }
 \description{
-Converts the result of a FinBIF query to a \code{data.frame}.
+Converts the result of a FinBIF query to a \code{data.frame}. The function
+\code{finbif_records()} and its associated classes and methods have been
+deprecated and user access will be removed in the next release of the finbif
+package.
 }
 \examples{
 \dontrun{
@@ -32,5 +35,6 @@ Converts the result of a FinBIF query to a \code{data.frame}.
 # and convert to a `data.frame`
 resp <- finbif_records()
 df <- as.data.frame(resp)
+
 }
 }

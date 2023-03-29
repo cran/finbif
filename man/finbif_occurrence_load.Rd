@@ -7,16 +7,16 @@
 \usage{
 finbif_occurrence_load(
   file,
-  select,
+  select = NULL,
   n = -1,
   count_only = FALSE,
   quiet = getOption("finbif_hide_progress"),
   cache = getOption("finbif_use_cache"),
   dwc = FALSE,
-  date_time_method,
+  date_time_method = NULL,
   tzone = getOption("finbif_tz"),
   write_file = tempfile(),
-  dt,
+  dt = NA,
   keep_tsv = FALSE,
   facts = list(),
   type_convert_facts = TRUE,
@@ -77,8 +77,7 @@ archive or represents a URI. Is ignored if \code{file} is already a TSV. If
 "fact" files in a local or online FinBIF data archive. Names can include
 one or more of \code{"record"}, \code{"event"} or \code{"document"}. Elements of the list
 are character vectors of the "facts" to be extracted and then joined to the
-return value. Note that this functionality requires that the \code{{dplyr}} and
-\code{{tidyr}} packages are available.}
+return value.}
 
 \item{type_convert_facts}{Logical. Should facts be converted from character
 to numeric or integer data where applicable?}
@@ -94,10 +93,10 @@ all variables explicitly or via recycling. To only drop some
 missing/\code{NA}-data facts use \code{drop_na} argument.}
 
 \item{locale}{Character. One of the supported two-letter ISO 639-1 language
-codes. Current supported languages are English, Finnish, Swedish, Russian,
-and Sámi (Northern). For data where more than one language is available
-the language denoted by \code{locale} will be preferred while falling back to
-the other languages in the order indicated above.}
+codes. Current supported languages are English, Finnish and Swedish. For
+data where more than one language is available the language denoted by
+\code{locale} will be preferred while falling back to the other languages in the
+order indicated above.}
 
 \item{skip}{Integer. The number of lines of the data file to skip before
 beginning to read data (not including the header).}

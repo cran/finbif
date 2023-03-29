@@ -1,246 +1,362 @@
 # misc -------------------------------------------------------------------------
 
 #' @noRd
-#' @description Drop columns from a data.frame where all elements are missing.
-#' @param df A `finbif_occ` object.
-#' @param which Logical. A vector indicating which columns to check for missing
-#'   data. Values recycled to length of `df`. Defaults to all columns.
-drop_na_col <- function(df, which = TRUE) {
 
-  which <- rep_len(which, length(df))
+deprecation <- function(msg) {
 
-  is_na <- lapply(df, is.na)
-  is_na <- vapply(is_na, all, logical(1L))
+  warn <- Sys.getenv("DEPRECATION_WARNING", TRUE)
 
-  cond <- !is_na | !which
+  warn <- as.logical(warn)
 
-  attr(df, "column_names") <- attr(df, "column_names")[cond]
+  if (warn) {
 
-  df[, cond, drop = FALSE]
+    warning(msg, call. = FALSE)
+
+  }
 
 }
 
 #' @noRd
-to_sentence_case <- function(string) {
-  paste0(substring(toupper(string), 1L, 1L), substring(tolower(string), 2L))
+
+get_next_lowest_factor <- function(
+  x,
+  y
+) {
+
+  mod <- x %% y
+
+  end <- identical(mod, 0L)
+
+  if (end) {
+
+    return(y)
+
+  }
+
+  y <- y - 1L
+
+  get_next_lowest_factor(x, y)
+
 }
 
 #' @noRd
-get_next_lowest_factor <- function(x, y) {
-  if (x %% y) get_next_lowest_factor(x, y - 1L) else y
-}
 
-#' @noRd
-#' @importFrom utils hasName
-get_el_recurse <- function(obj, nms, type) {
+get_el_recurse <- function(
+  obj,
+  nms,
+  type
+) {
 
-  type_na <- cast_to_type(NA, type)
+  l <- length(nms)
 
-  if (length(nms) < 1L) {
-    return(
-      if (is.null(obj) || identical(obj, "")) type_na else obj
-    )
+  no_names <- identical(l, 0L)
+
+  if (no_names) {
+
+    no_obj <- is.null(obj) || identical(obj, "")
+
+    if (no_obj) {
+
+      obj <- cast_to_type(NA, type)
+
+    }
+
+    return(obj)
+
   }
 
   nm <- nms[[1L]]
 
-  if (is.null(names(obj)) && any(vapply(obj, utils::hasName, NA, nm))) {
+  nms <- nms[-1L]
 
-    obj <- lapply(obj, getElement, nm)
+  next_obj <- getElement(obj, nm)
 
-    null_elements <- vapply(obj, is.null, NA)
+  obj_names <- names(obj)
 
-    obj[null_elements] <- type_na
+  no_names <- is.null(obj_names)
 
-    obj <- unlist(obj, recursive = FALSE)
+  has_name <- FALSE
 
-  } else {
+  if (no_names) {
 
-    obj <- getElement(obj, nm)
+    for (i in obj) {
 
-  }
+      i_names <- names(i)
 
-  get_el_recurse(obj, nms[-1L], type)
+      has_name <- nm %in% i_names
 
-}
+      if (has_name) {
 
-#' @noRd
-pb_head <- function(msg, quiet = FALSE) {
-  gap <- nchar(msg) + 15L
-  if (!quiet) {
-    message(
-      "  |=== ", msg, " ", rep("=", max(0L, getOption("width") - gap)), "|"
-    )
-  }
-}
+        break
 
-#' @noRd
-truncate_string <- function(x, sl = 20L) {
-  x <- as.character(x)
-  ifelse(nchar(x) > sl, sprintf("%s\u2026", substr(x, 1L, sl - 1L)), x)
-}
-
-#' @noRd
-truncate_string_to_unique <- function(x) {
-  ind <- !is.na(x)
-  y <- x[ind]
-  i <- 0L
-  all_equal <- TRUE
-  while (all_equal && length(unique(y)) > 1L) {
-    substr(y, i, i) <- " "
-    i <- i + 1L
-    j <- substr(y, i, i)
-    all_equal <- all(j == j[[1L]])
-  }
-  y <- trimws(y)
-  x[ind] <- ifelse(x[ind] == y, y, paste0("\u2026", y))
-  x
-}
-
-#' @noRd
-value <- function(obj) obj
-
-#' @noRd
-col_type_string <- function(dwc) {
-  if (dwc) {
-    "dwc"
-  } else {
-    "translated_var"
-  }
-}
-
-#' @noRd
-det_datetime_method <- function(method, n) {
-
-  if (missing(method)) {
-
-    method <- "none"
-
-    n <- sum(ifelse(is.numeric(n) & n >= 0L, n, Inf))
-
-    if (n < 1e5) {
-
-      method <- "fast"
+      }
 
     }
 
   }
 
-  method
+  if (has_name) {
 
-}
+    next_obj <- lapply(obj, getElement, nm)
 
-#' @noRd
-open_tsv_connection <- function(file, tsv, mode = "rt") {
+    null_elements <- vapply(next_obj, is.null, NA)
 
-  if (!grepl("\\.tsv$", file)) {
+    type_na <- cast_to_type(NA, type)
 
-    con <- unz(file, tsv, mode)
+    next_obj[null_elements] <- type_na
 
-  } else {
-
-    con <- file(file, mode)
+    next_obj <- unlist(next_obj, recursive = FALSE)
 
   }
 
-  con
+  get_el_recurse(next_obj, nms, type)
 
 }
 
 #' @noRd
-nlines <- function(file, tsv) {
 
-  on.exit(close(con))
+pb_head <- function(
+  msg,
+  quiet = FALSE
+) {
 
-  con <- open_tsv_connection(file, tsv, "rb")
+  nchars <- nchar(msg)
 
-  n <- 0L
+  gap <- nchars + 15L
+
+  width <- getOption("width")
+
+  diff <- width - gap
+
+  diff <- max(0L, diff)
+
+  body <- rep("=", diff)
+
+  if (!quiet) {
+
+    message("  |=== ", msg, " ", body, "|")
+
+  }
+
+}
+
+#' @noRd
+
+truncate_string <- function(
+  x,
+  sl = 20L
+) {
+
+  x <- as.character(x)
+
+  nchars <- nchar(x)
+
+  too_many_chars <- nchars > sl
+
+  sl <- sl - 1L
+
+  x_sl <- substr(x, 1L, sl)
+
+  x_sl <- sprintf("%s\u2026", x_sl)
+
+  ifelse(too_many_chars, x_sl, x)
+
+}
+
+#' @noRd
+
+truncate_string_to_unique <- function(x) {
+
+  ind <- !is.na(x)
+
+  y <- x[ind]
+
+  i <- 0L
 
   cond <- TRUE
 
   while (cond) {
 
-    chunk <- readBin(con, "raw", 65536L)
+    substr(y, i, i) <- " "
 
-    n <- n + sum(chunk == as.raw(10L))
+    i <- i + 1L
 
-    cond <- !identical(chunk, raw(0L))
+    unique_y <- unique(y)
 
-  }
+    n_unique_y <- length(unique_y)
 
-  n - 1L
-}
+    more_than_one <- n_unique_y > 1L
 
-#' @noRd
-has_pkgs <- function(...) {
-  pkgs <- list(...)
-  ans <- vapply(pkgs, requireNamespace, logical(1L), quietly = TRUE)
-  all(ans)
-}
-
-#' @noRd
-name_chr_vec <- function(x, unique = TRUE, na.rm = TRUE) { # nolint
-
-  if (missing(x)) return(NULL)
-
-  stopifnot(inherits(x, "character"))
-
-  if (na.rm) {
-
-    x <- x[!is.na(x)]
+    cond <- more_than_one && char_all_equal(y, i)
 
   }
 
-  nms <- names(x)
+  y <- trimws(y)
 
-  if (is.null(nms)) {
+  x_ind <- x[ind]
 
-    names(x) <- x
+  unchanged <- x_ind == y
 
-  } else {
+  changed <- paste0("\u2026", y)
 
-    names(x) <- ifelse(nms == "", x, nms)
+  x_ind <- ifelse(unchanged, y, changed)
 
-  }
-
-  if (unique) {
-
-    names(x) <- make.unique(names(x))
-
-  }
+  x[ind] <- x_ind
 
   x
 
 }
 
 #' @noRd
-remove_domain <- function(x, domain = "tun.fi", protocol =  "http") {
 
-  sub(sprintf("^%s://%s/", protocol, domain), "", x)
+char_all_equal <- function(x, i) {
+
+  chars <- substr(x, i, i)
+
+  char <- chars[[1L]]
+
+  equal <- chars == char
+
+  all(equal)
 
 }
 
 #' @noRd
-concat_string <- function(x) {
 
-  idx <- !is.na(x)
+value <- function(obj) {
 
-  if (any(idx)) {
+  obj
 
-    paste(x[idx], collapse = "; ")
+}
 
-  } else {
+#' @noRd
 
-    NA_character_
+col_type_string <- function(dwc) {
+
+  ans <- "translated_var"
+
+  if (dwc) {
+
+    ans <- "dwc"
 
   }
 
+  ans
+
 }
 
 #' @noRd
-cast_to_type <- function(x, type) {
 
-  if (length(type) != 1L) {
+has_pkgs <- function(...) {
+
+  pkgs <- list(...)
+
+  ans <- vapply(pkgs, requireNamespace, NA, quietly = TRUE)
+
+  all(ans)
+
+}
+
+#' @noRd
+
+name_chr_vec <- function(
+  x,
+  unique = TRUE,
+  na.rm = TRUE # nolint
+) {
+
+  no_x <- missing(x)
+
+  no_x <- no_x || is.null(x)
+
+  if (no_x) {
+
+    return(NULL)
+
+  }
+
+  is_char <- inherits(x, "character")
+
+  stopifnot("'x' is not a character vector" = is_char)
+
+  if (na.rm) {
+
+    not_na <- !is.na(x)
+
+    x <- x[not_na]
+
+  }
+
+  nms <- names(x)
+
+  no_nms <- is.null(nms)
+
+  if (no_nms) {
+
+    nms <- x
+
+  } else {
+
+    empty_names <- nms == ""
+
+    nms <- ifelse(empty_names, x, nms)
+
+  }
+
+  if (unique) {
+
+    nms <- make.unique(nms)
+
+  }
+
+  names(x) <- nms
+
+  x
+
+}
+
+#' @noRd
+
+remove_domain <- function(x) {
+
+  sub("^http://tun.fi/", "", x)
+
+}
+
+#' @noRd
+
+concat_string <- function(x) {
+
+  ans <- NA_character_
+
+  not_na <- !is.na(x)
+
+  any_not_na <- any(not_na)
+
+  if (any_not_na) {
+
+    x_not_na <- x[not_na]
+
+    ans <- paste(x_not_na, collapse = "; ")
+
+  }
+
+  ans
+
+}
+
+#' @noRd
+
+cast_to_type <- function(
+  x,
+  type
+) {
+
+  l <- length(type)
+
+  cond <- !identical(l, 1L)
+
+  if (cond) {
 
     type <- "character"
 
@@ -258,63 +374,187 @@ cast_to_type <- function(x, type) {
 
 }
 
-# random sampling --------------------------------------------------------------
-
 #' @noRd
-sample_with_seed <- function(n, size, seed) {
-  if (exists(".Random.seed", 1L)) {
-    oldseed <- get(".Random.seed", 1L)
-    on.exit(assign(".Random.seed", oldseed, 1L))
-  } else {
-    on.exit(rm(".Random.seed", pos = 1L))
-  }
-  args <- list(seed, "default", "default")
-  if (getRversion() >= "3.6.0") args <- c(args, "default")
-  do.call(set.seed, args)
-  sample.int(n, size)
+
+all_na <- function(x) {
+
+  na <- is.na(x)
+
+  all(na)
+
 }
 
 #' @noRd
-gen_seed <- function(x, ...) UseMethod("gen_seed", x)
+
+get_rows <- function(
+  rows,
+  df
+) {
+
+  df[rows, , drop = FALSE]
+
+}
+
+# random sampling --------------------------------------------------------------
+
+#' @noRd
+
+sample_with_seed <- function(
+  n,
+  size,
+  seed
+) {
+
+  on.exit({
+
+    rm(".Random.seed", pos = 1L)
+
+  })
+
+  has_seed <- exists(".Random.seed", 1L)
+
+  if (has_seed) {
+
+    oldseed <- get(".Random.seed", 1L)
+
+    on.exit({
+
+      assign(".Random.seed", oldseed, 1L)
+
+    })
+
+  }
+
+  args <- list(seed, "default", "default")
+
+  if (getRversion() >= "3.6.0") {
+
+    args <- c(args, "default")
+
+  }
+
+  do.call(set.seed, args)
+
+  sample.int(n, size)
+
+}
+
+#' @noRd
+
+gen_seed <- function(
+  x,
+  ...
+) {
+
+  UseMethod("gen_seed", x)
+
+}
 
 #' @importFrom digest digest
 #' @export
 #' @noRd
-gen_seed.finbif_records_list <- function(x, ...) {
+
+gen_seed.finbif_records_list <- function(
+  x,
+  ...
+) {
+
   hash <- lapply(x, getElement, "hash")
+
   hash <- do.call(paste0, hash)
+
   hash <- digest::digest(hash)
+
   hash <- substr(hash, 1L, 7L)
+
   strtoi(hash, 16L)
+
 }
 
 # errors -----------------------------------------------------------------------
 # modified from https://github.com/reside-ic/defer/blob/master/R/defer.R
 
 #' @noRd
+
 deferrable_error <- function(message) {
+
   withRestarts({
+
       calls <- sys.calls()
-      call <- calls[[max(length(calls) - 1L, 1L)]]
-      stop(error(message, "deferrable_error", call = call, calls = calls))
+
+      calls_len <- length(calls)
+
+      i <- calls_len - 1L
+
+      i <- max(i, 1L)
+
+      call <- calls[[i]]
+
+      err <- error(message, "deferrable_error", call = call, calls = calls)
+
+      stop(err)
+
     },
-    continue_deferrable_error = function(...) NULL
+    continue_deferrable_error = continue
   )
+
 }
 
 #' @noRd
-defer_errors <- function(expr, handler = stop) {
+
+continue <- function(...) {
+
+  NULL
+
+}
+
+#' @noRd
+
+defer_errors <- function(
+  expr,
+  handler = stop
+) {
+
   errors <- list()
 
   calls <- sys.calls()
+
   value <- withCallingHandlers(
     expr,
     deferrable_error = function(e) {
-      if (identical(calls[], e[["calls"]][seq_along(calls)])) {
-        e[["calls"]] <- e[["calls"]][-seq_len(length(calls) + 1L)]
+
+      sq <- seq_along(calls)
+
+      calls_obj <- calls[]
+
+      e_calls <- e[["calls"]]
+
+      e_calls_obj <- e_calls[sq]
+
+      cond <- identical(calls_obj, e_calls_obj)
+
+      if (cond) {
+
+        l <- length(calls)
+
+        l <- l + 1L
+
+        ind <- seq_len(l)
+
+        ind <- ind * -1L
+
+        e_calls <- e_calls[ind]
+
+        e[["calls"]] <- e_calls
+
       }
-      errors <<- c(errors, list(e))
+
+      e_list <- list(e)
+
+      errors <<- c(errors, e_list)
+
       invokeRestart("continue_deferrable_error")
+
     }
   )
 
@@ -322,42 +562,101 @@ defer_errors <- function(expr, handler = stop) {
 }
 
 #' @noRd
-deferred_errors <- function(errors, handler, calls, value = NULL) {
-  if (length(errors)) {
+
+deferred_errors <- function(
+  errors,
+  handler,
+  calls,
+  value = NULL
+) {
+
+  l <- length(errors)
+
+  if (l) {
+
     err <- list(errors = errors, value = value)
-    class(err) <- c("dfrd_errors", "error", "condition")
+
+    class <- c("dfrd_errors", "error", "condition")
+
+    class(err) <- class
+
     handler(err)
+
   } else {
+
     value
+
   }
+
 }
 
 #' @noRd
-error <- function(message, class, ...) {
-  structure(
-    list(message = message, ...), class = c(class, "error", "condition")
-  )
+
+error <- function(
+  message,
+  class,
+  ...
+) {
+
+  message <- list(message = message, ...)
+
+  class <- c(class, "error", "condition")
+
+  structure(message, class = class)
+
 }
 
 #' @export
 #' @noRd
+
 conditionMessage.dfrd_errors <- function(c) {
-  errors <- vapply(c[["errors"]], "[[", character(1), "message")
+
+  errors <- c[["errors"]]
+
+  errors <- vapply(errors, getElement, "", "message")
+
   n <- length(errors)
-  sprintf(
-    "%d %s occurred:\n%s", n, ngettext(n, "error", "errors"),
-    paste0("  - ", errors, collapse = "\n")
-  )
+
+  n_errors <- ngettext(n, "error", "errors")
+
+  errors <- paste0("  - ", errors, collapse = "\n")
+
+  sprintf("%d %s occurred:\n%s", n, n_errors, errors)
+
 }
 
 # variable names ---------------------------------------------------------------
 
 #' @noRd
-to_ <- function(x, from, to) {
-  x      <- unlist(x)
-  ind    <- !x %in% c(var_names[[to]], "default_vars")
-  x[ind] <- var_names[match(x[ind], var_names[[from]]), to]
+
+to <- function(
+  x,
+  from,
+  to
+) {
+
+  x <- unlist(x)
+
+  var_names <- var_names()
+
+  vars_to <- var_names[[to]]
+
+  vars_from <- var_names[[from]]
+
+  vars_to <- c(vars_to, "default_vars")
+
+  ind <- !x %in% vars_to
+
+  xx <- x[ind]
+
+  xx <- match(xx, vars_from)
+
+  xx <- var_names[xx, to]
+
+  x[ind] <- xx
+
   x
+
 }
 
 #' Convert variable names
@@ -378,27 +677,46 @@ to_ <- function(x, from, to) {
 #'
 #' to_dwc("record_id", "date_time", "scientific_name")
 #' @export
-to_dwc <- function(...) to_(list(...), "translated_var", "dwc")
+
+to_dwc <- function(...) {
+
+  l <- list(...)
+
+  to(l, "translated_var", "dwc")
+
+}
 
 #' @rdname to_dwc
 #' @export
-to_native <- function(...) to_(list(...), "dwc", "translated_var")
+
+to_native <- function(...) {
+
+  l <- list(...)
+
+  to(l, "dwc", "translated_var")
+
+}
 
 #' @rdname to_dwc
 #' @export
+
 from_schema <- function(
-  ..., to = c("native", "dwc", "short"), file = c("none", "citable", "lite")
+  ...,
+  to = c("native", "dwc", "short"),
+  file = c("none", "citable", "lite")
 ) {
 
-  nms <- make.names(c(...))
+  nms <- c(...)
+
+  nms <- make.names(nms)
 
   file <- match.arg(file)
 
   vars <- switch(
     file,
-    none = var_names,
-    citable = cite_file_vars,
-    lite = lite_download_file_vars
+    none = var_names(),
+    citable = cite_file_vars(),
+    lite = lite_download_file_vars()
   )
 
   to <- match.arg(to)
@@ -412,22 +730,55 @@ from_schema <- function(
 # localization -----------------------------------------------------------------
 
 #' @noRd
+
 get_locale <- function() {
+
   ans <- supported_langs[[1L]]
-  sys_lang <- c(Sys.getenv(c("LANGUAGE", "LANG")), Sys.getlocale("LC_COLLATE"))
+
+  env <- c("LANGUAGE", "LANG")
+
+  env <- Sys.getenv(env)
+
+  collate <- Sys.getlocale("LC_COLLATE")
+
+  sys_lang <- c(env, collate)
 
   for (l in sys_lang) {
-    l <- regmatches(l, regexpr(".+?(?=[[:punct:]])", l, perl = TRUE))
-    if (length(l)) {
-      if (l %in% supported_langs) {
+
+    reg <- regexpr(".+?(?=[[:punct:]])", l, perl = TRUE)
+
+    l <- regmatches(l, reg)
+
+    len <- length(l)
+
+    has_lang <- len > 0L
+
+    if (has_lang) {
+
+      cond <- l %in% supported_langs
+
+      if (cond) {
+
         ans <- l
+
         break
+
       }
-      if (l %in% names(supported_langs)) {
+
+      lang_nms <- names(supported_langs)
+
+      cond <- l %in% lang_nms
+
+      if (cond) {
+
         ans <- supported_langs[[l]]
+
         break
+
       }
+
     }
+
   }
 
   ans
@@ -435,8 +786,42 @@ get_locale <- function() {
 }
 
 #' @noRd
-with_locale <- function(x, locale = getOption("finbif_locale")) {
-  if (identical(length(x), 0L)) return(NA_character_)
-  if (identical(length(x), 1L)) return(x[[1L]])
-  x[[intersect(c(locale, setdiff(supported_langs, locale)), names(x))[[1L]]]]
+
+with_locale <- function(
+  x,
+  locale = getOption("finbif_locale")
+) {
+
+  l <- length(x)
+
+  ans <- NA_character_
+
+  cond <- identical(l, 1L)
+
+  if (cond) {
+
+    ans <- x[[1L]]
+
+  }
+
+  cond <- l > 1L
+
+  if (cond) {
+
+    nms <- names(x)
+
+    locales <- setdiff(supported_langs, locale)
+
+    locales <- c(locale, locales)
+
+    ind <- intersect(locales, nms)
+
+    ind <- ind[[1L]]
+
+    ans <- x[[ind]]
+
+  }
+
+  ans
+
 }

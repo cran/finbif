@@ -93,13 +93,16 @@ test_that(
 
     file_full <- paste0("http://tun.fi/HBF.", file)
 
-    expect_snapshot_value(
-     finbif_occurrence_load(
-       file_full, n = 0, tzone = "Etc/UTC", write_file = file_path, dt = FALSE,
-       keep_tsv = TRUE
-     ),
-     style = "json2", ignore_attr = "url"
-    )
+    vcr::use_cassette("zero_row_file", {
+
+      zero_row_file <- finbif_occurrence_load(
+        file_full, n = 0, tzone = "Etc/UTC", write_file = file_path, dt = FALSE,
+        keep_tsv = TRUE
+      )
+
+    })
+
+    expect_snapshot_value(zero_row_file, style = "json2", ignore_attr = "url")
 
     expect_snapshot_value(
       finbif_occurrence_load(
@@ -125,7 +128,8 @@ test_that(
     expect_warning(
       finbif_occurrence_load(
         zip, n = nrows, tzone = "Etc/UTC",
-        facts = list(record = c("not a fact"))
+        facts = list(record = c("not a fact")),
+        drop_na = TRUE
       ),
       "Selected fact"
     )
@@ -160,14 +164,17 @@ test_that(
       )
     )
 
-    expect_snapshot_value(
-      capture.output(
+    vcr::use_cassette("dl_select_all", {
+
+      dl_select_all <- capture.output(
         print(
           finbif_occurrence_load("HBF.6968.zip", select = "all")
         )
-      ),
-      style = "json2"
-    )
+      )
+
+    })
+
+    expect_snapshot_value(dl_select_all, style = "json2")
 
   }
 

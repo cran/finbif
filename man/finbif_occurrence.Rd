@@ -7,10 +7,10 @@
 \usage{
 finbif_occurrence(
   ...,
-  filter,
-  select,
-  order_by,
-  aggregate,
+  filter = NULL,
+  select = NULL,
+  order_by = NULL,
+  aggregate = "none",
   sample = FALSE,
   n = 10,
   page = 1,
@@ -18,17 +18,17 @@ finbif_occurrence(
   quiet = getOption("finbif_hide_progress"),
   cache = getOption("finbif_use_cache"),
   dwc = FALSE,
-  date_time_method,
+  date_time_method = NULL,
   check_taxa = TRUE,
   on_check_fail = c("warn", "error"),
   tzone = getOption("finbif_tz"),
   locale = getOption("finbif_locale"),
-  seed,
+  seed = NULL,
   drop_na = FALSE,
   aggregate_counts = TRUE,
   exclude_na = FALSE,
   unlist = FALSE,
-  facts
+  facts = NULL
 )
 }
 \arguments{
@@ -50,11 +50,12 @@ descending order append a \code{-} to the front of the variable (e.g.,
 \code{"-date_start"}). Default order is \code{"-date_start"} > \code{"-load_data"} >
 \code{"reported_name"}.}
 
-\item{aggregate}{Character. If missing, returns full records. If one or more
-of \code{"records"}, \code{"species"}, \code{"taxa"}, \code{"events"} or \code{"documents"}
-aggregates combinations of the selected variables by counting records,
-species, taxa, events or documents. Aggregation by events or documents
-cannot be done in combination with any of the other aggregation types.}
+\item{aggregate}{Character. If \code{"none"} (default), returns full records. If
+one or more of \code{"records"}, \code{"species"}, \code{"taxa"}, \code{"individuals"},
+\code{"pairs"}, \code{"events"} or \code{"documents"}; aggregates combinations of the
+selected variables by counting records, species, taxa, individuals or
+events or documents. Aggregation by events or documents cannot be done in
+combination with any of the other aggregation types.}
 
 \item{sample}{Logical. If \code{TRUE} randomly sample the records from the FinBIF
 database.}
@@ -90,10 +91,10 @@ of \code{"warn"} (default) or \code{"error"}.}
 outputted date-time. Defaults to system timezone.}
 
 \item{locale}{Character. One of the supported two-letter ISO 639-1 language
-codes. Current supported languages are English, Finnish, Swedish, Russian,
-and Sámi (Northern). For data where more than one language is available
-the language denoted by \code{locale} will be preferred while falling back to
-the other languages in the order indicated above.}
+codes. Current supported languages are English, Finnish and Swedish. For
+data where more than one language is available the language denoted by
+\code{locale} will be preferred while falling back to the other languages in the
+order indicated above.}
 
 \item{seed}{Integer. Set a seed for randomly sampling records.}
 
@@ -110,7 +111,7 @@ non-NA values only be returned.}
 \item{unlist}{Logical. Should variables that contain non atomic data be
 concatenated into a string separated by ";"?}
 
-\item{facts}{Character vectors. Extra variables to be extracted from record,
+\item{facts}{Character vector. Extra variables to be extracted from record,
 event and document "facts".}
 }
 \value{

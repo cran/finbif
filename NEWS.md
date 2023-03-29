@@ -1,3 +1,19 @@
+# finbif 0.8.0
+
+#### DEPRECATION
+
+  - Mapping utilities `finland_map`, `breaks_xy`, `hist_xy` and the plot
+    method for `finbif_occ` objects have been deprecated as they are
+    out-of-scope.
+
+  - User access to `finbif_records` and its classes and methods is
+    deprecated in favour of `finbif_occurrence`.
+
+#### NEW FEATURES
+
+  - Record aggregations with `finbif_occurrence` can now include
+    "individual" and "pair" sums.
+
 # finbif 0.7.2
 
 #### MINOR IMPROVEMENTS
@@ -49,7 +65,7 @@
     when downloading, importing or processing FinBIF records.
 
   - For the sake of clarity and consistency the term "administrative
-    status" is now refered to as "regulatory status" throughout.
+    status" is now referred to as "regulatory status" throughout.
 
   - Regulatory status, informal taxonomic group and habitat data are now
     localised.
