@@ -1,12 +1,19 @@
 test_that(
   "with missing token returns error", {
 
+    skip_on_cran()
+
     token <- Sys.getenv("FINBIF_ACCESS_TOKEN")
     Sys.unsetenv("FINBIF_ACCESS_TOKEN")
 
     expect_error(api_get(), "Access token for FinBIF has not been set")
 
     Sys.setenv(FINBIF_ACCESS_TOKEN = token)
+
+    expect_error(
+      fb_occurrence(restricted_api = "KEY"),
+      "Restricted API token declared but token is unset"
+    )
 
   }
 )

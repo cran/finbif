@@ -362,14 +362,46 @@ post-processing time. For the full list of filtering options see
 <code>?filters</code>.</p>
 <div id="location" class="section level2">
 <h2>Location</h2>
-<p>Records can be filtered by the name of a location or by a set of
-coordinates.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>filter1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">country =</span> <span class="st">&quot;Finland&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>filter2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">coordinates =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">68</span>), <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>), <span class="st">&quot;wgs84&quot;</span>))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfcol =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> filter1, <span class="at">n =</span> <span class="dv">1000</span>), <span class="at">main =</span> <span class="st">&quot;Name&quot;</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> filter2, <span class="at">n =</span> <span class="dv">1000</span>), <span class="at">main =</span> <span class="st">&quot;Coordinates&quot;</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /></p>
+<p>Records can be filtered by the name of a location.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">c</span>(<span class="at">country =</span> <span class="st">&quot;Finland&quot;</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 43683065</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1         …JX.1540644#6 Alauda arvensis Lin…  1         60.4387   22.39332 2023-03-29 12:00:00</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         …JX.1540639#6 Poecile montanus (C…  2         64.20512  24.62847 2023-03-29 12:00:00</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        …JX.1540639#15 Poecile montanus (C…  2         64.20512  24.62847 2023-03-29 12:00:00</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         …JX.1540639#3 Poecile montanus (C…        NA  64.29474  24.62077 2023-03-29 12:00:00</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        …JX.1540639#21 Dendrocopos major (…  1         64.20512  24.62847 2023-03-29 12:00:00</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6        …JX.1540639#12 Dryocopus martius (…  1         64.20163  24.4228  2023-03-29 12:00:00</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        …JX.1540639#18 Loxia curvirostra L…  1         64.20512  24.62847 2023-03-29 12:00:00</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8         …JX.1540639#9 Lophophanes cristat…  1         64.20163  24.4228  2023-03-29 12:00:00</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  …KE.176/64240a1ed5d… Grus grus (Linnaeus…  1         60.41577  22.64869 2023-03-29 12:00:00</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        …JX.1540533#3 Picus canus J.F. Gm…  1         60.94497  26.38517 2023-03-29 12:00:00</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 6 more variables:</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<p>Or by a set of coordinates.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(<span class="at">coordinates =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">68</span>), <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>), <span class="st">&quot;wgs84&quot;</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 36571059</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1         …JX.1540644#6 Alauda arvensis Lin…  1         60.4387   22.39332 2023-03-29 12:00:00</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         …JX.1540639#6 Poecile montanus (C…  2         64.20512  24.62847 2023-03-29 12:00:00</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        …JX.1540639#15 Poecile montanus (C…  2         64.20512  24.62847 2023-03-29 12:00:00</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         …JX.1540639#3 Poecile montanus (C…        NA  64.29474  24.62077 2023-03-29 12:00:00</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        …JX.1540639#21 Dendrocopos major (…  1         64.20512  24.62847 2023-03-29 12:00:00</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6        …JX.1540639#12 Dryocopus martius (…  1         64.20163  24.4228  2023-03-29 12:00:00</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        …JX.1540639#18 Loxia curvirostra L…  1         64.20512  24.62847 2023-03-29 12:00:00</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8         …JX.1540639#9 Lophophanes cristat…  1         64.20163  24.4228  2023-03-29 12:00:00</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  …KE.176/64240a1ed5d… Grus grus (Linnaeus…  1         60.41577  22.64869 2023-03-29 12:00:00</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        …JX.1540533#3 Picus canus J.F. Gm…  1         60.94497  26.38517 2023-03-29 12:00:00</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 6 more variables:</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 <p>See <code>?filters</code> section “Location” for more details</p>
 </div>
 <div id="time" class="section level2">
@@ -377,89 +409,89 @@ coordinates.</p>
 <p>The event or import date of records can be used to filter occurrence
 data from FinBIF. The date filters can be a single year, month or
 date,</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">list</span>(<span class="at">date_range_ym =</span> <span class="fu">c</span>(<span class="st">&quot;2019-12&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">list</span>(<span class="at">date_range_ym =</span> <span class="fu">c</span>(<span class="st">&quot;2019-12&quot;</span>)))</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 19546</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …KE.921/LGE.627772/…      Pteromys volans  1         61.81362  25.75756 2019-12-31 12:00:00</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         …JX.1054777#4   Sarcosoma globosum  1         60.28506  21.98599 2019-12-31 12:00:00</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         …JX.1054554#7    Exidia glandulosa  1         60.37529  23.16411 2019-12-31 12:00:00</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         …JX.1054930#7     Panellus ringens  1         63.068    21.6902  2019-12-31 12:00:00</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         …JX.1054930#4 Basidioradulum radu…  1         63.068    21.6902  2019-12-31 12:00:00</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         …JX.1054554#4 Hypocreopsis lichen…  10        60.37529  23.16411 2019-12-31 12:00:00</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7         …JX.1054621#4           Flammulina  10        60.39362  25.67044 2019-12-31 12:00:00</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   …HR.3211/65241302-U     Pinus sylvestris  1         68.84709  28.33712 2019-12-31 11:00:00</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9   …HR.3211/37131235-U  Bombycilla garrulus  1         60.1732   24.9521  2019-12-31 12:00:00</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  …HR.3211/37128031-U  Bombycilla garrulus  1         60.16761  24.94694 2019-12-31 12:00:00</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 19546</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …KE.921/LGE.627772/…      Pteromys volans  1         61.81362  25.75756 2019-12-31 12:00:00</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         …JX.1054777#4   Sarcosoma globosum  1         60.28506  21.98599 2019-12-31 12:00:00</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         …JX.1054554#7    Exidia glandulosa  1         60.37529  23.16411 2019-12-31 12:00:00</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         …JX.1054930#7     Panellus ringens  1         63.068    21.6902  2019-12-31 12:00:00</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         …JX.1054930#4 Basidioradulum radu…  1         63.068    21.6902  2019-12-31 12:00:00</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         …JX.1054554#4 Hypocreopsis lichen…  10        60.37529  23.16411 2019-12-31 12:00:00</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7         …JX.1054621#4           Flammulina  10        60.39362  25.67044 2019-12-31 12:00:00</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   …HR.3211/65241302-U     Pinus sylvestris  1         68.84709  28.33712 2019-12-31 11:00:00</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9   …HR.3211/37131235-U  Bombycilla garrulus  1         60.1732   24.9521  2019-12-31 12:00:00</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  …HR.3211/37128031-U  Bombycilla garrulus  1         60.16761  24.94694 2019-12-31 12:00:00</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br> , or for record events, a range as a character vector or an <a href="https://lubridate.tidyverse.org/reference/Interval-class.html">Interval</a>
 object.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(<span class="at">date_range_ymd =</span> <span class="fu">c</span>(<span class="st">&quot;2019-06-01&quot;</span>, <span class="st">&quot;2019-12-31&quot;</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(<span class="at">date_range_ymd =</span> <span class="fu">c</span>(<span class="st">&quot;2019-06-01&quot;</span>, <span class="st">&quot;2019-12-31&quot;</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 669879</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …KE.921/LGE.627772/…      Pteromys volans  1         61.81362  25.75756 2019-12-31 12:00:00</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         …JX.1054777#4   Sarcosoma globosum  1         60.28506  21.98599 2019-12-31 12:00:00</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         …JX.1054554#7    Exidia glandulosa  1         60.37529  23.16411 2019-12-31 12:00:00</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         …JX.1054930#7     Panellus ringens  1         63.068    21.6902  2019-12-31 12:00:00</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         …JX.1054930#4 Basidioradulum radu…  1         63.068    21.6902  2019-12-31 12:00:00</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         …JX.1054554#4 Hypocreopsis lichen…  10        60.37529  23.16411 2019-12-31 12:00:00</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7         …JX.1054621#4           Flammulina  10        60.39362  25.67044 2019-12-31 12:00:00</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   …HR.3211/65241302-U     Pinus sylvestris  1         68.84709  28.33712 2019-12-31 11:00:00</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9   …HR.3211/37131235-U  Bombycilla garrulus  1         60.1732   24.9521  2019-12-31 12:00:00</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  …HR.3211/37128031-U  Bombycilla garrulus  1         60.16761  24.94694 2019-12-31 12:00:00</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 669879</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …KE.921/LGE.627772/…      Pteromys volans  1         61.81362  25.75756 2019-12-31 12:00:00</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         …JX.1054777#4   Sarcosoma globosum  1         60.28506  21.98599 2019-12-31 12:00:00</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         …JX.1054554#7    Exidia glandulosa  1         60.37529  23.16411 2019-12-31 12:00:00</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         …JX.1054930#7     Panellus ringens  1         63.068    21.6902  2019-12-31 12:00:00</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         …JX.1054930#4 Basidioradulum radu…  1         63.068    21.6902  2019-12-31 12:00:00</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         …JX.1054554#4 Hypocreopsis lichen…  10        60.37529  23.16411 2019-12-31 12:00:00</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7         …JX.1054621#4           Flammulina  10        60.39362  25.67044 2019-12-31 12:00:00</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   …HR.3211/65241302-U     Pinus sylvestris  1         68.84709  28.33712 2019-12-31 11:00:00</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9   …HR.3211/37131235-U  Bombycilla garrulus  1         60.1732   24.9521  2019-12-31 12:00:00</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  …HR.3211/37128031-U  Bombycilla garrulus  1         60.16761  24.94694 2019-12-31 12:00:00</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br></p>
 <p>Records for a specific season or time-span across all years can also
 be requested.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_range_md =</span> <span class="fu">c</span>(<span class="at">begin =</span> <span class="st">&quot;12-21&quot;</span>, <span class="at">end =</span> <span class="st">&quot;12-31&quot;</span>),</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_range_md =</span> <span class="fu">c</span>(<span class="at">begin =</span> <span class="st">&quot;01-01&quot;</span>, <span class="at">end =</span> <span class="st">&quot;02-20&quot;</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_range_md =</span> <span class="fu">c</span>(<span class="at">begin =</span> <span class="st">&quot;12-21&quot;</span>, <span class="at">end =</span> <span class="st">&quot;12-31&quot;</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_range_md =</span> <span class="fu">c</span>(<span class="at">begin =</span> <span class="st">&quot;01-01&quot;</span>, <span class="at">end =</span> <span class="st">&quot;02-20&quot;</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 1598855</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              record_id     scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …HR.3211/69860385-U       Magnoliopsida  1         60.30464  25.00083 2021-02-20 12:00:00</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      …JX.1223101#107           Pica pica  8         62.70713  22.20652 2021-02-20 08:20:00</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       …JX.1223101#85    Poecile montanus  3         62.70713  22.20652 2021-02-20 08:20:00</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      …JX.1223101#153 Emberiza citrinella  24        62.70713  22.20652 2021-02-20 08:20:00</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      …JX.1223101#117        Corvus corax  4         62.70713  22.20652 2021-02-20 08:20:00</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6       …JX.1223101#61   Dendrocopos major  1         62.70713  22.20652 2021-02-20 08:20:00</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      …JX.1223101#111     Corvus monedula  4         62.70713  22.20652 2021-02-20 08:20:00</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      …JX.1223101#123     Passer montanus  3         62.70713  22.20652 2021-02-20 08:20:00</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      …JX.1223101#149   Pyrrhula pyrrhula  10        62.70713  22.20652 2021-02-20 08:20:00</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      …JX.1223101#93 Cyanistes caeruleus  47        62.70713  22.20652 2021-02-20 08:20:00</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 1598855</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              record_id     scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …HR.3211/69860385-U       Magnoliopsida  1         60.30464  25.00083 2021-02-20 12:00:00</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      …JX.1223101#107           Pica pica  8         62.70713  22.20652 2021-02-20 08:20:00</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       …JX.1223101#85    Poecile montanus  3         62.70713  22.20652 2021-02-20 08:20:00</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      …JX.1223101#153 Emberiza citrinella  24        62.70713  22.20652 2021-02-20 08:20:00</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      …JX.1223101#117        Corvus corax  4         62.70713  22.20652 2021-02-20 08:20:00</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6       …JX.1223101#61   Dendrocopos major  1         62.70713  22.20652 2021-02-20 08:20:00</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      …JX.1223101#111     Corvus monedula  4         62.70713  22.20652 2021-02-20 08:20:00</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      …JX.1223101#123     Passer montanus  3         62.70713  22.20652 2021-02-20 08:20:00</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      …JX.1223101#149   Pyrrhula pyrrhula  10        62.70713  22.20652 2021-02-20 08:20:00</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      …JX.1223101#93 Cyanistes caeruleus  47        62.70713  22.20652 2021-02-20 08:20:00</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -467,24 +499,24 @@ Click to show/hide output.
 <h2>Data Quality</h2>
 <p>You can filter occurrence records by indicators of data quality. See
 <code>?filters</code> section “Quality” for details.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>strict <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">collection_quality =</span> <span class="st">&quot;professional&quot;</span>, <span class="at">coordinates_uncertainty_max =</span> <span class="dv">1</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">record_quality =</span> <span class="st">&quot;expert_verified&quot;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>permissive <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">quality_issues =</span> <span class="st">&quot;both&quot;</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">record_reliability =</span> <span class="fu">c</span>(<span class="st">&quot;reliable&quot;</span>, <span class="st">&quot;unassessed&quot;</span>, <span class="st">&quot;unreliable&quot;</span>),</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">record_quality =</span> <span class="fu">c</span>(</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;expert_verified&quot;</span>, <span class="st">&quot;community_verified&quot;</span>, <span class="st">&quot;unassessed&quot;</span>, <span class="st">&quot;uncertain&quot;</span>,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;erroneous&quot;</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">strict     =</span> <span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> strict,     <span class="at">count_only =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">permissive =</span> <span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> permissive, <span class="at">count_only =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     strict permissive </span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         37   40636542</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>strict <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">collection_quality =</span> <span class="st">&quot;professional&quot;</span>, <span class="at">coordinates_uncertainty_max =</span> <span class="dv">1</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">record_quality =</span> <span class="st">&quot;expert_verified&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>permissive <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">quality_issues =</span> <span class="st">&quot;both&quot;</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">record_reliability =</span> <span class="fu">c</span>(<span class="st">&quot;reliable&quot;</span>, <span class="st">&quot;unassessed&quot;</span>, <span class="st">&quot;unreliable&quot;</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">record_quality =</span> <span class="fu">c</span>(</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;expert_verified&quot;</span>, <span class="st">&quot;community_verified&quot;</span>, <span class="st">&quot;unassessed&quot;</span>, <span class="st">&quot;uncertain&quot;</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;erroneous&quot;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">strict     =</span> <span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> strict,     <span class="at">count_only =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">permissive =</span> <span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> permissive, <span class="at">count_only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     strict permissive </span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         37   40636542</span></span></code></pre></div>
 </div>
 <div id="collection" class="section level2">
 <h2>Collection</h2>
@@ -493,61 +525,61 @@ You can filter by collection with either the <code>collection</code> or
 <code>not_collection</code> filters. Use
 <code>finbif_collections()</code> to see metadata on the FinBIF
 collections.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">c</span>(<span class="at">collection =</span> <span class="st">&quot;iNaturalist Suomi Finland&quot;</span>), <span class="at">count_only =</span> <span class="cn">TRUE</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 417052</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">c</span>(<span class="at">collection =</span> <span class="st">&quot;Notebook, general observations&quot;</span>), <span class="at">count_only =</span> <span class="cn">TRUE</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1344139</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">c</span>(<span class="at">collection =</span> <span class="st">&quot;iNaturalist Suomi Finland&quot;</span>), <span class="at">count_only =</span> <span class="cn">TRUE</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 417052</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">c</span>(<span class="at">collection =</span> <span class="st">&quot;Notebook, general observations&quot;</span>), <span class="at">count_only =</span> <span class="cn">TRUE</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1344139</span></span></code></pre></div>
 </div>
 <div id="informal-taxonomic-groups" class="section level2">
 <h2>Informal taxonomic groups</h2>
 <p>You can filter occurrence records based on informal taxonomic groups
 such as <code>Birds</code> or <code>Mammals</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">list</span>(<span class="at">informal_groups =</span> <span class="fu">c</span>(<span class="st">&quot;Birds&quot;</span>, <span class="st">&quot;Mammals&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">list</span>(<span class="at">informal_groups =</span> <span class="fu">c</span>(<span class="st">&quot;Birds&quot;</span>, <span class="st">&quot;Mammals&quot;</span>)))</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 21117917</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …HR.3211/134012805-U    Microtus agrestis        NA  60.22896  25.08694 2022-09-07 12:00:00</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  …HR.3211/134000236-U Oryctolagus cunicul…        NA  60.15647  24.69299 2022-09-07 12:00:00</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         …JX.1440059#3    Dendrocopos major  1         61.09692  21.76019 2022-09-06 19:50:00</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         …JX.1440058#6               Passer  2         61.07281  21.75856 2022-09-06 19:00:00</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         …JX.1440058#9            Grus grus  1         61.07281  21.75856 2022-09-06 19:00:00</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         …JX.1440058#3      Accipiter nisus  1         61.07281  21.75856 2022-09-06 19:00:00</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        …JX.1440058#12    Carduelis chloris  3         61.07281  21.75856 2022-09-06 19:00:00</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  …HR.3211/133925964-U          Larus canus        NA  60.1      24.9     2022-09-06 12:00:00</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  …HR.3211/133975979-U     Anthus trivialis        NA  60.23348  24.91985 2022-09-06 12:00:00</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 …HR.3211/133975532-U       Sylvia curruca        NA  60.2336   24.91986 2022-09-06 12:00:00</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 21117917</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …HR.3211/134012805-U    Microtus agrestis        NA  60.22896  25.08694 2022-09-07 12:00:00</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  …HR.3211/134000236-U Oryctolagus cunicul…        NA  60.15647  24.69299 2022-09-07 12:00:00</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         …JX.1440059#3    Dendrocopos major  1         61.09692  21.76019 2022-09-06 19:50:00</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         …JX.1440058#6               Passer  2         61.07281  21.75856 2022-09-06 19:00:00</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         …JX.1440058#9            Grus grus  1         61.07281  21.75856 2022-09-06 19:00:00</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         …JX.1440058#3      Accipiter nisus  1         61.07281  21.75856 2022-09-06 19:00:00</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        …JX.1440058#12    Carduelis chloris  3         61.07281  21.75856 2022-09-06 19:00:00</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  …HR.3211/133925964-U          Larus canus        NA  60.1      24.9     2022-09-06 12:00:00</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  …HR.3211/133975979-U     Anthus trivialis        NA  60.23348  24.91985 2022-09-06 12:00:00</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 …HR.3211/133975532-U       Sylvia curruca        NA  60.2336   24.91986 2022-09-06 12:00:00</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br></p>
 <p>See <code>finbif_informal_groups()</code> for the full list of groups
 you can filter by. You can use the same function to see the subgroups
 that make up a higher level informal group:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_informal_groups</span>(<span class="st">&quot;macrofungi&quot;</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦--Macrofungi                                                </span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Agaricoid fungi                                       </span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Aphyllophoroid fungi                                  </span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Cantharelloid fungi                               </span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Clavarioid fungi                                  </span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Corticioid fungi                                  </span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Hydnoid fungi                                     </span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Jelly fungi, tremelloid fungi                     </span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Polypores                                         </span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   °--Ramarioid fungi                                   </span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Boletoid fungi                                        </span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Cyphelloid fungi                                      </span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   °--Gastroid fungi, puffballs</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_informal_groups</span>(<span class="st">&quot;macrofungi&quot;</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦--Macrofungi                                                </span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Agaricoid fungi                                       </span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Aphyllophoroid fungi                                  </span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Cantharelloid fungi                               </span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Clavarioid fungi                                  </span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Corticioid fungi                                  </span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Hydnoid fungi                                     </span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Jelly fungi, tremelloid fungi                     </span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   ¦--Polypores                                         </span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦   °--Ramarioid fungi                                   </span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Boletoid fungi                                        </span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Cyphelloid fungi                                      </span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   °--Gastroid fungi, puffballs</span></span></code></pre></div>
 </div>
 <div id="regulatory" class="section level2">
 <h2>Regulatory</h2>
@@ -555,32 +587,32 @@ that make up a higher level informal group:</p>
 another regulatory statuses. See
 <code>finbif_metadata(&quot;regulatory_status&quot;)</code> for a list of
 regulatory statuses and short-codes.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for birds on the EU invasive species list</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(<span class="at">informal_groups =</span> <span class="st">&quot;Birds&quot;</span>, <span class="at">regulatory_status =</span> <span class="st">&quot;EU_INVSV&quot;</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for birds on the EU invasive species list</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(<span class="at">informal_groups =</span> <span class="st">&quot;Birds&quot;</span>, <span class="at">regulatory_status =</span> <span class="st">&quot;EU_INVSV&quot;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 469</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …KE.176/62b1ad90d5d…   Oxyura jamaicensis  7         61.66207  23.57706 2022-06-21 12:00:00</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        …JX.1045316#34 Alopochen aegyptiaca  3         52.16081  4.485534 2019-10-23 13:00:00</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        …JX.138840#123 Alopochen aegyptiaca  4         53.36759  6.191796 2018-10-26 11:15:00</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        …JX.139978#214 Alopochen aegyptiaca  6         53.37574  6.207861 2018-10-23 08:30:00</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         …JX.139710#17 Alopochen aegyptiaca  30        52.3399   5.069133 2018-10-22 10:45:00</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         …JX.139645#57 Alopochen aegyptiaca  36        51.74641  4.535283 2018-10-21 13:00:00</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7         …JX.139645#10 Alopochen aegyptiaca  3         51.74641  4.535283 2018-10-21 13:00:00</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8         …JX.139442#16 Alopochen aegyptiaca  2         51.90871  4.53258  2018-10-20 12:10:00</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      …KE.8_1208123#15 Alopochen aegyptiaca  2         53.19242  5.437417 2017-10-24 11:06:00</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    …KE.8_1208068#101 Alopochen aegyptiaca  20        53.32081  6.192341 2017-10-23 12:15:00</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 469</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …KE.176/62b1ad90d5d…   Oxyura jamaicensis  7         61.66207  23.57706 2022-06-21 12:00:00</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        …JX.1045316#34 Alopochen aegyptiaca  3         52.16081  4.485534 2019-10-23 13:00:00</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        …JX.138840#123 Alopochen aegyptiaca  4         53.36759  6.191796 2018-10-26 11:15:00</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        …JX.139978#214 Alopochen aegyptiaca  6         53.37574  6.207861 2018-10-23 08:30:00</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         …JX.139710#17 Alopochen aegyptiaca  30        52.3399   5.069133 2018-10-22 10:45:00</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         …JX.139645#57 Alopochen aegyptiaca  36        51.74641  4.535283 2018-10-21 13:00:00</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7         …JX.139645#10 Alopochen aegyptiaca  3         51.74641  4.535283 2018-10-21 13:00:00</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8         …JX.139442#16 Alopochen aegyptiaca  2         51.90871  4.53258  2018-10-20 12:10:00</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      …KE.8_1208123#15 Alopochen aegyptiaca  2         53.19242  5.437417 2017-10-24 11:06:00</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    …KE.8_1208068#101 Alopochen aegyptiaca  20        53.32081  6.192341 2017-10-23 12:15:00</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -589,32 +621,32 @@ Click to show/hide output.
 <p>Filtering can be done by <a href="https://punainenkirja.laji.fi/">IUCN red list</a> category. See
 <code>finbif_metadata(&quot;red_list&quot;)</code> for the IUCN red list
 categories and their short-codes.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for near threatened mammals</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(<span class="at">informal_groups =</span> <span class="st">&quot;Mammals&quot;</span>, <span class="at">red_list_status =</span> <span class="st">&quot;NT&quot;</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for near threatened mammals</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(<span class="at">informal_groups =</span> <span class="st">&quot;Mammals&quot;</span>, <span class="at">red_list_status =</span> <span class="st">&quot;NT&quot;</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 2503</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …KE.176/63122fa2d5d… Rangifer tarandus f…  2         64.493    25.417   2022-09-01 12:00:00</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         …JX.1436288#3 Rangifer tarandus f…  1         62.65913  24.56789 2022-08-25 12:00:00</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       …JX.1427444#284 Rangifer tarandus f…  1         64.32297  28.86242 2022-08-21 12:00:00</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       …JX.1427444#293 Rangifer tarandus f…  1         64.43202  28.91627 2022-08-21 12:00:00</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  …HR.3211/131434391-U                 &lt;NA&gt;        NA  60.74312  24.77281 2022-08-19 12:00:00</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  …HR.3211/131366861-U Rangifer tarandus f…        NA  63.9      24.9     2022-08-18 12:00:00</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        …JX.1427444#95 Rangifer tarandus f…        NA  64.07652  29.75366 2022-08-17 12:00:00</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8         …JX.1432414#3 Rangifer tarandus f…  3         62.15446  22.18987 2022-08-14 10:00:00</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9         …JX.1431845#3 Rangifer tarandus f…  1         63.31183  24.90167 2022-08-11 12:00:00</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        …JX.1430963#3 Rangifer tarandus f…  1         62.29971  24.48758 2022-08-11 06:20:00</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 2503</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  …KE.176/63122fa2d5d… Rangifer tarandus f…  2         64.493    25.417   2022-09-01 12:00:00</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         …JX.1436288#3 Rangifer tarandus f…  1         62.65913  24.56789 2022-08-25 12:00:00</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3       …JX.1427444#284 Rangifer tarandus f…  1         64.32297  28.86242 2022-08-21 12:00:00</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       …JX.1427444#293 Rangifer tarandus f…  1         64.43202  28.91627 2022-08-21 12:00:00</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  …HR.3211/131434391-U                 &lt;NA&gt;        NA  60.74312  24.77281 2022-08-19 12:00:00</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  …HR.3211/131366861-U Rangifer tarandus f…        NA  63.9      24.9     2022-08-18 12:00:00</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        …JX.1427444#95 Rangifer tarandus f…        NA  64.07652  29.75366 2022-08-17 12:00:00</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8         …JX.1432414#3 Rangifer tarandus f…  3         62.15446  22.18987 2022-08-14 10:00:00</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9         …JX.1431845#3 Rangifer tarandus f…  1         63.31183  24.90167 2022-08-11 12:00:00</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        …JX.1430963#3 Rangifer tarandus f…  1         62.29971  24.48758 2022-08-11 06:20:00</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -630,39 +662,39 @@ filtering records with <code>primary_habitat = &quot;M&quot;</code> will only
 return records of taxa considered to primarily inhabit forests, yet the
 locations of those records may encompass habitats other than
 forests).</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">finbif_metadata</span>(<span class="st">&quot;habitat_type&quot;</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   habitat_code habitat_description                               </span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 U            ? – Habitat unknown                               </span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 I            I – Rural biotopes and cultural habitats          </span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Ih           Ih – wooded pastures, pollard meadows and grazed …</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Ik           Ik – seminatural moist meadows (excluding shore m…</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 In           In – seminatural dry meadows                      </span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 Io           Io – ditches etc.</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search records of taxa for which forests are their primary or secondary</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># habitat type</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">c</span>(<span class="at">primary_secondary_habitat =</span> <span class="st">&quot;M&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">finbif_metadata</span>(<span class="st">&quot;habitat_type&quot;</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   habitat_code habitat_description                               </span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 U            ? – Habitat unknown                               </span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 I            I – Rural biotopes and cultural habitats          </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Ih           Ih – wooded pastures, pollard meadows and grazed …</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Ik           Ik – seminatural moist meadows (excluding shore m…</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 In           In – seminatural dry meadows                      </span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 Io           Io – ditches etc.</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search records of taxa for which forests are their primary or secondary</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># habitat type</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">c</span>(<span class="at">primary_secondary_habitat =</span> <span class="st">&quot;M&quot;</span>))</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 22695106</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    …5966#9 Trichaptum fuscovio…  1         65.08865  25.45157 2021-10-05 12:00:00</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    …5966#3  Lycogala epidendrum  1         65.08865  25.45157 2021-10-05 12:00:00</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    …5966#6 Stereum sanguinolen…  1         65.08865  25.45157 2021-10-05 12:00:00</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    …5969#3      Rana temporaria  1         62.48525  21.75467 2021-10-05 12:00:00</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5    …5950#3 Exechiopsis fimbria…  1         65.01504  25.52607 2021-10-05 12:00:00</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    …5929#9   Epirrita autumnata  1         62.92172  27.63335 2021-10-05 12:00:00</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7    …5929#6  Poecilocampa populi  1         62.92172  27.63335 2021-10-05 12:00:00</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8    …5929#3      Xestia c-nigrum  1         62.92172  27.63335 2021-10-05 12:00:00</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9    …6006#3  Tricholoma equestre  1         61.59036  21.46508 2021-10-04 12:00:00</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  …6004#12 Agriopis aurantiaria  2         60.14694  24.7522  2021-10-04 12:00:00</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 22695106</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    …5966#9 Trichaptum fuscovio…  1         65.08865  25.45157 2021-10-05 12:00:00</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    …5966#3  Lycogala epidendrum  1         65.08865  25.45157 2021-10-05 12:00:00</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    …5966#6 Stereum sanguinolen…  1         65.08865  25.45157 2021-10-05 12:00:00</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    …5969#3      Rana temporaria  1         62.48525  21.75467 2021-10-05 12:00:00</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5    …5950#3 Exechiopsis fimbria…  1         65.01504  25.52607 2021-10-05 12:00:00</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    …5929#9   Epirrita autumnata  1         62.92172  27.63335 2021-10-05 12:00:00</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7    …5929#6  Poecilocampa populi  1         62.92172  27.63335 2021-10-05 12:00:00</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8    …5929#3      Xestia c-nigrum  1         62.92172  27.63335 2021-10-05 12:00:00</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9    …6006#3  Tricholoma equestre  1         61.59036  21.46508 2021-10-04 12:00:00</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  …6004#12 Agriopis aurantiaria  2         60.14694  24.7522  2021-10-04 12:00:00</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br></p>
 <p>You may further refine habitat based searching using a specific
@@ -671,36 +703,36 @@ habitat type qualifier such as “sun-exposed” or “shady”. Use
 available. To specify qualifiers use a named list of character vectors
 where the names are habitat types or subtypes and the elements of the
 character vectors are the qualifier codes.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_metadata</span>(<span class="st">&quot;habitat_qualifier&quot;</span>)[<span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>, ]</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   qualifier_code qualifier_description                             </span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 KA             ka – acidic rocks and boulder fields              </span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 KE             ke – intermediate-basic rock outcrops and boulder…</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 P              p – burnt forest areas and other young stages of …</span></span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search records of taxa for which forests with sun-exposure and broadleaved</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># deciduous trees are their primary habitat type</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">list</span>(<span class="at">primary_habitat =</span> <span class="fu">list</span>(<span class="at">M =</span> <span class="fu">c</span>(<span class="st">&quot;PA&quot;</span>, <span class="st">&quot;J&quot;</span>))))</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_metadata</span>(<span class="st">&quot;habitat_qualifier&quot;</span>)[<span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>, ]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   qualifier_code qualifier_description                             </span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 KA             ka – acidic rocks and boulder fields              </span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 KE             ke – intermediate-basic rock outcrops and boulder…</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 P              p – burnt forest areas and other young stages of …</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search records of taxa for which forests with sun-exposure and broadleaved</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># deciduous trees are their primary habitat type</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">list</span>(<span class="at">primary_habitat =</span> <span class="fu">list</span>(<span class="at">M =</span> <span class="fu">c</span>(<span class="st">&quot;PA&quot;</span>, <span class="st">&quot;J&quot;</span>))))</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 123</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              record_id  scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       …JX.1263703#60 Pammene fasciana  1         60.08841  22.48629 2021-06-22 12:00:00</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      …JX.1256040#165 Pammene fasciana  1         60.08841  22.48629 2021-06-19 12:00:00</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  …HR.3211/53817755-U Pammene fasciana  1         59.90452  23.72726 2020-07-21 12:00:00</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        …JX.1134471#4 Pammene fasciana  2         61.54984  29.50158 2020-06-21 12:00:00</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      …JX.1143718#265 Pammene fasciana  1         60.3754   22.37212 2020-06-10 12:00:00</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      …JX.1012832#367 Pammene fasciana  1         60.00217  23.43591 2019-06-22 12:00:00</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      …JX.1098381#487 Pammene fasciana  1         60.04555  23.31692 2019-06-19 12:00:00</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8       …JX.1011605#97 Pammene fasciana  1         60.50396  27.72823 2019-05-30 12:00:00</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9       …JX.996622#130 Pammene fasciana  3         60.00217  23.43591 2019-05-08 12:00:00</span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      …JX.1103286#13 Pammene fasciana  1         59.90522  23.49645 2018-05-28 12:00:00</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 123</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              record_id  scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1       …JX.1263703#60 Pammene fasciana  1         60.08841  22.48629 2021-06-22 12:00:00</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      …JX.1256040#165 Pammene fasciana  1         60.08841  22.48629 2021-06-19 12:00:00</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  …HR.3211/53817755-U Pammene fasciana  1         59.90452  23.72726 2020-07-21 12:00:00</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        …JX.1134471#4 Pammene fasciana  2         61.54984  29.50158 2020-06-21 12:00:00</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      …JX.1143718#265 Pammene fasciana  1         60.3754   22.37212 2020-06-10 12:00:00</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      …JX.1012832#367 Pammene fasciana  1         60.00217  23.43591 2019-06-22 12:00:00</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      …JX.1098381#487 Pammene fasciana  1         60.04555  23.31692 2019-06-19 12:00:00</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8       …JX.1011605#97 Pammene fasciana  1         60.50396  27.72823 2019-05-30 12:00:00</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9       …JX.996622#130 Pammene fasciana  3         60.00217  23.43591 2019-05-08 12:00:00</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      …JX.1103286#13 Pammene fasciana  1         59.90522  23.49645 2018-05-28 12:00:00</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -708,60 +740,60 @@ Click to show/hide output.
 <h2>Status of taxa in Finland</h2>
 <p>You can restrict the occurrence records by the status of the taxa in
 Finland. For example you can request records for only rare species.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">c</span>(<span class="at">finnish_occurrence_status =</span> <span class="st">&quot;rare&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">c</span>(<span class="at">finnish_occurrence_status =</span> <span class="st">&quot;rare&quot;</span>))</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 318316</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        …JX.1315617#3 Stigmella ruficapit…  1         61.51447  24.0233  2021-10-03 12:00:00</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        …JX.1315617#6 Stigmella ruficapit…  5         61.51447  24.0233  2021-10-03 12:00:00</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        …JX.1315625#3 Ectoedemia turbidel…  10        60.21493  24.86162 2021-10-03 12:00:00</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        …JX.1315620#3 Ectoedemia intimella  1         62.0223   25.6044  2021-10-03 12:00:00</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        …JX.1315390#3 Stigmella assimilel…  1         61.51447  24.0233  2021-10-02 12:00:00</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6        …JX.1314937#9 Stigmella glutinosae  1         61.51447  24.0233  2021-10-01 12:00:00</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        …JX.1315138#3 Stigmella filipendu…  3         62.64272  29.63881 2021-10-01 12:00:00</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8        …JX.1305550#3 Stigmella myrtillel…  1         61.51447  24.0233  2021-09-30 12:00:00</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9        …JX.1315169#3 Ectoedemia intimella  2         61.58965  27.65204 2021-09-30 12:00:00</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 …HR.3211/96782798-U Lyonetia prunifolie…  1         60.35792  24.78564 2021-09-30 12:00:00</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 318316</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        …JX.1315617#3 Stigmella ruficapit…  1         61.51447  24.0233  2021-10-03 12:00:00</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        …JX.1315617#6 Stigmella ruficapit…  5         61.51447  24.0233  2021-10-03 12:00:00</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        …JX.1315625#3 Ectoedemia turbidel…  10        60.21493  24.86162 2021-10-03 12:00:00</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        …JX.1315620#3 Ectoedemia intimella  1         62.0223   25.6044  2021-10-03 12:00:00</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        …JX.1315390#3 Stigmella assimilel…  1         61.51447  24.0233  2021-10-02 12:00:00</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6        …JX.1314937#9 Stigmella glutinosae  1         61.51447  24.0233  2021-10-01 12:00:00</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        …JX.1315138#3 Stigmella filipendu…  3         62.64272  29.63881 2021-10-01 12:00:00</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8        …JX.1305550#3 Stigmella myrtillel…  1         61.51447  24.0233  2021-09-30 12:00:00</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9        …JX.1315169#3 Ectoedemia intimella  2         61.58965  27.65204 2021-09-30 12:00:00</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 …HR.3211/96782798-U Lyonetia prunifolie…  1         60.35792  24.78564 2021-09-30 12:00:00</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br> Or, by using the negation of occurrence status, you can request
 records of birds excluding those considered vagrants.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">informal_groups               =</span> <span class="st">&quot;birds&quot;</span>,</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">finnish_occurrence_status_neg =</span> <span class="fu">sprintf</span>(<span class="st">&quot;vagrant_%sregular&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;ir&quot;</span>))</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">informal_groups               =</span> <span class="st">&quot;birds&quot;</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">finnish_occurrence_status_neg =</span> <span class="fu">sprintf</span>(<span class="st">&quot;vagrant_%sregular&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;ir&quot;</span>))</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 20779181</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id     scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1         …JX.1440059#3   Dendrocopos major  1         61.09692  21.76019 2022-09-06 19:50:00</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         …JX.1440058#6              Passer  2         61.07281  21.75856 2022-09-06 19:00:00</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         …JX.1440058#9           Grus grus  1         61.07281  21.75856 2022-09-06 19:00:00</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         …JX.1440058#3     Accipiter nisus  1         61.07281  21.75856 2022-09-06 19:00:00</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        …JX.1440058#12   Carduelis chloris  3         61.07281  21.75856 2022-09-06 19:00:00</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  …HR.3211/133925964-U         Larus canus        NA  60.1      24.9     2022-09-06 12:00:00</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  …HR.3211/133975979-U    Anthus trivialis        NA  60.23348  24.91985 2022-09-06 12:00:00</span></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  …HR.3211/133975532-U      Sylvia curruca        NA  60.2336   24.91986 2022-09-06 12:00:00</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  …HR.3211/133877304-U Garrulus glandarius        NA  61.44345  23.86333 2022-09-06 12:00:00</span></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 …HR.3211/133974658-U      Turdus iliacus        NA  60.22801  24.91946 2022-09-06 12:00:00</span></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Records available: 20779181</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               record_id     scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1         …JX.1440059#3   Dendrocopos major  1         61.09692  21.76019 2022-09-06 19:50:00</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         …JX.1440058#6              Passer  2         61.07281  21.75856 2022-09-06 19:00:00</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         …JX.1440058#9           Grus grus  1         61.07281  21.75856 2022-09-06 19:00:00</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         …JX.1440058#3     Accipiter nisus  1         61.07281  21.75856 2022-09-06 19:00:00</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        …JX.1440058#12   Carduelis chloris  3         61.07281  21.75856 2022-09-06 19:00:00</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  …HR.3211/133925964-U         Larus canus        NA  60.1      24.9     2022-09-06 12:00:00</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  …HR.3211/133975979-U    Anthus trivialis        NA  60.23348  24.91985 2022-09-06 12:00:00</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  …HR.3211/133975532-U      Sylvia curruca        NA  60.2336   24.91986 2022-09-06 12:00:00</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  …HR.3211/133877304-U Garrulus glandarius        NA  61.44345  23.86333 2022-09-06 12:00:00</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 …HR.3211/133974658-U      Turdus iliacus        NA  60.22801  24.91946 2022-09-06 12:00:00</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 6 more variables:</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
 <p><br></p>
 <p>See <code>finbif_metadata(&quot;finnish_occurrence_status&quot;)</code> for a
