@@ -362,53 +362,53 @@ in FinBIF.</p>
 <p>You can see some of the metadata available in <code>{finbif}</code>
 by calling the <code>finbif_metadata</code> function without any
 arguments.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_metadata</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">finbif_metadata</span>()</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    metadata_name            </span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  regulatory_status        </span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  red_list                 </span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  country                  </span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  region                   </span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  bio_province             </span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  municipality             </span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  bird_assoc_area          </span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  finnish_occurrence_status</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  habitat_type             </span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 habitat_qualifier        </span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 life_stage               </span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 record_basis             </span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 restriction_level        </span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 restriction_reason       </span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 sex_category             </span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16 source                   </span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17 taxon_rank               </span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt;                metadata_name</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; 1          regulatory_status</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; 2                   red_list</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; 3                    country</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; 4                     region</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; 5               bio_province</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; 6               municipality</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 7            bird_assoc_area</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 8  finnish_occurrence_status</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; 9               habitat_type</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; 10         habitat_qualifier</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; 11                life_stage</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; 12              record_basis</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; 13         restriction_level</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; 14        restriction_reason</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; 15              sex_category</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; 16                    source</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 17                taxon_rank</span></span></code></pre></div>
 </details>
 <p><br></p>
 <p>Calling <code>finbif_metadata()</code> and specifying one of the
 metadata categories will display a <code>data.frame</code> with the
 requested metadata.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_metadata</span>(<span class="st">&quot;red_list&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">finbif_metadata</span>(<span class="st">&quot;red_list&quot;</span>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    status_name           status_code</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  Critically Endangered CR         </span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  Data Deficient        DD         </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  Endangered            EN         </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  Extinct               EX         </span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  Extinct in the Wild   EW         </span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  Least Concern         LC         </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  Near Threatened       NT         </span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  Not Applicable        NA         </span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  Not Evaluated         NE         </span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Regionally Extinct    RE         </span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 Vulnerable            VU         </span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt;           code name                 </span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; MX.iucnCR CR   Critically Endangered</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; MX.iucnDD DD   Data Deficient       </span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; MX.iucnEN EN   Endangered           </span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; MX.iucnEX EX   Extinct              </span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; MX.iucnEW EW   Extinct in the Wild  </span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; MX.iucnLC LC   Least Concern        </span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; MX.iucnNT NT   Near Threatened      </span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; MX.iucnNA NA   Not Applicable       </span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; MX.iucnNE NE   Not Evaluated        </span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; MX.iucnRE RE   Regionally Extinct   </span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; MX.iucnVU VU   Vulnerable           </span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -420,27 +420,32 @@ Click to show/hide output.
 <h3>Informal groups</h3>
 <p>Informal taxonomic groups and their relationships can be displayed
 with <code>finbif_informal_groups()</code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_informal_groups</span>(<span class="at">limit =</span> <span class="dv">6</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Algae                                                         </span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  °--Macro algae                                               </span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      ¦--Brown algae and yellow green algae                    </span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      ¦--Green algae                                           </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      ¦--Red algae                                             </span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      °--Stoneworts                                            </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ...142 more groups</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">finbif_informal_groups</span>(<span class="at">limit =</span> <span class="dv">2</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; Algae</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt;   --Macro algae</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;       --Brown algae and yellow green algae</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;       --Green algae</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;       --Red algae</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt;       --Stoneworts</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; Birds</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;   --Birds of prey and owls</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt;       --Birds of prey</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;       --Owls</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;   --Waterbirds</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; ...137 more groups</span></span></code></pre></div>
 <p>You can select a subgroup by specifying a parent informal group as a
 function argument.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_informal_groups</span>(<span class="st">&quot;Crustaceans&quot;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Crustaceans                                                   </span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦--Macrocrustaceans                                          </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Amphipods, isopods, opossum shrimps                   </span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Crabs, shrimps and crayfishes                         </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   ¦--Other macrocrustaceans                                </span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ¦   °--Woodlice                                              </span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  °--Microcrustaceans                                          </span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      ¦--Branchiopoda                                          </span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      ¦--Copepods                                              </span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      °--Seed shrimps</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">finbif_informal_groups</span>(<span class="st">&quot;Crustaceans&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; Crustaceans</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt;   --Macrocrustaceans</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt;       --Amphipods, isopods, opossum shrimps</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;       --Crabs, shrimps and crayfishes</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt;       --Other macrocrustaceans</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt;       --Woodlice</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;   --Microcrustaceans</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt;       --Branchiopoda</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt;       --Copepods</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt;       --Seed shrimps</span></span></code></pre></div>
 </div>
 </div>
 <div id="collections" class="section level2">
@@ -450,61 +455,80 @@ function argument.</p>
 record aggregation in the FinBIF database.</p>
 <p>You can subset collection metadata by using the <code>filter</code>
 and <code>select</code> arguments.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_collections</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> geographic_coverage <span class="sc">==</span> <span class="st">&quot;Finland&quot;</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;collection_name&quot;</span>, <span class="st">&quot;taxonomic_coverage&quot;</span>, <span class="st">&quot;count&quot;</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">finbif_collections</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="at">filter =</span> geographic_coverage <span class="sc">==</span> <span class="st">&quot;Finland&quot;</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;collection_name&quot;</span>, <span class="st">&quot;taxonomic_coverage&quot;</span>, <span class="st">&quot;count&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         collection_name                   taxonomic_coverage                count  </span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1227 Coll Mikko Heikkinen              Biota                                  67</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1349 JYV - Fungal collections          &lt;NA&gt;                                13399</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1350 JYV - Lichen collections          &lt;NA&gt;                                  398</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1351 JYV - Bryophyte collections       &lt;NA&gt;                                 4369</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1467 Per-Eric Grankvist´s butterly co… Lepidoptera                             5</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1487 JYV - Fish collections            &lt;NA&gt;                                 1371</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1507 Lingonblad Birger och Hjördis bu… Lepidoptera                          2796</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.157  Point counts of breeding terrest… Birds, landbirds                   376833</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1592 Herbarium of The Ark Nature Cent… &lt;NA&gt;                                 7806</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1687 Papilionoidea of Coll. Lauro      Papilionoidea                         525</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1688 Noctuidae I of Coll. Lauro        Noctuidae                             614</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1689 Noctuidae II of Coll. Lauro       Noctuidae                             839</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1690 Noctuidae III, Bombycoidea, Sphi… Noctuidae, Bombycoidea, Geometri…     521</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1691 Drepanidae &amp; Geometridae of Coll… Drepanidae, Geometridae              1408</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.175  National Finnish butterfly monit… Lepidoptera                        408864</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.200  Finnish Insect Database           Insecta                           3725818</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.2049 Invasive alien species control    Invasive species                      471</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.206  The Finnish Nature League&#39;s Spri… biota                              107275</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.2089 Håkan Lindberg collection         Hymenoptera                          2400</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.209  Atlas of Finnish Macrolepidoptera Macrolepidoptera                  1218544</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.2209 KUO Arachnida collection          Arachnida                               3</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.2289 Specimens that lack collecting i… &lt;NA&gt;                                  109</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.2691 Line transect censuses of breedi… Aves                               603950</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.2692 Censuses of breeding birds - Are… Aves                                14963</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3051 VieKas LIFE project invasive spe… &lt;NA&gt;                                 1349</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3071 Observing species on milk farms   &lt;NA&gt;                                  529</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3211 iNaturalist Suomi Finland         biota                              417052</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3491 LajiGIS: Aquatic species survey   Biota                              518824</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3553 LajiGIS: Species monitoring sites Biota                              657410</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3671 Bird of prey nests for protection Aves                                10246</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3691 eBird                             Aves                               528002</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3791 Invasive species observations     Biota                                1385</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.39   Winter Bird Census                Aves                              1404097</span></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3911 Bumblebee census                  Bumblebees                           4154</span></span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3991 Waterbird counts, Luomus dataset  Aves                                 2424</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.3992 Waterbird counts, Luke dataset    Aves                                15012</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.4011 Salmonidae in streams             Salmonidae                          12630</span></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.4051 LajiGIS: Species monitoring site… Aquila chrysaetos; Haliaeetus al…    7780</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.4091 Retkikasvio                       &lt;NA&gt;                                 1227</span></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.4131 Butterflies in Finnish agricultu… Papilionoidea, Others              356560</span></span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.435  Löydös Open Invasive Species Obs… Biota                               17157</span></span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.60   Monitoring scheme of birds and m… Aves, Mammalia                     826341</span></span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.627  Invasive mammal species of Finla… Mammalia                              228</span></span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.808  E. Sjöholm´s butterfly collection Lepidoptera                          4951</span></span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.847  Atlas of amphibians and reptiles… Amphibia, Reptilia                   6233</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt;         collection_name                   taxonomic_coverage                count  </span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; HR.1227 Priv. coll. Mikko Heikkinen       Biota                                  62</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; HR.1349 JYV - Fungal collections          &lt;NA&gt;                                13477</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; HR.1350 JYV - Lichen collections          &lt;NA&gt;                                  608</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; HR.1351 JYV - Bryophyte collections       &lt;NA&gt;                                 8367</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; HR.1467 Per-Eric Grankvist´s butterly co… Lepidoptera                             5</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; HR.1487 JYV - Fish collections            &lt;NA&gt;                                 1371</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; HR.1507 Lingonblad Birger och Hjördis bu… Lepidoptera                          2796</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; HR.157  Point counts of breeding terrest… Birds, landbirds                   393361</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; HR.1592 Herbarium of The Ark Nature Cent… &lt;NA&gt;                                 7871</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; HR.1687 Papilionoidea of Coll. Lauro      Papilionoidea                         550</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; HR.1688 Noctuidae I of Coll. Lauro        Noctuidae                             614</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; HR.1689 Noctuidae II of Coll. Lauro       Noctuidae                             839</span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; HR.1690 Noctuidae III, Bombycoidea, Sphi… Noctuidae, Bombycoidea, Geometri…     521</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; HR.1691 Drepanidae &amp; Geometridae of Coll… Drepanidae, Geometridae              1408</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; HR.175  National Finnish butterfly monit… Lepidoptera                        450525</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; HR.1916 Wildlife triangle                 Siberian flying squirrel (Pterom…   18560</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt; HR.200  Finnish Insect Database           Insecta                           3725381</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt; HR.2009 Fish observation data from the n… invasive alien fish species - mu…   35582</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt; HR.2049 Invasive alien species control    Invasive species                     1502</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; HR.206  The Finnish Nature League&#39;s Spri… biota                              119323</span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt; HR.2089 Håkan Lindberg collection         Hymenoptera                          2435</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt; HR.209  Atlas of Finnish Macrolepidoptera Macrolepidoptera                  1218555</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt; HR.2129 Fungal atlas                      fungi                              116519</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt; HR.2209 KUO Arachnida collection          Arachnida                               3</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt; HR.2289 Specimens that lack collecting i… &lt;NA&gt;                                  109</span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; HR.2691 Luomus line transect censuses of… Aves                               628987</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; HR.2692 Censuses of breeding birds - Are… Aves                                14963</span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; HR.3051 VieKas LIFE project invasive spe… &lt;NA&gt;                                 1545</span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; HR.3071 Observing species on milk farms   &lt;NA&gt;                                  529</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt; HR.3211 iNaturalist Suomi Finland         biota                              691050</span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; HR.3491 LajiGIS: Aquatic species survey   Biota                              643837</span></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; HR.3553 LajiGIS: Species monitoring sites Biota                              731965</span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; HR.3671 Bird of prey nests for protection Aves                                13323</span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; HR.3691 eBird                             Aves                              1100308</span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; HR.3791 Invasive species observations     Biota                                3268</span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; HR.39   Winter Bird Census                Aves, Mammalia                    1483842</span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt; HR.3911 Bumblebee census                  Bumblebees                          29949</span></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt; HR.3991 Waterbird counts, Luomus dataset  Aves                                39236</span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">#&gt; HR.3992 Waterbird counts, Luke dataset 2… Aves                                30145</span></span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="co">#&gt; HR.4011 Salmonidae in streams             Salmonidae                          12630</span></span>
+<span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a><span class="co">#&gt; HR.4051 LajiGIS: Species monitoring site… Aquila chrysaetos; Haliaeetus al…    8669</span></span>
+<span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a><span class="co">#&gt; HR.4091 Retkikasvio                       &lt;NA&gt;                                   84</span></span>
+<span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a><span class="co">#&gt; HR.4131 Butterflies in Finnish agricultu… Papilionoidea, Others              356987</span></span>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a><span class="co">#&gt; HR.4191 Porvoo Museum / Butterfly Collec… Lepidoptera                         10417</span></span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a><span class="co">#&gt; HR.4251 LajiGIS: Species mapping and sur… Biota                              490816</span></span>
+<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a><span class="co">#&gt; HR.435  Löydös Open Invasive Species Obs… Biota                               19232</span></span>
+<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a><span class="co">#&gt; HR.4352 NFI rare tree species             &lt;NA&gt;                                  995</span></span>
+<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a><span class="co">#&gt; HR.4412 Tiira.fi: The Fourth Breeding Bi… Aves                               329445</span></span>
+<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a><span class="co">#&gt; HR.4471 4th Finnish Bird Atlas 2022–2025… Aves                               165551</span></span>
+<span id="cb8-52"><a href="#cb8-52" tabindex="-1"></a><span class="co">#&gt; HR.4511 Finnish National Moth Monitoring  Bombycoidea, Noctuoidea, Sphingi… 1156373</span></span>
+<span id="cb8-53"><a href="#cb8-53" tabindex="-1"></a><span class="co">#&gt; HR.4611 Observations by FCG Finnish Cons… &lt;NA&gt;                                  462</span></span>
+<span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a><span class="co">#&gt; HR.4612 Pollinator monitoring, line tran… Insecta                              7885</span></span>
+<span id="cb8-55"><a href="#cb8-55" tabindex="-1"></a><span class="co">#&gt; HR.4672 Observations from publications    Biota                                 127</span></span>
+<span id="cb8-56"><a href="#cb8-56" tabindex="-1"></a><span class="co">#&gt; HR.4711 Flying squirrel monitoring        Pteromys volans                      2509</span></span>
+<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a><span class="co">#&gt; HR.4991 Bird atlas observations manually… Aves                                 6620</span></span>
+<span id="cb8-58"><a href="#cb8-58" tabindex="-1"></a><span class="co">#&gt; HR.5095 Dragonfly complete lists          Odonata                                29</span></span>
+<span id="cb8-59"><a href="#cb8-59" tabindex="-1"></a><span class="co">#&gt; HR.5155 Observations from electronic sou… Biota                                1372</span></span>
+<span id="cb8-60"><a href="#cb8-60" tabindex="-1"></a><span class="co">#&gt; HR.5196 Pollinator monitoring, pan traps  Insecta                              5688</span></span>
+<span id="cb8-61"><a href="#cb8-61" tabindex="-1"></a><span class="co">#&gt; HR.5235 Finnish butterflies - complete l… Lepidoptera, Papilinoidea              21</span></span>
+<span id="cb8-62"><a href="#cb8-62" tabindex="-1"></a><span class="co">#&gt; HR.5236 Charismatic flowering plants - c… Tracheophyta                          277</span></span>
+<span id="cb8-63"><a href="#cb8-63" tabindex="-1"></a><span class="co">#&gt; HR.60   Monitoring scheme of birds and m… Aves, Mammalia                     874130</span></span>
+<span id="cb8-64"><a href="#cb8-64" tabindex="-1"></a><span class="co">#&gt; HR.627  Alien mammal species observation… Invasive alien mammal species – …    3094</span></span>
+<span id="cb8-65"><a href="#cb8-65" tabindex="-1"></a><span class="co">#&gt; HR.808  E. Sjöholm´s butterfly collection Lepidoptera                          4951</span></span>
+<span id="cb8-66"><a href="#cb8-66" tabindex="-1"></a><span class="co">#&gt; HR.847  Atlas of amphibians and reptiles… Amphibia, Reptilia                   6690</span></span></code></pre></div>
 </details>
 <p><br></p>
 <p>By default, <code>finbif_collections()</code> only displays the
@@ -512,52 +536,55 @@ lowest level collections. Higher level, “supercollections” can be viewed
 by setting <code>supercollections = TRUE</code> and you can limit the
 output to collections with a minimum number of records in them with the
 <code>nmin</code> argument.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>collections <span class="ot">&lt;-</span> <span class="fu">finbif_collections</span>(<span class="at">supercollections =</span> <span class="cn">TRUE</span>, <span class="at">nmin =</span> <span class="dv">10000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>collections <span class="ot">&lt;-</span> <span class="fu">finbif_collections</span>(<span class="at">supercollections =</span> <span class="cn">TRUE</span>, <span class="at">nmin =</span> <span class="dv">10000</span>)</span></code></pre></div>
 <p>The <code>finbif_collections()</code> function returns a
 <code>data.frame</code> where the row names are the ID number of the
 collection.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_collections</span>(<span class="at">supercollections =</span> <span class="cn">TRUE</span>)[<span class="st">&quot;HR.128&quot;</span>, <span class="st">&quot;collection_name&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">finbif_collections</span>(<span class="at">supercollections =</span> <span class="cn">TRUE</span>)[<span class="st">&quot;HR.128&quot;</span>, <span class="st">&quot;collection_name&quot;</span>]</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Collections of the Finnish Museum of Natural History Luomus</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; Collections of the Finnish Museum of Natural History Luomus</span></span></code></pre></div>
 </details>
 <p><br></p>
 <p>You can see the child collections of a supercollection by specifying
 the ID as a filter. Note that the children of supercollections may also
-be supercollections</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finbif_collections</span>(is_part_of <span class="sc">==</span> <span class="st">&quot;HR.128&quot;</span>, <span class="at">supercollections =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+be supercollections.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">finbif_collections</span>(is_part_of <span class="sc">==</span> <span class="st">&quot;HR.128&quot;</span>, <span class="at">supercollections =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         collection_name abbreviation description online_url has_children is_part_of data_quality</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.129  Collections of… H            Herbarium … &lt;NA&gt;        TRUE        HR.128     MY.dataQual…</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.160  Zoological col… MZH          The collec… http://ww…  TRUE        HR.128     MY.dataQual…</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.173  Zoological mon… &lt;NA&gt;         Monitoring… &lt;NA&gt;        TRUE        HR.128     MY.dataQual…</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1849 Genomic resour… &lt;NA&gt;         Genomic re… &lt;NA&gt;        TRUE        HR.128     MY.dataQual…</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.203  Löydös Open Fi… &lt;NA&gt;         A service … http://ws…  TRUE        HR.128     MY.dataQual…</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.447  Hatikka.fi obs… &lt;NA&gt;         Hatikka.fi… http://ha… FALSE        HR.128     MY.dataQual…</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.48   Ringing and re… TIPU         Database o… &lt;NA&gt;        TRUE        HR.128     MY.dataQual…</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         methods   collection_type taxonomic_coverage geographic_coverage temporal_coverage</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.129  &lt;NA&gt;      MY.collectionT… &lt;NA&gt;               &lt;NA&gt;                &lt;NA&gt;             </span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.160  &lt;NA&gt;      MY.collectionT… Animalia           World               1700 to present  </span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.173  &lt;NA&gt;      MY.collectionT… &lt;NA&gt;               Finland             1950-            </span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1849 Sampling… MY.collectionT… Biota              World               2000-            </span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.203  &lt;NA&gt;      MY.collectionT… biota              world               2013-            </span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.447  &lt;NA&gt;      MY.collectionT… Biota              World               &lt;NA&gt;             </span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.48   &lt;NA&gt;      MY.collectionT… &lt;NA&gt;               Ringing data: Finl… 1913-            </span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         secure_level count   </span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.129  &lt;NA&gt;             1513</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.160  MX.secureLe…      940</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.173  &lt;NA&gt;          4765423</span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.1849 &lt;NA&gt;                1</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.203  &lt;NA&gt;            26650</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.447  &lt;NA&gt;          2010389</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HR.48   &lt;NA&gt;         12456603</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt;         collection_name abbreviation description online_url has_children is_part_of data_quality</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; HR.129  Collections of… H            Herbarium … &lt;NA&gt;        TRUE        HR.128     MY.dataQual…</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; HR.160  Zoological col… MZH          The collec… http://ww…  TRUE        HR.128     MY.dataQual…</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; HR.173  Zoological mon… &lt;NA&gt;         Monitoring… &lt;NA&gt;        TRUE        HR.128     MY.dataQual…</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; HR.1849 Genomic resour… &lt;NA&gt;         Genomic re… &lt;NA&gt;        TRUE        HR.128     MY.dataQual…</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt; HR.203  Löydös Open Fi… &lt;NA&gt;         A service … https://l… FALSE        HR.128     &lt;NA&gt;        </span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt; HR.435  Löydös Open In… &lt;NA&gt;         A service … https://l… FALSE        HR.128     MY.dataQual…</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt; HR.447  Hatikka.fi obs… &lt;NA&gt;         Hatikka.fi… http://ha… FALSE        HR.128     MY.dataQual…</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; HR.48   Ringing and re… TIPU         Dataset co… &lt;NA&gt;        TRUE        HR.128     MY.dataQual…</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt;         methods   collection_type taxonomic_coverage geographic_coverage temporal_coverage</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; HR.129  &lt;NA&gt;      MY.collectionT… &lt;NA&gt;               &lt;NA&gt;                &lt;NA&gt;             </span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; HR.160  &lt;NA&gt;      MY.collectionT… Animalia           World               1700 to present  </span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt; HR.173  &lt;NA&gt;      MY.collectionT… &lt;NA&gt;               Finland             1950-            </span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; HR.1849 Sampling… MY.collectionT… Biota              World               2000-            </span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt; HR.203  &lt;NA&gt;      MY.collectionT… biota              world               2013-            </span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt; HR.435  &lt;NA&gt;      MY.collectionT… Biota              Finland             2015-            </span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="co">#&gt; HR.447  &lt;NA&gt;      MY.collectionT… Biota              World               &lt;NA&gt;             </span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="co">#&gt; HR.48   &lt;NA&gt;      MY.collectionT… Aves               Ringing data: Finl… 1913-            </span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co">#&gt;         secure_level count   </span></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="co">#&gt; HR.129  &lt;NA&gt;                2</span></span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a><span class="co">#&gt; HR.160  MX.secureLe…      742</span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co">#&gt; HR.173  &lt;NA&gt;          5160221</span></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="co">#&gt; HR.1849 &lt;NA&gt;                1</span></span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#&gt; HR.203  &lt;NA&gt;            39375</span></span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="co">#&gt; HR.435  &lt;NA&gt;            19232</span></span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co">#&gt; HR.447  &lt;NA&gt;          2010032</span></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="co">#&gt; HR.48   &lt;NA&gt;         12910437</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
