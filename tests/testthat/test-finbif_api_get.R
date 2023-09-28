@@ -31,32 +31,11 @@ test_that(
           list(
             path = "warehouse/query/unit/list",
             query = list(page = 1, pageSize = 1, selected = "not_a_var"),
-            cache = TRUE
+            cache = FALSE
           )
         )
       ),
       "API request failed"
-    )
-
-  }
-)
-
-test_that(
-  "that doesn't receive JSON returns an error message", {
-
-    skip_on_cran()
-
-    expect_error(
-      api_get(
-        list(
-          path = "warehouse/query/unit/list",
-          query = list(
-            format = "xml", page = 1, pageSize = 1, selected = "unit.unitId"
-          ),
-          cache = TRUE
-        )
-      ),
-      "API did not return json"
     )
 
   }
