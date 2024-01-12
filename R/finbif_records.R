@@ -781,7 +781,8 @@ request <- function(fb_records_obj) {
     date_time = fb_records_obj[["date_time_selected"]],
     aggregate = aggregate,
     cache = cache,
-    restricted_api = fb_records_obj[["restricted_api"]]
+    restricted_api = fb_records_obj[["restricted_api"]],
+    from_cache = resp[["from_cache"]]
   )
 
   if (n > max_size) {
@@ -836,7 +837,8 @@ get_extra_pages <- function(fb_records_list) {
     cache = attr(fb_records_list, "cache", TRUE),
     select_query = attr(fb_records_list, "select", TRUE),
     aggregate = attr(fb_records_list, "aggregate", TRUE),
-    restricted_api = attr(fb_records_list, "restricted_api", TRUE)
+    restricted_api = attr(fb_records_list, "restricted_api", TRUE),
+    cache_override = attr(fb_records_list, "from_cache", TRUE)
   )
 
   n <- attr(fb_records_list, "nrec_dnld", TRUE)
@@ -847,7 +849,9 @@ get_extra_pages <- function(fb_records_list) {
 
   quiet <- attr(fb_records_list, "quiet", TRUE)
 
-  if (multipage && !quiet) {
+  use_progress <- multipage && !quiet
+
+  if (use_progress) {
 
     pb_head("Fetching data")
 
@@ -881,29 +885,25 @@ get_extra_pages <- function(fb_records_list) {
 
   while (multipage) {
 
+    current_page_size <- page_size
+
     if (!quiet) {
 
       utils::setTxtProgressBar(pb, i)
 
     }
 
-    if (page > n_pages) {
+    if (page == n_pages + 1) {
 
-      last_record <- page_size * n_pages
+      current_page_size <- n %% page_size
 
-      if (identical(last_record, n)) {
+    }
 
-        break
+    end <- page == n_pages + 2 || current_page_size == 0
 
-      }
+    if (end) {
 
-      page_size <- get_next_lowest_factor(last_record, n %% page_size)
-
-      page <- last_record / page_size
-
-      page <- page + 1L
-
-      n_pages <- n %/% page_size
+      break
 
     }
 
@@ -928,6 +928,16 @@ get_extra_pages <- function(fb_records_list) {
     }
 
     records_i <- value(res)
+
+    if (length(records_i) > current_page_size) {
+
+      results <- c("content", "results")
+
+      results_seq <- seq_len(current_page_size)
+
+      records_i[[results]] <- records_i[[results]][results_seq]
+
+    }
 
     records_i <- c(records_i, locale = fb_records_list[[i]][["locale"]])
 
@@ -1017,6 +1027,8 @@ parse_filters <- function(fb_records_obj) {
         env <- list()
 
         env[[nm_i]] <- collections
+
+        f_i <- remove_domain(f_i)
 
         f_i <- list(x = f_i, translation = nm_i, env = env)
 

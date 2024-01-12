@@ -35,6 +35,8 @@ api_get <- function(obj) {
 
       if (!is.null(cached_obj)) {
 
+        cached_obj[["from_cache"]] <- TRUE
+
         return(cached_obj)
 
       }
@@ -55,7 +57,11 @@ api_get <- function(obj) {
 
         if (cache_is_valid(obj[["timeout"]], created)) {
 
-          return(readRDS(cache_file_path))
+          cached_obj <- readRDS(cache_file_path)
+
+          cached_obj[["from_cache"]] <- TRUE
+
+          return(cached_obj)
 
         } else {
 
@@ -107,10 +113,18 @@ api_get <- function(obj) {
             cached_obj <- db_cache[ind, "blob"]
 
             debug_msg(
-              "[", as.character(Sys.time()), "] ", "Reading from cache: ", hash
+              "INFO [",
+              format(Sys.time()),
+              "] ",
+              "Reading from cache: ",
+              hash
             )
 
-            return(unserialize(cached_obj[[1L]]))
+            cached_obj <- unserialize(cached_obj[[1L]])
+
+            cached_obj[["from_cache"]] <- TRUE
+
+            return(cached_obj)
 
           } else {
 
@@ -119,7 +133,7 @@ api_get <- function(obj) {
             )
 
             debug_msg(
-              "[", as.character(Sys.time()), "] ", "Removing from cache: ", hash
+              "INFO [", format(Sys.time()), "] ", "Removing from cache: ", hash
             )
 
             DBI::dbExecute(fcp, db_query)
@@ -224,8 +238,6 @@ api_get <- function(obj) {
 
   resp[[c("request", "url")]] <- notoken
 
-  resp_type <- gsub("\\s", "",  resp[[c("headers", "content-type")]])
-
   parsed <- httr::content(resp)
 
   if (!identical(resp[["status_code"]], 200L)) {
@@ -246,8 +258,10 @@ api_get <- function(obj) {
 
   obj[["hash"]] <- hash
 
+  obj[["from_cache"]] <- FALSE
+
   debug_msg(
-    "[", as.character(Sys.time()), "] ", "Request made to: ", notoken, " ", hash
+    "INFO [", format(Sys.time()), "] ", "Request made to: ", notoken, " ", hash
   )
 
   structure(obj, class = "finbif_api")
@@ -356,9 +370,15 @@ get_timeout <- function(obj) {
 
   timeout <- obj[["cache"]]
 
-  if (is.logical(timeout)) {
+  if (is.logical(timeout) || isTRUE(obj[["cache_override"]])) {
 
     timeout <- Inf
+
+  }
+
+  if (isFALSE(obj[["cache_override"]])) {
+
+    timeout <- 0
 
   }
 
@@ -411,7 +431,7 @@ append_obj <- function(obj) {
       blob = blob::blob(blob)
     )
 
-    debug_msg("[", as.character(Sys.time()), "] ", "Adding to cache: ", hash)
+    debug_msg("INFO [", format(Sys.time()), "] ", "Adding to cache: ", hash)
 
     fcp <- getOption("finbif_cache_path")
 

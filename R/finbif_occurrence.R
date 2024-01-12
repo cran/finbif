@@ -93,9 +93,6 @@
 #' )
 #'
 #' }
-#' @importFrom lubridate as_datetime as.duration as.interval force_tzs
-#' @importFrom lubridate format_ISO8601 hour interval minute ymd
-#' @importFrom lutz tz_lookup_coords
 #' @export
 
 finbif_occurrence <- function(
@@ -602,7 +599,6 @@ date_times <- function(fb_occurrence_df) {
 }
 
 #' @noRd
-#' @importFrom lubridate as_datetime force_tz hour minute with_tz ymd
 #' @importFrom lutz tz_lookup_coords
 
 date_time <- function(date_time_obj) {
@@ -617,9 +613,9 @@ date_time <- function(date_time_obj) {
 
   if (length(date) > 0L) {
 
-    date_time <- lubridate::ymd(date)
+    date_time <- as.Date(date)
 
-    date_time <- lubridate::as_datetime(date_time)
+    date_time <- as.POSIXlt(date_time)
 
     hour <- date_time_obj[["hour"]]
 
@@ -627,7 +623,7 @@ date_time <- function(date_time_obj) {
 
       hour_is_na <- is.na(hour)
 
-      lubridate::hour(date_time) <- ifelse(hour_is_na, 12L, hour)
+      date_time[, "hour"] <- ifelse(hour_is_na, 12L, hour)
 
     }
 
@@ -635,21 +631,21 @@ date_time <- function(date_time_obj) {
 
     if (!is.null(minute)) {
 
-      date_time_min <- lubridate::minute(date_time)
+      date_time_min <- date_time[, "min"]
 
       min_is_na <- is.na(minute)
 
-      lubridate::minute(date_time) <- ifelse(min_is_na, date_time_min, minute)
+      date_time[, "min"] <- ifelse(min_is_na, date_time_min, minute)
 
     }
+
+    date_time <- format(date_time, "%F %T")
 
     method <- date_time_obj[["method"]]
 
     if (identical(method, "none")) {
 
-      date_time <- lubridate::force_tz(date_time, "Europe/Helsinki")
-
-      date_time <- lubridate::with_tz(date_time, tzone)
+      date_time <- as.POSIXct(date_time, "Europe/Helsinki")
 
     } else {
 
@@ -662,17 +658,23 @@ date_time <- function(date_time_obj) {
 
       tz_in_is_na <- is.na(tz_in)
 
-      tzones <- ifelse(tz_in_is_na, tzone, tz_in)
+      tz_in <- ifelse(tz_in_is_na, "Europe/Helsinki", tz_in)
 
-      date_time <- lubridate::force_tzs(date_time, tzones, tzone)
+      date_time <- mapply(
+        as.POSIXct, date_time, tz_in, SIMPLIFY = FALSE, USE.NAMES = FALSE
+      )
+
+      date_time <-  do.call(c, date_time)
 
     }
+
+    date_time <- as.POSIXct(date_time, tzone)
 
     na_m <- is.na(date_time_obj[["month"]])
 
     na_d <- is.na(date_time_obj[["day"]])
 
-    date_time[na_m | na_d] <- lubridate::as_datetime(NA_integer_, tz = tzone)
+    date_time[na_m | na_d] <- as.POSIXct(NA_integer_, tz = tzone)
 
   }
 
@@ -701,7 +703,6 @@ compute_date_time <- function(fb_occurrence_df) {
 }
 
 #' @noRd
-#' @importFrom lubridate as.interval as.duration interval
 
 compute_duration <- function(fb_occurrence_df) {
 
@@ -733,17 +734,15 @@ compute_duration <- function(fb_occurrence_df) {
 
     intvl <- rep_len(NA_integer_, duration_length)
 
-    intvl <- lubridate::as.interval(intvl)
+    intvl <- as.difftime(intvl, units = "secs")
 
-    duration <- intvl
+    fb_occurrence_df[[duration_var]] <- intvl
 
-    intvl[da] <- lubridate::interval(datetime_start[da], datetime_end[da])
+    intvl[da] <- difftime(datetime_end[da], datetime_start[da])
 
     has_duration <- da & intvl != 0
 
-    duration[has_duration] <- intvl[has_duration]
-
-    fb_occurrence_df[[duration_var]] <- lubridate::as.duration(duration)
+    fb_occurrence_df[has_duration, duration_var] <- intvl[has_duration]
 
   }
 
@@ -752,7 +751,6 @@ compute_duration <- function(fb_occurrence_df) {
 }
 
 #' @noRd
-#' @importFrom lubridate as.interval format_ISO8601 interval ymd
 
 compute_iso8601 <- function(fb_occurrence_df) {
 
@@ -778,17 +776,23 @@ compute_iso8601 <- function(fb_occurrence_df) {
 
     duration_length <- length(duration_na)
 
-    iso8601 <- rep_len("1970-01-01/1970-01-01", duration_length)
+    iso8601s <- rep_len(NA_integer_, duration_length)
 
     tzone <- attr(fb_occurrence_df, "tzone", TRUE)
 
-    iso8601 <- lubridate::interval(iso8601, tzone = tzone)
+    iso8601s <- as.POSIXct(iso8601s, tzone)
 
-    iso8601[!duration_na] <- lubridate::interval(ds[!dsna], de[!dena])
+    iso8601e <- iso8601s
 
-    iso8601[duration_na] <- lubridate::as.interval(NA_integer_)
+    iso8601s[!duration_na] <- ds[!dsna]
 
-    iso8601 <- lubridate::format_ISO8601(iso8601, usetz = TRUE)
+    iso8601e[!duration_na] <- de[!dena]
+
+    iso8601s <- format(iso8601s, "%FT%T%z")
+
+    iso8601e <- format(iso8601e, "%FT%T%z")
+
+    iso8601 <- paste(iso8601s, iso8601e, sep = "/")
 
     hour_start <- var_names["gathering.hourBegin", vtype]
 
@@ -818,9 +822,15 @@ compute_iso8601 <- function(fb_occurrence_df) {
 
     date_end <- fb_occurrence_df[[date_end]]
 
-    interval <- lubridate::interval(date_start, date_end)
+    ds_time <- as.POSIXct(date_start)
 
-    format_interval <- lubridate::format_ISO8601(interval, usetz = TRUE)
+    de_time <- as.POSIXct(date_end)
+
+    ds_time <- format(ds_time, "%FT%T%z")
+
+    de_time  <- format(de_time, "%FT%T%z")
+
+    format_interval <- iso8601 <- paste(ds_time, de_time, sep = "/")
 
     iso8601 <- ifelse(no_start_time | no_end_time, format_interval, iso8601)
 
@@ -832,13 +842,13 @@ compute_iso8601 <- function(fb_occurrence_df) {
 
     use_start <- no_end | ds == de
 
-    format_start <- lubridate::format_ISO8601(ds, usetz = TRUE)
+    format_start <- format(ds, "%FT%T%z")
 
     iso8601 <- ifelse(use_start, format_start, iso8601)
 
-    fmt_start_ymd <- lubridate::ymd(date_start)
+    fmt_start_ymd <- as.Date(date_start)
 
-    fmt_start_ymd <- lubridate::format_ISO8601(fmt_start_ymd, usetz = TRUE)
+    fmt_start_ymd <- format(fmt_start_ymd, "%FT%T%z")
 
     iso8601 <- ifelse(no_start_time & no_end_date, fmt_start_ymd, iso8601)
 
@@ -1301,7 +1311,7 @@ compute_red_list_status <- function(fb_occurrence_df) {
 
   if (add && red_list_var %in% attr(fb_occurrence_df, "column_names", TRUE)) {
 
-    id <- vn[[ "unit.linkings.taxon.latestRedListStatusFinland.status", vtype]]
+    id <- vn[["unit.linkings.taxon.latestRedListStatusFinland.status", vtype]]
 
     id <- fb_occurrence_df[[id]]
 
