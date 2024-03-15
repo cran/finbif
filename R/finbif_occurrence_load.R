@@ -313,6 +313,8 @@ finbif_occurrence_load <- function(
 
     fb_records_obj[["facts"]] <- ftype
 
+    fb_records_obj[["skip"]] <- 0L
+
     id <- switch(
       ftype,
       record = file_vars[["Unit.UnitID", var_type]],
@@ -1027,7 +1029,7 @@ dt_read <- function(fb_occurrence_obj) {
 
   args[["header"]] <- FALSE
 
-  df <- structure(vector("list", length(args_select)), class = "data.frame")
+  df <- structure(vector("list", length(args[["select"]])), class = "data.frame")
 
   if (file.exists(args[["input"]])) {
 

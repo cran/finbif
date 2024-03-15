@@ -409,43 +409,31 @@ post-processing time. For the full list of filtering options see
 <p>The event or import date of records can be used to filter occurrence
 data from FinBIF. The date filters can be a single year, month or
 date,</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">list</span>(<span class="at">date_range_ym =</span> <span class="fu">c</span>(<span class="st">&quot;2019-12&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> <span class="fu">list</span>(<span class="at">date_range_ym =</span> <span class="fu">c</span>(<span class="st">&quot;2020-12&quot;</span>)))</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; Records available: 20150</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; Records available: 23847</span></span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt;                     record_id      scientific_name abundance lat_wgs84 lon_wgs84</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; 1  …KE.921/LGE.627772/1470480 Pteromys volans (Li…        NA  61.81362  25.75756</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; 2             …JX.1054648#107 Pica pica (Linnaeus…  3         65.30543  25.70355</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; 3              …JX.1054648#85 Poecile montanus (C…  1         65.30543  25.70355</span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; 4             …JX.1054648#103 Garrulus glandarius…  3         65.30543  25.70355</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; 5             …JX.1054648#123 Passer montanus (Li…  3         65.30543  25.70355</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; 6             …JX.1054648#149 Pyrrhula pyrrhula (…  1         65.30543  25.70355</span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; 7              …JX.1054648#93 Cyanistes caeruleus…  9         65.30543  25.70355</span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; 8              …JX.1054648#95 Parus major Linnaeu…  35        65.30543  25.70355</span></span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; 9             …JX.1054648#137 Carduelis flammea (…  2         65.30543  25.70355</span></span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; 10            …JX.1056695#107 Pica pica (Linnaeus…  6         62.7154   23.0893 </span></span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt;              date_time</span></span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; 1  2019-12-31 12:00:00</span></span>
-<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; 2  2019-12-31 10:20:00</span></span>
-<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; 3  2019-12-31 10:20:00</span></span>
-<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; 4  2019-12-31 10:20:00</span></span>
-<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; 5  2019-12-31 10:20:00</span></span>
-<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; 6  2019-12-31 10:20:00</span></span>
-<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; 7  2019-12-31 10:20:00</span></span>
-<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; 8  2019-12-31 10:20:00</span></span>
-<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; 9  2019-12-31 10:20:00</span></span>
-<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; 10 2019-12-31 10:15:00</span></span>
-<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 6 more variables:</span></span>
-<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt;    record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; 1       …107 Pica pica (Linnaeus…  31        65.0027   25.49381 2020-12-31 10:20:00</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; 2        …45 Larus argentatus Po…  1         65.0027   25.49381 2020-12-31 10:20:00</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; 3       …153 Emberiza citrinella…  2         65.0027   25.49381 2020-12-31 10:20:00</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; 4        …49 Columba livia domes…  33        65.0027   25.49381 2020-12-31 10:20:00</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; 5       …117 Corvus corax Linnae…  1         65.0027   25.49381 2020-12-31 10:20:00</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; 6       …111 Corvus monedula Lin…  7         65.0027   25.49381 2020-12-31 10:20:00</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; 7       …161 Sciurus vulgaris Li…  1         65.0027   25.49381 2020-12-31 10:20:00</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; 8       …123 Passer montanus (Li…  28        65.0027   25.49381 2020-12-31 10:20:00</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; 9       …149 Pyrrhula pyrrhula (…  1         65.0027   25.49381 2020-12-31 10:20:00</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; 10       …77 Turdus pilaris Linn…  1         65.0027   25.49381 2020-12-31 10:20:00</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 6 more variables:</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
 </details>
-<p><br> , or for record events, a range as a character vector or an <a href="https://lubridate.tidyverse.org/reference/Interval-class.html">Interval</a>
-object.</p>
+<p><br> , or for record events, a range as a character vector.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="at">filter =</span> <span class="fu">list</span>(<span class="at">date_range_ymd =</span> <span class="fu">c</span>(<span class="st">&quot;2019-06-01&quot;</span>, <span class="st">&quot;2019-12-31&quot;</span>))</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>)</span></code></pre></div>
@@ -526,19 +514,19 @@ Click to show/hide output.
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="at">record_quality =</span> <span class="st">&quot;expert_verified&quot;</span></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>)</span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>permissive <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="at">quality_issues =</span> <span class="st">&quot;both&quot;</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="at">record_reliability =</span> <span class="fu">c</span>(<span class="st">&quot;reliable&quot;</span>, <span class="st">&quot;unassessed&quot;</span>, <span class="st">&quot;unreliable&quot;</span>),</span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  <span class="at">record_quality =</span> <span class="fu">c</span>(</span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>    <span class="st">&quot;expert_verified&quot;</span>, <span class="st">&quot;community_verified&quot;</span>, <span class="st">&quot;unassessed&quot;</span>, <span class="st">&quot;uncertain&quot;</span>,</span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>    <span class="st">&quot;erroneous&quot;</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>  )</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="at">wild_status =</span> <span class="fu">c</span>(<span class="st">&quot;wild&quot;</span>, <span class="st">&quot;non_wild&quot;</span>, <span class="st">&quot;wild_unknown&quot;</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="at">record_quality =</span> <span class="fu">c</span>(</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>    <span class="st">&quot;expert_verified&quot;</span>, <span class="st">&quot;community_verified&quot;</span>, <span class="st">&quot;unassessed&quot;</span>, <span class="st">&quot;uncertain&quot;</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>    <span class="st">&quot;erroneous&quot;</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  ),</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>  <span class="at">abundance_min =</span> <span class="dv">0</span></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>)</span>
 <span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="fu">c</span>(</span>
 <span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>  <span class="at">strict     =</span> <span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> strict,     <span class="at">count_only =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>  <span class="at">permissive =</span> <span class="fu">finbif_occurrence</span>(<span class="at">filter =</span> permissive, <span class="at">count_only =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>)</span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; Error: 1 error occurred:</span></span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt;   - Invalid name in record reliability: unassessed</span></span></code></pre></div>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt;     strict permissive </span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt;      52654   51733557</span></span></code></pre></div>
 </div>
 <div id="collection" class="section level2">
 <h2>Collection</h2>

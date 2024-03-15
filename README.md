@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://opensource.org/license/mit-0/)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://opensource.org/license/mit-0)
 [![CRAN status](https://www.r-pkg.org/badges/version-last-release/finbif)](https://cran.r-project.org/package=finbif)
 [![r-universe](https://luomus.r-universe.dev/badges/finbif)](https://luomus.r-universe.dev)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/finbif?color=brightgreen)](https://cran.r-project.org/package=finbif)
@@ -88,7 +88,7 @@ FinBIF itself and the contributed datasets please visit this link:
 To cite the finbif R package in publications please use:
 
   Morris, William K. (2024). Introduction to the finbif package. R
-  package version 0.9.4, https://doi.org/10.5281/zenodo.3612814
+  package version 0.9.5, https://doi.org/10.5281/zenodo.3612814
 
 ----
 
