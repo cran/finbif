@@ -1,3 +1,15 @@
+# finbif 0.9.6
+
+#### MINOR IMPROVEMENTS
+
+  - New undocumented variable and filter `local` added from upstream
+    API.
+
+#### BUG FIXES
+
+  - Fixed an issue that caused more records than requested to be
+    returned for certain values of `n`.
+
 # finbif 0.9.5
 
 #### MINOR IMPROVEMENTS
