@@ -55,9 +55,9 @@ api_get <- function(obj) {
 
         created <- file.mtime(cache_file_path)
 
-        if (cache_is_valid(obj[["timeout"]], created)) {
+        cached_obj <- readRDS(cache_file_path)
 
-          cached_obj <- readRDS(cache_file_path)
+        if (cache_is_valid(cached_obj[["timeout"]], created)) {
 
           cached_obj[["from_cache"]] <- TRUE
 
@@ -244,8 +244,8 @@ api_get <- function(obj) {
 
     obj <- NULL
 
-    err_msg <- sprintf(
-      "API request failed [%s]\n%s>", resp[["status_code"]], parsed[["message"]]
+    err_msg <- paste0(
+      "API request failed [", resp[["status_code"]], "]\n", parsed[["message"]]
     )
 
     stop(err_msg, call. = FALSE)

@@ -273,7 +273,7 @@ cast_to_type <- function(
     double = as.double(x),
     integer = as.integer(x),
     logical = as.logical(x),
-    as.character(x)
+    gsub("\r\n", "\n", as.character(x))
   )
 
 }
@@ -355,15 +355,8 @@ infer_cache <- function(cache) {
 
 sample_with_seed <- function(
   n,
-  size,
   seed
 ) {
-
-  on.exit({
-
-    rm(".Random.seed", pos = 1L)
-
-  })
 
   if (exists(".Random.seed", 1L)) {
 
@@ -387,7 +380,7 @@ sample_with_seed <- function(
 
   do.call(set.seed, args)
 
-  sample.int(n, size)
+  sample.int(n)
 
 }
 
@@ -492,6 +485,8 @@ deferred_errors <- function(
 
   if (length(errors) > 0L) {
 
+    errors <- errors[!duplicated(lapply(errors, getElement, "message"))]
+
     err <- list(errors = errors, value = value)
 
     class(err) <- c("dfrd_errors", "error", "condition")
@@ -543,13 +538,13 @@ conditionMessage.dfrd_errors <- function(c) {
 
 get_locale <- function() {
 
-  supported_langs <- sysdata("supported_langs")
+  ans <- "en"
 
-  ans <- supported_langs[[1L]]
+  supported <- sysdata("supported_langs")
 
-  env <- c("LANGUAGE", "LANG")
+  matches <- name_chr_vec(c(unname(supported), supported))
 
-  env <- Sys.getenv(env)
+  env <- Sys.getenv(c("LANGUAGE", "LANG"))
 
   collate <- Sys.getlocale("LC_COLLATE")
 
@@ -559,23 +554,11 @@ get_locale <- function() {
 
     l <- regmatches(l, reg)
 
-    if (length(l) > 0L) {
+    if (isTRUE(l %in% names(matches))) {
 
-      if (l %in% supported_langs) {
+      ans <- matches[[l]]
 
-        ans <- l
-
-        break
-
-      }
-
-      if (l %in% names(supported_langs)) {
-
-        ans <- supported_langs[[l]]
-
-        break
-
-      }
+      break
 
     }
 

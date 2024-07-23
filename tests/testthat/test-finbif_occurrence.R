@@ -1,617 +1,359 @@
-suppressMessages(insert_cassette("finbif_occurrence"))
+test_that("fetching occurrences works", {
 
-test_that(
-  "can return valid data", {
+  skip_on_cran()
 
-    skip_on_cran()
+  op <- options()
 
-    expect_s3_class(
-      finbif_occurrence(
-        species = "Rangifer tarandus fennicus", check_taxa = FALSE,
-        select = c("municipality", "region"), sample = TRUE
-      ),
-      "finbif_occ"
-    )
+  cache <- tempfile()
 
-    expect_null(finbif_update_cache())
+  dir.create(cache)
 
-    expect_s3_class(
-      finbif_occurrence(
-        "Rangifer tarandus fennicus", "not a valid taxon",
-        select = c("record_id", "date_start", "record_fact_name"),
-        check_taxa = FALSE
-      ),
-      "finbif_occ"
-    )
+  options(
+    finbif_cache_path = cache,
+    finbif_rate_limit = Inf,
+    finbif_max_page_size = 5
+  )
 
-    expect_s3_class(
-      finbif_occurrence(
-        "Rangifer tarandus fennicus",
-        select = c("record_id", "date_start", "lat_wgs84", "lon_wgs84", "epsg"),
-        exclude_na = TRUE
-      ),
-      "finbif_occ"
-    )
+  finbif_clear_cache()
 
-    capture.output(
-      with_progress <- suppressMessages(
-        finbif_occurrence(
-          "Pteromys volans",
-          filter = c(bio_province = "Uusimaa"),
-          select = c("default_vars", "duration"),
-          sample = TRUE, n = 5000, cache = FALSE, date_time_method = "none"
+  if (requireNamespace("vcr", quietly = TRUE)) {
+
+    vcr::use_cassette("finbif_occurrence", {
+
+      count <- finbif_occurrence(
+        "Plants", filter = c(date_range_ymd = 2023), count_only = TRUE
+      )
+
+      birds <- capture.output(
+        suppressMessages(
+          finbif_occurrence(
+            "Birds",
+            select = c(
+              "default_vars",
+              "-record_id",
+              "duration",
+              "date_time_ISO8601",
+              "collection",
+              "primary_habitat",
+              "epsg",
+              "occurrence_status",
+              "citation",
+              "collection_code",
+              "red_list_status",
+              "region",
+              "informal_groups",
+              "common_name",
+              "restriction_reason",
+              "atlas_code",
+              "atlas_class"
+            ),
+            filter = list(
+              c(date_range_ymd = 2023),
+              c(
+                date_range_ymd = 2024,
+                informal_groups_reported = "Birds",
+                primary_secondary_habitat = "M",
+                record_reliability = "reliable",
+                complete_list_type = "incomplete"
+              )
+            ),
+            facts = c(pairs = "MY.pairCount"),
+            sample = TRUE,
+            unlist = TRUE,
+            drop_na = TRUE,
+            tzone = "Etc/UTC"
+          )
         )
+      )
+
+      hr778 <- finbif_occurrence(
+        taxa = "Red algae",
+        filter = c(collection = "HR.778"),
+        n = -1,
+        quiet = TRUE
+      )
+
+      hr778_no_records <- finbif_occurrence(
+        taxa = "Birds",
+        filter = list(
+          set1 = c(collection = "HR.778"),
+          set2 = c(collection = "HR.778")
+        ),
+        select = "municipality",
+        filter_col = "set",
+        quiet = TRUE
+      )
+
+      options(finbif_max_page_size = 20, finbif_use_async = FALSE)
+
+      plants <- finbif_occurrence(
+        "Plants",
+        select = c(
+          "threatened_status",
+          "orig_taxon_rank"
+        ),
+        filter = list(
+          date_range_ymd = 2023,
+          has_value = "record_id",
+          quality_issues = "without_issues",
+          finnish_occurrence_status_neg = "extinct",
+          subset = c(1, floor(count / 50))
+        ),
+        sample = TRUE,
+        n = "all",
+        quiet = TRUE
+      )
+
+      options(finbif_max_page_size = 5)
+
+      no_filter_error <- try(
+        finbif_occurrence(
+          filter = list(
+            not_filter = TRUE,
+            primary_habitat = list(M = "V"),
+            collection = finbif_collections(
+              taxonomic_coverage == "Coleoptera",
+              supercollections = TRUE,
+              nmin = NA
+            )
+          ),
+          n = 3e6
+        ),
+        silent = TRUE
+      )
+
+      coord_filter_error <- try(
+        finbif_occurrence(
+          filter = list(
+            primary_habitat = "M", coordinates = list(c(60, 68), c(20, 30))
+          ),
+          n = 0
+        ),
+        silent = TRUE
+      )
+
+      invalid_taxa_error <- try(
+        finbif_occurrence("Algae", on_check_fail = "error"), silent = TRUE
+      )
+
+      options(warn = 2)
+
+      invalid_taxa_warn <- try(
+        finbif_occurrence("Algae", on_check_fail = "warn"), silent = TRUE
+      )
+
+      options(warn = 0)
+
+    })
+
+    expect_type(count, "integer")
+
+    expect_snapshot(birds)
+
+    expect_snapshot(hr778)
+
+    expect_snapshot(hr778_no_records)
+
+    expect_snapshot(plants)
+
+    expect_match(no_filter_error, "Invalid name in filter names")
+
+    expect_match(no_filter_error, "Cannot download more than")
+
+    expect_match(
+      coord_filter_error, "Invalid coordinates: system not specified"
+    )
+
+    expect_match(coord_filter_error, "Cannot request less than 1 record")
+
+    expect_equal(
+      invalid_taxa_error[[1L]],
+      paste(
+        "Error : Cannot find the following taxa in the FinBIF",
+        "taxonomy.\nPlease check you are using accepted names and not synonyms",
+        "or\nother names for the taxa you are selecting:\n\nAlgae\n"
       )
     )
 
-    expect_s3_class(with_progress, "finbif_occ")
-
-    if (getOption("finbif_api_url") == "https://api.laji.fi") {
-
-      filter <- c(collection = "HR.3671")
-
-    } else {
-
-      filter <- NULL
-
-    }
-
-    expect_s3_class(
-      finbif_occurrence(
-        select = "taxon_id",
-        filter  = filter,
-        sample = TRUE,
-        n = 3001,
-        quiet = TRUE
-      ),
-      "finbif_occ"
+    expect_equal(
+      invalid_taxa_warn[[1L]],
+      paste(
+        "Error : (converted from warning) Cannot find the following taxa in",
+        "the FinBIF taxonomy.\nPlease check you are using accepted names and",
+        "not synonyms or\nother names for the taxa you are",
+        "selecting:\n\nAlgae\n"
+      )
     )
 
-    expect_s3_class(
-      finbif_occurrence(select = "-date_time"),
-      "finbif_occ"
-    )
+    vcr::use_cassette("finbif_occurrence_print", {
 
-  }
-
-)
-
-test_that(
-  "can get a small random sample", {
-
-    skip_on_cran()
-
-    x <- finbif_occurrence(
-      filter = c(n_total_records_max = 2000), aggregate = "records", n = 100
-    )
-
-    x <- subset(x, n_records < 3000, scientific_name_interpreted)
-
-    expect_s3_class(
-      finbif_occurrence(x[[1, 1]], sample = TRUE, n = 1001, quiet = TRUE),
-      "finbif_occ"
-    )
-
-  }
-
-)
-
-test_that(
-  "can return a count", {
-
-    skip_on_cran()
-
-    expect_type(
-      finbif_occurrence(
-        taxa = "Rangifer tarandus fennicus", count_only = TRUE
-      ),
-      "integer"
-    )
-
-  }
-
-)
-
-test_that(
-  "returns data that prints valid output", {
-
-    skip_on_cran()
-
-    n <- 1100L
-
-    fungi <- finbif_occurrence(
-      filter = c(informal_groups = "Fungi and lichens"),
-      select = to_native(
-        "occurrenceID", "informalTaxonGroups", "taxonID", "vernacularName",
-        "default_vars"
-      ),
-      n = n,
-      quiet = TRUE
-    )
-
-    expect_output(print(fungi), "Records downloaded:")
-
-    expect_output(
-      print(fungi[c("scientific_name", "common_name")]), "A data"
-    )
-
-    expect_output(
-      print(fungi[c(TRUE, rep_len(FALSE, n - 1L)), ]), "Records downloaded:"
-    )
-
-    expect_output(print(fungi[integer(0L), ]), "Records downloaded:")
-
-    expect_output(
-      print(fungi[1:10, c("scientific_name", "taxon_id")]), "A data"
-    )
-
-    options(finbif_cache_path = tempdir())
-
-    expect_output(
-      print(
-        finbif_occurrence(
-          select = c("default_vars", to_dwc("duration")), dwc = TRUE
+      capture.output(
+        occ_print <- suppressMessages(
+          print(finbif_occurrence(select = "informal_groups", n = 11))
         )
-      ),
-      "Records downloaded:"
-    )
+      )
 
-    expect_null(finbif_update_cache())
+    })
 
-    expect_output(
-      print(finbif_occurrence(aggregate = "species")), "Records downloaded:"
-    )
+    expect_snapshot(occ_print)
 
-    expect_output(print(finbif_occurrence()), "Records downloaded:")
+    options(finbif_warehouse_query = "xxxx/")
 
-  }
-)
+    vcr::use_cassette("finbif_occurrence_api_error", {
 
-test_that(
-  "warns when taxa invalid", {
+      api_error <- try(finbif_occurrence(), silent = TRUE)
 
-    skip_on_cran()
+    })
 
-    expect_warning(finbif_occurrence("not a valid taxa"))
-
-  }
-)
-
-test_that(
-  "returns errors appropriately", {
-
-    skip_on_cran()
-
-    expect_error(
-      finbif_occurrence("not a valid taxa", on_check_fail = "error")
-    )
-
-    expect_error(
-      finbif_occurrence(filter = list(coordinates = list(c(60, 68), c(20, 30))))
-    )
-
-    expect_error(
-      finbif_occurrence("Birds", aggregate = "events")
-    )
-
-    expect_error(finbif_occurrence(n = 0))
-
-    expect_error(finbif_occurrence(n = 1e9))
-
-    expect_error(finbif_occurrence(aggregate = c("records", "events")))
-
-    expect_error(finbif_occurrence(filter = c(not_a_filter = TRUE)))
-
-  }
-)
-
-suppressMessages(eject_cassette("finbif_occurrence"))
-
-suppressMessages(insert_cassette("finbif_occurrence_dups"))
-
-test_that(
-  "duplicate records are handled correctly", {
-
-    skip_on_cran()
-
-    n <- 1600
-
-    dev <- identical(getOption("finbif_api_url"), "https://apitest.laji.fi")
-
-    if (dev) {
-
-      op <- options()
-
-      options(finbif_max_page_size = 100L)
-
-      n <- 300L
-
-    }
-
-    expect_s3_class(
-      finbif_occurrence("Vulpes vulpes", sample = TRUE, n = n, quiet = TRUE),
-      "finbif_occ"
-    )
-
-    if (dev) options(op)
+    expect_match(api_error, "API request failed")
 
   }
 
-)
+  finbif_clear_cache()
 
-suppressMessages(eject_cassette("finbif_occurrence_dups"))
+  options(finbif_cache_path = NULL)
 
-suppressMessages(insert_cassette("finbif_occurrence_low"))
+  options(op)
 
-test_that(
-  "low-level operations work", {
+})
 
-    skip_on_cran()
+test_that("fetching occurrences with date filters works", {
 
-    expect_type(
-      finbif_occurrence(
+  skip_on_cran()
+
+  op <- options()
+
+  cache <- tempfile()
+
+  dir.create(cache)
+
+  options(
+    finbif_cache_path = cache,
+    finbif_rate_limit = Inf,
+    finbif_max_page_size = 5
+  )
+
+  finbif_clear_cache()
+
+  if (requireNamespace("vcr", quietly = TRUE)) {
+
+    vcr::use_cassette("finbif_occurrence_dates", {
+
+      date_filters <- finbif_occurrence(
         filter = list(
-          collection = finbif_collections(taxonomic_coverage == "Coleoptera"),
-          primary_habitat = "M",
-          date_range_ymd = c(2000, 2010)
+          list(
+            date_range_ymd = structure(
+              list(
+                start = as.Date("2001-05-01"),
+                .Data = as.difftime(609, units = "days")
+              ),
+              class = "Interval"
+            )
+          ),
+          list(date_range_ymd = c("2001", "2002-06-30")),
+          list(date_range_ymd = c("2001-01-01", "2002")),
+          list(date_range_ymd = as.Date("2001-05-01")),
+          list(date_range_ymd = 2001:2002),
+          list(date_range_ym = c("2001-01", "2002-12")),
+          list(date_range_md = "01-01")
         ),
+        n = 5
+      )
+
+      date_error <- try(
+        finbif_occurrence(filter = c(date_range_ymd = "not_a_date")),
+        silent = TRUE
+      )
+
+    })
+
+    expect_snapshot(date_filters)
+
+    expect_equal(
+      date_error[[1]],
+      "Error : 1 error occurred:\n  - Can't parse one or more specified dates\n"
+    )
+
+  }
+
+  finbif_clear_cache()
+
+  options(finbif_cache_path = NULL)
+
+  options(op)
+
+})
+
+test_that("fetching aggregated occurrences works", {
+
+  skip_on_cran()
+
+  op <- options()
+
+  cache <- tempfile()
+
+  dir.create(cache)
+
+  options(
+    finbif_cache_path = cache,
+    finbif_rate_limit = Inf,
+    finbif_max_page_size = 5
+  )
+
+  finbif_clear_cache()
+
+  if (requireNamespace("vcr", quietly = TRUE)) {
+
+    vcr::use_cassette("finbif_occurrence_aggregate", {
+
+      record_basis_count <- finbif_occurrence(
+        select = "record_basis",
+        filter = list(coordinates = list(c(60.4, 61), c(22, 22.5), "wgs84", 1)),
         aggregate = "records",
-        count_only = TRUE,
-        cache = FALSE
-      ),
-      "integer"
+        count_only = TRUE
+      )
+
+      record_basis_aggregate <- finbif_occurrence(
+        select = "basisOfRecord",
+        filter = c(location_tag = "Farmland"),
+        aggregate = c("records", "species"),
+        n = 5,
+        exclude_na = TRUE,
+        dwc = TRUE
+      )
+
+      aggregate_error <- try(
+        finbif_occurrence(
+          "Birds",
+          select = "-event_id",
+          aggregate = c("events", "species"),
+          check_taxa = FALSE
+        ),
+        silent = TRUE
+      )
+
+    })
+
+    expect_type(record_basis_count, "integer")
+
+    expect_snapshot(record_basis_aggregate)
+
+    expect_match(
+      aggregate_error,
+      "Chosen aggregation cannot by combined with other aggregations"
     )
 
-    expect_type(
-      finbif_occurrence(
-        filter = list(primary_habitat = list(M = "V")), count_only = TRUE
-      ),
-      "integer"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_occurrence_low"))
-
-suppressMessages(insert_cassette("finbif_occurrence_has_media"))
-
-test_that(
-  "can process complex record variables", {
-
-    skip_on_cran()
-
-    has_media <- finbif_occurrence(
-      filter = c(has_media = TRUE), select = c(media = "record_media_url"),
-      sample = TRUE
-    )
-
-    url <- unlist(has_media[["media"]])[[1L]]
-
-    expect_match(url, "^http")
-
-  }
-)
-
-suppressMessages(eject_cassette("finbif_occurrence_has_media"))
-
-suppressMessages(insert_cassette("finbif_occurrence_collection"))
-
-test_that(
-  "can process collection ids", {
-
-    skip_on_cran()
-
-    col_df <- finbif_occurrence(
-      select = c("collection", "collection_id", "collection_code")
-    )
-
-    expect_s3_class(col_df, "finbif_occ")
-
-    expect_false(identical(col_df[["collection"]], col_df[["collection_id"]]))
-
-  }
-)
-
-suppressMessages(eject_cassette("finbif_occurrence_collection"))
-
-test_that(
-  "can make a multifilter request", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(filter = list(a = NULL, NULL), filter_col = "b"),
-      "finbif_occ"
-    )
-
-    expect_s3_class(finbif_occurrence(filter = list(NULL, NULL)), "finbif_occ")
-
-
-  }
-)
-
-suppressMessages(insert_cassette("finbif_occurrence_aggregate_events"))
-
-test_that(
-  "can aggregate by events", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(
-        filter = c(location_id = "MNP.798"), aggregate = "events"
-      ),
-      "finbif_occ"
+    expect_match(
+      aggregate_error,
+      "Cannot use current aggregation and filter by taxon"
     )
 
   }
 
-)
+  finbif_clear_cache()
 
-suppressMessages(eject_cassette("finbif_occurrence_aggregate_events"))
+  options(finbif_cache_path = NULL)
 
-suppressMessages(insert_cassette("finbif_occurrence_aggregate_documents"))
+  options(op)
 
-test_that(
-  "can aggregate by events", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(
-        filter = c(location_id = "MNP.798"), aggregate = "documents"
-      ),
-      "finbif_occ"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_occurrence_aggregate_documents"))
-
-suppressMessages(insert_cassette("finbif_occurrence_date_time_ISO8601"))
-
-test_that(
-  "can create ISO8601 date strings", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(select = "date_time_ISO8601"),
-      "finbif_occ"
-    )
-
-    expect_s3_class(
-      finbif_occurrence(select = "eventDate", dwc = TRUE),
-      "finbif_occ"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_occurrence_date_time_ISO8601"))
-
-suppressMessages(insert_cassette("finbif_occurrence_status"))
-
-test_that(
-  "can create occurrence status", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(select = "occurrence_status"), "finbif_occ"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_occurrence_status"))
-
-suppressMessages(insert_cassette("finbif_citation"))
-
-test_that(
-  "can create citation", {
-
-    skip_on_cran()
-
-    expect_s3_class(finbif_occurrence(select = "citation"), "finbif_occ")
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_citation"))
-
-suppressMessages(insert_cassette("finbif_get_all"))
-
-test_that(
-  "can get all records", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(
-        filter = c(collection = "HR.778"), select = "record_id", n = -1
-      ),
-      "finbif_occ"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_get_all"))
-
-suppressMessages(insert_cassette("finbif_unlist"))
-
-test_that(
-  "can concatenate list cols", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(select = "informal_groups", unlist = TRUE),
-      "finbif_occ"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_unlist"))
-
-suppressMessages(insert_cassette("finbif_red_list"))
-
-test_that(
-  "can compute red list status", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(select = "red_list_status"),
-      "finbif_occ"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_red_list"))
-
-suppressMessages(insert_cassette("finbif_primary_habitat"))
-
-test_that(
-  "can compute primary habitat type from ID", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(select = "primary_habitat"),
-      "finbif_occ"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_primary_habitat"))
-
-suppressMessages(insert_cassette("finbif_extract_facts"))
-
-test_that(
-  "can extract facts", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(
-        select = "record_id", filter = c(collection = "HR.48"),
-        facts = "weightInGrams", sample = TRUE
-      ),
-      "finbif_occ"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_extract_facts"))
-
-suppressMessages(insert_cassette("finbif_localise_enums"))
-
-test_that(
-  "can localise enums", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(select = "abundance_unit", aggregate = "records"),
-      "finbif_occ"
-    )
-
-    expect_s3_class(finbif_occurrence(select = "abundance_unit"), "finbif_occ")
-
-    expect_s3_class(
-      finbif_occurrence(
-        filter = list(restriction_reason = "Pesintäaika"),
-        select = "restriction_reason"
-      ),
-      "finbif_occ"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_localise_enums"))
-
-suppressMessages(insert_cassette("finbif_aggregate_list_col"))
-
-test_that(
-  "can aggregate list cols", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(
-        select = "record_annotation_created", aggregate = "records"
-      ),
-      "finbif_occ"
-    )
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_aggregate_list_col"))
-
-suppressMessages(insert_cassette("finbif_invalidate_cache"))
-
-test_that(
-  "cache invalidation works", {
-
-    skip_on_cran()
-
-    finbif_occurrence(cache = 1e-9)
-
-    expect_s3_class(finbif_occurrence(cache = TRUE), "finbif_occ")
-
-    options(finbif_cache_path = NULL)
-
-    finbif_occurrence(cache = 1e-09)
-
-    expect_s3_class(finbif_occurrence(cache = TRUE), "finbif_occ")
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_invalidate_cache"))
-
-suppressMessages(insert_cassette("finbif_compute_var_zero_rows"))
-
-test_that(
-  "can compute a var from id when there are zero records", {
-
-    skip_on_cran()
-
-    expect_s3_class(
-      finbif_occurrence(
-        filter = list(collection = "HR.121", informal_groups = "Myriapods"),
-        select = "municipality"
-      ),
-      "finbif_occ"
-    )
-
-    expect_s3_class(finbif_occurrence(cache = TRUE), "finbif_occ")
-
-  }
-
-)
-
-suppressMessages(eject_cassette("finbif_compute_var_zero_rows"))
+})

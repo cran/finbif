@@ -300,11 +300,9 @@ occurrence <- function(fb_records_obj) {
 
   fb_occurrence_df <- unlist_cols(fb_occurrence_df)
 
-  fb_occurrence_df <- drop_na_col(fb_occurrence_df)
-
   names(fb_occurrence_df) <- names(select_user)
 
-  fb_occurrence_df
+  drop_na_col(fb_occurrence_df)
 
 }
 
@@ -361,15 +359,7 @@ records_list_data_frame <- function(x) {
 
     xi <- x[[i]]
 
-    dfi <- attr(xi, "df")
-
-    if (is.null(dfi)) {
-
-      dfi <- records_df(xi)
-
-    }
-
-    df[[i]] <- dfi
+    df[[i]] <- attr(xi, "df")
 
   }
 
@@ -380,28 +370,36 @@ records_list_data_frame <- function(x) {
   df <- do.call(rbind, df)
 
   record_id <- switch(
-    xi[["aggregate"]], none = "unit.unitId", xi[["select_query"]]
+    xi[["aggregate"]][[1L]], none = "unit.unitId", xi[["select_query"]]
   )
 
   record_id <- do.call(paste, df[, record_id, drop = FALSE])
 
-  if (inherits(x, "finbif_records_sample_list")) {
+  dups <- duplicated(record_id)
 
-    nrows <- nrow(df)
+  df <- df[!dups, , drop = FALSE]
 
-    records <- sample.int(nrows)
+  record_id <- record_id[!dups]
 
-    if (attr(x, "cache")) {
+  s <- seq_len(attr(x, "nrec_dnld", TRUE))
+
+  if (attr(x, "sample", TRUE)) {
+
+    s <- sample(s)
+
+    if (attr(x, "cache", TRUE)) {
 
       seed <- gen_seed(x)
 
-      records <- sample_with_seed(nrows, nrows, seed)
+      s <- sample_with_seed(attr(x, "nrec_dnld", TRUE), seed)
 
     }
 
-    df <- df[records, ]
-
   }
+
+  df <- df[s, , drop = FALSE]
+
+  record_id <- record_id[s]
 
   if (!attr(x, "record_id")) {
 
@@ -1028,13 +1026,15 @@ compute_epsg <- function(fb_occurrence_df) {
 
       crs_nm_i <- var_names[[crs_nm_i, vtype]]
 
-      fb_occurrence_df[[crs_nm_i]] <- switch(
+      crs_i <- switch(
         names(epsg),
         euref = "EPSG:3067",
         ykj = "EPSG:2393",
         wgs84 = "EPSG:4326",
         NA_character_
       )
+
+      fb_occurrence_df[[crs_nm_i]] <- rep(crs_i, nrow(fb_occurrence_df))
 
     }
 
@@ -1133,7 +1133,11 @@ compute_citation <- function(fb_occurrence_df) {
 
     cit <- ifelse(fb_occurrence_df[[src]] == "http://tun.fi/KE.3", d_id, r_id)
 
-    fb_occurrence_df[[citation_var]] <- paste(cit, "Source: FinBIF")
+    cit <- paste(cit, "Source: FinBIF")
+
+    fb_occurrence_df[[citation_var]] <- rep(
+      cit, length.out = nrow(fb_occurrence_df)
+    )
 
   }
 
@@ -1431,7 +1435,15 @@ multi_req <- function(fb_records_obj) {
 
         ans_i <- ans[[i]]
 
-        ans_i[[filter_col]] <- filter_nms[[i]]
+        filter_nms_i <- filter_nms[[i]]
+
+        if (nrow(ans_i) < 1L) {
+
+          filter_nms_i <- character()
+
+        }
+
+        ans_i[[filter_col]] <- filter_nms_i
 
         ans[[i]] <- ans_i
 
@@ -1551,7 +1563,7 @@ extract_facts <- function(fb_occurrence_df) {
       "document.facts.value"
     )
 
-    fb_occurrence_df[facts] <- NA_character_
+    fb_occurrence_df[facts] <- rep(NA_character_, nrow(fb_occurrence_df))
 
     var_names <- sysdata("var_names")
 
@@ -1575,15 +1587,9 @@ extract_facts <- function(fb_occurrence_df) {
 
         values_name <- var_names[[level_vls, vtype]]
 
-        values <- mapply(extract_fact, fb_occurrence_df[[values_name]], is_fact)
-
-        fact_value_is_na <- is.na(values)
-
-        if (!all(fact_value_is_na)) {
-
-          fb_occurrence_df[[fact]] <- values
-
-        }
+        fb_occurrence_df[[fact]] <- mapply(
+          extract_fact, fb_occurrence_df[[values_name]], is_fact
+        )
 
       }
 
@@ -1635,6 +1641,12 @@ finbif_last_mod <- function(
   ...,
   filter
 ) {
+
+  if (missing(filter)) {
+
+    filter <- NULL
+
+  }
 
   res <- finbif_occurrence(
     ..., filter = filter, select = "load_date", order_by = "-load_date", n = 1L

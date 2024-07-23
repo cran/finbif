@@ -1,33 +1,44 @@
-suppressMessages(insert_cassette("finbif_check_taxa"))
+test_that("checking taxa works", {
 
-test_that(
-  "returns valid data when taxa exist", {
+  skip_on_cran()
 
-    skip_on_cran()
+  op <- options()
 
-    sp_true <- finbif_check_taxa(list(species = "Parus major"))
+  cache <- tempfile()
 
-    expect_type(sp_true, "list")
+  dir.create(cache)
 
-    expect_output(print(sp_true), "species: Parus major")
+  options(finbif_cache_path = cache, finbif_rate_limit = Inf)
+
+  finbif_clear_cache()
+
+  if (requireNamespace("vcr", quietly = TRUE)) {
+
+    vcr::use_cassette("finbif_check_taxa", {
+
+      capture.output(
+        cygnus_cygnus <- print(
+          finbif_check_taxa(list(species = "Cygnus cygnus", "not_a_taxa"))
+        )
+      )
+
+    })
+
+    expect_equal(
+      cygnus_cygnus,
+      structure(
+        list(
+          species = c("Cygnus cygnus" = "MX.26280"),
+          c(not_a_taxa = NA_character_)
+        ),
+        class = c("list", "finbif_taxa_list")
+      )
+    )
 
   }
-)
 
-test_that(
-  "returns valid data when taxa don't exist", {
+  options(finbif_cache_path = NULL)
 
-    skip_on_cran()
+  options(op)
 
-    expect_type(finbif_check_taxa(list(species = "Parus najor")), "list")
-
-    expect_type(finbif_check_taxa(list(genus = "Parus major")), "list")
-
-    not_found <- finbif_check_taxa("Moomin")
-
-    expect_output(print(not_found), "Not found")
-
-  }
-)
-
-suppressMessages(eject_cassette("finbif_check_taxa"))
+})

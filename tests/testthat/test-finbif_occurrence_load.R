@@ -1,320 +1,264 @@
-if (requireNamespace("webfakes", quietly = TRUE)) {
+test_that("download imports work", {
 
-  library("webfakes", quietly = TRUE)
+  skip_on_cran()
 
-  app <- new_app()
+  op <- options()
 
-  app[["get"]](
-    "/HBF.49381",
-    function(req, res) {
-      file <- "HBF.49381.zip"
-      ans <- readBin(file, "raw", n = file.info(file)[["size"]])
-      res[["send"]](ans)
-    }
-  )
+  cache <- tempfile()
 
-  app[["get"]](
-    "/HBF.0",
-    function(req, res) {
-      res[["set_status"]](404L)
-      res[["send"]]("")
-    }
-  )
+  dir.create(cache)
 
-  api <- local_app_process(app, .local_envir = teardown_env())
+  options(finbif_rate_limit = Inf)
 
-  options(finbif_dl_url = sub("/$", "", api[["url"]]()))
+  if (requireNamespace("vcr", quietly = TRUE)) {
 
-} else {
+    vcr::use_cassette("finbif_occurrence_load", {
 
-  Sys.setenv(NOT_CRAN = "false")
-
-}
-
-test_that(
-  "can load a file", {
-
-    skip_on_cran()
-
-    skip_if(getRversion() < "4.3.0")
-
-    file <- 49381L
-    nrows <- 280L
-
-    zip <- sprintf("HBF.%s.zip", file)
-    tsv <- sprintf("rows_HBF.%s.tsv", file)
-    unzip(zip, tsv, exdir = tempdir())
-    file.copy(paste(tempdir(), tsv, sep = "/"), tsv)
-
-    options(finbif_tz = "Etc/UTC")
-
-    expect_identical(
-      335L,
-      finbif_occurrence_load(tsv, count_only = TRUE)
-    )
-
-    finbif_clear_cache()
-
-    expect_identical(
-      335L,
-      finbif_occurrence_load(tsv, n = nrows, count_only = TRUE)
-    )
-
-    options(finbif_cache_path = "../write-files", finbif_tz = Sys.timezone())
-
-    file_path <-
-      "../write-files/finbif_dwnld_cache_file_3db6439c7601e4401b8a27a2094919a3"
-
-    expect_snapshot_value(
-      finbif_occurrence_load(
-        file, quiet = TRUE, tzone = "Etc/UTC", cache = Inf
-      )[seq(nrows), ],
-      style = "json2", ignore_attr = "url"
-    )
-
-    expect_snapshot_value(
-      finbif_occurrence_load(tsv, quiet = TRUE, tzone = "Etc/UTC")[
-        seq(nrows),
-      ],
-      style = "json2"
-    )
-
-    file.remove(tsv)
-
-    options(finbif_cache_path = NULL)
-
-    capture.output(
-      with_progress <- suppressMessages(
-        finbif_occurrence_load(file, tzone = "Etc/UTC", write_file = file_path)[
-          seq(nrows),
-        ]
+      hbf_49381_zip_mem <- finbif_occurrence_load(
+        "HBF.49381.zip",
+        select = "short",
+        tzone = "Etc/UTC",
+        quiet = TRUE
       )
-    )
 
-    expect_snapshot_value(with_progress, style = "json2", ignore_attr = "url")
+      options(finbif_cache_path = cache)
 
-    file_full <- paste0("http://tun.fi/HBF.", file)
+      finbif_clear_cache()
 
-    vcr::use_cassette("zero_row_file", {
+      hbf_49381_zip_file <- finbif_occurrence_load(
+        "HBF.49381.zip",
+        select = "short",
+        tzone = "Etc/UTC",
+        quiet = TRUE
+      )
 
-      zero_row_file <- finbif_occurrence_load(
-        file_full, n = 0, tzone = "Etc/UTC", write_file = file_path, dt = FALSE,
-        keep_tsv = TRUE
+      hbf_49382_zip_file <- finbif_occurrence_load(
+        "HBF.49382.zip",
+        tzone = "Etc/UTC",
+        quiet = TRUE
+      )
+
+      hbf_6968_zip_file <- finbif_occurrence_load(
+        "HBF.6968.zip",
+        tzone = "Etc/UTC",
+        quiet = TRUE
+      )
+
+      hbf_6960_zip_file <- finbif_occurrence_load(
+        "HBF.6960.zip",
+        tzone = "Etc/UTC",
+        quiet = TRUE,
+        dt = FALSE
+      )
+
+      laji_data_tsv <- finbif_occurrence_load(
+        "laji-data.tsv",
+        select = "all",
+        tzone = "Etc/UTC",
+        quiet = TRUE
+      )
+
+      laji_data_pap_tsv <- finbif_occurrence_load(
+        "laji-data-pap.tsv", tzone = "Etc/UTC", quiet = TRUE
+      )
+
+      laji_data_new_col_tsv <- finbif_occurrence_load(
+        "laji-data-new-col.tsv", tzone = "Etc/UTC", quiet = TRUE
+      )
+
+      laji_data_ods <- finbif_occurrence_load(
+        "laji-data.ods", dt = FALSE, n = 0, tzone = "Etc/UTC", quiet = TRUE
+      )
+
+      laji_data_xlsx <- finbif_occurrence_load(
+        "laji-data.xlsx", tzone = "Etc/UTC", quiet = TRUE
       )
 
     })
 
-    expect_snapshot_value(zero_row_file, style = "json2", ignore_attr = "url")
-
     expect_snapshot_value(
-      finbif_occurrence_load(
-        file_full, tzone = "Etc/UTC", write_file = file_path, dt = FALSE,
-        keep_tsv = TRUE
-      )[seq(nrows), ],
-      style = "json2", ignore_attr = "url"
+      hbf_49381_zip_mem, style = "json2", ignore_attr = "url"
     )
 
     expect_snapshot_value(
-      finbif_occurrence_load(zip, tzone = "Etc/UTC")[seq(nrows), ],
-      style = "json2"
+      hbf_49381_zip_file, style = "json2", ignore_attr = "url"
     )
 
     expect_snapshot_value(
-      finbif_occurrence_load(
-        zip, n = nrows, tzone = "Etc/UTC",
-        facts = list(record = c("imageCount", "imageUrl", "areaInSqMeters"))
-      ),
-      style = "json2"
-    )
-
-    expect_warning(
-      finbif_occurrence_load(
-        zip, n = nrows, tzone = "Etc/UTC",
-        facts = list(record = c("not a fact")),
-        drop_na = TRUE
-      ),
-      "Selected fact"
+      hbf_49382_zip_file, style = "json2", ignore_attr = "url"
     )
 
     expect_snapshot_value(
-      capture.output(
-        print(
-          finbif_occurrence_load(
-            zip, select = "short", n = nrows, tzone = "Etc/UTC"
-          )[c("recID", "recOrder", "lonWGS84", "latWGS84")]
-        )
-      ),
-      style = "json2"
+      hbf_6968_zip_file, style = "json2", ignore_attr = "url"
     )
 
     expect_snapshot_value(
-      capture.output(
-        print(
-          finbif_occurrence_load(
-            zip, select = "all", n = nrows, tzone = "Etc/UTC"
-          )
-        )
-      ),
-      style = "json2"
+      hbf_6960_zip_file, style = "json2", ignore_attr = "url"
     )
 
-    expect_warning(
-      capture.output(
-        print(
-          finbif_occurrence_load("HBF.6968.zip", facts = list(event = "fact"))
-        )
-      )
+    expect_equal(
+      finbif_occurrence_load("HBF.49381.zip", count_only = TRUE, quiet = TRUE),
+      335L
     )
 
-    vcr::use_cassette("dl_select_all", {
-
-      dl_select_all <- capture.output(
-        print(
-          finbif_occurrence_load("HBF.6968.zip", select = "all")
-        )
-      )
-
-    })
-
-    expect_snapshot_value(dl_select_all, style = "json2")
-
-    options(finbif_cache_path = tempdir())
-
-    capture.output(
-      with_progress <- suppressMessages(
-        finbif_occurrence_load(
-          file, tzone = "Etc/UTC", write_file = file_path, cache = 1e-9
-        )[seq(nrows), ]
-      )
+    expect_snapshot_value(
+      laji_data_tsv, style = "json2", ignore_attr = "url"
     )
 
-    capture.output(
-      with_progress <- suppressMessages(
-        finbif_occurrence_load(
-          file, tzone = "Etc/UTC", write_file = file_path, cache = 1e-9
-        )[seq(nrows), ]
-      )
+    expect_snapshot_value(
+      laji_data_pap_tsv, style = "json2", ignore_attr = "url"
     )
 
-    expect_snapshot_value(with_progress, style = "json2", ignore_attr = "url")
+    expect_snapshot_value(
+      laji_data_new_col_tsv, style = "json2", ignore_attr = "url"
+    )
 
-    options(finbif_cache_path = NULL)
+    expect_snapshot_value(
+      laji_data_ods, style = "json2", ignore_attr = "url"
+    )
+
+    expect_snapshot_value(
+      laji_data_xlsx, style = "json2", ignore_attr = "url"
+    )
 
   }
 
-)
+  f <- tempfile()
 
-test_that(
-  "can load data from a lite download", {
+  if (
+    requireNamespace("callr", quietly = TRUE) &&
+      requireNamespace("webfakes", quietly = TRUE)
+  ) {
 
-    skip_if(getRversion() < "4.3.0")
+    bg <- callr::r_bg(
+      function(file) {
 
-    skip_on_os("windows")
+        app <- webfakes::new_app()
 
-    expect_snapshot_value(
-      finbif_occurrence_load("laji-data.tsv", tzone = "Etc/UTC", dt = FALSE),
-      style = "json2"
+        app[["get"]](
+          "/HBF.49381",
+          function(req, res) {
+            file <- "HBF.49381.zip"
+            ans <- readBin(file, "raw", n = file.info(file)[["size"]])
+            res[["send"]](ans)
+          }
+        )
+
+        app[["get"]](
+          "/HBF.6968",
+          function(req, res) {
+            file <- "HBF.6968.zip"
+            ans <- readBin(file, "raw", n = file.info(file)[["size"]])
+            res[["send"]](ans)
+          }
+        )
+
+        app[["get"]](
+          "/HBF.0",
+          function(req, res) {
+            res[["set_status"]](404L)
+            res[["send"]]("")
+          }
+        )
+
+        web <- webfakes::local_app_process(app)
+
+        cat(c(web[["url"]](), "."), file = file, sep = "\n")
+
+        Sys.sleep(60L)
+
+      },
+      list(file = f)
     )
 
-    expect_snapshot_value(
-      finbif_occurrence_load("laji-data-pap.tsv", tzone = "Etc/UTC"),
-      style = "json2"
-    )
+    while (!file.exists(f) || length(url <- readLines(f, warn = FALSE)) < 2L) {}
 
-    skip_on_cran()
-
-    expect_snapshot_value(
-      finbif_occurrence_load("laji-data.ods", tzone = "Etc/UTC"),
-      style = "json2", ignore_attr = "url"
-    )
-
-    expect_snapshot_value(
-      finbif_occurrence_load("laji-data.xlsx", tzone = "Etc/UTC"),
-      style = "json2", ignore_attr = "url"
-    )
-
-  }
-)
-
-test_that(
-  "with invalid URL returns an error message", {
-
-    skip_on_cran()
+    options(finbif_dl_url = sub("/$", "", url[[1L]]))
 
     expect_error(
-      suppressMessages(finbif_occurrence_load("http://tun.fi/HBF.0")),
+      finbif_occurrence_load("http://tun.fi/HBF.0", quiet = TRUE),
       "File request failed"
     )
 
-  }
-)
-
-test_that(
-  "large download returns an error message", {
-
-    skip_on_cran()
-
     Sys.setenv("FINBIF_FILE_SIZE_LIMIT" = "52e3")
 
-    file_path <-
-      "../write-files/finbif_dwnld_cache_file_3db6439c7601e4401b8a27a2094919a3"
-
     expect_error(
-      finbif_occurrence_load(
-        49381L, cache = FALSE, quiet = TRUE, write_file = file_path
-      ),
-      "File download too large"
+      finbif_occurrence_load(49381, quiet = TRUE), "File download too large"
     )
 
     Sys.unsetenv("FINBIF_FILE_SIZE_LIMIT")
 
-  }
-)
-
-test_that(
-  "importing files with unknown columns works", {
-
-    skip_if(getRversion() < "4.3.0")
-
-    expect_snapshot_value(
-      finbif_occurrence_load("HBF.49382.zip", tzone = "Etc/UTC"),
-      style = "json2"
+    expect_warning(
+      tun_fi_hbf_49381 <- finbif_occurrence_load(
+        "https://tun.fi/HBF.49381",
+        facts = list(
+          record = c("imageCount", "imageUrl", "areaInSqMeters", "not_a_fact")
+        ),
+        tzone = "Etc/UTC",
+        keep_tsv = TRUE,
+        n = 300,
+        dt = FALSE,
+        quiet = TRUE
+      ),
+      "could not be found in dataset"
     )
 
     expect_snapshot_value(
-      finbif_occurrence_load("laji-data-new-col.tsv", tzone = "Etc/UTC"),
-      style = "json2"
-    )
-
-  }
-)
-
-test_that(
-  "using DB cache with file load raises error", {
-
-    con <- file()
-
-    options(finbif_cache_path = con)
-
-    expect_error(
-      finbif_occurrence_load(49381, tzone = "Etc/UTC"),
-      "Database cache cannot be used for FinBIF downloads."
+      tun_fi_hbf_49381, style = "json2", ignore_attr = "url"
     )
 
     options(finbif_cache_path = NULL)
 
-    close(con)
-
-  }
-)
-
-test_that(
-  "reading a zip file with no tsv does not trigger an error", {
-
-    expect_s3_class(
-      open_tsv_connection(list(file = "HBF.6968.zip", tsv = "none")),
-      "textConnection"
+    capture.output(
+      hbf_49381 <- finbif_occurrence_load(
+        49381,
+        tzone = "Etc/UTC"
+      )
     )
 
+    expect_snapshot_value(
+      hbf_49381,
+      style = "json2",
+      ignore_attr = "url"
+    )
+
+    expect_snapshot_value(
+      finbif_occurrence_load(
+        49381,
+        tzone = "Etc/UTC",
+        quiet = TRUE
+      ),
+      style = "json2",
+      ignore_attr = "url"
+    )
+
+    expect_warning(
+      finbif_occurrence_load(
+        6968,
+        facts = list(event = "not_a_fact"),
+        tzone = "Etc/UTC",
+        quiet = TRUE
+      ),
+      "could not be found in dataset"
+    )
+
+    bg[["kill"]]()
+
   }
-)
+
+  con <- file()
+
+  options(finbif_cache_path = con)
+
+  expect_error(
+    finbif_occurrence_load(49381),
+    "Database cache cannot be used for FinBIF downloads."
+  )
+
+  close(con)
+
+  options(finbif_cache_path = NULL)
+
+  options(op)
+
+})

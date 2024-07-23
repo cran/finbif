@@ -1,43 +1,43 @@
-suppressMessages(insert_cassette("finbif_taxa"))
+test_that("searching for taxa works", {
 
-test_that(
-  "returns valid data", {
+  skip_on_cran()
 
-    skip_on_cran()
+  op <- options()
 
-    expect_s3_class(finbif_taxa("Parus major"), "finbif_api")
+  cache <- tempfile()
 
-  }
-)
+  dir.create(cache)
 
-suppressMessages(eject_cassette("finbif_taxa"))
+  options(
+    finbif_cache_path = cache,
+    finbif_rate_limit = Inf,
+    finbif_email = "noreply@laji.fi"
+  )
 
-suppressMessages(insert_cassette("taxon_name"))
+  finbif_clear_cache()
 
-test_that(
-  "returns correct strings", {
+  if (requireNamespace("vcr", quietly = TRUE)) {
 
-    skip_on_cran()
+    vcr::use_cassette("finbif_taxa", {
 
-    expect_identical(scientific_name("Otter"), "Lutra lutra")
-    expect_identical(common_name("Bubo bubo", "se"), "lidnu")
-    expect_identical(common_name("MX.279648"), NA_character_)
+      bubo_bubo <- common_name("Bubo bubo")
 
-  }
-)
+      otter <- scientific_name("Otter")
 
-suppressMessages(eject_cassette("taxon_name"))
+      otter_id <- taxon_id("Otter")
 
-suppressMessages(insert_cassette("taxon_id"))
+    })
 
-test_that(
-  "returns correct ID", {
+    expect_equal(bubo_bubo, "Eurasian Eagle-owl")
 
-    skip_on_cran()
+    expect_equal(otter, "Lutra lutra")
 
-    expect_identical(taxon_id("Lutra lutra"), "MX.47169")
+    expect_equal(otter_id, "MX.47169")
 
   }
-)
 
-suppressMessages(eject_cassette("taxon_id"))
+  options(finbif_cache_path = NULL, finbif_email = NULL)
+
+  options(op)
+
+})

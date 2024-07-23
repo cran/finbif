@@ -28,14 +28,14 @@ analyses.
 You can install the current stable version of `finbif` from
 [CRAN](https://cran.r-project.org),
 
-```r
+``` r
 install.packages("finbif")
 ```
 
 You can also install the latest development version of `finbif` from
 [GitHub](https://github.com),
 
-```r
+``` r
 remotes::install_github("luomus/finbif@dev")
 ```
 
@@ -47,7 +47,7 @@ version of `finbif` [here](https://finbif-docs-dev.netlify.app).
 ## Getting a FinBIF access token
 First load the `finbif` R package.
 
-```r
+``` r
 library(finbif)
 ```
 
@@ -55,14 +55,14 @@ To use the FinBIF API you must first request and set a personal access token.
 You can request an API token to be sent to your email address with the function
 `finbif_get_token`.
 
-```r
+``` r
 finbif_request_token("your@email.com")
 ```
 
 Copy the access token that was sent to your email and set it as the environment
 variable `FINBIF_ACCESS_TOKEN` either for the current session,
 
-```r
+``` r
 Sys.setenv(
   FINBIF_ACCESS_TOKEN = "xtmSOIxjPwq0pOMB1WvcZgFLU9QBklauOlonWl8K5oaLIx8RniJLrvcJU4v9H7Et"
 )
@@ -75,7 +75,7 @@ Sys.setenv(
 ## Usage
 Download occurrence data from FinBIF.
 
-```r
+``` r
 finbif_occurrence("Cygnus cygnus", n = 100)
 ```
 
@@ -88,7 +88,7 @@ FinBIF itself and the contributed datasets please visit this link:
 To cite the finbif R package in publications please use:
 
   Morris, William K. (2024). Introduction to the finbif package. R
-  package version 0.9.6, https://doi.org/10.5281/zenodo.3612814
+  package version 0.9.7, https://doi.org/10.5281/zenodo.3612814
 
 ----
 

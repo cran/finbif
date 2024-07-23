@@ -1,13 +1,36 @@
-test_that(
-  "works", {
+test_that("clearing cache works", {
 
-    expect_null(finbif_clear_cache())
+  op <- options()
 
-    options(finbif_cache_path = getwd())
+  expect_null(finbif_clear_cache())
+
+  cache <- tempfile()
+
+  dir.create(cache)
+
+  options(finbif_cache_path = cache)
+
+  expect_null(finbif_clear_cache())
+
+  if (
+    requireNamespace("DBI", quietly = TRUE) &&
+      requireNamespace("RSQLite", quietly = TRUE)
+  ) {
+
+    db <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+
+    DBI::dbCreateTable(db, "finbif_cache", c(hash = "TEXT"))
+
+    options(finbif_cache_path = db)
 
     expect_null(finbif_clear_cache())
 
     options(finbif_cache_path = NULL)
 
+    DBI::dbDisconnect(db)
+
   }
-)
+
+  options(op)
+
+})
