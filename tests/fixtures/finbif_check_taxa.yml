@@ -15,14 +15,14 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Tue, 23 Jul 2024 10:52:51 GMT
+      date: Mon, 19 Aug 2024 08:49:14 GMT
       content-type: application/json; charset=utf-8
       content-length: '536'
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       x-frame-options: SAMEORIGIN
       x-download-options: noopen
-      etag: W/"218-vsYOflF5oSy5aobNfspTc/iji00"
+      etag: W/"218-mfM0Dcda0tBLnuYZYbwChpTnt9I"
       vary: Accept-Encoding
       cache-control: public
       x-xss-protection: 1;mode=block
@@ -33,10 +33,10 @@ http_interactions:
       encoding: ''
       file: no
       string: '[{"matchingName":"Cygnus cygnus","nameType":"MX.scientificName","id":"MX.26280","scientificName":"Cygnus
-        cygnus","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"en":"Whooper
-        Swan","sv":"sångsvan","fi":"laulujoutsen"},"informalGroups":[{"id":"MVL.1","name":{"en":"Birds","sv":"Fåglar","fi":"Linnut"}},{"id":"MVL.1241","name":{"en":"Waterbirds","fi":"Vesilinnut","sv":"Vattenfåglar"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}]'
-  recorded_at: 2024-07-23 10:52:51 GMT
-  recorded_with: vcr/1.2.2, webmockr/1.0.0
+        cygnus","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"sv":"sångsvan","fi":"laulujoutsen","en":"Whooper
+        Swan"},"informalGroups":[{"id":"MVL.1","name":{"en":"Birds","sv":"Fåglar","fi":"Linnut"}},{"id":"MVL.1241","name":{"en":"Waterbirds","fi":"Vesilinnut","sv":"Vattenfåglar"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}]'
+  recorded_at: 2024-08-19 08:49:14 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
     uri: https://api.laji.fi/v0/taxa/search?query=not_a_taxa&matchType=exact&limit=1&access_token=<finbif_token>
@@ -53,7 +53,7 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Tue, 23 Jul 2024 10:52:51 GMT
+      date: Mon, 19 Aug 2024 08:49:14 GMT
       content-type: application/json; charset=utf-8
       content-length: '2'
       access-control-allow-origin: '*'
@@ -71,5 +71,5 @@ http_interactions:
       encoding: ''
       file: no
       string: '[]'
-  recorded_at: 2024-07-23 10:52:51 GMT
-  recorded_with: vcr/1.2.2, webmockr/1.0.0
+  recorded_at: 2024-08-19 08:49:14 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0

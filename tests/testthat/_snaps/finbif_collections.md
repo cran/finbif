@@ -264,13 +264,13 @@
       HR.1207        0 NA              NA            NA            NA           
       HR.121      6073 NA              NA            NA            NA           
       HR.1247    27926 NA              NA            NA            NA           
-      HR.128  15365265 NA              NA            NA            NA           
-      HR.1627      180 NA              NA            NA            NA           
-      HR.1915    73739 NA              NA            NA            NA           
-      HR.1989  3729980 NA              NA            NA            NA           
-      HR.3551  2075373 NA              NA            NA            NA           
-      HR.3552  2451021 NA              NA            NA            NA           
-      HR.3778  7175337 NA              NA            NA            NA           
+      HR.128  15389113 NA              NA            NA            NA           
+      HR.1627      181 NA              NA            NA            NA           
+      HR.1915    73852 NA              NA            NA            NA           
+      HR.1989  3809874 NA              NA            NA            NA           
+      HR.3551  2051571 NA              NA            NA            NA           
+      HR.3552  2458569 NA              NA            NA            NA           
+      HR.3778  7183555 NA              NA            NA            NA           
       HR.3811        0 NA              NA            NA            NA           
       HR.4171       35 NA              NA            NA            NA           
       HR.4911        0 NA              NA            NA            NA           

@@ -1,6 +1,6 @@
 #' Clear cache
 #'
-#' Remove cached API requests from FinBIF.
+#' Remove cached FinBIF API requests.
 #'
 #' @aliases fb_clear_cache
 #'
@@ -33,9 +33,7 @@ finbif_clear_cache <- function() {
 
   } else {
 
-    has_dbi <- has_pkgs("DBI", "blob")
-
-    stopifnot("Packages {DBI} & {blob} needed to use a DB cache" = has_dbi)
+    stopifnot("Package {DBI} needed to use a DB cache" = has_pkgs("DBI"))
 
     if (DBI::dbExistsTable(fcp, "finbif_cache")) {
 

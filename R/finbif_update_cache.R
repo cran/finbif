@@ -1,6 +1,6 @@
 #' Update cache
 #'
-#' Update all cached API requests from FinBIF.
+#' Update all cached FinBIF API requests.
 #'
 #' @aliases fb_update_cache
 #'
@@ -45,9 +45,7 @@ finbif_update_cache <- function() {
 
   } else {
 
-    has_dbi <- has_pkgs("DBI", "blob")
-
-    stopifnot("Packages {DBI} & {blob} needed to use a DB cache" = has_dbi)
+    stopifnot("Package {DBI} needed to use a DB cache" = has_pkgs("DBI"))
 
     if (DBI::dbExistsTable(fcp, "finbif_cache")) {
 

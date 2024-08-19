@@ -1295,6 +1295,11 @@
           "attributes": {},
           "value": ["en"]
         },
+        "cache": {
+          "type": "logical",
+          "attributes": {},
+          "value": [true, true]
+        },
         "select": {
           "type": "list",
           "attributes": {
@@ -1566,6 +1571,11 @@
           "attributes": {},
           "value": ["en"]
         },
+        "cache": {
+          "type": "logical",
+          "attributes": {},
+          "value": [true, true]
+        },
         "select": {
           "type": "list",
           "attributes": {
@@ -1836,6 +1846,11 @@
           "type": "character",
           "attributes": {},
           "value": ["en"]
+        },
+        "cache": {
+          "type": "logical",
+          "attributes": {},
+          "value": [true, true]
         },
         "select": {
           "type": "list",
@@ -2479,6 +2494,11 @@
           "attributes": {},
           "value": ["en"]
         },
+        "cache": {
+          "type": "logical",
+          "attributes": {},
+          "value": [true, true]
+        },
         "select": {
           "type": "list",
           "attributes": {
@@ -2750,6 +2770,11 @@
           "attributes": {},
           "value": ["en"]
         },
+        "cache": {
+          "type": "logical",
+          "attributes": {},
+          "value": [true, true]
+        },
         "select": {
           "type": "list",
           "attributes": {
@@ -3014,12 +3039,17 @@
         "url": {
           "type": "character",
           "attributes": {},
-          "value": ["/tmp/RtmpLle7d4/fileaf235ecc310b.tsv"]
+          "value": ["/tmp/Rtmp0NhBiE/fileb91f5e13c41b.tsv"]
         },
         "locale": {
           "type": "character",
           "attributes": {},
           "value": ["en"]
+        },
+        "cache": {
+          "type": "logical",
+          "attributes": {},
+          "value": [true, true]
         },
         "select": {
           "type": "list",
@@ -3280,7 +3310,7 @@
         "url": {
           "type": "character",
           "attributes": {},
-          "value": ["/tmp/RtmpLle7d4/fileaf231bd4ccc4.tsv"]
+          "value": ["/tmp/Rtmp0NhBiE/fileb91f1fb89bc4.tsv"]
         },
         "nrow": {
           "type": "integer",
@@ -3291,6 +3321,11 @@
           "type": "character",
           "attributes": {},
           "value": ["en"]
+        },
+        "cache": {
+          "type": "logical",
+          "attributes": {},
+          "value": [true, true]
         },
         "select": {
           "type": "list",
@@ -3556,12 +3591,17 @@
         "url": {
           "type": "character",
           "attributes": {},
-          "value": ["/tmp/RtmpLle7d4/fileaf237da63079/finbif_dwnld_cache_file_1571d33d6deb0431188fc3d56cdc8bbd"]
+          "value": ["/tmp/Rtmp0NhBiE/fileb91f36d0d4cf/finbif_dwnld_cache_file_1571d33d6deb0431188fc3d56cdc8bbd"]
         },
         "locale": {
           "type": "character",
           "attributes": {},
           "value": ["en"]
+        },
+        "cache": {
+          "type": "logical",
+          "attributes": {},
+          "value": [true, true]
         },
         "select": {
           "type": "list",
@@ -3899,7 +3939,7 @@
         "url": {
           "type": "character",
           "attributes": {},
-          "value": ["/tmp/RtmpLle7d4/fileaf2330d4f7dc"]
+          "value": ["/tmp/Rtmp0NhBiE/fileb91f1966d294"]
         },
         "nrow": {
           "type": "integer",
@@ -3910,6 +3950,11 @@
           "type": "character",
           "attributes": {},
           "value": ["en"]
+        },
+        "cache": {
+          "type": "logical",
+          "attributes": {},
+          "value": [true, true]
         },
         "select": {
           "type": "list",
@@ -4170,7 +4215,7 @@
         "url": {
           "type": "character",
           "attributes": {},
-          "value": ["/tmp/RtmpLle7d4/fileaf2330d4f7dc"]
+          "value": ["/tmp/Rtmp0NhBiE/fileb91f1966d294"]
         },
         "nrow": {
           "type": "integer",
@@ -4181,6 +4226,11 @@
           "type": "character",
           "attributes": {},
           "value": ["en"]
+        },
+        "cache": {
+          "type": "logical",
+          "attributes": {},
+          "value": [true, true]
         },
         "select": {
           "type": "list",

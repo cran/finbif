@@ -1,12 +1,23 @@
 # News for Package <span class="pkg">finbif</span>
 
+# finbif 0.9.8
+
+## DEPRECATION
+
+  - Importing `.ods` and `.xlsx` occurrence data files has been
+    deprecated and will be defunct in a future release.
+
+## MINOR IMPROVEMENTS
+
+  - Caching behaviour has been made more consistent.
+
 # finbif 0.9.7
 
 ## NEW FEATURES
 
   - Record pagination has been simplified and improved so that it should
     not be possible to have duplicate records when using
-    `finbif_occurrences`.
+    `finbif_occurrence`.
 
 ## MINOR IMPROVEMENTS
 
@@ -49,7 +60,7 @@
 
   - Fixed an issue with reading facts for FinBIF record download files.
 
-  - Fixed an issue with readling column names using `data.table` package
+  - Fixed an issue with reading column names using `data.table` package
     to ingest FinBIF record download files.
 
 # finbif 0.9.4
