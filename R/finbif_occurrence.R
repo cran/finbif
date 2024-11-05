@@ -145,7 +145,6 @@ finbif_occurrence <- function(
     on_check_fail = match.arg(on_check_fail),
     tzone = tzone,
     locale = locale,
-    df = TRUE,
     seed = seed,
     drop_na = drop_na,
     aggregate_counts = aggregate_counts,
@@ -179,9 +178,9 @@ occurrence <- function(fb_records_obj) {
     fb_records_obj[["taxa"]], fb_records_obj[["filter"]]
   )
 
-  cache <- c(
-    fb_records_obj[["cache"]], getOption("finbif_use_cache_metadata")
-  )
+  cache <- as.list(fb_records_obj[["cache"]])
+
+  cache <- c(cache, getOption("finbif_use_cache_metadata"))
 
   fb_records_obj[["cache"]] <- cache[1:2]
 
@@ -215,9 +214,7 @@ occurrence <- function(fb_records_obj) {
 
   }
 
-  quiet <- fb_records_obj[["quiet"]] || length(records) < 2L
-
-  attr(records, "quiet") <- pb_head("Processing data", quiet = quiet)
+  attr(records, "quiet") <- fb_records_obj[["quiet"]] || length(records) < 2L
 
   fb_occurrence_df <- records_list_data_frame(records)
 
@@ -291,7 +288,13 @@ occurrence <- function(fb_records_obj) {
 
   fb_occurrence_df <- compute_red_list_status(fb_occurrence_df)
 
+  fb_occurrence_df <- compute_country(fb_occurrence_df)
+
   fb_occurrence_df <- compute_region(fb_occurrence_df)
+
+  fb_occurrence_df <- compute_municipality(fb_occurrence_df)
+
+  fb_occurrence_df <- compute_local_area(fb_occurrence_df)
 
   fb_occurrence_df <- compute_codes(fb_occurrence_df)
 
@@ -340,31 +343,14 @@ use_multi_req <- function(fb_records_obj) {
 }
 
 #' @noRd
-#' @importFrom utils txtProgressBar setTxtProgressBar
 
 records_list_data_frame <- function(x) {
 
-  verbose <- !attr(x, "quiet")
-
   n <- length(x)
-
-  if (verbose) {
-
-    pb <- utils::txtProgressBar(0L, n, style = 3L)
-
-    on.exit(close(pb))
-
-  }
 
   df <- list()
 
   for (i in seq_len(n)) {
-
-    if (verbose) {
-
-      utils::setTxtProgressBar(pb, i)
-
-    }
 
     xi <- x[[i]]
 
@@ -920,7 +906,8 @@ compute_vars_from_id <- function(fb_occurrence_df) {
           subcollections = TRUE,
           supercollections = TRUE,
           nmin = NA,
-          locale = locale
+          locale = locale,
+          cache = attr(fb_occurrence_df, "cache", TRUE)[[2L]]
         )
 
       } else {
@@ -1186,7 +1173,7 @@ compute_coordinate_uncertainty <- function(fb_occurrence_df) {
 
     source_var <- vnms[["document.sourceId", vtype]]
 
-    na <- fb_occurrence_df[[source_var]] == "http://tun.fi/KE.3" &  interp == 1
+    na <- fb_occurrence_df[[source_var]] == "http://tun.fi/KE.3" & interp == 1
 
     coord_uncert <- ifelse(na, NA_real_, interp)
 
@@ -1279,7 +1266,8 @@ compute_codes <- function(fb_occurrence_df) {
       codes <- finbif_collections(
         select = c("collection_code", "institution_code"),
         supercollections = TRUE,
-        nmin = NA
+        nmin = NA,
+        cache = attr(fb_occurrence_df, "cache", TRUE)[[2L]]
       )
 
       id <- fb_occurrence_df[[id_var]]
@@ -1356,6 +1344,62 @@ compute_red_list_status <- function(fb_occurrence_df) {
 
 #' @noRd
 
+compute_country <- function(fb_occurrence_df) {
+
+  dwc <- attr(fb_occurrence_df, "dwc", TRUE)
+
+  col_names <- attr(fb_occurrence_df, "column_names", TRUE)
+
+  add <- attr(fb_occurrence_df, "include_new_cols", TRUE)
+
+  vtype <- col_type_string(dwc)
+
+  var_names <- sysdata(list(which = "var_names"))
+
+  id_var <- var_names[["gathering.interpretations.country", vtype]]
+
+  verbatim_var <- var_names[["gathering.country", vtype]]
+
+  vars <- c("computed_var_country_code", "computed_var_country")
+
+  for (i in seq_along(vars)) {
+
+    var_i <- vars[[i]]
+
+    var <- var_names[[var_i, vtype]]
+
+    if (add && var %in% col_names) {
+
+      countries <- finbif_metadata(
+        "country", cache = attr(fb_occurrence_df, "cache", TRUE)[[2L]]
+      )
+
+      id <- fb_occurrence_df[[id_var]]
+
+      id <- remove_domain(id)
+
+      fb_occurrence_df[[var]] <- countries[id, i]
+
+      if (i == 2L) {
+
+        fb_occurrence_df[[var]] <- ifelse(
+          is.na(fb_occurrence_df[[var]]),
+          fb_occurrence_df[[verbatim_var]],
+          fb_occurrence_df[[var]]
+        )
+
+      }
+
+    }
+
+  }
+
+  fb_occurrence_df
+
+}
+
+#' @noRd
+
 compute_region <- function(fb_occurrence_df) {
 
   dwc <- attr(fb_occurrence_df, "dwc", TRUE)
@@ -1365,6 +1409,8 @@ compute_region <- function(fb_occurrence_df) {
   var_names <- sysdata(list(which = "var_names"))
 
   region_var <- var_names[["computed_var_region", vtype]]
+
+  region_verbatim <- var_names[["gathering.province", vtype]]
 
   add <- attr(fb_occurrence_df, "include_new_cols", TRUE)
 
@@ -1379,6 +1425,97 @@ compute_region <- function(fb_occurrence_df) {
     )
 
     fb_occurrence_df[[region_var]] <- municipality[id, "region"]
+
+    fb_occurrence_df[[region_var]] <- ifelse(
+      is.na(fb_occurrence_df[[region_var]]),
+      fb_occurrence_df[[region_verbatim]],
+      fb_occurrence_df[[region_var]]
+    )
+
+  }
+
+  fb_occurrence_df
+
+}
+
+#' @noRd
+
+compute_municipality <- function(fb_occurrence_df) {
+
+  dwc <- attr(fb_occurrence_df, "dwc", TRUE)
+
+  vtype <- col_type_string(dwc)
+
+  var_names <- sysdata(list(which = "var_names"))
+
+  m_var <- var_names[["computed_var_municipality", vtype]]
+
+  add <- attr(fb_occurrence_df, "include_new_cols", TRUE)
+
+  if (add && m_var %in% attr(fb_occurrence_df, "column_names", TRUE)) {
+
+    idv <- var_names[["gathering.interpretations.finnishMunicipality", vtype]]
+
+    id <- basename(fb_occurrence_df[[idv]])
+
+    municipality <- finbif_metadata(
+      "municipality",
+      attr(fb_occurrence_df, "locale", TRUE),
+      attr(fb_occurrence_df, "cache", TRUE)[[2L]]
+    )
+
+    fact_names <- var_names[["gathering.facts.fact", vtype]]
+
+    fact_values <- var_names[["gathering.facts.value", vtype]]
+
+    which_county <- lapply(
+      fb_occurrence_df[[fact_names]],
+      match,
+      "http://tun.fi/MY.county",
+      nomatch = 0
+    )
+
+    county <- mapply(
+      extract_fact,
+      fb_occurrence_df[[fact_values]],
+      lapply(which_county, as.logical),
+      SIMPLIFY = FALSE,
+      USE.NAMES = FALSE
+    )
+
+    fb_occurrence_df[[m_var]] <- ifelse(
+      is.na(id), unlist(county), municipality[id, "name"]
+    )
+
+  }
+
+  fb_occurrence_df
+
+}
+
+#' @noRd
+
+compute_local_area <- function(fb_occurrence_df) {
+
+  dwc <- attr(fb_occurrence_df, "dwc", TRUE)
+
+  vtype <- col_type_string(dwc)
+
+  var_names <- sysdata(list(which = "var_names"))
+
+  la_var <- var_names[["computed_var_local_area", vtype]]
+
+  add <- attr(fb_occurrence_df, "include_new_cols", TRUE)
+
+  if (add && la_var %in% attr(fb_occurrence_df, "column_names", TRUE)) {
+
+    idv <- var_names[["gathering.interpretations.finnishMunicipality", vtype]]
+
+    lav <- var_names[["gathering.municipality", vtype]]
+
+    fb_occurrence_df[[la_var]] <- ifelse(
+      is.na(fb_occurrence_df[[idv]]), fb_occurrence_df[[lav]], NA_character_
+    )
 
   }
 
@@ -1428,6 +1565,10 @@ multi_req <- function(fb_records_obj) {
 
   }
 
+  drop_na <- fb_records_obj[["drop_na"]]
+
+  fb_records_obj[["drop_na"]] <- FALSE
+
   fb_records_obj_filter <- fb_records_obj
 
   fb_records_obj_filter[["check_taxa"]] <- FALSE
@@ -1476,7 +1617,7 @@ multi_req <- function(fb_records_obj) {
 
     if (!fb_records_obj[["duplicates"]]) {
 
-      record_id <- attr(ans, "record_id")
+      record_id <- attr(ans, "record_id", TRUE)
 
       ans <- ans[!duplicated(record_id), ]
 
@@ -1484,7 +1625,9 @@ multi_req <- function(fb_records_obj) {
 
   }
 
-  ans
+  attr(ans, "drop_na") <- drop_na
+
+  drop_na_col(ans)
 
 }
 
@@ -1546,7 +1689,7 @@ drop_na_col <- function(fb_occurrence_df) {
 
     fb_occurrence_df_attrs[["names"]] <- column_names
 
-    for (i in drop_column_names) {
+    for (i in names(drop_column_names)) {
 
       fb_occurrence_df[[i]] <- NULL
 
@@ -1608,8 +1751,12 @@ extract_facts <- function(fb_occurrence_df) {
 
         values_name <- var_names[[level_vls, vtype]]
 
-        fb_occurrence_df[[fact]] <- mapply(
+        fact_value <- mapply(
           extract_fact, fb_occurrence_df[[values_name]], is_fact
+        )
+
+        fb_occurrence_df[[fact]] <- mapply(
+          concat_two_strings, fb_occurrence_df[[fact]], fact_value
         )
 
       }

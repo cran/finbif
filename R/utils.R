@@ -74,31 +74,6 @@ get_el_recurse <- function(
 
 #' @noRd
 
-pb_head <- function(
-  msg,
-  quiet = FALSE
-) {
-
-  nchars <- nchar(msg) + 15L
-
-  diff <- getOption("width") - nchars
-
-  diff <- max(0L, diff)
-
-  body <- rep("=", diff)
-
-  if (!quiet) {
-
-    message("  |=== ", msg, " ", body, "|")
-
-  }
-
-  quiet
-
-}
-
-#' @noRd
-
 truncate_string <- function(
   x,
   sl = 20L
@@ -270,6 +245,14 @@ concat_string <- function(x) {
   }
 
   ans
+
+}
+
+#' @noRd
+
+concat_two_strings <- function(x, y) {
+
+  concat_string(c(x, y))
 
 }
 

@@ -290,10 +290,10 @@
       ML.37   BG   Bulgaria                                
       ML.38   BF   Burkina Faso                            
       ML.39   BI   Burundi                                 
-      ML.96   CV   Cabo Verde                              
       ML.93   KH   Cambodia                                
       ML.94   CM   Cameroon                                
       ML.95   CA   Canada                                  
+      ML.96   CV   Cape Verde                              
       ML.40   KY   Cayman Islands                          
       ML.99   CF   Central African Republic                
       ML.221  TD   Chad                                    
@@ -310,7 +310,7 @@
       ML.111  HR   Croatia                                 
       ML.112  CU   Cuba                                    
       ML.114  CY   Cyprus                                  
-      ML.222  CZ   Czech Republic                          
+      ML.222  CZ   Czechia                                 
       ML.248  <NA> Czechoslovakia                          
       ML.158  CI   Côte d'Ivoire                           
       ML.215  DK   Denmark                                 
@@ -385,7 +385,6 @@
       ML.122  LT   Lithuania                               
       ML.123  LU   Luxembourg                              
       ML.125  MO   Macao                                   
-      ML.127  MK   Macedonia                               
       ML.126  MG   Madagascar                              
       ML.128  MW   Malawi                                  
       ML.130  MY   Malaysia                                
@@ -419,6 +418,7 @@
       ML.154  NG   Nigeria                                 
       ML.155  NU   Niue                                    
       ML.156  NF   Norfolk Island                          
+      ML.127  MK   North Macedonia                         
       ML.168  MP   Northern Mariana Islands                
       ML.157  NO   Norway                                  
       ML.159  OM   Oman                                    
@@ -543,13 +543,13 @@
       ML.271 InL  Inari Lapland       
       ML.264 Kn   Kainuu              
       ML.268 KiL  Kittilä Lapland     
+      ML.267 Ks   Koillismaa          
       ML.258 LK   Ladoga Karelia      
       ML.260 PH   North Häme          
       ML.262 PK   North Karelia       
       ML.261 PS   North Savo          
       ML.265 OP   Oulu Ostrobothnia   
       ML.266 PeP  Outer Ostrobothnia  
-      ML.267 Ks   Regio kuusamoënsis  
       ML.255 St   Satakunta           
       ML.269 SoL  Sompio Lapland      
       ML.256 EH   South Häme          

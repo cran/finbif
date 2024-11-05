@@ -15,14 +15,15 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:14 GMT
+      date: Tue, 05 Nov 2024 08:35:36 GMT
       content-type: application/json; charset=utf-8
       content-length: '536'
+      x-powered-by: Express
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       x-frame-options: SAMEORIGIN
       x-download-options: noopen
-      etag: W/"218-mfM0Dcda0tBLnuYZYbwChpTnt9I"
+      etag: W/"218-jMx+f4qOIEwAjuWdeV6tEIBIAIM"
       vary: Accept-Encoding
       cache-control: public
       x-xss-protection: 1;mode=block
@@ -33,9 +34,9 @@ http_interactions:
       encoding: ''
       file: no
       string: '[{"matchingName":"Cygnus cygnus","nameType":"MX.scientificName","id":"MX.26280","scientificName":"Cygnus
-        cygnus","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"sv":"sångsvan","fi":"laulujoutsen","en":"Whooper
-        Swan"},"informalGroups":[{"id":"MVL.1","name":{"en":"Birds","sv":"Fåglar","fi":"Linnut"}},{"id":"MVL.1241","name":{"en":"Waterbirds","fi":"Vesilinnut","sv":"Vattenfåglar"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}]'
-  recorded_at: 2024-08-19 08:49:14 GMT
+        cygnus","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"fi":"laulujoutsen","en":"Whooper
+        Swan","sv":"sångsvan"},"informalGroups":[{"id":"MVL.1","name":{"en":"Birds","sv":"Fåglar","fi":"Linnut"}},{"id":"MVL.1241","name":{"en":"Waterbirds","fi":"Vesilinnut","sv":"Vattenfåglar"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}]'
+  recorded_at: 2024-11-05 08:35:37 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
@@ -53,9 +54,10 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:14 GMT
+      date: Tue, 05 Nov 2024 08:35:37 GMT
       content-type: application/json; charset=utf-8
       content-length: '2'
+      x-powered-by: Express
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       x-frame-options: SAMEORIGIN
@@ -71,5 +73,5 @@ http_interactions:
       encoding: ''
       file: no
       string: '[]'
-  recorded_at: 2024-08-19 08:49:14 GMT
+  recorded_at: 2024-11-05 08:35:37 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0

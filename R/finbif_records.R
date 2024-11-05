@@ -110,7 +110,7 @@ records <- function(fb_records_obj) {
 
   ans <- request(fb_records_obj)
 
-  if (fb_records_obj[["df"]] && !fb_records_obj[["count_only"]]) {
+  if (!fb_records_obj[["count_only"]]) {
 
     ind <- length(ans)
 
@@ -607,28 +607,28 @@ infer_selection <- function(fb_records_obj) {
 
 infer_computed_vars <- function(fb_records_obj) {
 
-  l <- list(
+  computable_vars <- list(
     abundance = list(
       vars = c(
-        "abundance", "individualCount", "occurrence_status", "occurrenceStatus"
+        "computed_var_abundance", "computed_var_occurrence_status"
       ),
-      v_names = c(
+      select_names = c(
         "unit.interpretations.individualCount", "unit.abundanceString"
       )
     ),
     cu = list(
-      vars = c("coordinates_uncertainty", "coordinateUncertaintyInMeters"),
-      v_names = c(
+      vars = "computed_var_coordinates_uncertainty",
+      select_names = c(
         "gathering.interpretations.coordinateAccuracy", "document.sourceId"
       )
     ),
     citation = list(
-      vars = c("citation", "bibliographicCitation"),
-      v_names = c("document.documentId", "document.sourceId")
+      vars = "computed_var_citation",
+      select_names = c("document.documentId", "document.sourceId")
     ),
     sn = list(
-      vars = c("scientific_name", "scientificName"),
-      v_names = c(
+      vars = "computed_var_scientific_name",
+      select_names = c(
         "unit.linkings.taxon.scientificName",
         "unit.taxonVerbatim",
         "unit.linkings.taxon.scientificNameAuthorship",
@@ -637,23 +637,49 @@ infer_computed_vars <- function(fb_records_obj) {
       )
     ),
     red_list = list(
-      vars = c("red_list_status", "redListStatus"),
-      v_names = c(
+      vars = "computed_var_red_list_status",
+      select_names = c(
         "unit.linkings.taxon.latestRedListStatusFinland.status",
         "unit.linkings.taxon.latestRedListStatusFinland.year"
       )
     ),
     region = list(
-      vars = c("region", "stateProvince"),
-      v_names = "gathering.interpretations.finnishMunicipality"
+      vars = "computed_var_region",
+      select_names = c(
+        "gathering.interpretations.finnishMunicipality",
+        "gathering.province"
+      )
     ),
     institution_code = list(
-      vars = c("institution_code", "institutionCode"),
-      v_names = "document.collectionId"
+      vars = "computed_var_institution_code",
+      select_names = "document.collectionId"
     ),
     collection_code = list(
-      vars = c("collection_code", "collectionCode"),
-      v_names = "document.collectionId"
+      vars = "computed_var_institution_code",
+      select_names = "document.collectionId"
+    ),
+    country = list(
+      vars = "computed_var_country",
+      select_names = c("gathering.interpretations.country", "gathering.country")
+    ),
+    country_code = list(
+      vars = "computed_var_country_code",
+      select_names = c("gathering.interpretations.country", "gathering.country")
+    ),
+    municipality = list(
+      vars = "computed_var_municipality",
+      select_names = c(
+        "gathering.interpretations.finnishMunicipality",
+        "gathering.facts.fact",
+        "gathering.facts.value"
+      )
+    ),
+    local_area = list(
+      "computed_var_local_area",
+      select_names = c(
+        "gathering.interpretations.finnishMunicipality",
+        "gathering.municipality"
+      )
     )
   )
 
@@ -663,13 +689,17 @@ infer_computed_vars <- function(fb_records_obj) {
 
   var_type <- fb_records_obj[["var_type"]]
 
-  for (i in l) {
+  for (i in computable_vars) {
 
-    if (any(i[["vars"]] %in% select)) {
+    i_vars <- i[["vars"]]
 
-      v_names_i <- i[["v_names"]]
+    i_var_names <- var_names[i_vars, var_type]
 
-      select <- c(select, var_names[v_names_i, var_type])
+    if (any(i_var_names %in% select)) {
+
+      select_names_i <- i[["select_names"]]
+
+      select <- c(select, var_names[select_names_i, var_type])
 
     }
 
@@ -787,7 +817,6 @@ request <- function(fb_records_obj) {
     select = fb_records_obj[["select_query"]],
     select_user = select_user,
     locale = fb_records_obj[["locale"]],
-    df = fb_records_obj[["df"]],
     dwc = fb_records_obj[["dwc"]],
     exclude_na = fb_records_obj[["exclude_na"]],
     include_facts = fb_records_obj[["include_facts"]],
@@ -832,25 +861,27 @@ get_extra_pages <- function(fb_records_list) {
 
   use_progress <- multipage && !quiet
 
-  if (use_progress) {
+  i <- 1L
 
-    pb_head("Fetching data")
+  if (use_progress) {
 
     max <- floor(n / max_size)
 
     pb <- utils::txtProgressBar(0L, max, style = 3L)
 
+    utils::setTxtProgressBar(pb, i)
+
     on.exit(close(pb))
 
   }
-
-  i <- 1L
 
   query <- attr(fb_records_list, "query", TRUE)
 
   sample <- attr(fb_records_list, "sample", TRUE)
 
   page <- query[["page"]]
+
+  last_page <- ceiling(n_tot / query[["pageSize"]])
 
   use_future <- has_pkgs("future") && getOption("finbif_use_async")
 
@@ -866,11 +897,17 @@ get_extra_pages <- function(fb_records_list) {
 
   ids <- character()
 
-  while (n_needed > (n_got - length(which(duplicated(ids))))) {
+  more_pages <- TRUE
+
+  while (n_needed > n_got - length(which(duplicated(ids))) && more_pages) {
 
     page <- page + 1L
 
-    if (sample && page > ceiling(n_tot / query[["pageSize"]])) {
+    sampling_failed <- sample && page > last_page
+
+    if (sampling_failed) {
+
+      sample <- FALSE
 
       page <- 1L
 
@@ -878,11 +915,7 @@ get_extra_pages <- function(fb_records_list) {
         ",?RANDOM:?\\d*|^RANDOM:?\\d*,?", "", query[["orderBy"]]
       )
 
-    }
-
-    if (!quiet) {
-
-      utils::setTxtProgressBar(pb, i)
+      use_progress <- FALSE
 
     }
 
@@ -898,17 +931,19 @@ get_extra_pages <- function(fb_records_list) {
 
     }
 
-    if (attr(fb_records_list, "df", TRUE)) {
-
-      attr(fb_records_list[[i]], "df") <- records_df(fb_records_list[[i]])
-
-    }
+    attr(fb_records_list[[i]], "df") <- records_df(fb_records_list[[i]])
 
     records_i <- value(res)
 
     records_i <- c(records_i, locale = fb_records_list[[i]][["locale"]])
 
     i <- i + 1L
+
+    if (use_progress) {
+
+      utils::setTxtProgressBar(pb, i)
+
+    }
 
     fb_records_list[[i]] <- structure(
       records_i,
@@ -923,6 +958,8 @@ get_extra_pages <- function(fb_records_list) {
     ids <- ids[!is.na(ids)]
 
     n_got <- n_got + length(records_i[[c("content", "results")]])
+
+    more_pages <- page < last_page || sample
 
   }
 

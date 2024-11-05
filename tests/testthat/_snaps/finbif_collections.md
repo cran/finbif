@@ -179,164 +179,148 @@
       HR.4171 NA      <NA>      <NA>       Bergholm, Solveig  TRUE         
       HR.4911 NA      <NA>      <NA>       Jäderholm, Kai       NA         
       HR.5896 NA      <NA>      <NA>       Matti Kervinen       NA         
-              publication_description publication_terms share_to_feo share_to_gbif
-      HR.1127 NA                      <NA>              NA           NA           
-      HR.1207 NA                      <NA>              NA           NA           
-      HR.121  NA                      <NA>              NA           NA           
-      HR.1247 NA                      <NA>              NA           NA           
-      HR.128  NA                      MY.publicationTe… NA           NA           
-      HR.1627 NA                      <NA>              NA           NA           
-      HR.1915 NA                      <NA>              NA           NA           
-      HR.1989 NA                      <NA>              NA           NA           
-      HR.3551 NA                      <NA>              NA           NA           
-      HR.3552 NA                      <NA>              NA           NA           
-      HR.3778 NA                      <NA>              NA           NA           
-      HR.3811 NA                      <NA>              NA           NA           
-      HR.4171 NA                      <NA>              NA           NA           
-      HR.4911 NA                      <NA>              NA           NA           
-      HR.5896 NA                      <NA>              NA           NA           
-              taxonomic_coverage temporal_coverage types_size date_created
-      HR.1127 Biota              <NA>              <NA>       2015-06-30T…
-      HR.1207 <NA>               <NA>              <NA>       2015-11-19T…
-      HR.121  <NA>               1948 -            <NA>       2012-08-20T…
-      HR.1247 <NA>               1850-             <NA>       2015-12-02T…
-      HR.128  <NA>               <NA>              <NA>       2012-10-10T…
-      HR.1627 <NA>               <NA>              <NA>       2016-09-06T…
-      HR.1915 <NA>               <NA>              <NA>       2017-01-13T…
-      HR.1989 Biota              <NA>              <NA>       2017-01-25T…
-      HR.3551 <NA>               <NA>              <NA>       2020-05-28T…
-      HR.3552 <NA>               <NA>              <NA>       2020-05-28T…
-      HR.3778 <NA>               <NA>              <NA>       2020-12-09T…
-      HR.3811 <NA>               <NA>              <NA>       2020-12-18T…
-      HR.4171 plants, fungi and… 1800-             0          2021-07-01T…
-      HR.4911 Biota              <NA>              <NA>       2022-11-04T…
-      HR.5896 <NA>               <NA>              <NA>       2024-01-31T…
-              date_edited owner    publicity_restrictions
-      HR.1127 2023-09-15… MOS.173  NA                    
-      HR.1207 2020-10-13… MOS.1045 NA                    
-      HR.121  2021-11-24… MOS.1025 NA                    
-      HR.1247 2023-09-15… MOS.2820 NA                    
-      HR.128  2024-06-19… MOS.3620 NA                    
-      HR.1627 2020-10-13… MOS.2180 NA                    
-      HR.1915 2024-02-06… MOS.3680 NA                    
-      HR.1989 2024-06-19… MOS.1016 NA                    
-      HR.3551 2023-12-20… MOS.1057 NA                    
-      HR.3552 2024-06-19… MOS.307  NA                    
-      HR.3778 2024-06-19… MOS.1016 NA                    
-      HR.3811 2021-11-24… MOS.7046 NA                    
-      HR.4171 2023-01-22… MOS.9282 NA                    
-      HR.4911 2022-12-09… MOS.9662 NA                    
-      HR.5896 2024-01-31… MOS.1016 NA                    
-              download_request_handler           
-      HR.1127 MA.116                             
-      HR.1207 MA.172                             
-      HR.121  MA.186                             
-      HR.1247 MA.161                             
-      HR.128  MA.9, MA.3, MA.44, MA.75907, MA.167
-      HR.1627 NA                                 
-      HR.1915 MA.53327, MA.2114, MA.44008        
-      HR.1989 MA.167, MA.44, MA.75907, MA.3, MA.9
-      HR.3551 MA.36850, MA.39268                 
-      HR.3552 MA.75907, MA.167, MA.44, MA.3, MA.9
-      HR.3778 MA.44, MA.75907, MA.167, MA.9, MA.3
-      HR.3811 MA.702                             
-      HR.4171 MA.49989                           
-      HR.4911 MA.32607                           
-      HR.5896 MA.38028                           
-              publisher_shortname                                                                                   
-      HR.1127 Kuopio Natural History Museum, Kuopion luonnontieteellinen museo, Kuopio naturhistoriska museet       
-      HR.1207 University of Oulu, Oulun yliopisto, Uleåborgs universitet                                            
-      HR.121  Kieppi, Kieppi, Kieppi                                                                                
-      HR.1247 University of Jyväskylä, Jyväskylän yliopisto, Jyväskylä universitet                                  
-      HR.128  Luomus, Luomus, Luomus                                                                                
-      HR.1627 University of Turku, Turun yliopisto, Åbo universitet                                                 
-      HR.1915 Luke, Luke, Luke                                                                                      
-      HR.1989 FinBIF, Suomen Lajitietokeskus, Finlands Artdatacenter                                                
-      HR.3551 Metsähallitus, Metsähallitus, Forststyrelsen                                                          
-      HR.3552 Syke, Syke, SYKE                                                                                      
-      HR.3778 NA                                                                                                    
-      HR.3811 Tampere Museum of Natural History, Tampereen luonnontieteellinen museo, Tampere naturhistoriska museet
-      HR.4171 Porvoo Museum, Porvoon museo, Borgå museum                                                            
-      HR.4911 Iisalmi Natural History Museum, Iisalmen luontomuso, Iisalmi naturhistoriska museet                   
-      HR.5896 NA                                                                                                    
-              count    gathering_count secured_count oldest_record newest_record
-      HR.1127        0 NA              NA            NA            NA           
-      HR.1207        0 NA              NA            NA            NA           
-      HR.121      6073 NA              NA            NA            NA           
-      HR.1247    27926 NA              NA            NA            NA           
-      HR.128  15389113 NA              NA            NA            NA           
-      HR.1627      181 NA              NA            NA            NA           
-      HR.1915    73852 NA              NA            NA            NA           
-      HR.1989  3809874 NA              NA            NA            NA           
-      HR.3551  2051571 NA              NA            NA            NA           
-      HR.3552  2458569 NA              NA            NA            NA           
-      HR.3778  7183555 NA              NA            NA            NA           
-      HR.3811        0 NA              NA            NA            NA           
-      HR.4171       35 NA              NA            NA            NA           
-      HR.4911        0 NA              NA            NA            NA           
-      HR.5896    16338 NA              NA            NA            NA           
-              first_load_date_min first_load_date_max individual_count_sum
-      HR.1127 NA                  NA                  NA                  
-      HR.1207 NA                  NA                  NA                  
-      HR.121  NA                  NA                  NA                  
-      HR.1247 NA                  NA                  NA                  
-      HR.128  NA                  NA                  NA                  
-      HR.1627 NA                  NA                  NA                  
-      HR.1915 NA                  NA                  NA                  
-      HR.1989 NA                  NA                  NA                  
-      HR.3551 NA                  NA                  NA                  
-      HR.3552 NA                  NA                  NA                  
-      HR.3778 NA                  NA                  NA                  
-      HR.3811 NA                  NA                  NA                  
-      HR.4171 NA                  NA                  NA                  
-      HR.4911 NA                  NA                  NA                  
-      HR.5896 NA                  NA                  NA                  
-              individual_count_max record_quality_max red_list_status_max
-      HR.1127 NA                   NA                 NA                 
-      HR.1207 NA                   NA                 NA                 
-      HR.121  NA                   NA                 NA                 
-      HR.1247 NA                   NA                 NA                 
-      HR.128  NA                   NA                 NA                 
-      HR.1627 NA                   NA                 NA                 
-      HR.1915 NA                   NA                 NA                 
-      HR.1989 NA                   NA                 NA                 
-      HR.3551 NA                   NA                 NA                 
-      HR.3552 NA                   NA                 NA                 
-      HR.3778 NA                   NA                 NA                 
-      HR.3811 NA                   NA                 NA                 
-      HR.4171 NA                   NA                 NA                 
-      HR.4911 NA                   NA                 NA                 
-      HR.5896 NA                   NA                 NA                 
-              species_count taxon_count line_length_sum pair_count_sum pair_count_max
-      HR.1127 NA            NA          NA              NA             NA            
-      HR.1207 NA            NA          NA              NA             NA            
-      HR.121  NA            NA          NA              NA             NA            
-      HR.1247 NA            NA          NA              NA             NA            
-      HR.128  NA            NA          NA              NA             NA            
-      HR.1627 NA            NA          NA              NA             NA            
-      HR.1915 NA            NA          NA              NA             NA            
-      HR.1989 NA            NA          NA              NA             NA            
-      HR.3551 NA            NA          NA              NA             NA            
-      HR.3552 NA            NA          NA              NA             NA            
-      HR.3778 NA            NA          NA              NA             NA            
-      HR.3811 NA            NA          NA              NA             NA            
-      HR.4171 NA            NA          NA              NA             NA            
-      HR.4911 NA            NA          NA              NA             NA            
-      HR.5896 NA            NA          NA              NA             NA            
-              atlas_code_max atlas_class_max data_description
-      HR.1127 NA             NA              Botanical and Z…
-      HR.1207 NA             NA              Collections of …
-      HR.121  NA             NA              Mineral, Lepido…
-      HR.1247 NA             NA              Natural History…
-      HR.128  NA             NA              The national na…
-      HR.1627 NA             NA              Collections of …
-      HR.1915 NA             NA              Data sources of…
-      HR.1989 NA             NA              FinBIF Collecti…
-      HR.3551 NA             NA              All data source…
-      HR.3552 NA             NA              All data source…
-      HR.3778 NA             NA              Other occurrenc…
-      HR.3811 NA             NA              Collections of …
-      HR.4171 NA             NA              Natural History…
-      HR.4911 NA             NA              Zoological and …
-      HR.5896 NA             NA              Data sources of…
+              publication_description publication_terms publisher_shortname
+      HR.1127 NA                      <NA>              Kuopio Natural His…
+      HR.1207 NA                      <NA>              University of Oulu 
+      HR.121  NA                      <NA>              Kieppi             
+      HR.1247 NA                      <NA>              University of Jyvä…
+      HR.128  NA                      MY.publicationTe… Luomus             
+      HR.1627 NA                      <NA>              University of Turku
+      HR.1915 NA                      <NA>              Luke               
+      HR.1989 NA                      <NA>              FinBIF             
+      HR.3551 NA                      <NA>              Metsähallitus      
+      HR.3552 NA                      <NA>              Syke               
+      HR.3778 NA                      <NA>              <NA>               
+      HR.3811 NA                      <NA>              Tampere Museum of …
+      HR.4171 NA                      <NA>              Porvoo Museum      
+      HR.4911 NA                      <NA>              Iisalmi Natural Hi…
+      HR.5896 NA                      <NA>              <NA>               
+              share_to_feo share_to_gbif taxonomic_coverage temporal_coverage
+      HR.1127 NA           NA            Biota              <NA>             
+      HR.1207 NA           NA            <NA>               <NA>             
+      HR.121  NA           NA            <NA>               1948 -           
+      HR.1247 NA           NA            <NA>               1850-            
+      HR.128  NA           NA            <NA>               <NA>             
+      HR.1627 NA           NA            <NA>               <NA>             
+      HR.1915 NA           NA            <NA>               <NA>             
+      HR.1989 NA           NA            Biota              <NA>             
+      HR.3551 NA           NA            <NA>               <NA>             
+      HR.3552 NA           NA            <NA>               <NA>             
+      HR.3778 NA           NA            <NA>               <NA>             
+      HR.3811 NA           NA            <NA>               <NA>             
+      HR.4171 NA           NA            plants, fungi and… 1800-            
+      HR.4911 NA           NA            Biota              <NA>             
+      HR.5896 NA           NA            <NA>               <NA>             
+              types_size date_created date_edited owner    publicity_restrictions
+      HR.1127 <NA>       2015-06-30T… 2024-10-14… MOS.173  NA                    
+      HR.1207 <NA>       2015-11-19T… 2024-10-14… MOS.1045 NA                    
+      HR.121  <NA>       2012-08-20T… 2021-11-24… MOS.1025 NA                    
+      HR.1247 <NA>       2015-12-02T… 2024-10-14… MOS.2820 NA                    
+      HR.128  <NA>       2012-10-10T… 2024-06-19… MOS.3620 NA                    
+      HR.1627 <NA>       2016-09-06T… 2024-10-14… MOS.2180 NA                    
+      HR.1915 <NA>       2017-01-13T… 2024-10-14… MOS.3680 NA                    
+      HR.1989 <NA>       2017-01-25T… 2024-10-14… MOS.1016 NA                    
+      HR.3551 <NA>       2020-05-28T… 2024-10-14… MOS.1057 NA                    
+      HR.3552 <NA>       2020-05-28T… 2024-10-14… MOS.307  NA                    
+      HR.3778 <NA>       2020-12-09T… 2024-10-14… MOS.1016 NA                    
+      HR.3811 <NA>       2020-12-18T… 2021-11-24… MOS.7046 NA                    
+      HR.4171 0          2021-07-01T… 2023-01-22… MOS.9282 NA                    
+      HR.4911 <NA>       2022-11-04T… 2022-12-09… MOS.9662 NA                    
+      HR.5896 <NA>       2024-01-31T… 2024-10-14… MOS.1016 NA                    
+              download_request_handler            count    gathering_count
+      HR.1127 MA.116                                     0 NA             
+      HR.1207 MA.172                                     0 NA             
+      HR.121  MA.186                                  6073 NA             
+      HR.1247 MA.161                                 27926 NA             
+      HR.128  MA.167, MA.3, MA.44, MA.75907, MA.9 15513082 NA             
+      HR.1627 NA                                       181 NA             
+      HR.1915 MA.2114, MA.44008, MA.53327            73983 NA             
+      HR.1989 MA.167, MA.3, MA.44, MA.75907, MA.9  3961097 NA             
+      HR.3551 MA.24746, MA.39268                   2087757 NA             
+      HR.3552 MA.167, MA.3, MA.44, MA.75907, MA.9  2484946 NA             
+      HR.3778 MA.167, MA.3, MA.44, MA.75907, MA.9  7202183 NA             
+      HR.3811 MA.702                                     0 NA             
+      HR.4171 MA.49989                                  47 NA             
+      HR.4911 MA.32607                                   0 NA             
+      HR.5896 MA.38028                               16338 NA             
+              secured_count oldest_record newest_record first_load_date_min
+      HR.1127 NA            NA            NA            NA                 
+      HR.1207 NA            NA            NA            NA                 
+      HR.121  NA            NA            NA            NA                 
+      HR.1247 NA            NA            NA            NA                 
+      HR.128  NA            NA            NA            NA                 
+      HR.1627 NA            NA            NA            NA                 
+      HR.1915 NA            NA            NA            NA                 
+      HR.1989 NA            NA            NA            NA                 
+      HR.3551 NA            NA            NA            NA                 
+      HR.3552 NA            NA            NA            NA                 
+      HR.3778 NA            NA            NA            NA                 
+      HR.3811 NA            NA            NA            NA                 
+      HR.4171 NA            NA            NA            NA                 
+      HR.4911 NA            NA            NA            NA                 
+      HR.5896 NA            NA            NA            NA                 
+              first_load_date_max individual_count_sum individual_count_max
+      HR.1127 NA                  NA                   NA                  
+      HR.1207 NA                  NA                   NA                  
+      HR.121  NA                  NA                   NA                  
+      HR.1247 NA                  NA                   NA                  
+      HR.128  NA                  NA                   NA                  
+      HR.1627 NA                  NA                   NA                  
+      HR.1915 NA                  NA                   NA                  
+      HR.1989 NA                  NA                   NA                  
+      HR.3551 NA                  NA                   NA                  
+      HR.3552 NA                  NA                   NA                  
+      HR.3778 NA                  NA                   NA                  
+      HR.3811 NA                  NA                   NA                  
+      HR.4171 NA                  NA                   NA                  
+      HR.4911 NA                  NA                   NA                  
+      HR.5896 NA                  NA                   NA                  
+              record_quality_max red_list_status_max species_count taxon_count
+      HR.1127 NA                 NA                  NA            NA         
+      HR.1207 NA                 NA                  NA            NA         
+      HR.121  NA                 NA                  NA            NA         
+      HR.1247 NA                 NA                  NA            NA         
+      HR.128  NA                 NA                  NA            NA         
+      HR.1627 NA                 NA                  NA            NA         
+      HR.1915 NA                 NA                  NA            NA         
+      HR.1989 NA                 NA                  NA            NA         
+      HR.3551 NA                 NA                  NA            NA         
+      HR.3552 NA                 NA                  NA            NA         
+      HR.3778 NA                 NA                  NA            NA         
+      HR.3811 NA                 NA                  NA            NA         
+      HR.4171 NA                 NA                  NA            NA         
+      HR.4911 NA                 NA                  NA            NA         
+      HR.5896 NA                 NA                  NA            NA         
+              line_length_sum pair_count_sum pair_count_max atlas_code_max
+      HR.1127 NA              NA             NA             NA            
+      HR.1207 NA              NA             NA             NA            
+      HR.121  NA              NA             NA             NA            
+      HR.1247 NA              NA             NA             NA            
+      HR.128  NA              NA             NA             NA            
+      HR.1627 NA              NA             NA             NA            
+      HR.1915 NA              NA             NA             NA            
+      HR.1989 NA              NA             NA             NA            
+      HR.3551 NA              NA             NA             NA            
+      HR.3552 NA              NA             NA             NA            
+      HR.3778 NA              NA             NA             NA            
+      HR.3811 NA              NA             NA             NA            
+      HR.4171 NA              NA             NA             NA            
+      HR.4911 NA              NA             NA             NA            
+      HR.5896 NA              NA             NA             NA            
+              atlas_class_max data_description
+      HR.1127 NA              Botanical and Z…
+      HR.1207 NA              Collections of …
+      HR.121  NA              Mineral, Lepido…
+      HR.1247 NA              Natural History…
+      HR.128  NA              The national na…
+      HR.1627 NA              Collections of …
+      HR.1915 NA              Data sources of…
+      HR.1989 NA              FinBIF Collecti…
+      HR.3551 NA              All data source…
+      HR.3552 NA              All data source…
+      HR.3778 NA              Other occurrenc…
+      HR.3811 NA              Collections of …
+      HR.4171 NA              Natural History…
+      HR.4911 NA              Zoological and …
+      HR.5896 NA              Data sources of…
 

@@ -45,7 +45,8 @@ test_that("fetching occurrences works", {
               "common_name",
               "restriction_reason",
               "atlas_code",
-              "atlas_class"
+              "atlas_class",
+              "country"
             ),
             filter = list(
               c(date_range_ymd = 2023),
@@ -53,8 +54,8 @@ test_that("fetching occurrences works", {
                 date_range_ymd = 2024,
                 informal_groups_reported = "Birds",
                 primary_secondary_habitat = "M",
-                record_reliability = "reliable",
-                complete_list_type = "incomplete"
+                record_reliability = "unassessed",
+                complete_list_type = "all_species"
               )
             ),
             facts = c(pairs = "MY.pairCount"),
@@ -79,7 +80,7 @@ test_that("fetching occurrences works", {
           set1 = c(collection = "HR.778"),
           set2 = c(collection = "HR.778")
         ),
-        select = "municipality",
+        select = c("municipality", "local_area"),
         filter_col = "set",
         quiet = TRUE
       )

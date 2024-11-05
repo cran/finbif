@@ -15,9 +15,10 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:17 GMT
+      date: Tue, 05 Nov 2024 08:35:39 GMT
       content-type: application/json; charset=utf-8
       transfer-encoding: chunked
+      x-powered-by: Express
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       x-frame-options: SAMEORIGIN
@@ -119,7 +120,7 @@ http_interactions:
         Trait Database","fi":"FinBIF Trait Database","sv":"FinBIF Trait Database"},"description":{"en":"Backend
         API for Trait DB. Part of laji-backend.","fi":"Backend API for Trait DB. Part
         of laji-backend.","sv":"Backend API for Trait DB. Part of laji-backend."}}],"lastPage":1,"@context":"http://schema.laji.fi/context/informationSystem.jsonld"}'
-  recorded_at: 2024-08-19 08:49:18 GMT
+  recorded_at: 2024-11-05 08:35:40 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
@@ -137,14 +138,15 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:17 GMT
+      date: Tue, 05 Nov 2024 08:35:39 GMT
       content-type: application/json; charset=utf-8
       transfer-encoding: chunked
+      x-powered-by: Express
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       x-frame-options: SAMEORIGIN
       x-download-options: noopen
-      etag: W/"1025a-n9n6bRIBbh3Tgc+jHFpVbUKQ6M0"
+      etag: W/"10255-eInyLHYhrpoJWbVhdocJmM10dDU"
       vary: Accept-Encoding
       content-encoding: gzip
       cache-control: public
@@ -244,14 +246,14 @@ http_interactions:
         requiring strict protection within the European Union (NVF 2023/1066, Appendix
         7)","sv":"Arter som kräver strikt skydd inom Europeiska unionen (NVF 2023/1066,
         bilaga 7)","fi":"Suomessa esiintyvät Euroopan unionin tiukkaa suojelua edellyttävät
-        eliölajit  (LSA 2023/1066, liite 7)"},"administrativeStatusDescription":{"en":"Appendix
-        7 of the Nature Conservation Decree contains a list of species in Finland
-        that require strict protection by the European Union.","sv":"I bilaga 7 till
-        naturvårdsförordningen finns en förteckning över arter i Finland som kräver
-        strikt skydd av Europeiska unionen.","fi":"Luonnonsuojeluasetuksen liite 7
-        sisältää luettelon Suomessa esiintyvistä Euroopan unionin tiukkaa suojelua
-        edellyttävistä lajeista."},"administrativeStatusLink":{"fi":"https://www.finlex.fi/fi/laki/ajantasa/2023/20231066","sv":"https://www.finlex.fi/sv/laki/ajantasa/2023/20231066","en":""}},{"id":"MX.habitatsDirectiveAnnexII","value":{"en":"EU
-        Habitats Directive Annex II","sv":"EU:s habitatdirektiv, bilaga II","fi":"EU:n
+        eliölajit  (LSA 2023/1066, liite 7)"},"administrativeStatusDescription":{"fi":"Luonnonsuojeluasetuksen
+        liite 7 sisältää luettelon Suomessa esiintyvistä Euroopan unionin tiukkaa
+        suojelua edellyttävistä lajeista.","en":"Appendix 7 of the Nature Conservation
+        Decree contains a list of species in Finland that require strict protection
+        by the European Union.","sv":"I bilaga 7 till naturvårdsförordningen finns
+        en förteckning över arter i Finland som kräver strikt skydd av Europeiska
+        unionen."},"administrativeStatusLink":{"fi":"https://www.finlex.fi/fi/laki/ajantasa/2023/20231066","sv":"https://www.finlex.fi/sv/laki/ajantasa/2023/20231066","en":""}},{"id":"MX.habitatsDirectiveAnnexII","value":{"sv":"EU:s
+        habitatdirektiv, bilaga II","en":"EU Habitats Directive Annex II","fi":"EU:n
         luontodirektiivin II-liite"},"administrativeStatusDescription":{"sv":"De djur-
         och växtarter europeiska gemenskapen anser vara viktiga och för vilkas skyddområden
         för specifika skyddsåtgärder bör anvisas (nätverket Natura 2000)","fi":"Liitteen
@@ -260,70 +262,69 @@ http_interactions:
         suojelutaso on pyrittävä säilyttämään tai palauttamaan. Suojelukeinona on
         alueellinen suojelu (Natura 2000 -alueet). Niille lajeille, joille Suomella
         on liitteessä varauma tai jotka esiintyvät satunnaisesti, Suomen ei ole tarvinnut
-        alueita perustaa.","en":""},"administrativeStatusLink":{"fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","en":""}},{"id":"MX.habitatsDirectiveAnnexIV","value":{"sv":"EU:s
-        habitatdirektiv, bilaga IV","en":"EU Habitats Directive Annex IV","fi":"EU:n
-        luontodirektiivin IV-liite"},"administrativeStatusDescription":{"sv":"De djur-
-        och växtarter gemenskapen anser vara viktiga och vilka kräver strängt skydd.
-        Det är med andra ord förbjudet att avsiktligt döda, fånga, störa (särskilt
+        alueita perustaa.","en":""},"administrativeStatusLink":{"fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","en":""}},{"id":"MX.habitatsDirectiveAnnexIV","value":{"fi":"EU:n
+        luontodirektiivin IV-liite","sv":"EU:s habitatdirektiv, bilaga IV","en":"EU
+        Habitats Directive Annex IV"},"administrativeStatusDescription":{"sv":"De
+        djur- och växtarter gemenskapen anser vara viktiga och vilka kräver strängt
+        skydd. Det är med andra ord förbjudet att avsiktligt döda, fånga, störa (särskilt
         under fortplantningstiden) samt nyttja dem i kommersiellt syfte.","fi":"Liitteen
         IV Suomessa esiintyvät lajit ja alalajit (jotka mukana Suomen artikla 17 mukaisessa
         raportissa EU:lle vuonna 2019). EU:n tärkeänä pitämä laji, jonka suotuisa
         suojelutaso on pyrittävä säilyttämään tai palauttamaan. Suojelukeinona on
-        lajin tiukka suojelu.","en":""},"administrativeStatusLink":{"fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","en":""}},{"id":"MX.habitatsDirectiveAnnexV","value":{"fi":"EU:n
-        luontodirektiivin V-liite","en":"EU Habitats Directive Annex V","sv":"EU:s
-        habitatdirektiv, bilaga V"},"administrativeStatusDescription":{"sv":"De djur-
-        och växtarter gemenskapen anser vara viktiga och där det kan krävas reglering
-        av rätten att ta dem från naturen och att utnyttja dem.","fi":"EU:n luontodirektiivin
-        liitteessä V luetellut, Suomessa esiintyvät lajit ja lajiryhmät (jotka mukana
-        Suomen artikla 17 mukaisessa raportissa EU:lle vuonna 2019). Euroopan unionin
-        tärkeänä pitämä laji, jonka suotuisa suojelutaso on pyrittävä säilyttämään
-        tai palauttamaan. Suojelukeinona on lajin hyödyntämisen sääntely. Lajien ottaminen
-        luonnosta ja hyväksikäyttö voi vaatia hyödyntämisen sääntelyä.","en":""},"administrativeStatusLink":{"sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","en":""}},{"id":"MX.primaryInterestInEU","value":{"sv":"EU:s
-        prioriterade arter (habitatdirektiv, bilaga II)","en":"Priority species (EU
-        Habitats Directive, Appendix II)","fi":"EU:n ensisijaisesti suojeltavat lajit
-        (luontodirektiivin II-liite)"},"administrativeStatusDescription":{"fi":"Ne
-        luontodirektiivin II-liitteen lajit, jotka on määritelty ensisijaisesti suojeltaviksi
-        (priority species).","sv":"Arterna som har förklarats som prioriterade arter
-        (priority species) i bilaga II.","en":""},"administrativeStatusLink":{"sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","en":""}},{"id":"MX.habitatsDirectiveAnnexIIExceptionGranted","value":{"sv":"EU:s
+        lajin tiukka suojelu.","en":""},"administrativeStatusLink":{"fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","en":""}},{"id":"MX.habitatsDirectiveAnnexV","value":{"en":"EU
+        Habitats Directive Annex V","sv":"EU:s habitatdirektiv, bilaga V","fi":"EU:n
+        luontodirektiivin V-liite"},"administrativeStatusDescription":{"fi":"EU:n
+        luontodirektiivin liitteessä V luetellut, Suomessa esiintyvät lajit ja lajiryhmät
+        (jotka mukana Suomen artikla 17 mukaisessa raportissa EU:lle vuonna 2019).
+        Euroopan unionin tärkeänä pitämä laji, jonka suotuisa suojelutaso on pyrittävä
+        säilyttämään tai palauttamaan. Suojelukeinona on lajin hyödyntämisen sääntely.
+        Lajien ottaminen luonnosta ja hyväksikäyttö voi vaatia hyödyntämisen sääntelyä.","sv":"De
+        djur- och växtarter gemenskapen anser vara viktiga och där det kan krävas
+        reglering av rätten att ta dem från naturen och att utnyttja dem.","en":""},"administrativeStatusLink":{"fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","en":""}},{"id":"MX.primaryInterestInEU","value":{"en":"Priority
+        species (EU Habitats Directive, Appendix II)","fi":"EU:n ensisijaisesti suojeltavat
+        lajit (luontodirektiivin II-liite)","sv":"EU:s prioriterade arter (habitatdirektiv,
+        bilaga II)"},"administrativeStatusDescription":{"fi":"Ne luontodirektiivin
+        II-liitteen lajit, jotka on määritelty ensisijaisesti suojeltaviksi (priority
+        species).","sv":"Arterna som har förklarats som prioriterade arter (priority
+        species) i bilaga II.","en":""},"administrativeStatusLink":{"sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","en":""}},{"id":"MX.habitatsDirectiveAnnexIIExceptionGranted","value":{"en":"EU
+        Habitats Directive Annex II, exception granted for Finnish populations","sv":"EU:s
         habitatdirektiv bilaga II, undantag beviljades för finska populationerna","fi":"EU:n
-        luontodirektiivin II-liite, Suomi saanut varauman koskien tätä lajia","en":"EU
-        Habitats Directive Annex II, exception granted for Finnish populations"},"administrativeStatusDescription":{"fi":"Suomi
-        on saanut II-liitteen lajeista kymmenelle varauman jäsenneuvottelujen yhteydessä
-        (kaloja ja riistanisäkkäitä) eli niiden suojelemiseksi ei tarvitse perustaa
-        Natura 2000 -alueita.","sv":"Finland har fått ett förbehåll för tio av dessa
-        arter i samband med medlemsförhandlingarna (fiskar och viltdäggdjur). Det
-        innebär att vi inte behöver inrätta Natura 2000-områden för skyddet av dem.","en":""},"administrativeStatusLink":{"fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","en":""}},{"id":"MX.habitatsDirectiveAnnexII_FinlandNaturaSpecies","value":{"fi":"EU:n
-        luontodirektiivin liite II, Suomen Natura-lajit","en":"EU Habitats Directive
-        Annex II, Finland''s Natura species","sv":"EU:s habitatdirektiv bilaga II,
-        Finlands Natura-arter"},"administrativeStatusDescription":{"en":"Annex II
-        species and subspecies occurring in Finland as criteria for the protection
-        of Natura 2000 sites in Finland. The species has been considered in the bilateral
-        negotiations between the EU and Finland to be such a permanent position that
-        Finland must establish special protection areas for the protection of the
-        habitats of these species (Natura 2000 network of sites).","fi":"Liitteen
-        II Suomessa esiintyvät lajit ja alalajit, jotka ovat Suomessa Natura 2000
-        -alueiden suojeluperusteina. Lajien on katsottu EU:n ja Suomen kahdenvälisissä
-        neuvotteluissa esiintyvän siinä määrin pysyvänä kantana, että Suomen on perustettava
-        näiden lajien elinympäristöjen suojeluun erityisten suojelutoimien alueita
-        (Natura 2000 -alueverkosto). Suomen liitteessä II oleville varaumalajeille
-        alueita ei tarvitse perustaa. Natura-lajit on lueteltu boreaalisen-, alpiinisen-
-        ja Itämeren alueen referenssiluetteloissa jäsenmaittain.","sv":"Arter och
-        underarter i bilaga II som förekommer i Finland som kriterier för skydd av
-        Natura 2000-områden i Finland. Arten har i de bilaterala förhandlingarna mellan
-        EU och Finland ansetts vara en sådan permanent ställning att Finland måste
-        inrätta särskilda skyddsområden för att skydda dessa arters livsmiljöer (Natura
-        2000 nätverk av platser). Natura-arter listas i referenslistorna för de boreala,
-        alpina och Östersjöregionerna per medlemsstat."},"administrativeStatusLink":{"fi":"https://www.eionet.europa.eu/etcs/etc-bd/activities/building-the-natura-2000-network","en":"https://www.eionet.europa.eu/etcs/etc-bd/activities/building-the-natura-2000-network","sv":"https://www.eionet.europa.eu/etcs/etc-bd/activities/building-the-natura-2000-network"}},{"id":"MX.habitatsDirectiveAnnexIVExceptionGranted","value":{"sv":"EU:s
+        luontodirektiivin II-liite, Suomi saanut varauman koskien tätä lajia"},"administrativeStatusDescription":{"sv":"Finland
+        har fått ett förbehåll för tio av dessa arter i samband med medlemsförhandlingarna
+        (fiskar och viltdäggdjur). Det innebär att vi inte behöver inrätta Natura
+        2000-områden för skyddet av dem.","fi":"Suomi on saanut II-liitteen lajeista
+        kymmenelle varauman jäsenneuvottelujen yhteydessä (kaloja ja riistanisäkkäitä)
+        eli niiden suojelemiseksi ei tarvitse perustaa Natura 2000 -alueita.","en":""},"administrativeStatusLink":{"sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","en":""}},{"id":"MX.habitatsDirectiveAnnexII_FinlandNaturaSpecies","value":{"en":"EU
+        Habitats Directive Annex II, Finland''s Natura species","fi":"EU:n luontodirektiivin
+        liite II, Suomen Natura-lajit","sv":"EU:s habitatdirektiv bilaga II, Finlands
+        Natura-arter"},"administrativeStatusDescription":{"en":"Annex II species and
+        subspecies occurring in Finland as criteria for the protection of Natura 2000
+        sites in Finland. The species has been considered in the bilateral negotiations
+        between the EU and Finland to be such a permanent position that Finland must
+        establish special protection areas for the protection of the habitats of these
+        species (Natura 2000 network of sites).","fi":"Liitteen II Suomessa esiintyvät
+        lajit ja alalajit, jotka ovat Suomessa Natura 2000 -alueiden suojeluperusteina.
+        Lajien on katsottu EU:n ja Suomen kahdenvälisissä neuvotteluissa esiintyvän
+        siinä määrin pysyvänä kantana, että Suomen on perustettava näiden lajien elinympäristöjen
+        suojeluun erityisten suojelutoimien alueita (Natura 2000 -alueverkosto). Suomen
+        liitteessä II oleville varaumalajeille alueita ei tarvitse perustaa. Natura-lajit
+        on lueteltu boreaalisen-, alpiinisen- ja Itämeren alueen referenssiluetteloissa
+        jäsenmaittain.","sv":"Arter och underarter i bilaga II som förekommer i Finland
+        som kriterier för skydd av Natura 2000-områden i Finland. Arten har i de bilaterala
+        förhandlingarna mellan EU och Finland ansetts vara en sådan permanent ställning
+        att Finland måste inrätta särskilda skyddsområden för att skydda dessa arters
+        livsmiljöer (Natura 2000 nätverk av platser). Natura-arter listas i referenslistorna
+        för de boreala, alpina och Östersjöregionerna per medlemsstat."},"administrativeStatusLink":{"fi":"https://www.eionet.europa.eu/etcs/etc-bd/activities/building-the-natura-2000-network","en":"https://www.eionet.europa.eu/etcs/etc-bd/activities/building-the-natura-2000-network","sv":"https://www.eionet.europa.eu/etcs/etc-bd/activities/building-the-natura-2000-network"}},{"id":"MX.habitatsDirectiveAnnexIVExceptionGranted","value":{"fi":"EU:n
+        luontodirektiivin IV-liite, Suomi saanut varauman koskien tätä lajia","sv":"EU:s
         habitatdirektiv bilaga IV, undantag beviljades för finska populationerna","en":"EU
-        Habitats Directive Annex IV, exception granted for Finnish populations","fi":"EU:n
-        luontodirektiivin IV-liite, Suomi saanut varauman koskien tätä lajia"},"administrativeStatusDescription":{"fi":"Suomi
+        Habitats Directive Annex IV, exception granted for Finnish populations"},"administrativeStatusDescription":{"fi":"Suomi
         on saanut varauman euroopanmajavalle sekä sudelle poronhoitoalueella.","sv":"Finland
         har fått ett förbehåll för den europeiska bävern och för vargen i renskötselområden.","en":""},"administrativeStatusLink":{"fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","en":""}},{"id":"MX.habitatsDirectiveAnnexVExceptionGranted","value":{"fi":"EU:n
         luontodirektiivin V-liite, Suomi saanut varauman koskien tätä lajia","en":"EU
         Habitats Directive Annex V, exception granted for Finnish populations","sv":"EU:s
-        habitatdirektiv bilaga V, undantag beviljades för finska populationerna"},"administrativeStatusDescription":{"fi":"Suomella
-        on sudelle varauma poronhoitoalueen eteläpuolelle.","sv":"Finland har ett
-        förbehåll för vargen söder om renskötselområdet.","en":""},"administrativeStatusLink":{"sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","en":""}},{"id":"MX.birdsDirectiveStatusAppendix1","value":{"fi":"EU:n
+        habitatdirektiv bilaga V, undantag beviljades för finska populationerna"},"administrativeStatusDescription":{"sv":"Finland
+        har ett förbehåll för vargen söder om renskötselområdet.","fi":"Suomella on
+        sudelle varauma poronhoitoalueen eteläpuolelle.","en":""},"administrativeStatusLink":{"sv":"https://www.ymparisto.fi/sv-FI/Natur/Arter/Arter_i_habitat_och_fageldirektiven","fi":"http://www.ymparisto.fi/fi-FI/Luonto/Lajit/Luonto_ja_lintudirektiivien_lajit","en":""}},{"id":"MX.birdsDirectiveStatusAppendix1","value":{"fi":"EU:n
         lintudirektiivin I-liite","sv":"EU:s direktiv om bevarande av vilda fåglar,
         bilaga I","en":"EU Directive on Conservation of Wild Birds Annex I"},"administrativeStatusDescription":{"sv":"Arter
         av gemenskapsintresse för vilkas skydd man måste anvisa särskilda skyddsområden
@@ -487,8 +488,8 @@ http_interactions:
         2019/683)","en":"Game mammal (Hunting law 1993/615; 2019/683)"},"administrativeStatusDescription":{"sv":"Viltdäggdjur
         som listas i jaktlagen (5§).","fi":"Metsästyslaissa luetellut riistanisäkkäät
         (5§).","en":""},"administrativeStatusLink":{"fi":"http://www.finlex.fi/fi/laki/ajantasa/1993/19930615","sv":"http://www.finlex.fi/sv/laki/ajantasa/1993/19930615","en":""}},{"id":"MX.unprotectedSpecies","value":{"sv":"Icke
-        fredade djur (Jaktlag 1993/615)","fi":"Rauhoittamaton eläin (Metsästyslaki
-        1993/615)","en":"Unprotected animal (Hunting law 1993/615)"},"administrativeStatusDescription":{"fi":"Metsästyslaissa
+        fredade djur (Jaktlag 1993/615)","en":"Unprotected animal (Hunting law 1993/615)","fi":"Rauhoittamaton
+        eläin (Metsästyslaki 1993/615)"},"administrativeStatusDescription":{"fi":"Metsästyslaissa
         luetellut rauhoittamattomat eläimet.","sv":"Icke fredade djur som listas i
         jaktlag.","en":""},"administrativeStatusLink":{"sv":"http://www.finlex.fi/sv/laki/ajantasa/1993/19930615","fi":"http://www.finlex.fi/fi/laki/ajantasa/1993/19930615","en":""}},{"id":"MX.nationallySignificantInvasiveSpecies","value":{"en":"Government
         Decree on Invasive Alien Species of National Concern (1725/2015)","sv":"Statsrådets
@@ -498,16 +499,16 @@ http_interactions:
         unionin luetteloon kuuluvaa haitallista vieraslajia, josta saatavilla olevan
         tieteellisen näytön perusteella voi aiheutua vahinkoa luonnon monimuotoisuudelle
         tai muuta vahinkoa luonnonvaraiselle eliöstölle taikka vaaraa terveydelle
-        tai turvallisuudelle.","en":"","sv":""},"administrativeStatusLink":{"fi":"http://vieraslajit.fi/fi/content/vieraslajiasetus","en":"","sv":""}},{"id":"MX.euInvasiveSpeciesList","value":{"sv":"Invasiv
-        främmande art för EU (EU 2016/1141; 2017/1263; 2019/1262; 2022/1203)","en":"Invasive
+        tai turvallisuudelle.","en":"","sv":""},"administrativeStatusLink":{"fi":"http://vieraslajit.fi/fi/content/vieraslajiasetus","en":"","sv":""}},{"id":"MX.euInvasiveSpeciesList","value":{"en":"Invasive
         alien species of Union concern (EU 2016/1141; 2017/1263; 2019/1262; 2022/1203)","fi":"EU:ssa
         haitalliseksi säädetty vieraslaji (EU:n vieraslajiluettelo) (EU 2016/1141;
+        2017/1263; 2019/1262; 2022/1203)","sv":"Invasiv främmande art för EU (EU 2016/1141;
         2017/1263; 2019/1262; 2022/1203)"},"administrativeStatusDescription":{"fi":"Nämä
         lajit on säädetty haitalliseksi vieraslajiksi koko EU:n tasolla, minkä johdosta
         lajien maahantuonti, kasvatus, myynti ja muu hallussapito sekä ympäristöön
         päästäminen on kielletty. Omistajat saavat pitää EU:n luetteloon kuuluvat
         lemmikkieläimet niiden luonnolliseen kuolemaan saakka. Ehtona on, että eläintä
-        on pidetty lemmikkinä jo ennen lajin ottamista luetteloon.","en":"","sv":""},"administrativeStatusLink":{"en":"http://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R1141&from=EN","fi":"http://vieraslajit.fi/fi/content/euroopan-unionin-kannalta-merkityksellisten-haitallisten-vieraslajien-luettelo","sv":"http://eur-lex.europa.eu/legal-content/SV/TXT/HTML/?uri=CELEX:32016R1141&from=EN"}},{"id":"MX.quarantinePlantPest","value":{"fi":"Karanteenituhooja","sv":"Karantänskadegörare","en":"Quarantine
+        on pidetty lemmikkinä jo ennen lajin ottamista luetteloon.","en":"","sv":""},"administrativeStatusLink":{"en":"http://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R1141&from=EN","fi":"http://vieraslajit.fi/fi/content/euroopan-unionin-kannalta-merkityksellisten-haitallisten-vieraslajien-luettelo","sv":"http://eur-lex.europa.eu/legal-content/SV/TXT/HTML/?uri=CELEX:32016R1141&from=EN"}},{"id":"MX.quarantinePlantPest","value":{"sv":"Karantänskadegörare","fi":"Karanteenituhooja","en":"Quarantine
         plant pest"},"administrativeStatusDescription":{"fi":"Karanteenituhoojat ovat
         kasvitauteja ja tuholaisia, joita ei saa esiintyä kasvintuotannossa, myytävissä
         tai maahantuotavissa kasveissa, metsissä, kotipuutarhoissa eikä viheralueilla.
@@ -517,15 +518,15 @@ http_interactions:
         skulle vålla avsevärda skador på växtproduktionen eller miljön, om de skulle
         sprida sig hit. Ifall karantänskadegörare påträffas i växtproduktionen, naturen
         eller på växter till salu, fattar myndigheterna beslut om utrotningsåtgärder
-        för dessa.","en":""},"administrativeStatusLink":{"sv":"https://www.ruokavirasto.fi/sv/odlare/vaxtproduktion/vaxthalsa/vaxtskadegorare/karantanskadegorare/","fi":"https://www.ruokavirasto.fi/viljelijat/kasvintuotanto/kasvinterveys/kasvintuhoojat/karanteenituhoojat/","en":""}},{"id":"MX.qualityPlantPest","value":{"sv":"Kvalitetsskadegörare","en":"Quality
-        plant pest","fi":"Laatutuhooja"},"administrativeStatusDescription":{"fi":"Laatutuhoojat
-        ovat kasvitauteja ja tuholaisia, joita ei saa olla myytävissä kasveissa (taimiaineisto,
-        ruukkukasvit, kesäkukat). Vaatimuksen tarkoituksena on estää näiden tuhoojien
-        leviämistä. Viljelmillä valvotaan laatututuhoojien esiintymistä omavalvontana.","sv":"Kvalitetsskadegörarna
+        för dessa.","en":""},"administrativeStatusLink":{"sv":"https://www.ruokavirasto.fi/kasvit/kasvitaudit-ja-tuholaiset/kasvintuhoojahaku/karanteenituhoojat/","fi":"https://www.ruokavirasto.fi/kasvit/kasvitaudit-ja-tuholaiset/kasvintuhoojahaku/karanteenituhoojat/","en":""}},{"id":"MX.qualityPlantPest","value":{"sv":"Kvalitetsskadegörare","en":"Quality
+        plant pest","fi":"Laatutuhooja"},"administrativeStatusDescription":{"sv":"Kvalitetsskadegörarna
         (i lagstiftningen EU-icke-karantänskadegörare) är växtsjukdomar och skadedjur,
         som inte får förekomma på växter till salu (plantmaterial, krukväxter, utplanteringsväxter).
         Syftet med kravet är att förhindra spridningen av dessa skadegörare. Förekomsten
-        av kvalitetsskadegörare övervakas i odlingar som egenkontroll.","en":""},"administrativeStatusLink":{"fi":"https://www.ruokavirasto.fi/viljelijat/kasvintuotanto/kasvinterveys/kasvintuhoojat/laatutuhoojat/","sv":"https://www.ruokavirasto.fi/sv/odlare/vaxtproduktion/vaxthalsa/vaxtskadegorare/kvalitetsskadegorare/","en":""}},{"id":"MX.otherPlantPest","value":{"en":"Other
+        av kvalitetsskadegörare övervakas i odlingar som egenkontroll.","fi":"Laatutuhoojat
+        ovat kasvitauteja ja tuholaisia, joita ei saa olla myytävissä kasveissa (taimiaineisto,
+        ruukkukasvit, kesäkukat). Vaatimuksen tarkoituksena on estää näiden tuhoojien
+        leviämistä. Viljelmillä valvotaan laatututuhoojien esiintymistä omavalvontana.","en":""},"administrativeStatusLink":{"fi":"https://www.ruokavirasto.fi/viljelijat/kasvintuotanto/kasvinterveys/kasvintuhoojat/laatutuhoojat/","sv":"https://www.ruokavirasto.fi/sv/odlare/vaxtproduktion/vaxthalsa/vaxtskadegorare/kvalitetsskadegorare/","en":""}},{"id":"MX.otherPlantPest","value":{"en":"Other
         plant pest","sv":"Andra växtskadegörare","fi":"Muu kasvintuhooja"}},{"id":"MX.nationalInvasiveSpeciesStrategy","value":{"en":"Finland’s
         National Strategy on Invasive Alien Species (GR 2012)","fi":"Kansallinen vieraslajistrategia
         (VN 2012)","sv":"Nationell strategi för främmande arter (SP 2012)"},"administrativeStatusDescription":{"fi":"Kansallinen
@@ -608,10 +609,10 @@ http_interactions:
         for species of bryophytes, vascular plants, fungi, lichens, butterflies and
         moths and birds classified as Least Concern (LC) and Near Threatened (NT).
         Species assessed as being regionally threatened are classified as RT (Regionally
-        Threatened)."},"administrativeStatusLink":{"en":"https://punainenkirja.laji.fi/en/about/r-213","sv":"https://punainenkirja.laji.fi/sv/about/r-215","fi":"https://punainenkirja.laji.fi/about/r-205"}},{"id":"MX.regionallyThreatened2020_1b","value":{"en":"Regionally
-        Threatened 2020 - 1b Hemiboreal, Oak zone","fi":"Alueellisesti uhanalainen
-        2020 - 1b Hemiboreaalinen, Lounainen rannikkomaa","sv":"Regionalt hotade 2020
-        - 1b Hemiboreal, Sydvästra fastlandskusten"},"administrativeStatusDescription":{"sv":"Regionala
+        Threatened)."},"administrativeStatusLink":{"en":"https://punainenkirja.laji.fi/en/about/r-213","sv":"https://punainenkirja.laji.fi/sv/about/r-215","fi":"https://punainenkirja.laji.fi/about/r-205"}},{"id":"MX.regionallyThreatened2020_1b","value":{"fi":"Alueellisesti
+        uhanalainen 2020 - 1b Hemiboreaalinen, Lounainen rannikkomaa","sv":"Regionalt
+        hotade 2020 - 1b Hemiboreal, Sydvästra fastlandskusten","en":"Regionally Threatened
+        2020 - 1b Hemiboreal, Oak zone"},"administrativeStatusDescription":{"sv":"Regionala
         hotbedömningen 2020 har utförts i en riksomfattande bedömning för moss-, kärlväxt-,
         svamp-, lav-, fjärils- och fågelarter som klassificerats som Livskraftiga
         (LC) och Nära hotade (NT). Arter som bedöms vara regionalt hotade har antecknats
@@ -623,7 +624,7 @@ http_interactions:
         carried out in a national assessment for species of bryophytes, vascular plants,
         fungi, lichens, butterflies and moths and birds classified as Least Concern
         (LC) and Near Threatened (NT). Species assessed as being regionally threatened
-        are classified as RT (Regionally Threatened)."},"administrativeStatusLink":{"fi":"https://punainenkirja.laji.fi/about/r-205","sv":"https://punainenkirja.laji.fi/sv/about/r-215","en":"https://punainenkirja.laji.fi/en/about/r-213"}},{"id":"MX.regionallyThreatened2020_2a","value":{"en":"Regionally
+        are classified as RT (Regionally Threatened)."},"administrativeStatusLink":{"fi":"https://punainenkirja.laji.fi/about/r-205","en":"https://punainenkirja.laji.fi/en/about/r-213","sv":"https://punainenkirja.laji.fi/sv/about/r-215"}},{"id":"MX.regionallyThreatened2020_2a","value":{"en":"Regionally
         Threatened 2020 - 2a Southern boreal, Southwestern Finland and Southern Ostrobothnia","fi":"Alueellisesti
         uhanalainen 2020 - 2a Eteläboreaalinen, Lounaismaa ja Pohjanmaan rannikko","sv":"Regionalt
         hotade 2020 - 2a Sydboreal, Sydvästlandet och Kust-Österbotten"},"administrativeStatusDescription":{"sv":"Regionala
@@ -728,10 +729,10 @@ http_interactions:
         uhanalaisuusarviointi 2020 on tehty valtakunnallisessa arvioinnissa elinvoimaisiksi
         (LC) ja silmälläpidettäviksi (NT) luokitelluille sammal-, putkilokasvi-, sieni-,
         jäkälä-, perhos- ja lintulajeille. Alueellisesti uhanalaiseksi arvioidut lajit
-        on merkitty luokkaan RT (Regionally Threatened)."},"administrativeStatusLink":{"fi":"https://punainenkirja.laji.fi/about/r-205","sv":"https://punainenkirja.laji.fi/sv/about/r-215","en":"https://punainenkirja.laji.fi/en/about/r-213"}},{"id":"MX.regionallyThreatened2020_4c","value":{"en":"Regionally
-        Threatened 2020 - 4c Northern boreal, Forest Lapland","sv":"Regionalt hotade
-        2020 - 4c Norra boreal, Skogs-Lappland","fi":"Alueellisesti uhanalainen 2020
-        - 4c Pohjoisboreaalinen, Metsä-Lappi"},"administrativeStatusDescription":{"en":"Regional
+        on merkitty luokkaan RT (Regionally Threatened)."},"administrativeStatusLink":{"fi":"https://punainenkirja.laji.fi/about/r-205","sv":"https://punainenkirja.laji.fi/sv/about/r-215","en":"https://punainenkirja.laji.fi/en/about/r-213"}},{"id":"MX.regionallyThreatened2020_4c","value":{"sv":"Regionalt
+        hotade 2020 - 4c Norra boreal, Skogs-Lappland","en":"Regionally Threatened
+        2020 - 4c Northern boreal, Forest Lapland","fi":"Alueellisesti uhanalainen
+        2020 - 4c Pohjoisboreaalinen, Metsä-Lappi"},"administrativeStatusDescription":{"en":"Regional
         assessment of threatened species 2020 has been carried out in a national assessment
         for species of bryophytes, vascular plants, fungi, lichens, butterflies and
         moths and birds classified as Least Concern (LC) and Near Threatened (NT).
@@ -743,10 +744,10 @@ http_interactions:
         hotbedömningen 2020 har utförts i en riksomfattande bedömning för moss-, kärlväxt-,
         svamp-, lav-, fjärils- och fågelarter som klassificerats som Livskraftiga
         (LC) och Nära hotade (NT). Arter som bedöms vara regionalt hotade har antecknats
-        i klassen RT (Regionally Threatened)."},"administrativeStatusLink":{"en":"https://punainenkirja.laji.fi/en/about/r-213","fi":"https://punainenkirja.laji.fi/about/r-205","sv":"https://punainenkirja.laji.fi/sv/about/r-215"}},{"id":"MX.regionallyThreatened2020_4d","value":{"en":"Regionally
-        Threatened 2020 - 4d Northern boreal, Fjeld Lapland","fi":"Alueellisesti uhanalainen
-        2020 - 4d Pohjoisboreaalinen, Tunturi-Lappi","sv":"Regionalt hotade 2020 -
-        4d Norra boreal, Fjäll-Lappland"},"administrativeStatusDescription":{"en":"Regional
+        i klassen RT (Regionally Threatened)."},"administrativeStatusLink":{"en":"https://punainenkirja.laji.fi/en/about/r-213","fi":"https://punainenkirja.laji.fi/about/r-205","sv":"https://punainenkirja.laji.fi/sv/about/r-215"}},{"id":"MX.regionallyThreatened2020_4d","value":{"sv":"Regionalt
+        hotade 2020 - 4d Norra boreal, Fjäll-Lappland","en":"Regionally Threatened
+        2020 - 4d Northern boreal, Fjeld Lapland","fi":"Alueellisesti uhanalainen
+        2020 - 4d Pohjoisboreaalinen, Tunturi-Lappi"},"administrativeStatusDescription":{"en":"Regional
         assessment of threatened species 2020 has been carried out in a national assessment
         for species of bryophytes, vascular plants, fungi, lichens, butterflies and
         moths and birds classified as Least Concern (LC) and Near Threatened (NT).
@@ -778,7 +779,7 @@ http_interactions:
         voidaan säätää erityisesti suojeltavaksi lajiksi sellainen uhanalainen eliölaji,
         jonka häviämisuhka on ilmeinen. Erityisesti suojeltavan lajin säilymiselle
         tärkeän esiintymispaikan hävittäminen tai heikentäminen on kielletty.","en":"","sv":""},"administrativeStatusLink":{"sv":"http://www.finlex.fi/sv/laki/ajantasa/1997/19970160","fi":"http://www.finlex.fi/fi/laki/ajantasa/1997/19970160","en":""}}]'
-  recorded_at: 2024-08-19 08:49:18 GMT
+  recorded_at: 2024-11-05 08:35:40 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
@@ -796,14 +797,15 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:17 GMT
+      date: Tue, 05 Nov 2024 08:35:39 GMT
       content-type: application/json; charset=utf-8
       transfer-encoding: chunked
+      x-powered-by: Express
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       x-frame-options: SAMEORIGIN
       x-download-options: noopen
-      etag: W/"1393-JHnLMGRriQU6JLn4P4IIS9tqsBM"
+      etag: W/"1393-YHxsrc9IacXy/RhSp2Vl/BS2a2I"
       vary: Accept-Encoding
       content-encoding: gzip
       cache-control: public
@@ -816,23 +818,23 @@ http_interactions:
       file: no
       string: '[{"id":"MX.superdomain","value":{"sv":"liv","en":"superdomain","fi":"luonto"}},{"id":"MX.domain","value":{"en":"domain","sv":"domän","fi":"yläkunta"}},{"id":"MX.kingdom","value":{"en":"kingdom","fi":"kunta","sv":"rike"}},{"id":"MX.subkingdom","value":{"fi":"alakunta","sv":"underrike","en":"subkingdom"}},{"id":"MX.infrakingdom","value":{"sv":"infrarike","fi":"infrakunta","en":"infrakingdom"}},{"id":"MX.superphylum","value":{"en":"superphylum","fi":"yläjakso","sv":"överfylum"}},{"id":"MX.phylum","value":{"fi":"pääjakso
         / kaari","en":"phylum","sv":"fylum"}},{"id":"MX.subphylum","value":{"sv":"underfylum","en":"subphylum","fi":"alajakso
-        / alakaari"}},{"id":"MX.infraphylum","value":{"sv":"infrafylum","fi":"osajakso","en":"infraphylum"}},{"id":"MX.superdivision","value":{"sv":"överdivision","en":"superdivision","fi":"yläkaari"}},{"id":"MX.division","value":{"en":"division","sv":"division","fi":"kaari"}},{"id":"MX.subdivision","value":{"en":"subdivision","fi":"alakaari","sv":"underdivision"}},{"id":"MX.infradivision","value":{"sv":"infradivision","fi":"osakaari","en":"infradivision"}},{"id":"MX.superclass","value":{"en":"superclass","sv":"överklass","fi":"yläluokka"}},{"id":"MX.class","value":{"en":"class","sv":"klass","fi":"luokka"}},{"id":"MX.subclass","value":{"fi":"alaluokka","en":"subclass","sv":"underklass"}},{"id":"MX.infraclass","value":{"sv":"infraklass","fi":"osaluokka","en":"infraclass"}},{"id":"MX.parvclass","value":{"fi":"parvoluokka","sv":"parvklass","en":"parvclass"}},{"id":"MX.superorder","value":{"fi":"ylälahko","en":"superorder","sv":"överordning"}},{"id":"MX.order","value":{"en":"order","fi":"lahko","sv":"ordning"}},{"id":"MX.suborder","value":{"en":"suborder","sv":"underordning","fi":"alalahko"}},{"id":"MX.infraorder","value":{"sv":"infraordning","fi":"osalahko","en":"infraorder"}},{"id":"MX.parvorder","value":{"en":"parvorder","fi":"parvolahko","sv":"parvordning"}},{"id":"MX.superfamily","value":{"en":"superfamily","sv":"överfamilj","fi":"yläheimo"}},{"id":"MX.family","value":{"en":"family","sv":"familj","fi":"heimo"}},{"id":"MX.subfamily","value":{"en":"subfamily","sv":"underfamilj","fi":"alaheimo"}},{"id":"MX.tribe","value":{"en":"tribe","fi":"sukuryhmä
-        (tribus)","sv":"tribus"}},{"id":"MX.subtribe","value":{"fi":"alatribus","en":"subtribe","sv":"undertribus"}},{"id":"MX.supergenus","value":{"en":"supergenus","sv":"översläkte","fi":"yläsuku"}},{"id":"MX.genus","value":{"en":"genus","sv":"släkte","fi":"suku"}},{"id":"MX.nothogenus","value":{"en":"nothogenus","fi":"nothogenus","sv":"nothogenus"}},{"id":"MX.subgenus","value":{"sv":"undersläkte","en":"subgenus","fi":"alasuku"}},{"id":"MX.section","value":{"en":"section","fi":"sektio","sv":"sektion"}},{"id":"MX.subsection","value":{"sv":"subsektion","fi":"alasektio","en":"subsection"}},{"id":"MX.series","value":{"sv":"series","en":"series","fi":"series"}},{"id":"MX.subseries","value":{"en":"subseries","fi":"alaseries","sv":"subseries"}},{"id":"MX.infragenericTaxon","value":{"en":"infrageneric
+        / alakaari"}},{"id":"MX.infraphylum","value":{"sv":"infrafylum","fi":"osajakso","en":"infraphylum"}},{"id":"MX.superdivision","value":{"en":"superdivision","sv":"överdivision","fi":"yläkaari"}},{"id":"MX.division","value":{"en":"division","sv":"division","fi":"kaari"}},{"id":"MX.subdivision","value":{"en":"subdivision","fi":"alakaari","sv":"underdivision"}},{"id":"MX.infradivision","value":{"sv":"infradivision","fi":"osakaari","en":"infradivision"}},{"id":"MX.superclass","value":{"en":"superclass","sv":"överklass","fi":"yläluokka"}},{"id":"MX.class","value":{"en":"class","sv":"klass","fi":"luokka"}},{"id":"MX.subclass","value":{"fi":"alaluokka","en":"subclass","sv":"underklass"}},{"id":"MX.infraclass","value":{"sv":"infraklass","fi":"osaluokka","en":"infraclass"}},{"id":"MX.parvclass","value":{"en":"parvclass","fi":"parvoluokka","sv":"parvklass"}},{"id":"MX.superorder","value":{"fi":"ylälahko","en":"superorder","sv":"överordning"}},{"id":"MX.order","value":{"en":"order","fi":"lahko","sv":"ordning"}},{"id":"MX.suborder","value":{"en":"suborder","sv":"underordning","fi":"alalahko"}},{"id":"MX.infraorder","value":{"sv":"infraordning","fi":"osalahko","en":"infraorder"}},{"id":"MX.parvorder","value":{"sv":"parvordning","fi":"parvolahko","en":"parvorder"}},{"id":"MX.superfamily","value":{"en":"superfamily","sv":"överfamilj","fi":"yläheimo"}},{"id":"MX.family","value":{"en":"family","sv":"familj","fi":"heimo"}},{"id":"MX.subfamily","value":{"en":"subfamily","sv":"underfamilj","fi":"alaheimo"}},{"id":"MX.tribe","value":{"en":"tribe","fi":"sukuryhmä
+        (tribus)","sv":"tribus"}},{"id":"MX.subtribe","value":{"fi":"alatribus","en":"subtribe","sv":"undertribus"}},{"id":"MX.supergenus","value":{"sv":"översläkte","en":"supergenus","fi":"yläsuku"}},{"id":"MX.genus","value":{"en":"genus","sv":"släkte","fi":"suku"}},{"id":"MX.nothogenus","value":{"en":"nothogenus","fi":"nothogenus","sv":"nothogenus"}},{"id":"MX.subgenus","value":{"sv":"undersläkte","en":"subgenus","fi":"alasuku"}},{"id":"MX.section","value":{"en":"section","fi":"sektio","sv":"sektion"}},{"id":"MX.subsection","value":{"sv":"subsektion","fi":"alasektio","en":"subsection"}},{"id":"MX.series","value":{"sv":"series","en":"series","fi":"series"}},{"id":"MX.subseries","value":{"en":"subseries","fi":"alaseries","sv":"subseries"}},{"id":"MX.infragenericTaxon","value":{"en":"infrageneric
         taxon","sv":"infrageneric taxon","fi":"sukutasoa alempi taksoni"}},{"id":"MX.aggregate","value":{"en":"aggregate","fi":"lajiryhmä","sv":"aggregat"}},{"id":"MX.speciesAggregate","value":{"sv":"taxon
         aggregat","en":"taxon aggregate","fi":"taksoniryhmä"}},{"id":"MX.species","value":{"sv":"art","en":"species","fi":"laji"}},{"id":"MX.nothospecies","value":{"fi":"risteymälaji
         (kasvitiede)","sv":"hybridart","en":"nothospecies"}},{"id":"MX.infraspecificTaxon","value":{"sv":"infraspecific
         taxon","en":"infraspecific taxon","fi":"lajitasoa alempi taksoni"}},{"id":"MX.subspecificAggregate","value":{"sv":"subspecific
         aggregate","fi":"alalajiryhmä","en":"subspecific aggregate"}},{"id":"MX.subspecies","value":{"fi":"alalaji","sv":"underart","en":"subspecies"}},{"id":"MX.nothosubspecies","value":{"en":"nothosubspecies","sv":"hybridunderart","fi":"risteymäalalaji
-        (kasvitiede)"}},{"id":"MX.variety","value":{"en":"variety","fi":"muunnos","sv":"varietet"}},{"id":"MX.subvariety","value":{"fi":"alamuunnos","en":"subvariety","sv":"subvarietet"}},{"id":"MX.form","value":{"en":"form","sv":"form","fi":"muoto"}},{"id":"MX.subform","value":{"fi":"alamuoto","sv":"subform","en":"subform"}},{"id":"MX.hybrid","value":{"en":"hybrid","fi":"risteymä","sv":"hybrid"}},{"id":"MX.anamorph","value":{"en":"anamorph","sv":"anamorf","fi":"anamorfisuus"}},{"id":"MX.ecotype","value":{"sv":"ekotyp","fi":"ekotyyppi","en":"ecotype"}},{"id":"MX.populationGroup","value":{"fi":"populaatioryhmä","sv":"population
-        grupp","en":"population group"}},{"id":"MX.intergenericHybrid","value":{"fi":"sukujenvälinen
+        (kasvitiede)"}},{"id":"MX.variety","value":{"en":"variety","fi":"muunnos","sv":"varietet"}},{"id":"MX.subvariety","value":{"en":"subvariety","fi":"alamuunnos","sv":"subvarietet"}},{"id":"MX.form","value":{"en":"form","sv":"form","fi":"muoto"}},{"id":"MX.subform","value":{"fi":"alamuoto","sv":"subform","en":"subform"}},{"id":"MX.hybrid","value":{"en":"hybrid","fi":"risteymä","sv":"hybrid"}},{"id":"MX.anamorph","value":{"en":"anamorph","sv":"anamorf","fi":"anamorfisuus"}},{"id":"MX.ecotype","value":{"sv":"ekotyp","fi":"ekotyyppi","en":"ecotype"}},{"id":"MX.populationGroup","value":{"en":"population
+        group","fi":"populaatioryhmä","sv":"population grupp"}},{"id":"MX.intergenericHybrid","value":{"fi":"sukujenvälinen
         risteymä (kasvitiede)","en":"intergeneric hybrid","sv":""}},{"id":"MX.infragenericHybrid","value":{"en":"infrageneric
         hybrid","fi":"suvunsisäinen risteymä (kasvitiede)","sv":""}},{"id":"MX.cultivar","value":{"fi":"lajike","en":"cultivar","sv":""}},{"id":"MX.group","value":{"en":"Group","sv":"Grupp","fi":"viljelykasvien
         Ryhmä"}},{"id":"MX.grex","value":{"sv":"grex","fi":"grex","en":"grex"}}]'
-  recorded_at: 2024-08-19 08:49:18 GMT
+  recorded_at: 2024-11-05 08:35:40 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
-    uri: https://api.laji.fi/v0/areas?type=country&lang=multi&pageSize=1000&access_token=<finbif_token>
+    uri: https://api.laji.fi/v0/areas?areaType=ML.country&lang=multi&pageSize=1000&access_token=<finbif_token>
     body:
       encoding: ''
       string: ''
@@ -846,16 +848,12 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:17 GMT
+      date: Tue, 05 Nov 2024 08:35:39 GMT
       content-type: application/json; charset=utf-8
-      transfer-encoding: chunked
+      content-length: '40457'
+      x-powered-by: Express
       access-control-allow-origin: '*'
-      access-control-allow-credentials: 'true'
-      x-frame-options: SAMEORIGIN
-      x-download-options: noopen
-      etag: W/"9345-5VdiSnYTd4pukWI0BnVRfEuT8GQ"
-      vary: Accept-Encoding
-      content-encoding: gzip
+      etag: W/"9e09-LM2fQnc5gMWa77CDlV325h9LZks"
       cache-control: public
       x-xss-protection: 1;mode=block
       x-content-type-options: nosniff
@@ -864,94 +862,101 @@ http_interactions:
     body:
       encoding: ''
       file: no
-      string: '{"currentPage":1,"pageSize":1000,"total":250,"results":[{"id":"ML.1","areaType":"ML.country","countryCodeISOalpha2":"AF","countryCodeISOalpha3":"AFG","name":{"en":"Afghanistan","fi":"Afganistan","sv":""}},{"id":"ML.3","areaType":"ML.country","countryCodeISOalpha2":"NL","countryCodeISOalpha3":"NLD","name":{"en":"Netherlands","fi":"Alankomaat","sv":""}},{"id":"ML.4","areaType":"ML.country","countryCodeISOalpha2":"AN","countryCodeISOalpha3":"ANT","name":{"en":"Netherlands
-        Antilles","fi":"Alankomaiden Antillit","sv":""}},{"id":"ML.5","areaType":"ML.country","countryCodeISOalpha2":"AL","countryCodeISOalpha3":"ALB","name":{"en":"Albania","fi":"Albania","sv":""}},{"id":"ML.6","areaType":"ML.country","countryCodeISOalpha2":"DZ","countryCodeISOalpha3":"DZA","name":{"en":"Algeria","fi":"Algeria","sv":""}},{"id":"ML.7","areaType":"ML.country","countryCodeISOalpha2":"AS","countryCodeISOalpha3":"ASM","name":{"en":"American
-        Samoa","fi":"Amerikan Samoa","sv":""}},{"id":"ML.8","areaType":"ML.country","countryCodeISOalpha2":"AD","countryCodeISOalpha3":"AND","name":{"en":"Andorra","fi":"Andorra","sv":""}},{"id":"ML.9","areaType":"ML.country","countryCodeISOalpha2":"AO","countryCodeISOalpha3":"AGO","name":{"en":"Angola","fi":"Angola","sv":""}},{"id":"ML.10","areaType":"ML.country","countryCodeISOalpha2":"AI","countryCodeISOalpha3":"AIA","name":{"en":"Anguilla","fi":"Anguilla","sv":""}},{"id":"ML.11","areaType":"ML.country","countryCodeISOalpha2":"AQ","countryCodeISOalpha3":"ATA","name":{"en":"Antarctica","fi":"Antarktis","sv":""}},{"id":"ML.12","areaType":"ML.country","countryCodeISOalpha2":"AG","countryCodeISOalpha3":"ATG","name":{"en":"Antigua
-        and Barbuda","fi":"Antigua ja Barbuda","sv":""}},{"id":"ML.13","areaType":"ML.country","countryCodeISOalpha2":"AE","countryCodeISOalpha3":"ARE","name":{"en":"United
-        Arab Emirates","fi":"Arabiemiirikunnat","sv":""}},{"id":"ML.14","areaType":"ML.country","countryCodeISOalpha2":"AR","countryCodeISOalpha3":"ARG","name":{"en":"Argentina","fi":"Argentiina","sv":""}},{"id":"ML.15","areaType":"ML.country","countryCodeISOalpha2":"AM","countryCodeISOalpha3":"ARM","name":{"en":"Armenia","fi":"Armenia","sv":""}},{"id":"ML.16","areaType":"ML.country","countryCodeISOalpha2":"AW","countryCodeISOalpha3":"ABW","name":{"en":"Aruba","fi":"Aruba","sv":""}},{"id":"ML.17","areaType":"ML.country","countryCodeISOalpha2":"AU","countryCodeISOalpha3":"AUS","name":{"en":"Australia","fi":"Australia","sv":""}},{"id":"ML.18","areaType":"ML.country","countryCodeISOalpha2":"AZ","countryCodeISOalpha3":"AZE","name":{"en":"Azerbaijan","fi":"Azerbaidžan","sv":""}},{"id":"ML.19","areaType":"ML.country","countryCodeISOalpha2":"BS","countryCodeISOalpha3":"BHS","name":{"en":"Bahamas","fi":"Bahama","sv":""}},{"id":"ML.20","areaType":"ML.country","countryCodeISOalpha2":"BH","countryCodeISOalpha3":"BHR","name":{"en":"Bahrain","fi":"Bahrain","sv":""}},{"id":"ML.21","areaType":"ML.country","countryCodeISOalpha2":"BD","countryCodeISOalpha3":"BGD","name":{"en":"Bangladesh","fi":"Bangladesh","sv":""}},{"id":"ML.22","areaType":"ML.country","countryCodeISOalpha2":"BB","countryCodeISOalpha3":"BRB","name":{"en":"Barbados","fi":"Barbados","sv":""}},{"id":"ML.23","areaType":"ML.country","countryCodeISOalpha2":"BE","countryCodeISOalpha3":"BEL","name":{"en":"Belgium","fi":"Belgia","sv":""}},{"id":"ML.24","areaType":"ML.country","countryCodeISOalpha2":"BZ","countryCodeISOalpha3":"BLZ","name":{"en":"Belize","fi":"Belize","sv":""}},{"id":"ML.25","areaType":"ML.country","countryCodeISOalpha2":"BJ","countryCodeISOalpha3":"BEN","name":{"en":"Benin","fi":"Benin","sv":""}},{"id":"ML.26","areaType":"ML.country","countryCodeISOalpha2":"BM","countryCodeISOalpha3":"BMU","name":{"en":"Bermuda","fi":"Bermuda","sv":""}},{"id":"ML.27","areaType":"ML.country","countryCodeISOalpha2":"BT","countryCodeISOalpha3":"BTN","name":{"en":"Bhutan","fi":"Bhutan","sv":""}},{"id":"ML.28","areaType":"ML.country","countryCodeISOalpha2":"BO","countryCodeISOalpha3":"BOL","name":{"en":"Bolivia,
-        Plurinational State of","fi":"Bolivia","sv":""}},{"id":"ML.29","areaType":"ML.country","countryCodeISOalpha2":"BA","countryCodeISOalpha3":"BIH","name":{"en":"Bosnia
-        and Herzegovina","fi":"Bosnia ja Hertsegovina","sv":""}},{"id":"ML.30","areaType":"ML.country","countryCodeISOalpha2":"BW","countryCodeISOalpha3":"BWA","name":{"en":"Botswana","fi":"Botswana","sv":""}},{"id":"ML.31","areaType":"ML.country","countryCodeISOalpha2":"BV","countryCodeISOalpha3":"BVT","name":{"en":"Bouvet
-        Island","fi":"Bouvet’nsaari","sv":""}},{"id":"ML.32","areaType":"ML.country","countryCodeISOalpha2":"BR","countryCodeISOalpha3":"BRA","name":{"en":"Brazil","fi":"Brasilia","sv":""}},{"id":"ML.33","areaType":"ML.country","countryCodeISOalpha2":"GB","countryCodeISOalpha3":"GBR","name":{"en":"United
-        Kingdom","fi":"Britannia","sv":""}},{"id":"ML.34","areaType":"ML.country","countryCodeISOalpha2":"IO","countryCodeISOalpha3":"IOT","name":{"en":"British
-        Indian Ocean Territory","fi":"Brittiläinen Intian valtameren alue","sv":""}},{"id":"ML.35","areaType":"ML.country","countryCodeISOalpha2":"VG","countryCodeISOalpha3":"VGB","name":{"en":"Virgin
-        Islands, British","fi":"Brittiläiset Neitsytsaaret","sv":""}},{"id":"ML.36","areaType":"ML.country","countryCodeISOalpha2":"BN","countryCodeISOalpha3":"BRN","name":{"en":"Brunei
-        Darussalam","fi":"Brunei","sv":""}},{"id":"ML.37","areaType":"ML.country","countryCodeISOalpha2":"BG","countryCodeISOalpha3":"BGR","name":{"en":"Bulgaria","fi":"Bulgaria","sv":""}},{"id":"ML.38","areaType":"ML.country","countryCodeISOalpha2":"BF","countryCodeISOalpha3":"BFA","name":{"en":"Burkina
-        Faso","fi":"Burkina Faso","sv":""}},{"id":"ML.39","areaType":"ML.country","countryCodeISOalpha2":"BI","countryCodeISOalpha3":"BDI","name":{"en":"Burundi","fi":"Burundi","sv":""}},{"id":"ML.40","areaType":"ML.country","countryCodeISOalpha2":"KY","countryCodeISOalpha3":"CYM","name":{"en":"Cayman
-        Islands","fi":"Caymansaaret","sv":""}},{"id":"ML.41","areaType":"ML.country","countryCodeISOalpha2":"CL","countryCodeISOalpha3":"CHL","name":{"en":"Chile","fi":"Chile","sv":""}},{"id":"ML.42","areaType":"ML.country","countryCodeISOalpha2":"CK","countryCodeISOalpha3":"COK","name":{"en":"Cook
-        Islands","fi":"Cookinsaaret","sv":""}},{"id":"ML.43","areaType":"ML.country","countryCodeISOalpha2":"CR","countryCodeISOalpha3":"CRI","name":{"en":"Costa
-        Rica","fi":"Costa Rica","sv":""}},{"id":"ML.44","areaType":"ML.country","countryCodeISOalpha2":"DJ","countryCodeISOalpha3":"DJI","name":{"en":"Djibouti","fi":"Djibouti","sv":""}},{"id":"ML.45","areaType":"ML.country","countryCodeISOalpha2":"DM","countryCodeISOalpha3":"DMA","name":{"en":"Dominica","fi":"Dominica","sv":""}},{"id":"ML.46","areaType":"ML.country","countryCodeISOalpha2":"DO","countryCodeISOalpha3":"DOM","name":{"en":"Dominican
-        Republic","fi":"Dominikaaninen tasavalta","sv":""}},{"id":"ML.47","areaType":"ML.country","countryCodeISOalpha2":"EC","countryCodeISOalpha3":"ECU","name":{"en":"Ecuador","fi":"Ecuador","sv":""}},{"id":"ML.48","areaType":"ML.country","countryCodeISOalpha2":"EG","countryCodeISOalpha3":"EGY","name":{"en":"Egypt","fi":"Egypti","sv":""}},{"id":"ML.49","areaType":"ML.country","countryCodeISOalpha2":"SV","countryCodeISOalpha3":"SLV","name":{"en":"El
-        Salvador","fi":"El Salvador","sv":""}},{"id":"ML.50","areaType":"ML.country","countryCodeISOalpha2":"ER","countryCodeISOalpha3":"ERI","name":{"en":"Eritrea","fi":"Eritrea","sv":""}},{"id":"ML.51","areaType":"ML.country","countryCodeISOalpha2":"ES","countryCodeISOalpha3":"ESP","name":{"en":"Spain","fi":"Espanja","sv":""}},{"id":"ML.52","areaType":"ML.country","countryCodeISOalpha2":"ZA","countryCodeISOalpha3":"ZAF","name":{"en":"South
-        Africa","fi":"Etelä-Afrikka","sv":""}},{"id":"ML.53","areaType":"ML.country","countryCodeISOalpha2":"GS","countryCodeISOalpha3":"SGS","name":{"en":"South
-        Georgia and the South Sandwich Islands","fi":"Etelä-Georgia ja Eteläiset Sandwichsaaret","sv":""}},{"id":"ML.54","areaType":"ML.country","countryCodeISOalpha2":"ET","countryCodeISOalpha3":"ETH","name":{"en":"Ethiopia","fi":"Etiopia","sv":""}},{"id":"ML.55","areaType":"ML.country","countryCodeISOalpha2":"FK","countryCodeISOalpha3":"FLK","name":{"en":"Falkland
-        Islands (Malvinas)","fi":"Falklandinsaaret","sv":""}},{"id":"ML.56","areaType":"ML.country","countryCodeISOalpha2":"FJ","countryCodeISOalpha3":"FJI","name":{"en":"Fiji","fi":"Fidži","sv":""}},{"id":"ML.57","areaType":"ML.country","countryCodeISOalpha2":"PH","countryCodeISOalpha3":"PHL","name":{"en":"Philippines","fi":"Filippiinit","sv":""}},{"id":"ML.58","areaType":"ML.country","countryCodeISOalpha2":"FO","countryCodeISOalpha3":"FRO","name":{"en":"Faroe
-        Islands","fi":"Färsaaret","sv":""}},{"id":"ML.59","areaType":"ML.country","countryCodeISOalpha2":"GA","countryCodeISOalpha3":"GAB","name":{"en":"Gabon","fi":"Gabon","sv":""}},{"id":"ML.60","areaType":"ML.country","countryCodeISOalpha2":"GM","countryCodeISOalpha3":"GMB","name":{"en":"Gambia","fi":"Gambia","sv":""}},{"id":"ML.61","areaType":"ML.country","countryCodeISOalpha2":"GE","countryCodeISOalpha3":"GEO","name":{"en":"Georgia","fi":"Georgia","sv":""}},{"id":"ML.62","areaType":"ML.country","countryCodeISOalpha2":"GH","countryCodeISOalpha3":"GHA","name":{"en":"Ghana","fi":"Ghana","sv":""}},{"id":"ML.63","areaType":"ML.country","countryCodeISOalpha2":"GI","countryCodeISOalpha3":"GIB","name":{"en":"Gibraltar","fi":"Gibraltar","sv":""}},{"id":"ML.64","areaType":"ML.country","countryCodeISOalpha2":"GD","countryCodeISOalpha3":"GRD","name":{"en":"Grenada","fi":"Grenada","sv":""}},{"id":"ML.65","areaType":"ML.country","countryCodeISOalpha2":"GL","countryCodeISOalpha3":"GRL","name":{"en":"Greenland","fi":"Grönlanti","sv":""}},{"id":"ML.66","areaType":"ML.country","countryCodeISOalpha2":"GP","countryCodeISOalpha3":"GLP","name":{"en":"Guadeloupe","fi":"Guadeloupe","sv":""}},{"id":"ML.67","areaType":"ML.country","countryCodeISOalpha2":"GU","countryCodeISOalpha3":"GUM","name":{"en":"Guam","fi":"Guam","sv":""}},{"id":"ML.68","areaType":"ML.country","countryCodeISOalpha2":"GT","countryCodeISOalpha3":"GTM","name":{"en":"Guatemala","fi":"Guatemala","sv":""}},{"id":"ML.69","areaType":"ML.country","countryCodeISOalpha2":"GG","countryCodeISOalpha3":"GGY","name":{"en":"Guernsey","fi":"Guernsey","sv":""}},{"id":"ML.70","areaType":"ML.country","countryCodeISOalpha2":"GN","countryCodeISOalpha3":"GIN","name":{"en":"Guinea","fi":"Guinea","sv":""}},{"id":"ML.71","areaType":"ML.country","countryCodeISOalpha2":"GW","countryCodeISOalpha3":"GNB","name":{"en":"Guinea-Bissau","fi":"Guinea-Bissau","sv":""}},{"id":"ML.72","areaType":"ML.country","countryCodeISOalpha2":"GY","countryCodeISOalpha3":"GUY","name":{"en":"Guyana","fi":"Guyana","sv":""}},{"id":"ML.73","areaType":"ML.country","countryCodeISOalpha2":"HT","countryCodeISOalpha3":"HTI","name":{"en":"Haiti","fi":"Haiti","sv":""}},{"id":"ML.74","areaType":"ML.country","countryCodeISOalpha2":"HM","countryCodeISOalpha3":"HMD","name":{"en":"Heard
-        Island and McDonald Islands","fi":"Heard ja McDonaldinsaaret","sv":""}},{"id":"ML.75","areaType":"ML.country","countryCodeISOalpha2":"HN","countryCodeISOalpha3":"HND","name":{"en":"Honduras","fi":"Honduras","sv":""}},{"id":"ML.76","areaType":"ML.country","countryCodeISOalpha2":"HK","countryCodeISOalpha3":"HKG","name":{"en":"Hong
-        Kong","fi":"Hongkong","sv":""}},{"id":"ML.77","areaType":"ML.country","countryCodeISOalpha2":"ID","countryCodeISOalpha3":"IDN","name":{"en":"Indonesia","fi":"Indonesia","sv":""}},{"id":"ML.78","areaType":"ML.country","countryCodeISOalpha2":"IN","countryCodeISOalpha3":"IND","name":{"en":"India","fi":"Intia","sv":""}},{"id":"ML.79","areaType":"ML.country","countryCodeISOalpha2":"IQ","countryCodeISOalpha3":"IRQ","name":{"en":"Iraq","fi":"Irak","sv":""}},{"id":"ML.80","areaType":"ML.country","countryCodeISOalpha2":"IR","countryCodeISOalpha3":"IRN","name":{"en":"Iran,
-        Islamic Republic of","fi":"Iran","sv":""}},{"id":"ML.81","areaType":"ML.country","countryCodeISOalpha2":"IE","countryCodeISOalpha3":"IRL","name":{"en":"Ireland","fi":"Irlanti","sv":""}},{"id":"ML.82","areaType":"ML.country","countryCodeISOalpha2":"IS","countryCodeISOalpha3":"ISL","name":{"en":"Iceland","fi":"Islanti","sv":""}},{"id":"ML.83","areaType":"ML.country","countryCodeISOalpha2":"IL","countryCodeISOalpha3":"ISR","name":{"en":"Israel","fi":"Israel","sv":""}},{"id":"ML.84","areaType":"ML.country","countryCodeISOalpha2":"IT","countryCodeISOalpha3":"ITA","name":{"en":"Italy","fi":"Italia","sv":""}},{"id":"ML.85","areaType":"ML.country","countryCodeISOalpha2":"TL","countryCodeISOalpha3":"TLS","name":{"en":"Timor-Leste","fi":"Itä-Timor","sv":""}},{"id":"ML.86","areaType":"ML.country","countryCodeISOalpha2":"AT","countryCodeISOalpha3":"AUT","name":{"en":"Austria","fi":"Itävalta","sv":""}},{"id":"ML.87","areaType":"ML.country","countryCodeISOalpha2":"JM","countryCodeISOalpha3":"JAM","name":{"en":"Jamaica","fi":"Jamaika","sv":""}},{"id":"ML.88","areaType":"ML.country","countryCodeISOalpha2":"JP","countryCodeISOalpha3":"JPN","name":{"en":"Japan","fi":"Japani","sv":""}},{"id":"ML.89","areaType":"ML.country","countryCodeISOalpha2":"YE","countryCodeISOalpha3":"YEM","name":{"en":"Yemen","fi":"Jemen","sv":""}},{"id":"ML.90","areaType":"ML.country","countryCodeISOalpha2":"JE","countryCodeISOalpha3":"JEY","name":{"en":"Jersey","fi":"Jersey","sv":""}},{"id":"ML.91","areaType":"ML.country","countryCodeISOalpha2":"JO","countryCodeISOalpha3":"JOR","name":{"en":"Jordan","fi":"Jordania","sv":""}},{"id":"ML.92","areaType":"ML.country","countryCodeISOalpha2":"CX","countryCodeISOalpha3":"CXR","name":{"en":"Christmas
-        Island","fi":"Joulusaari","sv":""}},{"id":"ML.93","areaType":"ML.country","countryCodeISOalpha2":"KH","countryCodeISOalpha3":"KHM","name":{"en":"Cambodia","fi":"Kambodža","sv":""}},{"id":"ML.94","areaType":"ML.country","countryCodeISOalpha2":"CM","countryCodeISOalpha3":"CMR","name":{"en":"Cameroon","fi":"Kamerun","sv":""}},{"id":"ML.95","areaType":"ML.country","countryCodeISOalpha2":"CA","countryCodeISOalpha3":"CAN","name":{"en":"Canada","fi":"Kanada","sv":""}},{"id":"ML.96","areaType":"ML.country","countryCodeISOalpha2":"CV","countryCodeISOalpha3":"CPV","name":{"en":"Cabo
-        Verde","fi":"Kap Verde","sv":""}},{"id":"ML.97","areaType":"ML.country","countryCodeISOalpha2":"KZ","countryCodeISOalpha3":"KAZ","name":{"en":"Kazakhstan","fi":"Kazakstan","sv":""}},{"id":"ML.98","areaType":"ML.country","countryCodeISOalpha2":"KE","countryCodeISOalpha3":"KEN","name":{"en":"Kenya","fi":"Kenia","sv":""}},{"id":"ML.99","areaType":"ML.country","countryCodeISOalpha2":"CF","countryCodeISOalpha3":"CAF","name":{"en":"Central
-        African Republic","fi":"Keski-Afrikan tasavalta","sv":""}},{"id":"ML.100","areaType":"ML.country","countryCodeISOalpha2":"CN","countryCodeISOalpha3":"CHN","name":{"en":"China","fi":"Kiina","sv":""}},{"id":"ML.101","areaType":"ML.country","countryCodeISOalpha2":"KG","countryCodeISOalpha3":"KGZ","name":{"en":"Kyrgyzstan","fi":"Kirgisia","sv":""}},{"id":"ML.102","areaType":"ML.country","countryCodeISOalpha2":"KI","countryCodeISOalpha3":"KIR","name":{"en":"Kiribati","fi":"Kiribati","sv":""}},{"id":"ML.103","areaType":"ML.country","countryCodeISOalpha2":"CO","countryCodeISOalpha3":"COL","name":{"en":"Colombia","fi":"Kolumbia","sv":""}},{"id":"ML.104","areaType":"ML.country","countryCodeISOalpha2":"KM","countryCodeISOalpha3":"COM","name":{"en":"Comoros","fi":"Komorit","sv":""}},{"id":"ML.105","areaType":"ML.country","countryCodeISOalpha2":"CG","countryCodeISOalpha3":"COG","name":{"en":"Congo","fi":"Kongo
-        (Kongo-Brazzaville)","sv":""}},{"id":"ML.106","areaType":"ML.country","countryCodeISOalpha2":"CD","countryCodeISOalpha3":"COD","name":{"en":"Congo,
-        the Democratic Republic of the","fi":"Kongo (Kongo-Kinshasa)","sv":""}},{"id":"ML.107","areaType":"ML.country","countryCodeISOalpha2":"CC","countryCodeISOalpha3":"CCK","name":{"en":"Cocos
-        (Keeling) Islands","fi":"Kookossaaret","sv":""}},{"id":"ML.108","areaType":"ML.country","countryCodeISOalpha2":"KP","countryCodeISOalpha3":"PRK","name":{"en":"Korea,
-        Democratic People''s Republic of","fi":"Korean demokraattinen kansantasavalta
-        (Pohjois-Korea)","sv":""}},{"id":"ML.109","areaType":"ML.country","countryCodeISOalpha2":"KR","countryCodeISOalpha3":"KOR","name":{"en":"Korea,
-        Republic of","fi":"Korean tasavalta (Etelä-Korea)","sv":""}},{"id":"ML.110","areaType":"ML.country","countryCodeISOalpha2":"GR","countryCodeISOalpha3":"GRC","name":{"en":"Greece","fi":"Kreikka","sv":""}},{"id":"ML.111","areaType":"ML.country","countryCodeISOalpha2":"HR","countryCodeISOalpha3":"HRV","name":{"en":"Croatia","fi":"Kroatia","sv":""}},{"id":"ML.112","areaType":"ML.country","countryCodeISOalpha2":"CU","countryCodeISOalpha3":"CUB","name":{"en":"Cuba","fi":"Kuuba","sv":""}},{"id":"ML.113","areaType":"ML.country","countryCodeISOalpha2":"KW","countryCodeISOalpha3":"KWT","name":{"en":"Kuwait","fi":"Kuwait","sv":""}},{"id":"ML.114","areaType":"ML.country","countryCodeISOalpha2":"CY","countryCodeISOalpha3":"CYP","name":{"en":"Cyprus","fi":"Kypros","sv":""}},{"id":"ML.115","areaType":"ML.country","countryCodeISOalpha2":"LA","countryCodeISOalpha3":"LAO","name":{"en":"Lao
-        People''s Democratic Republic","fi":"Laos","sv":""}},{"id":"ML.116","areaType":"ML.country","countryCodeISOalpha2":"LV","countryCodeISOalpha3":"LVA","name":{"en":"Latvia","fi":"Latvia","sv":""}},{"id":"ML.117","areaType":"ML.country","countryCodeISOalpha2":"LS","countryCodeISOalpha3":"LSO","name":{"en":"Lesotho","fi":"Lesotho","sv":""}},{"id":"ML.118","areaType":"ML.country","countryCodeISOalpha2":"LB","countryCodeISOalpha3":"LBN","name":{"en":"Lebanon","fi":"Libanon","sv":""}},{"id":"ML.119","areaType":"ML.country","countryCodeISOalpha2":"LR","countryCodeISOalpha3":"LBR","name":{"en":"Liberia","fi":"Liberia","sv":""}},{"id":"ML.120","areaType":"ML.country","countryCodeISOalpha2":"LY","countryCodeISOalpha3":"LBY","name":{"en":"Libya","fi":"Libya","sv":""}},{"id":"ML.121","areaType":"ML.country","countryCodeISOalpha2":"LI","countryCodeISOalpha3":"LIE","name":{"en":"Liechtenstein","fi":"Liechtenstein","sv":""}},{"id":"ML.122","areaType":"ML.country","countryCodeISOalpha2":"LT","countryCodeISOalpha3":"LTU","name":{"en":"Lithuania","fi":"Liettua","sv":""}},{"id":"ML.123","areaType":"ML.country","countryCodeISOalpha2":"LU","countryCodeISOalpha3":"LUX","name":{"en":"Luxembourg","fi":"Luxemburg","sv":""}},{"id":"ML.124","areaType":"ML.country","countryCodeISOalpha2":"EH","countryCodeISOalpha3":"ESH","name":{"en":"Western
-        Sahara","fi":"Länsi-Sahara","sv":""}},{"id":"ML.125","areaType":"ML.country","countryCodeISOalpha2":"MO","countryCodeISOalpha3":"MAC","name":{"en":"Macao","fi":"Macao","sv":""}},{"id":"ML.126","areaType":"ML.country","countryCodeISOalpha2":"MG","countryCodeISOalpha3":"MDG","name":{"en":"Madagascar","fi":"Madagaskar","sv":""}},{"id":"ML.127","areaType":"ML.country","countryCodeISOalpha2":"MK","countryCodeISOalpha3":"MKD","name":{"en":"Macedonia","fi":"Pohjois-Makedonia","sv":""}},{"id":"ML.128","areaType":"ML.country","countryCodeISOalpha2":"MW","countryCodeISOalpha3":"MWI","name":{"en":"Malawi","fi":"Malawi","sv":""}},{"id":"ML.129","areaType":"ML.country","countryCodeISOalpha2":"MV","countryCodeISOalpha3":"MDV","name":{"en":"Maldives","fi":"Malediivit","sv":""}},{"id":"ML.130","areaType":"ML.country","countryCodeISOalpha2":"MY","countryCodeISOalpha3":"MYS","name":{"en":"Malaysia","fi":"Malesia","sv":""}},{"id":"ML.131","areaType":"ML.country","countryCodeISOalpha2":"ML","countryCodeISOalpha3":"MLI","name":{"en":"Mali","fi":"Mali","sv":""}},{"id":"ML.132","areaType":"ML.country","countryCodeISOalpha2":"MT","countryCodeISOalpha3":"MLT","name":{"en":"Malta","fi":"Malta","sv":""}},{"id":"ML.133","areaType":"ML.country","countryCodeISOalpha2":"IM","countryCodeISOalpha3":"IMN","name":{"en":"Isle
-        of Man","fi":"Mansaari","sv":""}},{"id":"ML.134","areaType":"ML.country","countryCodeISOalpha2":"MA","countryCodeISOalpha3":"MAR","name":{"en":"Morocco","fi":"Marokko","sv":""}},{"id":"ML.135","areaType":"ML.country","countryCodeISOalpha2":"MH","countryCodeISOalpha3":"MHL","name":{"en":"Marshall
-        Islands","fi":"Marshallinsaaret","sv":""}},{"id":"ML.136","areaType":"ML.country","countryCodeISOalpha2":"MQ","countryCodeISOalpha3":"MTQ","name":{"en":"Martinique","fi":"Martinique","sv":""}},{"id":"ML.137","areaType":"ML.country","countryCodeISOalpha2":"MR","countryCodeISOalpha3":"MRT","name":{"en":"Mauritania","fi":"Mauritania","sv":""}},{"id":"ML.138","areaType":"ML.country","countryCodeISOalpha2":"MU","countryCodeISOalpha3":"MUS","name":{"en":"Mauritius","fi":"Mauritius","sv":""}},{"id":"ML.139","areaType":"ML.country","countryCodeISOalpha2":"YT","countryCodeISOalpha3":"MYT","name":{"en":"Mayotte","fi":"Mayotte","sv":""}},{"id":"ML.140","areaType":"ML.country","countryCodeISOalpha2":"MX","countryCodeISOalpha3":"MEX","name":{"en":"Mexico","fi":"Meksiko","sv":""}},{"id":"ML.141","areaType":"ML.country","countryCodeISOalpha2":"FM","countryCodeISOalpha3":"FSM","name":{"en":"Micronesia,
-        Federated States of","fi":"Mikronesia","sv":""}},{"id":"ML.142","areaType":"ML.country","countryCodeISOalpha2":"MD","countryCodeISOalpha3":"MDA","name":{"en":"Moldova,
-        Republic of","fi":"Moldova","sv":""}},{"id":"ML.143","areaType":"ML.country","countryCodeISOalpha2":"MC","countryCodeISOalpha3":"MCO","name":{"en":"Monaco","fi":"Monaco","sv":""}},{"id":"ML.144","areaType":"ML.country","countryCodeISOalpha2":"MN","countryCodeISOalpha3":"MNG","name":{"en":"Mongolia","fi":"Mongolia","sv":""}},{"id":"ML.145","areaType":"ML.country","countryCodeISOalpha2":"ME","countryCodeISOalpha3":"MNE","name":{"en":"Montenegro","fi":"Montenegro","sv":""}},{"id":"ML.146","areaType":"ML.country","countryCodeISOalpha2":"MS","countryCodeISOalpha3":"MSR","name":{"en":"Montserrat","fi":"Montserrat","sv":""}},{"id":"ML.147","areaType":"ML.country","countryCodeISOalpha2":"MZ","countryCodeISOalpha3":"MOZ","name":{"en":"Mozambique","fi":"Mosambik","sv":""}},{"id":"ML.148","areaType":"ML.country","countryCodeISOalpha2":"MM","countryCodeISOalpha3":"MMR","name":{"en":"Myanmar","fi":"Myanmar","sv":""}},{"id":"ML.149","areaType":"ML.country","countryCodeISOalpha2":"NA","countryCodeISOalpha3":"NAM","name":{"en":"Namibia","fi":"Namibia","sv":""}},{"id":"ML.150","areaType":"ML.country","countryCodeISOalpha2":"NR","countryCodeISOalpha3":"NRU","name":{"en":"Nauru","fi":"Nauru","sv":""}},{"id":"ML.151","areaType":"ML.country","countryCodeISOalpha2":"NP","countryCodeISOalpha3":"NPL","name":{"en":"Nepal","fi":"Nepal","sv":""}},{"id":"ML.152","areaType":"ML.country","countryCodeISOalpha2":"NI","countryCodeISOalpha3":"NIC","name":{"en":"Nicaragua","fi":"Nicaragua","sv":""}},{"id":"ML.153","areaType":"ML.country","countryCodeISOalpha2":"NE","countryCodeISOalpha3":"NER","name":{"en":"Niger","fi":"Niger","sv":""}},{"id":"ML.154","areaType":"ML.country","countryCodeISOalpha2":"NG","countryCodeISOalpha3":"NGA","name":{"en":"Nigeria","fi":"Nigeria","sv":""}},{"id":"ML.155","areaType":"ML.country","countryCodeISOalpha2":"NU","countryCodeISOalpha3":"NIU","name":{"en":"Niue","fi":"Niue","sv":""}},{"id":"ML.156","areaType":"ML.country","countryCodeISOalpha2":"NF","countryCodeISOalpha3":"NFK","name":{"en":"Norfolk
-        Island","fi":"Norfolkinsaari","sv":""}},{"id":"ML.157","areaType":"ML.country","countryCodeISOalpha2":"NO","countryCodeISOalpha3":"NOR","name":{"en":"Norway","fi":"Norja","sv":""}},{"id":"ML.158","areaType":"ML.country","countryCodeISOalpha2":"CI","countryCodeISOalpha3":"CIV","name":{"en":"Côte
-        d''Ivoire","fi":"Norsunluurannikko","sv":""}},{"id":"ML.159","areaType":"ML.country","countryCodeISOalpha2":"OM","countryCodeISOalpha3":"OMN","name":{"en":"Oman","fi":"Oman","sv":""}},{"id":"ML.160","areaType":"ML.country","countryCodeISOalpha2":"PK","countryCodeISOalpha3":"PAK","name":{"en":"Pakistan","fi":"Pakistan","sv":""}},{"id":"ML.161","areaType":"ML.country","countryCodeISOalpha2":"PW","countryCodeISOalpha3":"PLW","name":{"en":"Palau","fi":"Palau","sv":""}},{"id":"ML.162","areaType":"ML.country","countryCodeISOalpha2":"PS","countryCodeISOalpha3":"PSE","name":{"en":"Palestinian
-        Territory, Occupied","fi":"Palestiina","sv":""}},{"id":"ML.163","areaType":"ML.country","countryCodeISOalpha2":"PA","countryCodeISOalpha3":"PAN","name":{"en":"Panama","fi":"Panama","sv":""}},{"id":"ML.164","areaType":"ML.country","countryCodeISOalpha2":"PG","countryCodeISOalpha3":"PNG","name":{"en":"Papua
-        New Guinea","fi":"Papua-Uusi-Guinea","sv":""}},{"id":"ML.165","areaType":"ML.country","countryCodeISOalpha2":"PY","countryCodeISOalpha3":"PRY","name":{"en":"Paraguay","fi":"Paraguay","sv":""}},{"id":"ML.166","areaType":"ML.country","countryCodeISOalpha2":"PE","countryCodeISOalpha3":"PER","name":{"en":"Peru","fi":"Peru","sv":""}},{"id":"ML.167","areaType":"ML.country","countryCodeISOalpha2":"PN","countryCodeISOalpha3":"PCN","name":{"en":"Pitcairn","fi":"Pitcairn","sv":""}},{"id":"ML.168","areaType":"ML.country","countryCodeISOalpha2":"MP","countryCodeISOalpha3":"MNP","name":{"en":"Northern
-        Mariana Islands","fi":"Pohjois-Mariaanit","sv":""}},{"id":"ML.169","areaType":"ML.country","countryCodeISOalpha2":"PT","countryCodeISOalpha3":"PRT","name":{"en":"Portugal","fi":"Portugali","sv":""}},{"id":"ML.170","areaType":"ML.country","countryCodeISOalpha2":"PR","countryCodeISOalpha3":"PRI","name":{"en":"Puerto
-        Rico","fi":"Puerto Rico","sv":""}},{"id":"ML.171","areaType":"ML.country","countryCodeISOalpha2":"PL","countryCodeISOalpha3":"POL","name":{"en":"Poland","fi":"Puola","sv":""}},{"id":"ML.172","areaType":"ML.country","countryCodeISOalpha2":"GQ","countryCodeISOalpha3":"GNQ","name":{"en":"Equatorial
-        Guinea","fi":"Päiväntasaajan Guinea","sv":""}},{"id":"ML.173","areaType":"ML.country","countryCodeISOalpha2":"QA","countryCodeISOalpha3":"QAT","name":{"en":"Qatar","fi":"Qatar","sv":""}},{"id":"ML.174","areaType":"ML.country","countryCodeISOalpha2":"FR","countryCodeISOalpha3":"FRA","name":{"en":"France","fi":"Ranska","sv":""}},{"id":"ML.175","areaType":"ML.country","countryCodeISOalpha2":"TF","countryCodeISOalpha3":"ATF","name":{"en":"French
-        Southern Territories","fi":"Ranskan eteläiset alueet","sv":""}},{"id":"ML.176","areaType":"ML.country","countryCodeISOalpha2":"GF","countryCodeISOalpha3":"GUF","name":{"en":"French
-        Guiana","fi":"Ranskan Guayana","sv":""}},{"id":"ML.177","areaType":"ML.country","countryCodeISOalpha2":"PF","countryCodeISOalpha3":"PYF","name":{"en":"French
-        Polynesia","fi":"Ranskan Polynesia","sv":""}},{"id":"ML.178","areaType":"ML.country","countryCodeISOalpha2":"RE","countryCodeISOalpha3":"REU","name":{"en":"Réunion","fi":"Réunion","sv":""}},{"id":"ML.179","areaType":"ML.country","countryCodeISOalpha2":"RO","countryCodeISOalpha3":"ROU","name":{"en":"Romania","fi":"Romania","sv":""}},{"id":"ML.180","areaType":"ML.country","countryCodeISOalpha2":"RW","countryCodeISOalpha3":"RWA","name":{"en":"Rwanda","fi":"Ruanda","sv":""}},{"id":"ML.181","areaType":"ML.country","countryCodeISOalpha2":"SE","countryCodeISOalpha3":"SWE","name":{"en":"Sweden","fi":"Ruotsi","sv":"Sverige"}},{"id":"ML.182","areaType":"ML.country","countryCodeISOalpha2":"BL","countryCodeISOalpha3":"BLM","name":{"en":"Saint
-        Barthélemy","fi":"Saint Barthélemy","sv":""}},{"id":"ML.183","areaType":"ML.country","countryCodeISOalpha2":"SH","countryCodeISOalpha3":"SHN","name":{"en":"Saint
-        Helena, Ascension and Tristan da Cunha","fi":"Saint Helena","sv":""}},{"id":"ML.184","areaType":"ML.country","countryCodeISOalpha2":"KN","countryCodeISOalpha3":"KNA","name":{"en":"Saint
-        Kitts and Nevis","fi":"Saint Kitts ja Nevis","sv":""}},{"id":"ML.185","areaType":"ML.country","countryCodeISOalpha2":"LC","countryCodeISOalpha3":"LCA","name":{"en":"Saint
-        Lucia","fi":"Saint Lucia","sv":""}},{"id":"ML.186","areaType":"ML.country","countryCodeISOalpha2":"MF","countryCodeISOalpha3":"MAF","name":{"en":"Saint
-        Martin (French part)","fi":"Saint Martin","sv":""}},{"id":"ML.187","areaType":"ML.country","countryCodeISOalpha2":"PM","countryCodeISOalpha3":"SPM","name":{"en":"Saint
-        Pierre and Miquelon","fi":"Saint-Pierre ja Miquelon","sv":""}},{"id":"ML.188","areaType":"ML.country","countryCodeISOalpha2":"VC","countryCodeISOalpha3":"VCT","name":{"en":"Saint
-        Vincent and the Grenadines","fi":"Saint Vincent ja Grenadiinit","sv":""}},{"id":"ML.189","areaType":"ML.country","countryCodeISOalpha2":"DE","countryCodeISOalpha3":"DEU","name":{"en":"Germany","fi":"Saksa","sv":""}},{"id":"ML.190","areaType":"ML.country","countryCodeISOalpha2":"SB","countryCodeISOalpha3":"SLB","name":{"en":"Solomon
-        Islands","fi":"Salomonsaaret","sv":""}},{"id":"ML.191","areaType":"ML.country","countryCodeISOalpha2":"ZM","countryCodeISOalpha3":"ZMB","name":{"en":"Zambia","fi":"Sambia","sv":""}},{"id":"ML.192","areaType":"ML.country","countryCodeISOalpha2":"WS","countryCodeISOalpha3":"WSM","name":{"en":"Samoa","fi":"Samoa","sv":""}},{"id":"ML.193","areaType":"ML.country","countryCodeISOalpha2":"SM","countryCodeISOalpha3":"SMR","name":{"en":"San
-        Marino","fi":"San Marino","sv":""}},{"id":"ML.194","areaType":"ML.country","countryCodeISOalpha2":"ST","countryCodeISOalpha3":"STP","name":{"en":"Sao
-        Tome and Principe","fi":"São Tomé ja Príncipe","sv":""}},{"id":"ML.195","areaType":"ML.country","countryCodeISOalpha2":"SA","countryCodeISOalpha3":"SAU","name":{"en":"Saudi
-        Arabia","fi":"Saudi-Arabia","sv":""}},{"id":"ML.196","areaType":"ML.country","countryCodeISOalpha2":"SN","countryCodeISOalpha3":"SEN","name":{"en":"Senegal","fi":"Senegal","sv":""}},{"id":"ML.197","areaType":"ML.country","countryCodeISOalpha2":"RS","countryCodeISOalpha3":"SRB","name":{"en":"Serbia","fi":"Serbia","sv":""}},{"id":"ML.198","areaType":"ML.country","countryCodeISOalpha2":"SC","countryCodeISOalpha3":"SYC","name":{"en":"Seychelles","fi":"Seychellit","sv":""}},{"id":"ML.199","areaType":"ML.country","countryCodeISOalpha2":"SL","countryCodeISOalpha3":"SLE","name":{"en":"Sierra
-        Leone","fi":"Sierra Leone","sv":""}},{"id":"ML.200","areaType":"ML.country","countryCodeISOalpha2":"SG","countryCodeISOalpha3":"SGP","name":{"en":"Singapore","fi":"Singapore","sv":""}},{"id":"ML.201","areaType":"ML.country","countryCodeISOalpha2":"SK","countryCodeISOalpha3":"SVK","name":{"en":"Slovakia","fi":"Slovakia","sv":""}},{"id":"ML.202","areaType":"ML.country","countryCodeISOalpha2":"SI","countryCodeISOalpha3":"SVN","name":{"en":"Slovenia","fi":"Slovenia","sv":""}},{"id":"ML.203","areaType":"ML.country","countryCodeISOalpha2":"SO","countryCodeISOalpha3":"SOM","name":{"en":"Somalia","fi":"Somalia","sv":""}},{"id":"ML.204","areaType":"ML.country","countryCodeISOalpha2":"LK","countryCodeISOalpha3":"LKA","name":{"en":"Sri
-        Lanka","fi":"Sri Lanka","sv":""}},{"id":"ML.205","areaType":"ML.country","countryCodeISOalpha2":"SD","countryCodeISOalpha3":"SDN","name":{"en":"Sudan","fi":"Sudan","sv":""}},{"id":"ML.206","areaType":"ML.country","countryCodeISOalpha2":"FI","countryCodeISOalpha3":"FIN","name":{"en":"Finland","fi":"Suomi","sv":"Finland"}},{"id":"ML.207","areaType":"ML.country","countryCodeISOalpha2":"SR","countryCodeISOalpha3":"SUR","name":{"en":"Suriname","fi":"Suriname","sv":""}},{"id":"ML.208","areaType":"ML.country","countryCodeISOalpha2":"SJ","countryCodeISOalpha3":"SJM","name":{"en":"Svalbard
-        and Jan Mayen","fi":"Svalbard ja Jan Mayen","sv":""}},{"id":"ML.209","areaType":"ML.country","countryCodeISOalpha2":"CH","countryCodeISOalpha3":"CHE","name":{"en":"Switzerland","fi":"Sveitsi","sv":""}},{"id":"ML.210","areaType":"ML.country","countryCodeISOalpha2":"SZ","countryCodeISOalpha3":"SWZ","name":{"en":"Swaziland","fi":"Eswatinin
-        kuningaskunta","sv":""}},{"id":"ML.211","areaType":"ML.country","countryCodeISOalpha2":"SY","countryCodeISOalpha3":"SYR","name":{"en":"Syrian
-        Arab Republic","fi":"Syyria","sv":""}},{"id":"ML.212","areaType":"ML.country","countryCodeISOalpha2":"TJ","countryCodeISOalpha3":"TJK","name":{"en":"Tajikistan","fi":"Tadžikistan","sv":""}},{"id":"ML.213","areaType":"ML.country","countryCodeISOalpha2":"TW","countryCodeISOalpha3":"TWN","name":{"en":"Taiwan,
-        Province of China","fi":"Taiwan","sv":""}},{"id":"ML.214","areaType":"ML.country","countryCodeISOalpha2":"TZ","countryCodeISOalpha3":"TZA","name":{"en":"Tanzania,
-        United Republic of","fi":"Tansania","sv":""}},{"id":"ML.215","areaType":"ML.country","countryCodeISOalpha2":"DK","countryCodeISOalpha3":"DNK","name":{"en":"Denmark","fi":"Tanska","sv":""}},{"id":"ML.216","areaType":"ML.country","countryCodeISOalpha2":"TH","countryCodeISOalpha3":"THA","name":{"en":"Thailand","fi":"Thaimaa","sv":""}},{"id":"ML.217","areaType":"ML.country","countryCodeISOalpha2":"TG","countryCodeISOalpha3":"TGO","name":{"en":"Togo","fi":"Togo","sv":""}},{"id":"ML.218","areaType":"ML.country","countryCodeISOalpha2":"TK","countryCodeISOalpha3":"TKL","name":{"en":"Tokelau","fi":"Tokelau","sv":""}},{"id":"ML.219","areaType":"ML.country","countryCodeISOalpha2":"TO","countryCodeISOalpha3":"TON","name":{"en":"Tonga","fi":"Tonga","sv":""}},{"id":"ML.220","areaType":"ML.country","countryCodeISOalpha2":"TT","countryCodeISOalpha3":"TTO","name":{"en":"Trinidad
-        and Tobago","fi":"Trinidad ja Tobago","sv":""}},{"id":"ML.221","areaType":"ML.country","countryCodeISOalpha2":"TD","countryCodeISOalpha3":"TCD","name":{"en":"Chad","fi":"Tšad","sv":""}},{"id":"ML.222","areaType":"ML.country","countryCodeISOalpha2":"CZ","countryCodeISOalpha3":"CZE","name":{"en":"Czech
-        Republic","fi":"Tšekki","sv":""}},{"id":"ML.223","areaType":"ML.country","countryCodeISOalpha2":"TN","countryCodeISOalpha3":"TUN","name":{"en":"Tunisia","fi":"Tunisia","sv":""}},{"id":"ML.224","areaType":"ML.country","countryCodeISOalpha2":"TR","countryCodeISOalpha3":"TUR","name":{"en":"Türkiye","fi":"Turkki","sv":""}},{"id":"ML.225","areaType":"ML.country","countryCodeISOalpha2":"TM","countryCodeISOalpha3":"TKM","name":{"en":"Turkmenistan","fi":"Turkmenistan","sv":""}},{"id":"ML.226","areaType":"ML.country","countryCodeISOalpha2":"TC","countryCodeISOalpha3":"TCA","name":{"en":"Turks
-        and Caicos Islands","fi":"Turks- ja Caicossaaret","sv":""}},{"id":"ML.227","areaType":"ML.country","countryCodeISOalpha2":"TV","countryCodeISOalpha3":"TUV","name":{"en":"Tuvalu","fi":"Tuvalu","sv":""}},{"id":"ML.228","areaType":"ML.country","countryCodeISOalpha2":"UG","countryCodeISOalpha3":"UGA","name":{"en":"Uganda","fi":"Uganda","sv":""}},{"id":"ML.229","areaType":"ML.country","countryCodeISOalpha2":"UA","countryCodeISOalpha3":"UKR","name":{"en":"Ukraine","fi":"Ukraina","sv":""}},{"id":"ML.230","areaType":"ML.country","countryCodeISOalpha2":"HU","countryCodeISOalpha3":"HUN","name":{"en":"Hungary","fi":"Unkari","sv":""}},{"id":"ML.231","areaType":"ML.country","countryCodeISOalpha2":"UY","countryCodeISOalpha3":"URY","name":{"en":"Uruguay","fi":"Uruguay","sv":""}},{"id":"ML.232","areaType":"ML.country","countryCodeISOalpha2":"NC","countryCodeISOalpha3":"NCL","name":{"en":"New
-        Caledonia","fi":"Uusi-Kaledonia","sv":""}},{"id":"ML.233","areaType":"ML.country","countryCodeISOalpha2":"NZ","countryCodeISOalpha3":"NZL","name":{"en":"New
-        Zealand","fi":"Uusi-Seelanti","sv":""}},{"id":"ML.234","areaType":"ML.country","countryCodeISOalpha2":"UZ","countryCodeISOalpha3":"UZB","name":{"en":"Uzbekistan","fi":"Uzbekistan","sv":""}},{"id":"ML.235","areaType":"ML.country","countryCodeISOalpha2":"BY","countryCodeISOalpha3":"BLR","name":{"en":"Belarus","fi":"Valko-Venäjä","sv":""}},{"id":"ML.236","areaType":"ML.country","countryCodeISOalpha2":"VU","countryCodeISOalpha3":"VUT","name":{"en":"Vanuatu","fi":"Vanuatu","sv":""}},{"id":"ML.237","areaType":"ML.country","countryCodeISOalpha2":"VA","countryCodeISOalpha3":"VAT","name":{"en":"Holy
-        See (Vatican City State)","fi":"Vatikaani","sv":""}},{"id":"ML.238","areaType":"ML.country","countryCodeISOalpha2":"VE","countryCodeISOalpha3":"VEN","name":{"en":"Venezuela,
-        Bolivarian Republic of","fi":"Venezuela","sv":""}},{"id":"ML.239","areaType":"ML.country","countryCodeISOalpha2":"RU","countryCodeISOalpha3":"RUS","name":{"en":"Russian
-        Federation","fi":"Venäjä","sv":""}},{"id":"ML.240","areaType":"ML.country","countryCodeISOalpha2":"VN","countryCodeISOalpha3":"VNM","name":{"en":"Viet
-        Nam","fi":"Vietnam","sv":""}},{"id":"ML.241","areaType":"ML.country","countryCodeISOalpha2":"EE","countryCodeISOalpha3":"EST","name":{"en":"Estonia","fi":"Viro","sv":""}},{"id":"ML.242","areaType":"ML.country","countryCodeISOalpha2":"WF","countryCodeISOalpha3":"WLF","name":{"en":"Wallis
-        and Futuna","fi":"Wallis ja Futuna","sv":""}},{"id":"ML.243","areaType":"ML.country","countryCodeISOalpha2":"US","countryCodeISOalpha3":"USA","name":{"en":"United
-        States","fi":"Yhdysvallat (USA)","sv":""}},{"id":"ML.244","areaType":"ML.country","countryCodeISOalpha2":"VI","countryCodeISOalpha3":"VIR","name":{"en":"Virgin
-        Islands, U.S.","fi":"Yhdysvaltain Neitsytsaaret","sv":""}},{"id":"ML.245","areaType":"ML.country","countryCodeISOalpha2":"UM","countryCodeISOalpha3":"UMI","name":{"en":"United
-        States Minor Outlying Islands","fi":"Yhdysvaltain pienet erillissaaret","sv":""}},{"id":"ML.246","areaType":"ML.country","countryCodeISOalpha2":"ZW","countryCodeISOalpha3":"ZWE","name":{"en":"Zimbabwe","fi":"Zimbabwe","sv":""}},{"id":"ML.247","areaType":"ML.country","name":{"en":"Soviet
-        Union","fi":"Neuvostoliitto","sv":""}},{"id":"ML.248","areaType":"ML.country","name":{"en":"Czechoslovakia","fi":"Tsekkoslovakia","sv":""}},{"id":"ML.249","areaType":"ML.country","name":{"en":"Yugoslavia","fi":"Jugoslavia","sv":""}},{"id":"ML.1207","areaType":"ML.country","countryCodeISOalpha2":"XK","countryCodeISOalpha3":"UNK","name":{"en":"Kosovo","fi":"Kosovo","sv":"Kosovo"}},{"id":"ML.1307","areaType":"ML.country","countryCodeISOalpha2":"SS","countryCodeISOalpha3":"SSD","name":{"en":"the
-        Republic of South Sudan","fi":"Etelä-Sudan","sv":""}}],"lastPage":1,"@context":"http://schema.laji.fi/context/area.jsonld"}'
-  recorded_at: 2024-08-19 08:49:18 GMT
+      string: '{"total":250,"results":[{"areaType":"ML.country","countryCodeISOalpha2":"AF","countryCodeISOalpha3":"AFG","name":{"fi":"Afganistan","sv":"Afghanistan","en":"Afghanistan"},"id":"ML.1"},{"areaType":"ML.country","countryCodeISOalpha2":"AI","countryCodeISOalpha3":"AIA","name":{"fi":"Anguilla","sv":"Anguilla","en":"Anguilla"},"id":"ML.10"},{"areaType":"ML.country","countryCodeISOalpha2":"CN","countryCodeISOalpha3":"CHN","name":{"fi":"Kiina","sv":"China","en":"China"},"id":"ML.100"},{"areaType":"ML.country","countryCodeISOalpha2":"KG","countryCodeISOalpha3":"KGZ","name":{"fi":"Kirgisia","sv":"Kyrgyzstan","en":"Kyrgyzstan"},"id":"ML.101"},{"areaType":"ML.country","countryCodeISOalpha2":"KI","countryCodeISOalpha3":"KIR","name":{"fi":"Kiribati","sv":"Kiribati","en":"Kiribati"},"id":"ML.102"},{"areaType":"ML.country","countryCodeISOalpha2":"CO","countryCodeISOalpha3":"COL","name":{"fi":"Kolumbia","sv":"Colombia","en":"Colombia"},"id":"ML.103"},{"areaType":"ML.country","countryCodeISOalpha2":"KM","countryCodeISOalpha3":"COM","name":{"fi":"Komorit","sv":"Comoros","en":"Comoros"},"id":"ML.104"},{"areaType":"ML.country","countryCodeISOalpha2":"CG","countryCodeISOalpha3":"COG","name":{"fi":"Kongo
+        (Kongo-Brazzaville)","sv":"Congo","en":"Congo"},"id":"ML.105"},{"areaType":"ML.country","countryCodeISOalpha2":"CD","countryCodeISOalpha3":"COD","name":{"fi":"Kongo
+        (Kongo-Kinshasa)","sv":"Congo, the Democratic Republic of the","en":"Congo,
+        the Democratic Republic of the"},"id":"ML.106"},{"areaType":"ML.country","countryCodeISOalpha2":"CC","countryCodeISOalpha3":"CCK","name":{"fi":"Kookossaaret","sv":"Cocos
+        (Keeling) Islands","en":"Cocos (Keeling) Islands"},"id":"ML.107"},{"areaType":"ML.country","countryCodeISOalpha2":"KP","countryCodeISOalpha3":"PRK","name":{"fi":"Korean
+        demokraattinen kansantasavalta (Pohjois-Korea)","sv":"Korea, Democratic People''s
+        Republic of","en":"Korea, Democratic People''s Republic of"},"id":"ML.108"},{"areaType":"ML.country","countryCodeISOalpha2":"KR","countryCodeISOalpha3":"KOR","name":{"fi":"Korean
+        tasavalta (Etelä-Korea)","sv":"Korea, Republic of","en":"Korea, Republic of"},"id":"ML.109"},{"areaType":"ML.country","countryCodeISOalpha2":"AQ","countryCodeISOalpha3":"ATA","name":{"fi":"Antarktis","sv":"Antarctica","en":"Antarctica"},"id":"ML.11"},{"areaType":"ML.country","countryCodeISOalpha2":"GR","countryCodeISOalpha3":"GRC","name":{"fi":"Kreikka","sv":"Greece","en":"Greece"},"id":"ML.110"},{"areaType":"ML.country","countryCodeISOalpha2":"HR","countryCodeISOalpha3":"HRV","name":{"fi":"Kroatia","sv":"Croatia","en":"Croatia"},"id":"ML.111"},{"areaType":"ML.country","countryCodeISOalpha2":"CU","countryCodeISOalpha3":"CUB","name":{"fi":"Kuuba","sv":"Cuba","en":"Cuba"},"id":"ML.112"},{"areaType":"ML.country","countryCodeISOalpha2":"KW","countryCodeISOalpha3":"KWT","name":{"fi":"Kuwait","sv":"Kuwait","en":"Kuwait"},"id":"ML.113"},{"areaType":"ML.country","countryCodeISOalpha2":"CY","countryCodeISOalpha3":"CYP","name":{"fi":"Kypros","sv":"Cyprus","en":"Cyprus"},"id":"ML.114"},{"areaType":"ML.country","countryCodeISOalpha2":"LA","countryCodeISOalpha3":"LAO","name":{"fi":"Laos","sv":"Lao
+        People''s Democratic Republic","en":"Lao People''s Democratic Republic"},"id":"ML.115"},{"areaType":"ML.country","countryCodeISOalpha2":"LV","countryCodeISOalpha3":"LVA","name":{"fi":"Latvia","sv":"Latvia","en":"Latvia"},"id":"ML.116"},{"areaType":"ML.country","countryCodeISOalpha2":"LS","countryCodeISOalpha3":"LSO","name":{"fi":"Lesotho","sv":"Lesotho","en":"Lesotho"},"id":"ML.117"},{"areaType":"ML.country","countryCodeISOalpha2":"LB","countryCodeISOalpha3":"LBN","name":{"fi":"Libanon","sv":"Lebanon","en":"Lebanon"},"id":"ML.118"},{"areaType":"ML.country","countryCodeISOalpha2":"LR","countryCodeISOalpha3":"LBR","name":{"fi":"Liberia","sv":"Liberia","en":"Liberia"},"id":"ML.119"},{"areaType":"ML.country","countryCodeISOalpha2":"AG","countryCodeISOalpha3":"ATG","name":{"fi":"Antigua
+        ja Barbuda","sv":"Antigua and Barbuda","en":"Antigua and Barbuda"},"id":"ML.12"},{"areaType":"ML.country","countryCodeISOalpha2":"LY","countryCodeISOalpha3":"LBY","name":{"fi":"Libya","sv":"Libya","en":"Libya"},"id":"ML.120"},{"areaType":"ML.country","countryCodeISOalpha2":"XK","countryCodeISOalpha3":"UNK","name":{"fi":"Kosovo","sv":"Kosovo","en":"Kosovo"},"id":"ML.1207"},{"areaType":"ML.country","countryCodeISOalpha2":"LI","countryCodeISOalpha3":"LIE","name":{"fi":"Liechtenstein","sv":"Liechtenstein","en":"Liechtenstein"},"id":"ML.121"},{"areaType":"ML.country","countryCodeISOalpha2":"LT","countryCodeISOalpha3":"LTU","name":{"fi":"Liettua","sv":"Lithuania","en":"Lithuania"},"id":"ML.122"},{"areaType":"ML.country","countryCodeISOalpha2":"LU","countryCodeISOalpha3":"LUX","name":{"fi":"Luxemburg","sv":"Luxembourg","en":"Luxembourg"},"id":"ML.123"},{"areaType":"ML.country","countryCodeISOalpha2":"EH","countryCodeISOalpha3":"ESH","name":{"fi":"Länsi-Sahara","sv":"Western
+        Sahara","en":"Western Sahara"},"id":"ML.124"},{"areaType":"ML.country","countryCodeISOalpha2":"MO","countryCodeISOalpha3":"MAC","name":{"fi":"Macao","sv":"Macao","en":"Macao"},"id":"ML.125"},{"areaType":"ML.country","countryCodeISOalpha2":"MG","countryCodeISOalpha3":"MDG","name":{"fi":"Madagaskar","sv":"Madagascar","en":"Madagascar"},"id":"ML.126"},{"areaType":"ML.country","countryCodeISOalpha2":"MK","countryCodeISOalpha3":"MKD","name":{"fi":"Pohjois-Makedonia","sv":"North
+        Macedonia","en":"North Macedonia"},"id":"ML.127"},{"areaType":"ML.country","countryCodeISOalpha2":"MW","countryCodeISOalpha3":"MWI","name":{"fi":"Malawi","sv":"Malawi","en":"Malawi"},"id":"ML.128"},{"areaType":"ML.country","countryCodeISOalpha2":"MV","countryCodeISOalpha3":"MDV","name":{"fi":"Malediivit","sv":"Maldives","en":"Maldives"},"id":"ML.129"},{"areaType":"ML.country","countryCodeISOalpha2":"AE","countryCodeISOalpha3":"ARE","name":{"fi":"Arabiemiirikunnat","sv":"United
+        Arab Emirates","en":"United Arab Emirates"},"id":"ML.13"},{"areaType":"ML.country","countryCodeISOalpha2":"MY","countryCodeISOalpha3":"MYS","name":{"fi":"Malesia","sv":"Malaysia","en":"Malaysia"},"id":"ML.130"},{"areaType":"ML.country","countryCodeISOalpha2":"SS","countryCodeISOalpha3":"SSD","name":{"fi":"Etelä-Sudan","sv":"the
+        Republic of South Sudan","en":"the Republic of South Sudan"},"id":"ML.1307"},{"areaType":"ML.country","countryCodeISOalpha2":"ML","countryCodeISOalpha3":"MLI","name":{"fi":"Mali","sv":"Mali","en":"Mali"},"id":"ML.131"},{"areaType":"ML.country","countryCodeISOalpha2":"MT","countryCodeISOalpha3":"MLT","name":{"fi":"Malta","sv":"Malta","en":"Malta"},"id":"ML.132"},{"areaType":"ML.country","countryCodeISOalpha2":"IM","countryCodeISOalpha3":"IMN","name":{"fi":"Mansaari","sv":"Isle
+        of Man","en":"Isle of Man"},"id":"ML.133"},{"areaType":"ML.country","countryCodeISOalpha2":"MA","countryCodeISOalpha3":"MAR","name":{"fi":"Marokko","sv":"Morocco","en":"Morocco"},"id":"ML.134"},{"areaType":"ML.country","countryCodeISOalpha2":"MH","countryCodeISOalpha3":"MHL","name":{"fi":"Marshallinsaaret","sv":"Marshall
+        Islands","en":"Marshall Islands"},"id":"ML.135"},{"areaType":"ML.country","countryCodeISOalpha2":"MQ","countryCodeISOalpha3":"MTQ","name":{"fi":"Martinique","sv":"Martinique","en":"Martinique"},"id":"ML.136"},{"areaType":"ML.country","countryCodeISOalpha2":"MR","countryCodeISOalpha3":"MRT","name":{"fi":"Mauritania","sv":"Mauritania","en":"Mauritania"},"id":"ML.137"},{"areaType":"ML.country","countryCodeISOalpha2":"MU","countryCodeISOalpha3":"MUS","name":{"fi":"Mauritius","sv":"Mauritius","en":"Mauritius"},"id":"ML.138"},{"areaType":"ML.country","countryCodeISOalpha2":"YT","countryCodeISOalpha3":"MYT","name":{"fi":"Mayotte","sv":"Mayotte","en":"Mayotte"},"id":"ML.139"},{"areaType":"ML.country","countryCodeISOalpha2":"AR","countryCodeISOalpha3":"ARG","name":{"fi":"Argentiina","sv":"Argentina","en":"Argentina"},"id":"ML.14"},{"areaType":"ML.country","countryCodeISOalpha2":"MX","countryCodeISOalpha3":"MEX","name":{"fi":"Meksiko","sv":"Mexico","en":"Mexico"},"id":"ML.140"},{"areaType":"ML.country","countryCodeISOalpha2":"FM","countryCodeISOalpha3":"FSM","name":{"fi":"Mikronesia","sv":"Micronesia,
+        Federated States of","en":"Micronesia, Federated States of"},"id":"ML.141"},{"areaType":"ML.country","countryCodeISOalpha2":"MD","countryCodeISOalpha3":"MDA","name":{"fi":"Moldova","sv":"Moldova,
+        Republic of","en":"Moldova, Republic of"},"id":"ML.142"},{"areaType":"ML.country","countryCodeISOalpha2":"MC","countryCodeISOalpha3":"MCO","name":{"fi":"Monaco","sv":"Monaco","en":"Monaco"},"id":"ML.143"},{"areaType":"ML.country","countryCodeISOalpha2":"MN","countryCodeISOalpha3":"MNG","name":{"fi":"Mongolia","sv":"Mongolia","en":"Mongolia"},"id":"ML.144"},{"areaType":"ML.country","countryCodeISOalpha2":"ME","countryCodeISOalpha3":"MNE","name":{"fi":"Montenegro","sv":"Montenegro","en":"Montenegro"},"id":"ML.145"},{"areaType":"ML.country","countryCodeISOalpha2":"MS","countryCodeISOalpha3":"MSR","name":{"fi":"Montserrat","sv":"Montserrat","en":"Montserrat"},"id":"ML.146"},{"areaType":"ML.country","countryCodeISOalpha2":"MZ","countryCodeISOalpha3":"MOZ","name":{"fi":"Mosambik","sv":"Mozambique","en":"Mozambique"},"id":"ML.147"},{"areaType":"ML.country","countryCodeISOalpha2":"MM","countryCodeISOalpha3":"MMR","name":{"fi":"Myanmar","sv":"Myanmar","en":"Myanmar"},"id":"ML.148"},{"areaType":"ML.country","countryCodeISOalpha2":"NA","countryCodeISOalpha3":"NAM","name":{"fi":"Namibia","sv":"Namibia","en":"Namibia"},"id":"ML.149"},{"areaType":"ML.country","countryCodeISOalpha2":"AM","countryCodeISOalpha3":"ARM","name":{"fi":"Armenia","sv":"Armenia","en":"Armenia"},"id":"ML.15"},{"areaType":"ML.country","countryCodeISOalpha2":"NR","countryCodeISOalpha3":"NRU","name":{"fi":"Nauru","sv":"Nauru","en":"Nauru"},"id":"ML.150"},{"areaType":"ML.country","countryCodeISOalpha2":"NP","countryCodeISOalpha3":"NPL","name":{"fi":"Nepal","sv":"Nepal","en":"Nepal"},"id":"ML.151"},{"areaType":"ML.country","countryCodeISOalpha2":"NI","countryCodeISOalpha3":"NIC","name":{"fi":"Nicaragua","sv":"Nicaragua","en":"Nicaragua"},"id":"ML.152"},{"areaType":"ML.country","countryCodeISOalpha2":"NE","countryCodeISOalpha3":"NER","name":{"fi":"Niger","sv":"Niger","en":"Niger"},"id":"ML.153"},{"areaType":"ML.country","countryCodeISOalpha2":"NG","countryCodeISOalpha3":"NGA","name":{"fi":"Nigeria","sv":"Nigeria","en":"Nigeria"},"id":"ML.154"},{"areaType":"ML.country","countryCodeISOalpha2":"NU","countryCodeISOalpha3":"NIU","name":{"fi":"Niue","sv":"Niue","en":"Niue"},"id":"ML.155"},{"areaType":"ML.country","countryCodeISOalpha2":"NF","countryCodeISOalpha3":"NFK","name":{"fi":"Norfolkinsaari","sv":"Norfolk
+        Island","en":"Norfolk Island"},"id":"ML.156"},{"areaType":"ML.country","countryCodeISOalpha2":"NO","countryCodeISOalpha3":"NOR","name":{"fi":"Norja","sv":"Norway","en":"Norway"},"id":"ML.157"},{"areaType":"ML.country","countryCodeISOalpha2":"CI","countryCodeISOalpha3":"CIV","name":{"fi":"Norsunluurannikko","sv":"Côte
+        d''Ivoire","en":"Côte d''Ivoire"},"id":"ML.158"},{"areaType":"ML.country","countryCodeISOalpha2":"OM","countryCodeISOalpha3":"OMN","name":{"fi":"Oman","sv":"Oman","en":"Oman"},"id":"ML.159"},{"areaType":"ML.country","countryCodeISOalpha2":"AW","countryCodeISOalpha3":"ABW","name":{"fi":"Aruba","sv":"Aruba","en":"Aruba"},"id":"ML.16"},{"areaType":"ML.country","countryCodeISOalpha2":"PK","countryCodeISOalpha3":"PAK","name":{"fi":"Pakistan","sv":"Pakistan","en":"Pakistan"},"id":"ML.160"},{"areaType":"ML.country","countryCodeISOalpha2":"PW","countryCodeISOalpha3":"PLW","name":{"fi":"Palau","sv":"Palau","en":"Palau"},"id":"ML.161"},{"areaType":"ML.country","countryCodeISOalpha2":"PS","countryCodeISOalpha3":"PSE","name":{"fi":"Palestiina","sv":"Palestinian
+        Territory, Occupied","en":"Palestinian Territory, Occupied"},"id":"ML.162"},{"areaType":"ML.country","countryCodeISOalpha2":"PA","countryCodeISOalpha3":"PAN","name":{"fi":"Panama","sv":"Panama","en":"Panama"},"id":"ML.163"},{"areaType":"ML.country","countryCodeISOalpha2":"PG","countryCodeISOalpha3":"PNG","name":{"fi":"Papua-Uusi-Guinea","sv":"Papua
+        New Guinea","en":"Papua New Guinea"},"id":"ML.164"},{"areaType":"ML.country","countryCodeISOalpha2":"PY","countryCodeISOalpha3":"PRY","name":{"fi":"Paraguay","sv":"Paraguay","en":"Paraguay"},"id":"ML.165"},{"areaType":"ML.country","countryCodeISOalpha2":"PE","countryCodeISOalpha3":"PER","name":{"fi":"Peru","sv":"Peru","en":"Peru"},"id":"ML.166"},{"areaType":"ML.country","countryCodeISOalpha2":"PN","countryCodeISOalpha3":"PCN","name":{"fi":"Pitcairn","sv":"Pitcairn","en":"Pitcairn"},"id":"ML.167"},{"areaType":"ML.country","countryCodeISOalpha2":"MP","countryCodeISOalpha3":"MNP","name":{"fi":"Pohjois-Mariaanit","sv":"Northern
+        Mariana Islands","en":"Northern Mariana Islands"},"id":"ML.168"},{"areaType":"ML.country","countryCodeISOalpha2":"PT","countryCodeISOalpha3":"PRT","name":{"fi":"Portugali","sv":"Portugal","en":"Portugal"},"id":"ML.169"},{"areaType":"ML.country","countryCodeISOalpha2":"AU","countryCodeISOalpha3":"AUS","name":{"fi":"Australia","sv":"Australia","en":"Australia"},"id":"ML.17"},{"areaType":"ML.country","countryCodeISOalpha2":"PR","countryCodeISOalpha3":"PRI","name":{"fi":"Puerto
+        Rico","sv":"Puerto Rico","en":"Puerto Rico"},"id":"ML.170"},{"areaType":"ML.country","countryCodeISOalpha2":"PL","countryCodeISOalpha3":"POL","name":{"fi":"Puola","sv":"Poland","en":"Poland"},"id":"ML.171"},{"areaType":"ML.country","countryCodeISOalpha2":"GQ","countryCodeISOalpha3":"GNQ","name":{"fi":"Päiväntasaajan
+        Guinea","sv":"Equatorial Guinea","en":"Equatorial Guinea"},"id":"ML.172"},{"areaType":"ML.country","countryCodeISOalpha2":"QA","countryCodeISOalpha3":"QAT","name":{"fi":"Qatar","sv":"Qatar","en":"Qatar"},"id":"ML.173"},{"areaType":"ML.country","countryCodeISOalpha2":"FR","countryCodeISOalpha3":"FRA","name":{"fi":"Ranska","sv":"France","en":"France"},"id":"ML.174"},{"areaType":"ML.country","countryCodeISOalpha2":"TF","countryCodeISOalpha3":"ATF","name":{"fi":"Ranskan
+        eteläiset alueet","sv":"French Southern Territories","en":"French Southern
+        Territories"},"id":"ML.175"},{"areaType":"ML.country","countryCodeISOalpha2":"GF","countryCodeISOalpha3":"GUF","name":{"fi":"Ranskan
+        Guayana","sv":"French Guiana","en":"French Guiana"},"id":"ML.176"},{"areaType":"ML.country","countryCodeISOalpha2":"PF","countryCodeISOalpha3":"PYF","name":{"fi":"Ranskan
+        Polynesia","sv":"French Polynesia","en":"French Polynesia"},"id":"ML.177"},{"areaType":"ML.country","countryCodeISOalpha2":"RE","countryCodeISOalpha3":"REU","name":{"fi":"Réunion","sv":"Réunion","en":"Réunion"},"id":"ML.178"},{"areaType":"ML.country","countryCodeISOalpha2":"RO","countryCodeISOalpha3":"ROU","name":{"fi":"Romania","sv":"Romania","en":"Romania"},"id":"ML.179"},{"areaType":"ML.country","countryCodeISOalpha2":"AZ","countryCodeISOalpha3":"AZE","name":{"fi":"Azerbaidžan","sv":"Azerbaijan","en":"Azerbaijan"},"id":"ML.18"},{"areaType":"ML.country","countryCodeISOalpha2":"RW","countryCodeISOalpha3":"RWA","name":{"fi":"Ruanda","sv":"Rwanda","en":"Rwanda"},"id":"ML.180"},{"areaType":"ML.country","countryCodeISOalpha2":"SE","countryCodeISOalpha3":"SWE","name":{"fi":"Ruotsi","sv":"Sverige","en":"Sweden"},"id":"ML.181"},{"areaType":"ML.country","countryCodeISOalpha2":"BL","countryCodeISOalpha3":"BLM","name":{"fi":"Saint
+        Barthélemy","sv":"Saint Barthélemy","en":"Saint Barthélemy"},"id":"ML.182"},{"areaType":"ML.country","countryCodeISOalpha2":"SH","countryCodeISOalpha3":"SHN","name":{"fi":"Saint
+        Helena","sv":"Saint Helena, Ascension and Tristan da Cunha","en":"Saint Helena,
+        Ascension and Tristan da Cunha"},"id":"ML.183"},{"areaType":"ML.country","countryCodeISOalpha2":"KN","countryCodeISOalpha3":"KNA","name":{"fi":"Saint
+        Kitts ja Nevis","sv":"Saint Kitts and Nevis","en":"Saint Kitts and Nevis"},"id":"ML.184"},{"areaType":"ML.country","countryCodeISOalpha2":"LC","countryCodeISOalpha3":"LCA","name":{"fi":"Saint
+        Lucia","sv":"Saint Lucia","en":"Saint Lucia"},"id":"ML.185"},{"areaType":"ML.country","countryCodeISOalpha2":"MF","countryCodeISOalpha3":"MAF","name":{"fi":"Saint
+        Martin","sv":"Saint Martin (French part)","en":"Saint Martin (French part)"},"id":"ML.186"},{"areaType":"ML.country","countryCodeISOalpha2":"PM","countryCodeISOalpha3":"SPM","name":{"fi":"Saint-Pierre
+        ja Miquelon","sv":"Saint Pierre and Miquelon","en":"Saint Pierre and Miquelon"},"id":"ML.187"},{"areaType":"ML.country","countryCodeISOalpha2":"VC","countryCodeISOalpha3":"VCT","name":{"fi":"Saint
+        Vincent ja Grenadiinit","sv":"Saint Vincent and the Grenadines","en":"Saint
+        Vincent and the Grenadines"},"id":"ML.188"},{"areaType":"ML.country","countryCodeISOalpha2":"DE","countryCodeISOalpha3":"DEU","name":{"fi":"Saksa","sv":"Germany","en":"Germany"},"id":"ML.189"},{"areaType":"ML.country","countryCodeISOalpha2":"BS","countryCodeISOalpha3":"BHS","name":{"fi":"Bahama","sv":"Bahamas","en":"Bahamas"},"id":"ML.19"},{"areaType":"ML.country","countryCodeISOalpha2":"SB","countryCodeISOalpha3":"SLB","name":{"fi":"Salomonsaaret","sv":"Solomon
+        Islands","en":"Solomon Islands"},"id":"ML.190"},{"areaType":"ML.country","countryCodeISOalpha2":"ZM","countryCodeISOalpha3":"ZMB","name":{"fi":"Sambia","sv":"Zambia","en":"Zambia"},"id":"ML.191"},{"areaType":"ML.country","countryCodeISOalpha2":"WS","countryCodeISOalpha3":"WSM","name":{"fi":"Samoa","sv":"Samoa","en":"Samoa"},"id":"ML.192"},{"areaType":"ML.country","countryCodeISOalpha2":"SM","countryCodeISOalpha3":"SMR","name":{"fi":"San
+        Marino","sv":"San Marino","en":"San Marino"},"id":"ML.193"},{"areaType":"ML.country","countryCodeISOalpha2":"ST","countryCodeISOalpha3":"STP","name":{"fi":"São
+        Tomé ja Príncipe","sv":"Sao Tome and Principe","en":"Sao Tome and Principe"},"id":"ML.194"},{"areaType":"ML.country","countryCodeISOalpha2":"SA","countryCodeISOalpha3":"SAU","name":{"fi":"Saudi-Arabia","sv":"Saudi
+        Arabia","en":"Saudi Arabia"},"id":"ML.195"},{"areaType":"ML.country","countryCodeISOalpha2":"SN","countryCodeISOalpha3":"SEN","name":{"fi":"Senegal","sv":"Senegal","en":"Senegal"},"id":"ML.196"},{"areaType":"ML.country","countryCodeISOalpha2":"RS","countryCodeISOalpha3":"SRB","name":{"fi":"Serbia","sv":"Serbia","en":"Serbia"},"id":"ML.197"},{"areaType":"ML.country","countryCodeISOalpha2":"SC","countryCodeISOalpha3":"SYC","name":{"fi":"Seychellit","sv":"Seychelles","en":"Seychelles"},"id":"ML.198"},{"areaType":"ML.country","countryCodeISOalpha2":"SL","countryCodeISOalpha3":"SLE","name":{"fi":"Sierra
+        Leone","sv":"Sierra Leone","en":"Sierra Leone"},"id":"ML.199"},{"areaType":"ML.country","countryCodeISOalpha2":"BH","countryCodeISOalpha3":"BHR","name":{"fi":"Bahrain","sv":"Bahrain","en":"Bahrain"},"id":"ML.20"},{"areaType":"ML.country","countryCodeISOalpha2":"SG","countryCodeISOalpha3":"SGP","name":{"fi":"Singapore","sv":"Singapore","en":"Singapore"},"id":"ML.200"},{"areaType":"ML.country","countryCodeISOalpha2":"SK","countryCodeISOalpha3":"SVK","name":{"fi":"Slovakia","sv":"Slovakia","en":"Slovakia"},"id":"ML.201"},{"areaType":"ML.country","countryCodeISOalpha2":"SI","countryCodeISOalpha3":"SVN","name":{"fi":"Slovenia","sv":"Slovenia","en":"Slovenia"},"id":"ML.202"},{"areaType":"ML.country","countryCodeISOalpha2":"SO","countryCodeISOalpha3":"SOM","name":{"fi":"Somalia","sv":"Somalia","en":"Somalia"},"id":"ML.203"},{"areaType":"ML.country","countryCodeISOalpha2":"LK","countryCodeISOalpha3":"LKA","name":{"fi":"Sri
+        Lanka","sv":"Sri Lanka","en":"Sri Lanka"},"id":"ML.204"},{"areaType":"ML.country","countryCodeISOalpha2":"SD","countryCodeISOalpha3":"SDN","name":{"fi":"Sudan","sv":"Sudan","en":"Sudan"},"id":"ML.205"},{"areaType":"ML.country","countryCodeISOalpha2":"FI","countryCodeISOalpha3":"FIN","name":{"fi":"Suomi","sv":"Finland","en":"Finland"},"id":"ML.206"},{"areaType":"ML.country","countryCodeISOalpha2":"SR","countryCodeISOalpha3":"SUR","name":{"fi":"Suriname","sv":"Suriname","en":"Suriname"},"id":"ML.207"},{"areaType":"ML.country","countryCodeISOalpha2":"SJ","countryCodeISOalpha3":"SJM","name":{"fi":"Svalbard
+        ja Jan Mayen","sv":"Svalbard and Jan Mayen","en":"Svalbard and Jan Mayen"},"id":"ML.208"},{"areaType":"ML.country","countryCodeISOalpha2":"CH","countryCodeISOalpha3":"CHE","name":{"fi":"Sveitsi","sv":"Switzerland","en":"Switzerland"},"id":"ML.209"},{"areaType":"ML.country","countryCodeISOalpha2":"BD","countryCodeISOalpha3":"BGD","name":{"fi":"Bangladesh","sv":"Bangladesh","en":"Bangladesh"},"id":"ML.21"},{"areaType":"ML.country","countryCodeISOalpha2":"SZ","countryCodeISOalpha3":"SWZ","name":{"fi":"Swazimaa","sv":"Swaziland","en":"Swaziland"},"id":"ML.210"},{"areaType":"ML.country","countryCodeISOalpha2":"SY","countryCodeISOalpha3":"SYR","name":{"fi":"Syyria","sv":"Syrian
+        Arab Republic","en":"Syrian Arab Republic"},"id":"ML.211"},{"areaType":"ML.country","countryCodeISOalpha2":"TJ","countryCodeISOalpha3":"TJK","name":{"fi":"Tadžikistan","sv":"Tajikistan","en":"Tajikistan"},"id":"ML.212"},{"areaType":"ML.country","countryCodeISOalpha2":"TW","countryCodeISOalpha3":"TWN","name":{"fi":"Taiwan","sv":"Taiwan,
+        Province of China","en":"Taiwan, Province of China"},"id":"ML.213"},{"areaType":"ML.country","countryCodeISOalpha2":"TZ","countryCodeISOalpha3":"TZA","name":{"fi":"Tansania","sv":"Tanzania,
+        United Republic of","en":"Tanzania, United Republic of"},"id":"ML.214"},{"areaType":"ML.country","countryCodeISOalpha2":"DK","countryCodeISOalpha3":"DNK","name":{"fi":"Tanska","sv":"Denmark","en":"Denmark"},"id":"ML.215"},{"areaType":"ML.country","countryCodeISOalpha2":"TH","countryCodeISOalpha3":"THA","name":{"fi":"Thaimaa","sv":"Thailand","en":"Thailand"},"id":"ML.216"},{"areaType":"ML.country","countryCodeISOalpha2":"TG","countryCodeISOalpha3":"TGO","name":{"fi":"Togo","sv":"Togo","en":"Togo"},"id":"ML.217"},{"areaType":"ML.country","countryCodeISOalpha2":"TK","countryCodeISOalpha3":"TKL","name":{"fi":"Tokelau","sv":"Tokelau","en":"Tokelau"},"id":"ML.218"},{"areaType":"ML.country","countryCodeISOalpha2":"TO","countryCodeISOalpha3":"TON","name":{"fi":"Tonga","sv":"Tonga","en":"Tonga"},"id":"ML.219"},{"areaType":"ML.country","countryCodeISOalpha2":"BB","countryCodeISOalpha3":"BRB","name":{"fi":"Barbados","sv":"Barbados","en":"Barbados"},"id":"ML.22"},{"areaType":"ML.country","countryCodeISOalpha2":"TT","countryCodeISOalpha3":"TTO","name":{"fi":"Trinidad
+        ja Tobago","sv":"Trinidad and Tobago","en":"Trinidad and Tobago"},"id":"ML.220"},{"areaType":"ML.country","countryCodeISOalpha2":"TD","countryCodeISOalpha3":"TCD","name":{"fi":"Tšad","sv":"Chad","en":"Chad"},"id":"ML.221"},{"areaType":"ML.country","countryCodeISOalpha2":"CZ","countryCodeISOalpha3":"CZE","name":{"fi":"Tšekki","sv":"Czechia","en":"Czechia"},"id":"ML.222"},{"areaType":"ML.country","countryCodeISOalpha2":"TN","countryCodeISOalpha3":"TUN","name":{"fi":"Tunisia","sv":"Tunisia","en":"Tunisia"},"id":"ML.223"},{"areaType":"ML.country","countryCodeISOalpha2":"TR","countryCodeISOalpha3":"TUR","name":{"fi":"Turkki","sv":"Türkiye","en":"Türkiye"},"id":"ML.224"},{"areaType":"ML.country","countryCodeISOalpha2":"TM","countryCodeISOalpha3":"TKM","name":{"fi":"Turkmenistan","sv":"Turkmenistan","en":"Turkmenistan"},"id":"ML.225"},{"areaType":"ML.country","countryCodeISOalpha2":"TC","countryCodeISOalpha3":"TCA","name":{"fi":"Turks-
+        ja Caicossaaret","sv":"Turks and Caicos Islands","en":"Turks and Caicos Islands"},"id":"ML.226"},{"areaType":"ML.country","countryCodeISOalpha2":"TV","countryCodeISOalpha3":"TUV","name":{"fi":"Tuvalu","sv":"Tuvalu","en":"Tuvalu"},"id":"ML.227"},{"areaType":"ML.country","countryCodeISOalpha2":"UG","countryCodeISOalpha3":"UGA","name":{"fi":"Uganda","sv":"Uganda","en":"Uganda"},"id":"ML.228"},{"areaType":"ML.country","countryCodeISOalpha2":"UA","countryCodeISOalpha3":"UKR","name":{"fi":"Ukraina","sv":"Ukraine","en":"Ukraine"},"id":"ML.229"},{"areaType":"ML.country","countryCodeISOalpha2":"BE","countryCodeISOalpha3":"BEL","name":{"fi":"Belgia","sv":"Belgium","en":"Belgium"},"id":"ML.23"},{"areaType":"ML.country","countryCodeISOalpha2":"HU","countryCodeISOalpha3":"HUN","name":{"fi":"Unkari","sv":"Hungary","en":"Hungary"},"id":"ML.230"},{"areaType":"ML.country","countryCodeISOalpha2":"UY","countryCodeISOalpha3":"URY","name":{"fi":"Uruguay","sv":"Uruguay","en":"Uruguay"},"id":"ML.231"},{"areaType":"ML.country","countryCodeISOalpha2":"NC","countryCodeISOalpha3":"NCL","name":{"fi":"Uusi-Kaledonia","sv":"New
+        Caledonia","en":"New Caledonia"},"id":"ML.232"},{"areaType":"ML.country","countryCodeISOalpha2":"NZ","countryCodeISOalpha3":"NZL","name":{"fi":"Uusi-Seelanti","sv":"New
+        Zealand","en":"New Zealand"},"id":"ML.233"},{"areaType":"ML.country","countryCodeISOalpha2":"UZ","countryCodeISOalpha3":"UZB","name":{"fi":"Uzbekistan","sv":"Uzbekistan","en":"Uzbekistan"},"id":"ML.234"},{"areaType":"ML.country","countryCodeISOalpha2":"BY","countryCodeISOalpha3":"BLR","name":{"fi":"Valko-Venäjä","sv":"Belarus","en":"Belarus"},"id":"ML.235"},{"areaType":"ML.country","countryCodeISOalpha2":"VU","countryCodeISOalpha3":"VUT","name":{"fi":"Vanuatu","sv":"Vanuatu","en":"Vanuatu"},"id":"ML.236"},{"areaType":"ML.country","countryCodeISOalpha2":"VA","countryCodeISOalpha3":"VAT","name":{"fi":"Vatikaani","sv":"Holy
+        See (Vatican City State)","en":"Holy See (Vatican City State)"},"id":"ML.237"},{"areaType":"ML.country","countryCodeISOalpha2":"VE","countryCodeISOalpha3":"VEN","name":{"fi":"Venezuela","sv":"Venezuela,
+        Bolivarian Republic of","en":"Venezuela, Bolivarian Republic of"},"id":"ML.238"},{"areaType":"ML.country","countryCodeISOalpha2":"RU","countryCodeISOalpha3":"RUS","name":{"fi":"Venäjä","sv":"Russian
+        Federation","en":"Russian Federation"},"id":"ML.239"},{"areaType":"ML.country","countryCodeISOalpha2":"BZ","countryCodeISOalpha3":"BLZ","name":{"fi":"Belize","sv":"Belize","en":"Belize"},"id":"ML.24"},{"areaType":"ML.country","countryCodeISOalpha2":"VN","countryCodeISOalpha3":"VNM","name":{"fi":"Vietnam","sv":"Viet
+        Nam","en":"Viet Nam"},"id":"ML.240"},{"areaType":"ML.country","countryCodeISOalpha2":"EE","countryCodeISOalpha3":"EST","name":{"fi":"Viro","sv":"Estonia","en":"Estonia"},"id":"ML.241"},{"areaType":"ML.country","countryCodeISOalpha2":"WF","countryCodeISOalpha3":"WLF","name":{"fi":"Wallis
+        ja Futuna","sv":"Wallis and Futuna","en":"Wallis and Futuna"},"id":"ML.242"},{"areaType":"ML.country","countryCodeISOalpha2":"US","countryCodeISOalpha3":"USA","name":{"fi":"Yhdysvallat
+        (USA)","sv":"United States","en":"United States"},"id":"ML.243"},{"areaType":"ML.country","countryCodeISOalpha2":"VI","countryCodeISOalpha3":"VIR","name":{"fi":"Yhdysvaltain
+        Neitsytsaaret","sv":"Virgin Islands, U.S.","en":"Virgin Islands, U.S."},"id":"ML.244"},{"areaType":"ML.country","countryCodeISOalpha2":"UM","countryCodeISOalpha3":"UMI","name":{"fi":"Yhdysvaltain
+        pienet erillissaaret","sv":"United States Minor Outlying Islands","en":"United
+        States Minor Outlying Islands"},"id":"ML.245"},{"areaType":"ML.country","countryCodeISOalpha2":"ZW","countryCodeISOalpha3":"ZWE","name":{"fi":"Zimbabwe","sv":"Zimbabwe","en":"Zimbabwe"},"id":"ML.246"},{"areaType":"ML.country","name":{"fi":"Neuvostoliitto","sv":"Soviet
+        Union","en":"Soviet Union"},"id":"ML.247"},{"areaType":"ML.country","name":{"fi":"Tsekkoslovakia","sv":"Czechoslovakia","en":"Czechoslovakia"},"id":"ML.248"},{"areaType":"ML.country","name":{"fi":"Jugoslavia","sv":"Yugoslavia","en":"Yugoslavia"},"id":"ML.249"},{"areaType":"ML.country","countryCodeISOalpha2":"BJ","countryCodeISOalpha3":"BEN","name":{"fi":"Benin","sv":"Benin","en":"Benin"},"id":"ML.25"},{"areaType":"ML.country","countryCodeISOalpha2":"BM","countryCodeISOalpha3":"BMU","name":{"fi":"Bermuda","sv":"Bermuda","en":"Bermuda"},"id":"ML.26"},{"areaType":"ML.country","countryCodeISOalpha2":"BT","countryCodeISOalpha3":"BTN","name":{"fi":"Bhutan","sv":"Bhutan","en":"Bhutan"},"id":"ML.27"},{"areaType":"ML.country","countryCodeISOalpha2":"BO","countryCodeISOalpha3":"BOL","name":{"fi":"Bolivia","sv":"Bolivia,
+        Plurinational State of","en":"Bolivia, Plurinational State of"},"id":"ML.28"},{"areaType":"ML.country","countryCodeISOalpha2":"BA","countryCodeISOalpha3":"BIH","name":{"fi":"Bosnia
+        ja Hertsegovina","sv":"Bosnia and Herzegovina","en":"Bosnia and Herzegovina"},"id":"ML.29"},{"areaType":"ML.country","countryCodeISOalpha2":"NL","countryCodeISOalpha3":"NLD","name":{"fi":"Alankomaat","sv":"Netherlands","en":"Netherlands"},"id":"ML.3"},{"areaType":"ML.country","countryCodeISOalpha2":"BW","countryCodeISOalpha3":"BWA","name":{"fi":"Botswana","sv":"Botswana","en":"Botswana"},"id":"ML.30"},{"areaType":"ML.country","countryCodeISOalpha2":"BV","countryCodeISOalpha3":"BVT","name":{"fi":"Bouvet’nsaari","sv":"Bouvet
+        Island","en":"Bouvet Island"},"id":"ML.31"},{"areaType":"ML.country","countryCodeISOalpha2":"BR","countryCodeISOalpha3":"BRA","name":{"fi":"Brasilia","sv":"Brazil","en":"Brazil"},"id":"ML.32"},{"areaType":"ML.country","countryCodeISOalpha2":"GB","countryCodeISOalpha3":"GBR","name":{"fi":"Britannia","sv":"United
+        Kingdom","en":"United Kingdom"},"id":"ML.33"},{"areaType":"ML.country","countryCodeISOalpha2":"IO","countryCodeISOalpha3":"IOT","name":{"fi":"Brittiläinen
+        Intian valtameren alue","sv":"British Indian Ocean Territory","en":"British
+        Indian Ocean Territory"},"id":"ML.34"},{"areaType":"ML.country","countryCodeISOalpha2":"VG","countryCodeISOalpha3":"VGB","name":{"fi":"Brittiläiset
+        Neitsytsaaret","sv":"Virgin Islands, British","en":"Virgin Islands, British"},"id":"ML.35"},{"areaType":"ML.country","countryCodeISOalpha2":"BN","countryCodeISOalpha3":"BRN","name":{"fi":"Brunei","sv":"Brunei
+        Darussalam","en":"Brunei Darussalam"},"id":"ML.36"},{"areaType":"ML.country","countryCodeISOalpha2":"BG","countryCodeISOalpha3":"BGR","name":{"fi":"Bulgaria","sv":"Bulgaria","en":"Bulgaria"},"id":"ML.37"},{"areaType":"ML.country","countryCodeISOalpha2":"BF","countryCodeISOalpha3":"BFA","name":{"fi":"Burkina
+        Faso","sv":"Burkina Faso","en":"Burkina Faso"},"id":"ML.38"},{"areaType":"ML.country","countryCodeISOalpha2":"BI","countryCodeISOalpha3":"BDI","name":{"fi":"Burundi","sv":"Burundi","en":"Burundi"},"id":"ML.39"},{"areaType":"ML.country","countryCodeISOalpha2":"AN","countryCodeISOalpha3":"ANT","name":{"fi":"Alankomaiden
+        Antillit","sv":"Netherlands Antilles","en":"Netherlands Antilles"},"id":"ML.4"},{"areaType":"ML.country","countryCodeISOalpha2":"KY","countryCodeISOalpha3":"CYM","name":{"fi":"Caymansaaret","sv":"Cayman
+        Islands","en":"Cayman Islands"},"id":"ML.40"},{"areaType":"ML.country","countryCodeISOalpha2":"CL","countryCodeISOalpha3":"CHL","name":{"fi":"Chile","sv":"Chile","en":"Chile"},"id":"ML.41"},{"areaType":"ML.country","countryCodeISOalpha2":"CK","countryCodeISOalpha3":"COK","name":{"fi":"Cookinsaaret","sv":"Cook
+        Islands","en":"Cook Islands"},"id":"ML.42"},{"areaType":"ML.country","countryCodeISOalpha2":"CR","countryCodeISOalpha3":"CRI","name":{"fi":"Costa
+        Rica","sv":"Costa Rica","en":"Costa Rica"},"id":"ML.43"},{"areaType":"ML.country","countryCodeISOalpha2":"DJ","countryCodeISOalpha3":"DJI","name":{"fi":"Djibouti","sv":"Djibouti","en":"Djibouti"},"id":"ML.44"},{"areaType":"ML.country","countryCodeISOalpha2":"DM","countryCodeISOalpha3":"DMA","name":{"fi":"Dominica","sv":"Dominica","en":"Dominica"},"id":"ML.45"},{"areaType":"ML.country","countryCodeISOalpha2":"DO","countryCodeISOalpha3":"DOM","name":{"fi":"Dominikaaninen
+        tasavalta","sv":"Dominican Republic","en":"Dominican Republic"},"id":"ML.46"},{"areaType":"ML.country","countryCodeISOalpha2":"EC","countryCodeISOalpha3":"ECU","name":{"fi":"Ecuador","sv":"Ecuador","en":"Ecuador"},"id":"ML.47"},{"areaType":"ML.country","countryCodeISOalpha2":"EG","countryCodeISOalpha3":"EGY","name":{"fi":"Egypti","sv":"Egypt","en":"Egypt"},"id":"ML.48"},{"areaType":"ML.country","countryCodeISOalpha2":"SV","countryCodeISOalpha3":"SLV","name":{"fi":"El
+        Salvador","sv":"El Salvador","en":"El Salvador"},"id":"ML.49"},{"areaType":"ML.country","countryCodeISOalpha2":"AL","countryCodeISOalpha3":"ALB","name":{"fi":"Albania","sv":"Albania","en":"Albania"},"id":"ML.5"},{"areaType":"ML.country","countryCodeISOalpha2":"ER","countryCodeISOalpha3":"ERI","name":{"fi":"Eritrea","sv":"Eritrea","en":"Eritrea"},"id":"ML.50"},{"areaType":"ML.country","countryCodeISOalpha2":"ES","countryCodeISOalpha3":"ESP","name":{"fi":"Espanja","sv":"Spain","en":"Spain"},"id":"ML.51"},{"areaType":"ML.country","countryCodeISOalpha2":"ZA","countryCodeISOalpha3":"ZAF","name":{"fi":"Etelä-Afrikka","sv":"South
+        Africa","en":"South Africa"},"id":"ML.52"},{"areaType":"ML.country","countryCodeISOalpha2":"GS","countryCodeISOalpha3":"SGS","name":{"fi":"Etelä-Georgia
+        ja Eteläiset Sandwichsaaret","sv":"South Georgia and the South Sandwich Islands","en":"South
+        Georgia and the South Sandwich Islands"},"id":"ML.53"},{"areaType":"ML.country","countryCodeISOalpha2":"ET","countryCodeISOalpha3":"ETH","name":{"fi":"Etiopia","sv":"Ethiopia","en":"Ethiopia"},"id":"ML.54"},{"areaType":"ML.country","countryCodeISOalpha2":"FK","countryCodeISOalpha3":"FLK","name":{"fi":"Falklandinsaaret","sv":"Falkland
+        Islands (Malvinas)","en":"Falkland Islands (Malvinas)"},"id":"ML.55"},{"areaType":"ML.country","countryCodeISOalpha2":"FJ","countryCodeISOalpha3":"FJI","name":{"fi":"Fidži","sv":"Fiji","en":"Fiji"},"id":"ML.56"},{"areaType":"ML.country","countryCodeISOalpha2":"PH","countryCodeISOalpha3":"PHL","name":{"fi":"Filippiinit","sv":"Philippines","en":"Philippines"},"id":"ML.57"},{"areaType":"ML.country","countryCodeISOalpha2":"FO","countryCodeISOalpha3":"FRO","name":{"fi":"Färsaaret","sv":"Faroe
+        Islands","en":"Faroe Islands"},"id":"ML.58"},{"areaType":"ML.country","countryCodeISOalpha2":"GA","countryCodeISOalpha3":"GAB","name":{"fi":"Gabon","sv":"Gabon","en":"Gabon"},"id":"ML.59"},{"areaType":"ML.country","countryCodeISOalpha2":"DZ","countryCodeISOalpha3":"DZA","name":{"fi":"Algeria","sv":"Algeria","en":"Algeria"},"id":"ML.6"},{"areaType":"ML.country","countryCodeISOalpha2":"GM","countryCodeISOalpha3":"GMB","name":{"fi":"Gambia","sv":"Gambia","en":"Gambia"},"id":"ML.60"},{"areaType":"ML.country","countryCodeISOalpha2":"GE","countryCodeISOalpha3":"GEO","name":{"fi":"Georgia","sv":"Georgia","en":"Georgia"},"id":"ML.61"},{"areaType":"ML.country","countryCodeISOalpha2":"GH","countryCodeISOalpha3":"GHA","name":{"fi":"Ghana","sv":"Ghana","en":"Ghana"},"id":"ML.62"},{"areaType":"ML.country","countryCodeISOalpha2":"GI","countryCodeISOalpha3":"GIB","name":{"fi":"Gibraltar","sv":"Gibraltar","en":"Gibraltar"},"id":"ML.63"},{"areaType":"ML.country","countryCodeISOalpha2":"GD","countryCodeISOalpha3":"GRD","name":{"fi":"Grenada","sv":"Grenada","en":"Grenada"},"id":"ML.64"},{"areaType":"ML.country","countryCodeISOalpha2":"GL","countryCodeISOalpha3":"GRL","name":{"fi":"Grönlanti","sv":"Greenland","en":"Greenland"},"id":"ML.65"},{"areaType":"ML.country","countryCodeISOalpha2":"GP","countryCodeISOalpha3":"GLP","name":{"fi":"Guadeloupe","sv":"Guadeloupe","en":"Guadeloupe"},"id":"ML.66"},{"areaType":"ML.country","countryCodeISOalpha2":"GU","countryCodeISOalpha3":"GUM","name":{"fi":"Guam","sv":"Guam","en":"Guam"},"id":"ML.67"},{"areaType":"ML.country","countryCodeISOalpha2":"GT","countryCodeISOalpha3":"GTM","name":{"fi":"Guatemala","sv":"Guatemala","en":"Guatemala"},"id":"ML.68"},{"areaType":"ML.country","countryCodeISOalpha2":"GG","countryCodeISOalpha3":"GGY","name":{"fi":"Guernsey","sv":"Guernsey","en":"Guernsey"},"id":"ML.69"},{"areaType":"ML.country","countryCodeISOalpha2":"AS","countryCodeISOalpha3":"ASM","name":{"fi":"Amerikan
+        Samoa","sv":"American Samoa","en":"American Samoa"},"id":"ML.7"},{"areaType":"ML.country","countryCodeISOalpha2":"GN","countryCodeISOalpha3":"GIN","name":{"fi":"Guinea","sv":"Guinea","en":"Guinea"},"id":"ML.70"},{"areaType":"ML.country","countryCodeISOalpha2":"GW","countryCodeISOalpha3":"GNB","name":{"fi":"Guinea-Bissau","sv":"Guinea-Bissau","en":"Guinea-Bissau"},"id":"ML.71"},{"areaType":"ML.country","countryCodeISOalpha2":"GY","countryCodeISOalpha3":"GUY","name":{"fi":"Guyana","sv":"Guyana","en":"Guyana"},"id":"ML.72"},{"areaType":"ML.country","countryCodeISOalpha2":"HT","countryCodeISOalpha3":"HTI","name":{"fi":"Haiti","sv":"Haiti","en":"Haiti"},"id":"ML.73"},{"areaType":"ML.country","countryCodeISOalpha2":"HM","countryCodeISOalpha3":"HMD","name":{"fi":"Heard
+        ja McDonaldinsaaret","sv":"Heard Island and McDonald Islands","en":"Heard
+        Island and McDonald Islands"},"id":"ML.74"},{"areaType":"ML.country","countryCodeISOalpha2":"HN","countryCodeISOalpha3":"HND","name":{"fi":"Honduras","sv":"Honduras","en":"Honduras"},"id":"ML.75"},{"areaType":"ML.country","countryCodeISOalpha2":"HK","countryCodeISOalpha3":"HKG","name":{"fi":"Hongkong","sv":"Hong
+        Kong","en":"Hong Kong"},"id":"ML.76"},{"areaType":"ML.country","countryCodeISOalpha2":"ID","countryCodeISOalpha3":"IDN","name":{"fi":"Indonesia","sv":"Indonesia","en":"Indonesia"},"id":"ML.77"},{"areaType":"ML.country","countryCodeISOalpha2":"IN","countryCodeISOalpha3":"IND","name":{"fi":"Intia","sv":"India","en":"India"},"id":"ML.78"},{"areaType":"ML.country","countryCodeISOalpha2":"IQ","countryCodeISOalpha3":"IRQ","name":{"fi":"Irak","sv":"Iraq","en":"Iraq"},"id":"ML.79"},{"areaType":"ML.country","countryCodeISOalpha2":"AD","countryCodeISOalpha3":"AND","name":{"fi":"Andorra","sv":"Andorra","en":"Andorra"},"id":"ML.8"},{"areaType":"ML.country","countryCodeISOalpha2":"IR","countryCodeISOalpha3":"IRN","name":{"fi":"Iran","sv":"Iran,
+        Islamic Republic of","en":"Iran, Islamic Republic of"},"id":"ML.80"},{"areaType":"ML.country","countryCodeISOalpha2":"IE","countryCodeISOalpha3":"IRL","name":{"fi":"Irlanti","sv":"Ireland","en":"Ireland"},"id":"ML.81"},{"areaType":"ML.country","countryCodeISOalpha2":"IS","countryCodeISOalpha3":"ISL","name":{"fi":"Islanti","sv":"Iceland","en":"Iceland"},"id":"ML.82"},{"areaType":"ML.country","countryCodeISOalpha2":"IL","countryCodeISOalpha3":"ISR","name":{"fi":"Israel","sv":"Israel","en":"Israel"},"id":"ML.83"},{"areaType":"ML.country","countryCodeISOalpha2":"IT","countryCodeISOalpha3":"ITA","name":{"fi":"Italia","sv":"Italy","en":"Italy"},"id":"ML.84"},{"areaType":"ML.country","countryCodeISOalpha2":"TL","countryCodeISOalpha3":"TLS","name":{"fi":"Itä-Timor","sv":"Timor-Leste","en":"Timor-Leste"},"id":"ML.85"},{"areaType":"ML.country","countryCodeISOalpha2":"AT","countryCodeISOalpha3":"AUT","name":{"fi":"Itävalta","sv":"Austria","en":"Austria"},"id":"ML.86"},{"areaType":"ML.country","countryCodeISOalpha2":"JM","countryCodeISOalpha3":"JAM","name":{"fi":"Jamaika","sv":"Jamaica","en":"Jamaica"},"id":"ML.87"},{"areaType":"ML.country","countryCodeISOalpha2":"JP","countryCodeISOalpha3":"JPN","name":{"fi":"Japani","sv":"Japan","en":"Japan"},"id":"ML.88"},{"areaType":"ML.country","countryCodeISOalpha2":"YE","countryCodeISOalpha3":"YEM","name":{"fi":"Jemen","sv":"Yemen","en":"Yemen"},"id":"ML.89"},{"areaType":"ML.country","countryCodeISOalpha2":"AO","countryCodeISOalpha3":"AGO","name":{"fi":"Angola","sv":"Angola","en":"Angola"},"id":"ML.9"},{"areaType":"ML.country","countryCodeISOalpha2":"JE","countryCodeISOalpha3":"JEY","name":{"fi":"Jersey","sv":"Jersey","en":"Jersey"},"id":"ML.90"},{"areaType":"ML.country","countryCodeISOalpha2":"JO","countryCodeISOalpha3":"JOR","name":{"fi":"Jordania","sv":"Jordan","en":"Jordan"},"id":"ML.91"},{"areaType":"ML.country","countryCodeISOalpha2":"CX","countryCodeISOalpha3":"CXR","name":{"fi":"Joulusaari","sv":"Christmas
+        Island","en":"Christmas Island"},"id":"ML.92"},{"areaType":"ML.country","countryCodeISOalpha2":"KH","countryCodeISOalpha3":"KHM","name":{"fi":"Kambodža","sv":"Cambodia","en":"Cambodia"},"id":"ML.93"},{"areaType":"ML.country","countryCodeISOalpha2":"CM","countryCodeISOalpha3":"CMR","name":{"fi":"Kamerun","sv":"Cameroon","en":"Cameroon"},"id":"ML.94"},{"areaType":"ML.country","countryCodeISOalpha2":"CA","countryCodeISOalpha3":"CAN","name":{"fi":"Kanada","sv":"Canada","en":"Canada"},"id":"ML.95"},{"areaType":"ML.country","countryCodeISOalpha2":"CV","countryCodeISOalpha3":"CPV","name":{"fi":"Kap
+        Verde","sv":"Cape Verde","en":"Cape Verde"},"id":"ML.96"},{"areaType":"ML.country","countryCodeISOalpha2":"KZ","countryCodeISOalpha3":"KAZ","name":{"fi":"Kazakstan","sv":"Kazakhstan","en":"Kazakhstan"},"id":"ML.97"},{"areaType":"ML.country","countryCodeISOalpha2":"KE","countryCodeISOalpha3":"KEN","name":{"fi":"Kenia","sv":"Kenya","en":"Kenya"},"id":"ML.98"},{"areaType":"ML.country","countryCodeISOalpha2":"CF","countryCodeISOalpha3":"CAF","name":{"fi":"Keski-Afrikan
+        tasavalta","sv":"Central African Republic","en":"Central African Republic"},"id":"ML.99"}],"currentPage":1,"pageSize":1000,"lastPage":1,"@context":"http://tun.fi/ML.area"}'
+  recorded_at: 2024-11-05 08:35:40 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
-    uri: https://api.laji.fi/v0/areas?type=province&lang=multi&pageSize=1000&access_token=<finbif_token>
+    uri: https://api.laji.fi/v0/areas?areaType=ML.province&lang=multi&pageSize=1000&access_token=<finbif_token>
     body:
       encoding: ''
       string: ''
@@ -965,16 +970,12 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:17 GMT
+      date: Tue, 05 Nov 2024 08:35:39 GMT
       content-type: application/json; charset=utf-8
-      transfer-encoding: chunked
+      content-length: '2745'
+      x-powered-by: Express
       access-control-allow-origin: '*'
-      access-control-allow-credentials: 'true'
-      x-frame-options: SAMEORIGIN
-      x-download-options: noopen
-      etag: W/"acd-h8OYCq9HbNT1RCnspNz8iPEwDRI"
-      vary: Accept-Encoding
-      content-encoding: gzip
+      etag: W/"ab9-46GZ+K5MRY4NG2JzXUvd+8pRATA"
       cache-control: public
       x-xss-protection: 1;mode=block
       x-content-type-options: nosniff
@@ -983,22 +984,22 @@ http_interactions:
     body:
       encoding: ''
       file: no
-      string: '{"currentPage":1,"pageSize":1000,"total":19,"results":[{"id":"ML.1227","areaType":"ML.province","name":{"en":"Uusimaa","fi":"Uusimaa","sv":"Nyland"},"provinceCodeNumeric":"01"},{"id":"ML.1228","areaType":"ML.province","name":{"en":"Southwest
-        Finland","fi":"Varsinais-Suomi","sv":"Egentliga Finland"},"provinceCodeNumeric":"02"},{"id":"ML.1229","areaType":"ML.province","name":{"en":"Satakunta","fi":"Satakunta","sv":"Satakunta"},"provinceCodeNumeric":"04"},{"id":"ML.1230","areaType":"ML.province","name":{"en":"Kanta-Häme","fi":"Kanta-Häme","sv":"Egentliga
-        Tavastland"},"provinceCodeNumeric":"05"},{"id":"ML.1231","areaType":"ML.province","name":{"en":"Pirkanmaa","fi":"Pirkanmaa","sv":"Birkaland"},"provinceCodeNumeric":"06"},{"id":"ML.1232","areaType":"ML.province","name":{"en":"Päijät-Häme","fi":"Päijät-Häme","sv":"Päijänne-Tavastland"},"provinceCodeNumeric":"07"},{"id":"ML.1233","areaType":"ML.province","name":{"en":"Kymenlaakso","fi":"Kymenlaakso","sv":"Kymmenedalen"},"provinceCodeNumeric":"08"},{"id":"ML.1234","areaType":"ML.province","name":{"en":"South
-        Karelia","fi":"Etelä-Karjala","sv":"Södra Karelen"},"provinceCodeNumeric":"09"},{"id":"ML.1235","areaType":"ML.province","name":{"en":"South
-        Savo","fi":"Etelä-Savo","sv":"Södra Savolax"},"provinceCodeNumeric":"10"},{"id":"ML.1236","areaType":"ML.province","name":{"en":"North
-        Savo","fi":"Pohjois-Savo","sv":"Norra Savolax"},"provinceCodeNumeric":"11"},{"id":"ML.1237","areaType":"ML.province","name":{"en":"North
-        Karelia","fi":"Pohjois-Karjala","sv":"Norra Karelen"},"provinceCodeNumeric":"12"},{"id":"ML.1238","areaType":"ML.province","name":{"en":"Central
-        Finland","fi":"Keski-Suomi","sv":"Mellersta Finland"},"provinceCodeNumeric":"13"},{"id":"ML.1239","areaType":"ML.province","name":{"en":"South
-        Ostrobothnia","fi":"Etelä-Pohjanmaa","sv":"Södra Österbotten"},"provinceCodeNumeric":"14"},{"id":"ML.1240","areaType":"ML.province","name":{"en":"Ostrobothnia","fi":"Pohjanmaa","sv":"Österbotten"},"provinceCodeNumeric":"15"},{"id":"ML.1241","areaType":"ML.province","name":{"en":"Central
-        Ostrobothnia","fi":"Keski-Pohjanmaa","sv":"Mellersta Österbotten"},"provinceCodeNumeric":"16"},{"id":"ML.1242","areaType":"ML.province","name":{"en":"North
-        Ostrobothnia","fi":"Pohjois-Pohjanmaa","sv":"Norra Österbotten"},"provinceCodeNumeric":"17"},{"id":"ML.1243","areaType":"ML.province","name":{"en":"Kainuu","fi":"Kainuu","sv":"Kajanaland"},"provinceCodeNumeric":"18"},{"id":"ML.1244","areaType":"ML.province","name":{"en":"Lapland","fi":"Lappi","sv":"Lappland"},"provinceCodeNumeric":"19"},{"id":"ML.1245","areaType":"ML.province","name":{"en":"Åland","fi":"Ahvenanmaa","sv":"Åland"},"provinceCodeNumeric":"21"}],"lastPage":1,"@context":"http://schema.laji.fi/context/area.jsonld"}'
-  recorded_at: 2024-08-19 08:49:18 GMT
+      string: '{"total":19,"results":[{"areaType":"ML.province","name":{"fi":"Uusimaa","sv":"Nyland","en":"Uusimaa"},"provinceCodeNumeric":"01","id":"ML.1227"},{"areaType":"ML.province","name":{"fi":"Varsinais-Suomi","sv":"Egentliga
+        Finland","en":"Southwest Finland"},"provinceCodeNumeric":"02","id":"ML.1228"},{"areaType":"ML.province","name":{"fi":"Satakunta","sv":"Satakunta","en":"Satakunta"},"provinceCodeNumeric":"04","id":"ML.1229"},{"areaType":"ML.province","name":{"fi":"Kanta-Häme","sv":"Egentliga
+        Tavastland","en":"Kanta-Häme"},"provinceCodeNumeric":"05","id":"ML.1230"},{"areaType":"ML.province","name":{"fi":"Pirkanmaa","sv":"Birkaland","en":"Pirkanmaa"},"provinceCodeNumeric":"06","id":"ML.1231"},{"areaType":"ML.province","name":{"fi":"Päijät-Häme","sv":"Päijänne-Tavastland","en":"Päijät-Häme"},"provinceCodeNumeric":"07","id":"ML.1232"},{"areaType":"ML.province","name":{"fi":"Kymenlaakso","sv":"Kymmenedalen","en":"Kymenlaakso"},"provinceCodeNumeric":"08","id":"ML.1233"},{"areaType":"ML.province","name":{"fi":"Etelä-Karjala","sv":"Södra
+        Karelen","en":"South Karelia"},"provinceCodeNumeric":"09","id":"ML.1234"},{"areaType":"ML.province","name":{"fi":"Etelä-Savo","sv":"Södra
+        Savolax","en":"South Savo"},"provinceCodeNumeric":"10","id":"ML.1235"},{"areaType":"ML.province","name":{"fi":"Pohjois-Savo","sv":"Norra
+        Savolax","en":"North Savo"},"provinceCodeNumeric":"11","id":"ML.1236"},{"areaType":"ML.province","name":{"fi":"Pohjois-Karjala","sv":"Norra
+        Karelen","en":"North Karelia"},"provinceCodeNumeric":"12","id":"ML.1237"},{"areaType":"ML.province","name":{"fi":"Keski-Suomi","sv":"Mellersta
+        Finland","en":"Central Finland"},"provinceCodeNumeric":"13","id":"ML.1238"},{"areaType":"ML.province","name":{"fi":"Etelä-Pohjanmaa","sv":"Södra
+        Österbotten","en":"South Ostrobothnia"},"provinceCodeNumeric":"14","id":"ML.1239"},{"areaType":"ML.province","name":{"fi":"Pohjanmaa","sv":"Österbotten","en":"Ostrobothnia"},"provinceCodeNumeric":"15","id":"ML.1240"},{"areaType":"ML.province","name":{"fi":"Keski-Pohjanmaa","sv":"Mellersta
+        Österbotten","en":"Central Ostrobothnia"},"provinceCodeNumeric":"16","id":"ML.1241"},{"areaType":"ML.province","name":{"fi":"Pohjois-Pohjanmaa","sv":"Norra
+        Österbotten","en":"North Ostrobothnia"},"provinceCodeNumeric":"17","id":"ML.1242"},{"areaType":"ML.province","name":{"fi":"Kainuu","sv":"Kajanaland","en":"Kainuu"},"provinceCodeNumeric":"18","id":"ML.1243"},{"areaType":"ML.province","name":{"fi":"Lappi","sv":"Lappland","en":"Lapland"},"provinceCodeNumeric":"19","id":"ML.1244"},{"areaType":"ML.province","name":{"fi":"Ahvenanmaa","sv":"Åland","en":"Åland"},"provinceCodeNumeric":"21","id":"ML.1245"}],"currentPage":1,"pageSize":1000,"lastPage":1,"@context":"http://tun.fi/ML.area"}'
+  recorded_at: 2024-11-05 08:35:40 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
-    uri: https://api.laji.fi/v0/areas?type=biogeographicalProvince&lang=multi&pageSize=1000&access_token=<finbif_token>
+    uri: https://api.laji.fi/v0/areas?areaType=ML.biogeographicalProvince&lang=multi&pageSize=1000&access_token=<finbif_token>
     body:
       encoding: ''
       string: ''
@@ -1012,16 +1013,12 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:17 GMT
+      date: Tue, 05 Nov 2024 08:35:39 GMT
       content-type: application/json; charset=utf-8
-      transfer-encoding: chunked
+      content-length: '4855'
+      x-powered-by: Express
       access-control-allow-origin: '*'
-      access-control-allow-credentials: 'true'
-      x-frame-options: SAMEORIGIN
-      x-download-options: noopen
-      etag: W/"1213-gXyGBi7HURTJHmPqy0VlAhGt4Io"
-      vary: Accept-Encoding
-      content-encoding: gzip
+      etag: W/"12f7-dEmN2SNEUSjV86NrUzBmFn2dPWE"
       cache-control: public
       x-xss-protection: 1;mode=block
       x-content-type-options: nosniff
@@ -1030,28 +1027,27 @@ http_interactions:
     body:
       encoding: ''
       file: no
-      string: '{"currentPage":1,"pageSize":1000,"total":21,"results":[{"id":"ML.251","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"Åland","fi":"Ahvenanmaa","sv":"Åland"},"provinceCodeAlpha":{"en":"Al","fi":"A","sv":"Al"},"provinceCodeNumeric":"1"},{"id":"ML.252","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"","fi":"Varsinais-Suomi","sv":""},"provinceCodeAlpha":{"en":"","fi":"V","sv":""},"provinceCodeNumeric":"2"},{"id":"ML.253","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"","fi":"Uusimaa","sv":""},"provinceCodeAlpha":{"en":"","fi":"U","sv":""},"provinceCodeNumeric":"3"},{"id":"ML.254","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"South
-        Karelia","fi":"Etelä-Karjala","sv":""},"provinceCodeAlpha":{"en":"","fi":"EK","sv":""},"provinceCodeNumeric":"4"},{"id":"ML.255","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"","fi":"Satakunta","sv":""},"provinceCodeAlpha":{"en":"","fi":"St","sv":""},"provinceCodeNumeric":"5"},{"id":"ML.256","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"South
-        Häme","fi":"Etelä-Häme","sv":""},"provinceCodeAlpha":{"en":"","fi":"EH","sv":""},"provinceCodeNumeric":"6"},{"id":"ML.257","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"South
-        Savo","fi":"Etelä-Savo","sv":""},"provinceCodeAlpha":{"en":"","fi":"ES","sv":""},"provinceCodeNumeric":"7"},{"id":"ML.258","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"Ladoga
-        Karelia","fi":"Laatokan Karjala","sv":""},"provinceCodeAlpha":{"en":"","fi":"LK","sv":""},"provinceCodeNumeric":"8"},{"id":"ML.259","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"South
-        Ostrobothnia","fi":"Etelä-Pohjanmaa","sv":""},"provinceCodeAlpha":{"en":"","fi":"EP","sv":""},"provinceCodeNumeric":"9"},{"id":"ML.260","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"North
-        Häme","fi":"Pohjois-Häme","sv":""},"provinceCodeAlpha":{"en":"","fi":"PH","sv":""},"provinceCodeNumeric":"10"},{"id":"ML.261","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"North
-        Savo","fi":"Pohjois-Savo","sv":""},"provinceCodeAlpha":{"en":"","fi":"PS","sv":""},"provinceCodeNumeric":"11"},{"id":"ML.262","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"North
-        Karelia","fi":"Pohjois-Karjala","sv":""},"provinceCodeAlpha":{"en":"","fi":"PK","sv":""},"provinceCodeNumeric":"12"},{"id":"ML.263","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"Central
-        Ostrobothnia","fi":"Keski-Pohjanmaa","sv":""},"provinceCodeAlpha":{"en":"","fi":"KP","sv":""},"provinceCodeNumeric":"13"},{"id":"ML.264","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"","fi":"Kainuu","sv":""},"provinceCodeAlpha":{"en":"","fi":"Kn","sv":""},"provinceCodeNumeric":"14"},{"id":"ML.265","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"Oulu
-        Ostrobothnia","fi":"Oulun Pohjanmaa","sv":"Ostrobottnia ouluensis"},"provinceCodeAlpha":{"en":"Obo","fi":"OP","sv":"Obo"},"provinceCodeNumeric":"15"},{"id":"ML.266","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"Outer
-        Ostrobothnia","fi":"Perä-Pohjanmaa","sv":"Ostrobottnia ultima"},"provinceCodeAlpha":{"en":"Obu","fi":"PeP","sv":"Obu"},"provinceCodeNumeric":"16"},{"id":"ML.267","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"Regio
-        kuusamoënsis","fi":"Koillismaa","sv":"Regio kuusamoënsis"},"provinceCodeAlpha":{"en":"Ks","fi":"Ks","sv":"Ks"},"provinceCodeNumeric":"17"},{"id":"ML.268","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"Kittilä
-        Lapland","fi":"Kittilän Lappi","sv":"Lapponia kittilensis"},"provinceCodeAlpha":{"en":"Lkk","fi":"KiL","sv":"Lkk"},"provinceCodeNumeric":"18"},{"id":"ML.269","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"Sompio
-        Lapland","fi":"Sompion Lappi","sv":"Lapponia sompiensis"},"provinceCodeAlpha":{"en":"Lks","fi":"SoL","sv":"Lks"},"provinceCodeNumeric":"19"},{"id":"ML.270","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"Enontekiö
-        Lapland","fi":"Enontekiön Lappi","sv":""},"provinceCodeAlpha":{"en":"","fi":"EnL","sv":""},"provinceCodeNumeric":"20"},{"id":"ML.271","areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"en":"Inari
-        Lapland","fi":"Inarin Lappi","sv":""},"provinceCodeAlpha":{"en":"","fi":"InL","sv":""},"provinceCodeNumeric":"21"}],"lastPage":1,"@context":"http://schema.laji.fi/context/area.jsonld"}'
-  recorded_at: 2024-08-19 08:49:18 GMT
+      string: '{"total":21,"results":[{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Ahvenanmaa","sv":"Åland","en":"Åland"},"provinceCodeAlpha":{"fi":"A","sv":"A","en":"A"},"provinceCodeNumeric":"1","id":"ML.251"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Varsinais-Suomi","sv":"Varsinais-Suomi","en":"Varsinais-Suomi"},"provinceCodeAlpha":{"fi":"V","sv":"V","en":"V"},"provinceCodeNumeric":"2","id":"ML.252"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Uusimaa","sv":"Uusimaa","en":"Uusimaa"},"provinceCodeAlpha":{"fi":"U","sv":"U","en":"U"},"provinceCodeNumeric":"3","id":"ML.253"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Etelä-Karjala","sv":"South
+        Karelia","en":"South Karelia"},"provinceCodeAlpha":{"fi":"EK","sv":"EK","en":"EK"},"provinceCodeNumeric":"4","id":"ML.254"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Satakunta","sv":"Satakunta","en":"Satakunta"},"provinceCodeAlpha":{"fi":"St","sv":"St","en":"St"},"provinceCodeNumeric":"5","id":"ML.255"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Etelä-Häme","sv":"South
+        Häme","en":"South Häme"},"provinceCodeAlpha":{"fi":"EH","sv":"EH","en":"EH"},"provinceCodeNumeric":"6","id":"ML.256"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Etelä-Savo","sv":"South
+        Savo","en":"South Savo"},"provinceCodeAlpha":{"fi":"ES","sv":"ES","en":"ES"},"provinceCodeNumeric":"7","id":"ML.257"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Laatokan
+        Karjala","sv":"Ladoga Karelia","en":"Ladoga Karelia"},"provinceCodeAlpha":{"fi":"LK","sv":"LK","en":"LK"},"provinceCodeNumeric":"8","id":"ML.258"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Etelä-Pohjanmaa","sv":"South
+        Ostrobothnia","en":"South Ostrobothnia"},"provinceCodeAlpha":{"fi":"EP","sv":"EP","en":"EP"},"provinceCodeNumeric":"9","id":"ML.259"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Pohjois-Häme","sv":"North
+        Häme","en":"North Häme"},"provinceCodeAlpha":{"fi":"PH","sv":"PH","en":"PH"},"provinceCodeNumeric":"10","id":"ML.260"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Pohjois-Savo","sv":"North
+        Savo","en":"North Savo"},"provinceCodeAlpha":{"fi":"PS","sv":"PS","en":"PS"},"provinceCodeNumeric":"11","id":"ML.261"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Pohjois-Karjala","sv":"North
+        Karelia","en":"North Karelia"},"provinceCodeAlpha":{"fi":"PK","sv":"PK","en":"PK"},"provinceCodeNumeric":"12","id":"ML.262"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Keski-Pohjanmaa","sv":"Central
+        Ostrobothnia","en":"Central Ostrobothnia"},"provinceCodeAlpha":{"fi":"KP","sv":"KP","en":"KP"},"provinceCodeNumeric":"13","id":"ML.263"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Kainuu","sv":"Kainuu","en":"Kainuu"},"provinceCodeAlpha":{"fi":"Kn","sv":"Kn","en":"Kn"},"provinceCodeNumeric":"14","id":"ML.264"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Oulun
+        Pohjanmaa","sv":"Oulu Ostrobothnia","en":"Oulu Ostrobothnia"},"provinceCodeAlpha":{"fi":"OP","sv":"OP","en":"OP"},"provinceCodeNumeric":"15","id":"ML.265"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Perä-Pohjanmaa","sv":"Outer
+        Ostrobothnia","en":"Outer Ostrobothnia"},"provinceCodeAlpha":{"fi":"PeP","sv":"PeP","en":"PeP"},"provinceCodeNumeric":"16","id":"ML.266"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Koillismaa","sv":"Koillismaa","en":"Koillismaa"},"provinceCodeAlpha":{"fi":"Ks","sv":"Ks","en":"Ks"},"provinceCodeNumeric":"17","id":"ML.267"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Kittilän
+        Lappi","sv":"Kittilä Lapland","en":"Kittilä Lapland"},"provinceCodeAlpha":{"fi":"KiL","sv":"KiL","en":"KiL"},"provinceCodeNumeric":"18","id":"ML.268"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Sompion
+        Lappi","sv":"Sompio Lapland","en":"Sompio Lapland"},"provinceCodeAlpha":{"fi":"SoL","sv":"SoL","en":"SoL"},"provinceCodeNumeric":"19","id":"ML.269"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Enontekiön
+        Lappi","sv":"Enontekiö Lapland","en":"Enontekiö Lapland"},"provinceCodeAlpha":{"fi":"EnL","sv":"EnL","en":"EnL"},"provinceCodeNumeric":"20","id":"ML.270"},{"areaType":"ML.biogeographicalProvince","isPartOf":"ML.206","name":{"fi":"Inarin
+        Lappi","sv":"Inari Lapland","en":"Inari Lapland"},"provinceCodeAlpha":{"fi":"InL","sv":"InL","en":"InL"},"provinceCodeNumeric":"21","id":"ML.271"}],"currentPage":1,"pageSize":1000,"lastPage":1,"@context":"http://tun.fi/ML.area"}'
+  recorded_at: 2024-11-05 08:35:40 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
-    uri: https://api.laji.fi/v0/areas?type=birdAssociationArea&lang=multi&pageSize=1000&access_token=<finbif_token>
+    uri: https://api.laji.fi/v0/areas?areaType=ML.birdAssociationArea&lang=multi&pageSize=1000&access_token=<finbif_token>
     body:
       encoding: ''
       string: ''
@@ -1065,16 +1061,12 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:17 GMT
+      date: Tue, 05 Nov 2024 08:35:39 GMT
       content-type: application/json; charset=utf-8
-      transfer-encoding: chunked
+      content-length: '7233'
+      x-powered-by: Express
       access-control-allow-origin: '*'
-      access-control-allow-credentials: 'true'
-      x-frame-options: SAMEORIGIN
-      x-download-options: noopen
-      etag: W/"15b6-cxTzKwk2bN6Zie0MDqYtQGZ+AS0"
-      vary: Accept-Encoding
-      content-encoding: gzip
+      etag: W/"1c41-706H2zAM4JW+QJEt74jl2ZYu8wY"
       cache-control: public
       x-xss-protection: 1;mode=block
       x-content-type-options: nosniff
@@ -1083,54 +1075,66 @@ http_interactions:
     body:
       encoding: ''
       file: no
-      string: '{"currentPage":1,"pageSize":1000,"total":29,"results":[{"id":"ML.1088","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Ålands
-        Fågelskyddsförening r.f.","en":"","fi":"Ålands Fågelskyddsförening r.f.","sv":""}},{"id":"ML.1089","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Turun
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Turun Lintutieteellinen Yhdistys
-        ry","sv":""}},{"id":"ML.1090","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Porin
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Porin Lintutieteellinen Yhdistys
-        ry","sv":""}},{"id":"ML.1091","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Helsingin
-        Seudun Lintutieteellinen Yhdistys - Tringa ry","en":"","fi":"Helsingin Seudun
-        Lintutieteellinen Yhdistys - Tringa ry","sv":""}},{"id":"ML.1092","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Keski-
-        ja Pohjois-Uudenmaan Lintuharrastajat - Apus ry","en":"","fi":"Keski- ja Pohjois-Uudenmaan
-        Lintuharrastajat - Apus ry","sv":""}},{"id":"ML.1093","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Porvoon
-        Seudun Lintuyhdistys ry","en":"","fi":"Porvoon Seudun Lintuyhdistys ry","sv":""}},{"id":"ML.1094","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Kymenlaakson
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Kymenlaakson Lintutieteellinen
-        Yhdistys ry","sv":""}},{"id":"ML.1095","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Etelä-Karjalan
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Etelä-Karjalan Lintutieteellinen
-        Yhdistys ry","sv":""}},{"id":"ML.1096","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Lounais-Hämeen
-        Lintuharrastajat ry","en":"","fi":"Lounais-Hämeen Lintuharrastajat ry","sv":""}},{"id":"ML.1097","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"BirdLife
-        Kanta-Häme","en":"","fi":"BirdLife Kanta-Häme","sv":""}},{"id":"ML.1098","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Päijät-Hämeen
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Päijät-Hämeen Lintutieteellinen
-        Yhdistys ry","sv":""}},{"id":"ML.1099","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Pirkanmaan
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Pirkanmaan Lintutieteellinen
-        Yhdistys ry","sv":""}},{"id":"ML.1101","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Etelä-Savon
-        Lintuharrastajat - Oriolus ry","en":"","fi":"Etelä-Savon Lintuharrastajat
-        - Oriolus ry","sv":""}},{"id":"ML.1102","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Lintuyhdistys
-        Kuikka ry (Pohjois-Savo)","en":"","fi":"Lintuyhdistys Kuikka ry (Pohjois-Savo)","sv":""}},{"id":"ML.1103","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Pohjois-Karjalan
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Pohjois-Karjalan Lintutieteellinen
-        Yhdistys ry","sv":""}},{"id":"ML.1104","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"BirdLife
-        Keski-Suomi ry","en":"","fi":"BirdLife Keski-Suomi ry","sv":""}},{"id":"ML.1105","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Suomenselän
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Suomenselän Lintutieteellinen
-        Yhdistys ry","sv":""}},{"id":"ML.1106","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Suupohjan
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Suupohjan Lintutieteellinen Yhdistys
-        ry","sv":""}},{"id":"ML.1107","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Merenkurkun
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Merenkurkun Lintutieteellinen
-        Yhdistys ry","sv":""}},{"id":"ML.1108","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"BirdLife
-        Keski-Pohjanmaa ry","en":"","fi":"BirdLife Keski-Pohjanmaa ry","sv":""}},{"id":"ML.1109","areaType":"ML.birdAssociationArea","name":{"en":"","fi":"Pohjois-Pohjanmaan
-        Lintutieteellinen Yhdistys ry","sv":""}},{"id":"ML.1110","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Kainuun
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Kainuun Lintutieteellinen Yhdistys
-        ry","sv":""}},{"id":"ML.1111","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Meri-Lapin
-        Lintutieteellinen Yhdistys Xenus ry","en":"","fi":"Meri-Lapin Lintutieteellinen
-        Yhdistys Xenus ry","sv":""}},{"id":"ML.1112","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Lapin
-        Lintutieteellinen Yhdistys ry","en":"","fi":"Lapin Lintutieteellinen Yhdistys
-        ry","sv":""}},{"id":"ML.1113","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Kuusamon
-        Lintukerho ry","en":"","fi":"Kuusamon Lintukerho ry","sv":""}},{"id":"ML.1114","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Lohjan
-        Lintutieteellinen Yhdistys - Hakki ry","en":"","fi":"Lohjan Lintutieteellinen
-        Yhdistys - Hakki ry","sv":""}},{"id":"ML.1116","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Rauman
-        Seudun Lintuharrastajat ry","en":"","fi":"Rauman Seudun Lintuharrastajat ry","sv":""}},{"id":"ML.1127","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Suomen
-        ulkopuoliset alueet","en":"","fi":"Suomen ulkopuoliset alueet","sv":""}},{"id":"ML.1267","areaType":"ML.birdAssociationArea","name":{"xml:lang":"fi","content":"Ostrobothnia
-        Australis r.f.","en":"","fi":"Ostrobothnia Australis r.f.","sv":""}}],"lastPage":1,"@context":"http://schema.laji.fi/context/area.jsonld"}'
-  recorded_at: 2024-08-19 08:49:18 GMT
+      string: '{"total":29,"results":[{"areaType":"ML.birdAssociationArea","name":{"fi":"Ålands
+        Fågelskyddsförening r.f.","sv":"Ålands Fågelskyddsförening r.f.","en":"Ålands
+        Fågelskyddsförening r.f."},"ringingDepartmentBirdAssociationAreaCode":"1","id":"ML.1088"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Turun
+        Lintutieteellinen Yhdistys ry","sv":"Turun Lintutieteellinen Yhdistys ry","en":"Turun
+        Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"11","id":"ML.1089"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Porin
+        Lintutieteellinen Yhdistys ry","sv":"Porin Lintutieteellinen Yhdistys ry","en":"Porin
+        Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"12","id":"ML.1090"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Helsingin
+        Seudun Lintutieteellinen Yhdistys - Tringa ry","sv":"Helsingin Seudun Lintutieteellinen
+        Yhdistys - Tringa ry","en":"Helsingin Seudun Lintutieteellinen Yhdistys -
+        Tringa ry"},"ringingDepartmentBirdAssociationAreaCode":"21","id":"ML.1091"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Keski-
+        ja Pohjois-Uudenmaan Lintuharrastajat - Apus ry","sv":"Keski- ja Pohjois-Uudenmaan
+        Lintuharrastajat - Apus ry","en":"Keski- ja Pohjois-Uudenmaan Lintuharrastajat
+        - Apus ry"},"ringingDepartmentBirdAssociationAreaCode":"22","id":"ML.1092"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Porvoon
+        Seudun Lintuyhdistys ry","sv":"Porvoon Seudun Lintuyhdistys ry","en":"Porvoon
+        Seudun Lintuyhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"23","id":"ML.1093"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Kymenlaakson
+        Lintutieteellinen Yhdistys ry","sv":"Kymenlaakson Lintutieteellinen Yhdistys
+        ry","en":"Kymenlaakson Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"31","id":"ML.1094"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Etelä-Karjalan
+        Lintutieteellinen Yhdistys ry","sv":"Etelä-Karjalan Lintutieteellinen Yhdistys
+        ry","en":"Etelä-Karjalan Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"32","id":"ML.1095"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Lounais-Hämeen
+        Lintuharrastajat ry","sv":"Lounais-Hämeen Lintuharrastajat ry","en":"Lounais-Hämeen
+        Lintuharrastajat ry"},"ringingDepartmentBirdAssociationAreaCode":"41","id":"ML.1096"},{"areaType":"ML.birdAssociationArea","name":{"fi":"BirdLife
+        Kanta-Häme","sv":"BirdLife Kanta-Häme","en":"BirdLife Kanta-Häme"},"ringingDepartmentBirdAssociationAreaCode":"42","id":"ML.1097"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Päijät-Hämeen
+        Lintutieteellinen Yhdistys ry","sv":"Päijät-Hämeen Lintutieteellinen Yhdistys
+        ry","en":"Päijät-Hämeen Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"43","id":"ML.1098"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Pirkanmaan
+        Lintutieteellinen Yhdistys ry","sv":"Pirkanmaan Lintutieteellinen Yhdistys
+        ry","en":"Pirkanmaan Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"44","id":"ML.1099"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Etelä-Savon
+        Lintuharrastajat - Oriolus ry","sv":"Etelä-Savon Lintuharrastajat - Oriolus
+        ry","en":"Etelä-Savon Lintuharrastajat - Oriolus ry"},"ringingDepartmentBirdAssociationAreaCode":"51","id":"ML.1101"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Lintuyhdistys
+        Kuikka ry (Pohjois-Savo)","sv":"Lintuyhdistys Kuikka ry (Pohjois-Savo)","en":"Lintuyhdistys
+        Kuikka ry (Pohjois-Savo)"},"ringingDepartmentBirdAssociationAreaCode":"54","id":"ML.1102"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Pohjois-Karjalan
+        Lintutieteellinen Yhdistys ry","sv":"Pohjois-Karjalan Lintutieteellinen Yhdistys
+        ry","en":"Pohjois-Karjalan Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"57","id":"ML.1103"},{"areaType":"ML.birdAssociationArea","name":{"fi":"BirdLife
+        Keski-Suomi ry","sv":"BirdLife Keski-Suomi ry","en":"BirdLife Keski-Suomi
+        ry"},"previouslyOfficialName":["Keski-Suomen Lintutieteellinen Yhdistys r.y"],"ringingDepartmentBirdAssociationAreaCode":"61","id":"ML.1104"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Suomenselän
+        Lintutieteellinen Yhdistys ry","sv":"Suomenselän Lintutieteellinen Yhdistys
+        ry","en":"Suomenselän Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"71","id":"ML.1105"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Suupohjan
+        Lintutieteellinen Yhdistys ry","sv":"Suupohjan Lintutieteellinen Yhdistys
+        ry","en":"Suupohjan Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"72","id":"ML.1106"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Merenkurkun
+        Lintutieteellinen Yhdistys ry","sv":"Merenkurkun Lintutieteellinen Yhdistys
+        ry","en":"Merenkurkun Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"73","id":"ML.1107"},{"areaType":"ML.birdAssociationArea","name":{"fi":"BirdLife
+        Keski-Pohjanmaa ry","sv":"BirdLife Keski-Pohjanmaa ry","en":"BirdLife Keski-Pohjanmaa
+        ry"},"ringingDepartmentBirdAssociationAreaCode":"74","id":"ML.1108"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Pohjois-Pohjanmaan
+        Lintutieteellinen Yhdistys ry.","sv":"Pohjois-Pohjanmaan Lintutieteellinen
+        Yhdistys ry.","en":"Pohjois-Pohjanmaan Lintutieteellinen Yhdistys ry."},"ringingDepartmentBirdAssociationAreaCode":"81","id":"ML.1109"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Kainuun
+        Lintutieteellinen Yhdistys ry","sv":"Kainuun Lintutieteellinen Yhdistys ry","en":"Kainuun
+        Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"82","id":"ML.1110"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Meri-Lapin
+        Lintutieteellinen Yhdistys Xenus ry","sv":"Meri-Lapin Lintutieteellinen Yhdistys
+        Xenus ry","en":"Meri-Lapin Lintutieteellinen Yhdistys Xenus ry"},"ringingDepartmentBirdAssociationAreaCode":"91","id":"ML.1111"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Lapin
+        Lintutieteellinen Yhdistys ry","sv":"Lapin Lintutieteellinen Yhdistys ry","en":"Lapin
+        Lintutieteellinen Yhdistys ry"},"ringingDepartmentBirdAssociationAreaCode":"92","id":"ML.1112"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Kuusamon
+        Lintukerho ry","sv":"Kuusamon Lintukerho ry","en":"Kuusamon Lintukerho ry"},"ringingDepartmentBirdAssociationAreaCode":"83","id":"ML.1113"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Lohjan
+        Lintutieteellinen Yhdistys - Hakki ry","sv":"Lohjan Lintutieteellinen Yhdistys
+        - Hakki ry","en":"Lohjan Lintutieteellinen Yhdistys - Hakki ry"},"ringingDepartmentBirdAssociationAreaCode":"24","id":"ML.1114"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Rauman
+        Seudun Lintuharrastajat ry","sv":"Rauman Seudun Lintuharrastajat ry","en":"Rauman
+        Seudun Lintuharrastajat ry"},"ringingDepartmentBirdAssociationAreaCode":"13","id":"ML.1116"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Suomen
+        ulkopuoliset alueet","sv":"Suomen ulkopuoliset alueet","en":"Suomen ulkopuoliset
+        alueet"},"id":"ML.1127"},{"areaType":"ML.birdAssociationArea","name":{"fi":"Ostrobothnia
+        Australis r.f.","sv":"Ostrobothnia Australis r.f.","en":"Ostrobothnia Australis
+        r.f."},"id":"ML.1267"}],"currentPage":1,"pageSize":1000,"lastPage":1,"@context":"http://tun.fi/ML.area"}'
+  recorded_at: 2024-11-05 08:35:40 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
@@ -1148,9 +1152,10 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:17 GMT
+      date: Tue, 05 Nov 2024 08:35:39 GMT
       content-type: application/json; charset=utf-8
       transfer-encoding: chunked
+      x-powered-by: Express
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       x-frame-options: SAMEORIGIN
@@ -1227,7 +1232,7 @@ http_interactions:
         on the basis of occurrence data – not an expert evaluation","fi":"Esiintyy
         havaintodatan perusteella – ei asiantuntijan arvioima","sv":"Förekommer på
         grundval av händelsedata – inte en expertbestämning"}}]'
-  recorded_at: 2024-08-19 08:49:18 GMT
+  recorded_at: 2024-11-05 08:35:40 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
@@ -1245,7 +1250,7 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:18 GMT
+      date: Tue, 05 Nov 2024 08:35:40 GMT
       content-type: application/json;charset=utf-8
       transfer-encoding: chunked
       access-control-allow-origin: '*'
@@ -1494,7 +1499,7 @@ http_interactions:
         ei löytynyt","en":"invasive not found","sv":"invasive hittades inte"}},{"enumeration":"AND","property":"MZ.operatorAnd","label":{"fi":"JA
         (AND)","en":"AND","sv":"OCH (AND)"}},{"enumeration":"OR","property":"MZ.operatorOr","label":{"fi":"TAI
         (OR)","en":"OR","sv":"ELLER (OR)"}}]}'
-  recorded_at: 2024-08-19 08:49:18 GMT
+  recorded_at: 2024-11-05 08:35:40 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
 - request:
     method: get
@@ -1512,9 +1517,10 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Mon, 19 Aug 2024 08:49:18 GMT
+      date: Tue, 05 Nov 2024 08:35:40 GMT
       content-type: application/json; charset=utf-8
       content-length: '889'
+      x-powered-by: Express
       access-control-allow-origin: '*'
       access-control-allow-credentials: 'true'
       x-frame-options: SAMEORIGIN
@@ -1540,5 +1546,5 @@ http_interactions:
         näytetä ollenkaan - käytetään lähinnä spammin estämiseksi","sv":"Visas inte
         alls - används huvudsakligen att stoppa skräppost","en":"Not shown at all
         - used mainly to prevent spam"}}]'
-  recorded_at: 2024-08-19 08:49:18 GMT
+  recorded_at: 2024-11-05 08:35:40 GMT
   recorded_with: vcr/1.6.0, webmockr/1.0.0
