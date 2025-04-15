@@ -15,7 +15,7 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Tue, 05 Nov 2024 08:35:36 GMT
+      date: Tue, 15 Apr 2025 06:25:05 GMT
       content-type: application/json; charset=utf-8
       content-length: '536'
       x-powered-by: Express
@@ -23,7 +23,7 @@ http_interactions:
       access-control-allow-credentials: 'true'
       x-frame-options: SAMEORIGIN
       x-download-options: noopen
-      etag: W/"218-jMx+f4qOIEwAjuWdeV6tEIBIAIM"
+      etag: W/"218-jmLxAc47ft4YiVIQescNFLpxMHI"
       vary: Accept-Encoding
       cache-control: public
       x-xss-protection: 1;mode=block
@@ -34,10 +34,10 @@ http_interactions:
       encoding: ''
       file: no
       string: '[{"matchingName":"Cygnus cygnus","nameType":"MX.scientificName","id":"MX.26280","scientificName":"Cygnus
-        cygnus","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"fi":"laulujoutsen","en":"Whooper
-        Swan","sv":"sångsvan"},"informalGroups":[{"id":"MVL.1","name":{"en":"Birds","sv":"Fåglar","fi":"Linnut"}},{"id":"MVL.1241","name":{"en":"Waterbirds","fi":"Vesilinnut","sv":"Vattenfåglar"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}]'
-  recorded_at: 2024-11-05 08:35:37 GMT
-  recorded_with: vcr/1.6.0, webmockr/1.0.0
+        cygnus","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"en":"Whooper
+        Swan","fi":"laulujoutsen","sv":"sångsvan"},"informalGroups":[{"id":"MVL.1","name":{"en":"Birds","fi":"Linnut","sv":"Fåglar"}},{"id":"MVL.1241","name":{"en":"Waterbirds","fi":"Vesilinnut","sv":"Vattenfåglar"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}]'
+  recorded_at: 2025-04-15 06:25:05 GMT
+  recorded_with: vcr/1.7.0, webmockr/2.0.0
 - request:
     method: get
     uri: https://api.laji.fi/v0/taxa/search?query=not_a_taxa&matchType=exact&limit=1&access_token=<finbif_token>
@@ -54,7 +54,7 @@ http_interactions:
       reason: OK
       message: 'Success: (200) OK'
     headers:
-      date: Tue, 05 Nov 2024 08:35:37 GMT
+      date: Tue, 15 Apr 2025 06:25:05 GMT
       content-type: application/json; charset=utf-8
       content-length: '2'
       x-powered-by: Express
@@ -73,5 +73,5 @@ http_interactions:
       encoding: ''
       file: no
       string: '[]'
-  recorded_at: 2024-11-05 08:35:37 GMT
-  recorded_with: vcr/1.6.0, webmockr/1.0.0
+  recorded_at: 2025-04-15 06:25:05 GMT
+  recorded_with: vcr/1.7.0, webmockr/2.0.0

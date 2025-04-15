@@ -598,7 +598,9 @@ records of higher taxa will contribute to the count while their true
 identify may be a duplicate of other records.</p>
 <p>To illustrate, you can count the number of moths and butterflies by
 municipality with the following:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="st">&quot;Lepidoptera&quot;</span>, <span class="at">select =</span> <span class="st">&quot;municipality&quot;</span>, <span class="at">aggregate =</span> <span class="st">&quot;species&quot;</span>)</span></code></pre></div>
+<pre class="details"><code>finbif_occurrence(
+  &quot;Lepidoptera&quot;, select = &quot;finnish_municipality&quot;, aggregate = &quot;species&quot;
+)</code></pre>
 <details closed>
 <summary>
 Click to show/hide output.
@@ -607,17 +609,17 @@ Click to show/hide output.
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
 <span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co">#&gt; Records available: 309</span></span>
 <span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 2]</span></span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="co">#&gt;    municipality n_species</span></span>
-<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="co">#&gt; 1     Raasepori  2038    </span></span>
-<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="co">#&gt; 2     Virolahti  1978    </span></span>
-<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="co">#&gt; 3       Kouvola  1508    </span></span>
-<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a><span class="co">#&gt; 4      Rääkkylä  1367    </span></span>
-<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co">#&gt; 5   Kemiönsaari  2008    </span></span>
-<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co">#&gt; 6         Hanko  1945    </span></span>
-<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="co">#&gt; 7      Parainen  1858    </span></span>
-<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="co">#&gt; 8      Helsinki  1980    </span></span>
-<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="co">#&gt; 9        Kuopio  1345    </span></span>
-<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co">#&gt; 10        Kotka  1719    </span></span></code></pre></div>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="co">#&gt;    finnish_municipality n_species</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="co">#&gt; 1             Raasepori  2062    </span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="co">#&gt; 2             Virolahti  2024    </span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="co">#&gt; 3              Rääkkylä  1386    </span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a><span class="co">#&gt; 4               Kouvola  1547    </span></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co">#&gt; 5           Kemiönsaari  2028    </span></span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co">#&gt; 6                 Hanko  1971    </span></span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="co">#&gt; 7              Parainen  1904    </span></span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="co">#&gt; 8              Helsinki  2025    </span></span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="co">#&gt; 9                Kuopio  1420    </span></span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co">#&gt; 10                Kotka  1747    </span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>

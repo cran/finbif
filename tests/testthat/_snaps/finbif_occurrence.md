@@ -6,19 +6,19 @@
        [1] "\r  |                                                                            \r  |                                                                      |   0%\r  |                                                                            \r  |===================================                                   |  50%\r  |                                                                            \r  |======================================================================| 100%"
        [2] "\r  |                                                                            \r  |                                                                      |   0%\r  |                                                                            \r  |===================================                                   |  50%\r  |                                                                            \r  |======================================================================| 100%"
        [3] "Records downloaded: 10 + 10"                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-       [4] "Records available: 914607 + 30983"                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+       [4] "Records available: 1286040 + 31112"                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
        [5] "A data.frame [20 x 26]"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
        [6] "        scientific_name abundance lat_wgs84 lon_wgs84           date_time"                                                                                                                                                                                                                                                                                                                                                                                                                             
-       [7] "1  Sterna hirundo Linn…  1         60.16747  24.74513 2023-01-01 10:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
-       [8] "2  Carduelis chloris (…  1         59.9349   24.31358 2023-01-01 10:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
-       [9] "3  Actitis hypoleucos …        NA  62.32828  25.16375 2023-05-11 09:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
-      [10] "4  Carduelis spinus (L…        NA  66.42788  25.78198 2023-06-06 07:30:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
-      [11] "5  Larus ridibundus (L…        NA  60.89322  25.24684 2023-07-22 09:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
-      [12] "6  Emberiza rustica (P…  1         64.41557  23.88369 2023-01-01 10:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
-      [13] "7  Muscicapa striata (…        NA  59.98152  24.39941 2023-06-24 09:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
-      [14] "8  Pinicola enucleator…        NA  64.55637  29.81218 2023-02-20 10:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
-      [15] "9  Sylvia borin (Bodda…        NA  63.93279  24.44753 2023-06-12 09:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
-      [16] "10 Parus major Linnaeu…  12        60.98529  28.56718 2023-03-01 10:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
+       [7] "1  Anser fabalis (Lath…  1         65.82749  25.13652 2023-01-01 10:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
+       [8] "2  Carduelis spinus (L…        NA  62.22949  25.74921 2023-05-03 07:01:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
+       [9] "3  Falco tinnunculus L…        NA  64.66836  25.84476 2023-06-13 09:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
+      [10] "4  Cuculus canorus Lin…        NA  62.76764  24.54885 2023-05-20 09:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
+      [11] "5  Parus major Linnaeu…        NA  60.04046  23.13774 2023-06-10 09:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
+      [12] "6  Corvus corax Linnae…  2         60.14558  24.88929 2023-04-02 09:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
+      [13] "7  Dendrocopos major (…        NA  61.48712  23.79722 2023-05-31 01:02:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
+      [14] "8  Carduelis chloris (…        NA  61.29396  22.98437 2023-05-22 09:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
+      [15] "9  Numenius arquata (L…  2         60.1895   24.8191  2023-06-30 09:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
+      [16] "10 Regulus regulus (Li…  1         60.8314   24.23867 2023-01-01 10:00:00"                                                                                                                                                                                                                                                                                                                                                                                                                             
       [17] "...with 10 more records and 21 more variables:"                                                                                                                                                                                                                                                                                                                                                                                                                                                        
       [18] "coordinates_uncertainty, any_issues, requires_verification,"                                                                                                                                                                                                                                                                                                                                                                                                                                           
       [19] "requires_identification, record_reliability, record_quality, duration,"                                                                                                                                                                                                                                                                                                                                                                                                                                
@@ -60,12 +60,12 @@
     Code
       plants
     Output
-      Records downloaded: 51
-      Records available: 51
-      A data.frame [51 x 2]
+      Records downloaded: 52
+      Records available: 52
+      A data.frame [52 x 2]
          threatened_status orig_taxon_rank
       1                 NA         species
-      2                 NA         species
+      2                 NA           genus
       3                 NA         species
       4                 NA         species
       5                 NA         species
@@ -74,7 +74,7 @@
       8                 NA         species
       9                 NA         species
       10                NA         species
-      ...with 41 more records
+      ...with 42 more records
 
 ---
 
@@ -82,19 +82,19 @@
       occ_print
     Output
       Records downloaded: 11
-      Records available: 52796498
+      Records available: 54814965
       A data.frame [11 x 1]
          informal_groups
-      1       3 elements
-      2       4 elements
-      3       4 elements
+      1        1 element
+      2        1 element
+      3       3 elements
       4       3 elements
       5       3 elements
-      6        1 element
-      7       3 elements
-      8        1 element
-      9        1 element
-      10       1 element
+      6       4 elements
+      7       4 elements
+      8       3 elements
+      9       4 elements
+      10      2 elements
       ...with 1 more record
 
 # fetching occurrences with date filters works
@@ -103,19 +103,30 @@
       date_filters
     Output
       Records downloaded: 5 + 5 + 5 + 5 + 5 + 5 + 5
-      Records available: 1499724 + 1124459 + 1641155 + 893 + 1641155 + 1641155 + 12…
+      Records available: 1508213 + 1130947 + 1650249 + 902 + 1650249 + 1650249 + 13…
       A data.frame [20 x 12]
-                         record_id      scientific_name abundance lat_wgs84 lon_wgs84
-      1        …tun.fi/JX.113239#6 Pica pica (Linnaeus…  17        61.49315  23.71047
-      2        …tun.fi/JX.113239#8 Corvus corone corni…  81        61.49315  23.71047
-      3       …tun.fi/JX.113239#21 Regulus regulus (Li…  17        61.49315  23.71047
-      4       …tun.fi/JX.113239#18 Poecile montanus (C…  7         61.49315  23.71047
-      5        …tun.fi/JX.113239#3 Columba livia Gmeli…  37        61.49315  23.71047
-      6        …tun.fi/MY.17232675 Archips podana (Sco…  1         60.21988  24.93102
-      7          …tun.fi/MY.890425 Dicranum flexicaule…        NA  61.1      127.35  
-      8          …tun.fi/MY.890417 Dicranum fuscescens…        NA  61.1      127.35  
-      9  …id.luomus.fi/MY.15425361 Udea hamalis (Thunb…  1         60.46742  26.27887
-      10  …id.luomus.fi/MY.9880728 Hypena crassalis (F…  1         60.45338  26.17924
+                          record_id      scientific_name abundance lat_wgs84
+      1  …tun.fi/KE.67/9586110#Unit Larus ridibundus (L…  1         53.21667
+      2  …tun.fi/KE.67/9586592#Unit Larus ridibundus (L…  1         53.2    
+      3  …tun.fi/KE.67/9590259#Unit Larus ridibundus (L…  1         56.15   
+      4  …tun.fi/KE.67/9590262#Unit Larus ridibundus (L…  1         56.16667
+      5  …tun.fi/KE.67/9605091#Unit Larus ridibundus (L…  1         52.1    
+      6   …id.luomus.fi/MY.18131877 Nola aerugula (Hübn…  1         60.256  
+      7   …id.luomus.fi/MY.18131885 Nola aerugula (Hübn…  1         60.256  
+      8   …id.luomus.fi/MY.18131893 Nola aerugula (Hübn…  1         60.256  
+      9   …id.luomus.fi/MY.18131901 Nola aerugula (Hübn…  1         60.256  
+      10  …id.luomus.fi/MY.18131905 Nola aerugula (Hübn…  1         60.256  
+         lon_wgs84
+      1   6.566667
+      2   5.783333
+      3   10.21667
+      4   10.21667
+      5   5.116667
+      6   25.141  
+      7   25.141  
+      8   25.141  
+      9   25.141  
+      10  25.141  
       ...with 10 more records and 7 more variables:
       date_time, coordinates_uncertainty, any_issues, requires_verification,
       requires_identification, record_reliability, record_quality
@@ -129,7 +140,18 @@
       Records available: 3
       A data.frame [3 x 3]
         basisOfRecord n_records n_species
-      1         Heard  445358    173     
-      2   Observation  190973    169     
-      3          Seen  113109    204     
+      1         Heard  445364    173     
+      2   Observation  191156    169     
+      3          Seen  113056    204     
+
+# can compute a var from id when there are zero records
+
+    Code
+      no_record_compute_id
+    Output
+      Records downloaded: 0
+      Records available: 0
+      A data.frame [0 x 1]
+      [1] finnish_municipality
+      <0 rows> (or 0-length row.names)
 

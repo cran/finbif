@@ -4,23 +4,22 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 52795118
+      Records available: 54814962
       A data.frame [10 x 12]
-                                      record_id      scientific_name abundance
-      1  …KE.176/6729c5ecd5de1842598364f1#Unit1 Fraxinus excelsior …  1       
-      2                         …JX.1781328#107 Pica pica (Linnaeus…  6       
-      3                          …JX.1781328#81 Regulus regulus (Li…  6       
-      4                          …JX.1781328#85 Poecile montanus (C…  3       
-      5                          …JX.1781328#19 Mergus merganser Li…  12      
-      6                         …JX.1781328#153 Emberiza citrinella…  38      
-      7                         …JX.1781328#117 Corvus corax Linnae…  4       
-      8                          …JX.1781328#91 Periparus ater (Lin…  3       
-      9                          …JX.1781328#61 Dendrocopos major (…  17      
-      10                          …JX.1781328#7 Cygnus cygnus (Linn…  1       
-      ...with 0 more record and 9 more variables:
-      lat_wgs84, lon_wgs84, date_time, coordinates_uncertainty, any_issues,
-      requires_verification, requires_identification, record_reliability,
-      record_quality
+         record_id      scientific_name abundance lat_wgs84 lon_wgs84
+      1       …5#3 Phylloscopus collyb…  1         59.78234  21.36865
+      2       …6#3 Troglodytes troglod…  1         59.77961  21.37308
+      3      …8#18 Achlya flavicornis …  2         63.03316  23.6861 
+      4       …8#9 Agonopterix arenell…  1         63.03316  23.6861 
+      5       …8#6 Agonopterix ocellan…  1         63.03316  23.6861 
+      6      …8#15 Brachionycha nubecu…  3         63.03316  23.6861 
+      7      …8#21 Lithophane consocia…  2         63.03316  23.6861 
+      8       …8#3 Odontosia sieversii…  1         63.03316  23.6861 
+      9      …8#12 Orthosia gothica (L…  1         63.03316  23.6861 
+      10      …7#3 Podiceps auritus (L…  2         59.77961  21.37308
+      ...with 0 more record and 7 more variables:
+      date_time, coordinates_uncertainty, any_issues, requires_verification,
+      requires_identification, record_reliability, record_quality
 
 ---
 
@@ -28,23 +27,22 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 52795118
+      Records available: 54814962
       A data.frame [10 x 12]
-                                      record_id      scientific_name abundance
-      1  …KE.176/6729c5ecd5de1842598364f1#Unit1 Fraxinus excelsior …  1       
-      2                         …JX.1781328#107 Pica pica (Linnaeus…  6       
-      3                          …JX.1781328#81 Regulus regulus (Li…  6       
-      4                          …JX.1781328#85 Poecile montanus (C…  3       
-      5                          …JX.1781328#19 Mergus merganser Li…  12      
-      6                         …JX.1781328#153 Emberiza citrinella…  38      
-      7                         …JX.1781328#117 Corvus corax Linnae…  4       
-      8                          …JX.1781328#91 Periparus ater (Lin…  3       
-      9                          …JX.1781328#61 Dendrocopos major (…  17      
-      10                          …JX.1781328#7 Cygnus cygnus (Linn…  1       
-      ...with 0 more record and 9 more variables:
-      lat_wgs84, lon_wgs84, date_time, coordinates_uncertainty, any_issues,
-      requires_verification, requires_identification, record_reliability,
-      record_quality
+         record_id      scientific_name abundance lat_wgs84 lon_wgs84
+      1       …5#3 Phylloscopus collyb…  1         59.78234  21.36865
+      2       …6#3 Troglodytes troglod…  1         59.77961  21.37308
+      3      …8#18 Achlya flavicornis …  2         63.03316  23.6861 
+      4       …8#9 Agonopterix arenell…  1         63.03316  23.6861 
+      5       …8#6 Agonopterix ocellan…  1         63.03316  23.6861 
+      6      …8#15 Brachionycha nubecu…  3         63.03316  23.6861 
+      7      …8#21 Lithophane consocia…  2         63.03316  23.6861 
+      8       …8#3 Odontosia sieversii…  1         63.03316  23.6861 
+      9      …8#12 Orthosia gothica (L…  1         63.03316  23.6861 
+      10      …7#3 Podiceps auritus (L…  2         59.77961  21.37308
+      ...with 0 more record and 7 more variables:
+      date_time, coordinates_uncertainty, any_issues, requires_verification,
+      requires_identification, record_reliability, record_quality
 
 ---
 
@@ -52,21 +50,20 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 52795118
+      Records available: 54814962
       A data.frame [10 x 12]
-                                      record_id      scientific_name abundance
-      1  …KE.176/6729c5ecd5de1842598364f1#Unit1 Fraxinus excelsior …  1       
-      2                         …JX.1781328#107 Pica pica (Linnaeus…  6       
-      3                          …JX.1781328#81 Regulus regulus (Li…  6       
-      4                          …JX.1781328#85 Poecile montanus (C…  3       
-      5                          …JX.1781328#19 Mergus merganser Li…  12      
-      6                         …JX.1781328#153 Emberiza citrinella…  38      
-      7                         …JX.1781328#117 Corvus corax Linnae…  4       
-      8                          …JX.1781328#91 Periparus ater (Lin…  3       
-      9                          …JX.1781328#61 Dendrocopos major (…  17      
-      10                          …JX.1781328#7 Cygnus cygnus (Linn…  1       
-      ...with 0 more record and 9 more variables:
-      lat_wgs84, lon_wgs84, date_time, coordinates_uncertainty, any_issues,
-      requires_verification, requires_identification, record_reliability,
-      record_quality
+         record_id      scientific_name abundance lat_wgs84 lon_wgs84
+      1       …5#3 Phylloscopus collyb…  1         59.78234  21.36865
+      2       …6#3 Troglodytes troglod…  1         59.77961  21.37308
+      3      …8#18 Achlya flavicornis …  2         63.03316  23.6861 
+      4       …8#9 Agonopterix arenell…  1         63.03316  23.6861 
+      5       …8#6 Agonopterix ocellan…  1         63.03316  23.6861 
+      6      …8#15 Brachionycha nubecu…  3         63.03316  23.6861 
+      7      …8#21 Lithophane consocia…  2         63.03316  23.6861 
+      8       …8#3 Odontosia sieversii…  1         63.03316  23.6861 
+      9      …8#12 Orthosia gothica (L…  1         63.03316  23.6861 
+      10      …7#3 Podiceps auritus (L…  2         59.77961  21.37308
+      ...with 0 more record and 7 more variables:
+      date_time, coordinates_uncertainty, any_issues, requires_verification,
+      requires_identification, record_reliability, record_quality
 
