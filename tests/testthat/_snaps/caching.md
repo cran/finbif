@@ -4,22 +4,23 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 54814962
+      Records available: 56329959
       A data.frame [10 x 12]
-         record_id      scientific_name abundance lat_wgs84 lon_wgs84
-      1       …5#3 Phylloscopus collyb…  1         59.78234  21.36865
-      2       …6#3 Troglodytes troglod…  1         59.77961  21.37308
-      3      …8#18 Achlya flavicornis …  2         63.03316  23.6861 
-      4       …8#9 Agonopterix arenell…  1         63.03316  23.6861 
-      5       …8#6 Agonopterix ocellan…  1         63.03316  23.6861 
-      6      …8#15 Brachionycha nubecu…  3         63.03316  23.6861 
-      7      …8#21 Lithophane consocia…  2         63.03316  23.6861 
-      8       …8#3 Odontosia sieversii…  1         63.03316  23.6861 
-      9      …8#12 Orthosia gothica (L…  1         63.03316  23.6861 
-      10      …7#3 Podiceps auritus (L…  2         59.77961  21.37308
-      ...with 0 more record and 7 more variables:
-      date_time, coordinates_uncertainty, any_issues, requires_verification,
-      requires_identification, record_reliability, record_quality
+                                   record_id      scientific_name abundance lat_wgs84
+      1                        …JX.2330945#3 Ficedula hypoleuca …        NA  60.24792
+      2                        …JX.2330944#3 Erithacus rubecula …        NA  60.24718
+      3                        …JX.2330934#3 Certhia familiaris …        NA  60.24621
+      4                        …JX.2330931#3 Columba palumbus Li…        NA  60.24502
+      5                        …JX.2330930#3 Motacilla alba Linn…        NA  60.24531
+      6  …HR.6258/Havikset.net.PjqWjpxsiiY#U Accipiter nisus (Li…  2         59.84321
+      7                        …JX.2330927#3 Convolvulus sepium …        NA  60.46502
+      8                       …JX.2330838#27 Acleris laterana (F…  1         62.92172
+      9                       …JX.2330838#15 Amphipoea fucosa (F…  1         62.92172
+      10                       …JX.2330838#9 Autographa gamma (L…  1         62.92172
+      ...with 0 more record and 8 more variables:
+      lon_wgs84, date_time, coordinates_uncertainty, any_issues,
+      requires_verification, requires_identification, record_reliability,
+      record_quality
 
 ---
 
@@ -27,22 +28,23 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 54814962
+      Records available: 56329959
       A data.frame [10 x 12]
-         record_id      scientific_name abundance lat_wgs84 lon_wgs84
-      1       …5#3 Phylloscopus collyb…  1         59.78234  21.36865
-      2       …6#3 Troglodytes troglod…  1         59.77961  21.37308
-      3      …8#18 Achlya flavicornis …  2         63.03316  23.6861 
-      4       …8#9 Agonopterix arenell…  1         63.03316  23.6861 
-      5       …8#6 Agonopterix ocellan…  1         63.03316  23.6861 
-      6      …8#15 Brachionycha nubecu…  3         63.03316  23.6861 
-      7      …8#21 Lithophane consocia…  2         63.03316  23.6861 
-      8       …8#3 Odontosia sieversii…  1         63.03316  23.6861 
-      9      …8#12 Orthosia gothica (L…  1         63.03316  23.6861 
-      10      …7#3 Podiceps auritus (L…  2         59.77961  21.37308
-      ...with 0 more record and 7 more variables:
-      date_time, coordinates_uncertainty, any_issues, requires_verification,
-      requires_identification, record_reliability, record_quality
+                                   record_id      scientific_name abundance lat_wgs84
+      1                        …JX.2330945#3 Ficedula hypoleuca …        NA  60.24792
+      2                        …JX.2330944#3 Erithacus rubecula …        NA  60.24718
+      3                        …JX.2330934#3 Certhia familiaris …        NA  60.24621
+      4                        …JX.2330931#3 Columba palumbus Li…        NA  60.24502
+      5                        …JX.2330930#3 Motacilla alba Linn…        NA  60.24531
+      6  …HR.6258/Havikset.net.PjqWjpxsiiY#U Accipiter nisus (Li…  2         59.84321
+      7                        …JX.2330927#3 Convolvulus sepium …        NA  60.46502
+      8                       …JX.2330838#27 Acleris laterana (F…  1         62.92172
+      9                       …JX.2330838#15 Amphipoea fucosa (F…  1         62.92172
+      10                       …JX.2330838#9 Autographa gamma (L…  1         62.92172
+      ...with 0 more record and 8 more variables:
+      lon_wgs84, date_time, coordinates_uncertainty, any_issues,
+      requires_verification, requires_identification, record_reliability,
+      record_quality
 
 ---
 
@@ -50,20 +52,21 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 54814962
+      Records available: 56329959
       A data.frame [10 x 12]
-         record_id      scientific_name abundance lat_wgs84 lon_wgs84
-      1       …5#3 Phylloscopus collyb…  1         59.78234  21.36865
-      2       …6#3 Troglodytes troglod…  1         59.77961  21.37308
-      3      …8#18 Achlya flavicornis …  2         63.03316  23.6861 
-      4       …8#9 Agonopterix arenell…  1         63.03316  23.6861 
-      5       …8#6 Agonopterix ocellan…  1         63.03316  23.6861 
-      6      …8#15 Brachionycha nubecu…  3         63.03316  23.6861 
-      7      …8#21 Lithophane consocia…  2         63.03316  23.6861 
-      8       …8#3 Odontosia sieversii…  1         63.03316  23.6861 
-      9      …8#12 Orthosia gothica (L…  1         63.03316  23.6861 
-      10      …7#3 Podiceps auritus (L…  2         59.77961  21.37308
-      ...with 0 more record and 7 more variables:
-      date_time, coordinates_uncertainty, any_issues, requires_verification,
-      requires_identification, record_reliability, record_quality
+                                   record_id      scientific_name abundance lat_wgs84
+      1                        …JX.2330945#3 Ficedula hypoleuca …        NA  60.24792
+      2                        …JX.2330944#3 Erithacus rubecula …        NA  60.24718
+      3                        …JX.2330934#3 Certhia familiaris …        NA  60.24621
+      4                        …JX.2330931#3 Columba palumbus Li…        NA  60.24502
+      5                        …JX.2330930#3 Motacilla alba Linn…        NA  60.24531
+      6  …HR.6258/Havikset.net.PjqWjpxsiiY#U Accipiter nisus (Li…  2         59.84321
+      7                        …JX.2330927#3 Convolvulus sepium …        NA  60.46502
+      8                       …JX.2330838#27 Acleris laterana (F…  1         62.92172
+      9                       …JX.2330838#15 Amphipoea fucosa (F…  1         62.92172
+      10                       …JX.2330838#9 Autographa gamma (L…  1         62.92172
+      ...with 0 more record and 8 more variables:
+      lon_wgs84, date_time, coordinates_uncertainty, any_issues,
+      requires_verification, requires_identification, record_reliability,
+      record_quality
 

@@ -1,21 +1,11 @@
 http_interactions:
 - request:
-    method: get
-    uri: https://api.laji.fi/v0/taxa/search?query=Bubo%20bubo&matchType=exact&limit=1&personEmail=noreply%40laji.fi&access_token=<finbif_token>
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      Content-Type: ''
-      Accept: application/json
+    method: GET
+    uri: https://api.laji.fi/v0/taxa/search?query=Bubo+bubo&matchType=exact&limit=1&personEmail=noreply%40laji.fi&access_token=<finbif_token>
   response:
-    status:
-      status_code: 200
-      category: Success
-      reason: OK
-      message: 'Success: (200) OK'
+    status: 200
     headers:
-      date: Tue, 15 Apr 2025 06:27:56 GMT
+      date: Fri, 22 Aug 2025 08:48:05 GMT
       content-type: application/json; charset=utf-8
       content-length: '641'
       x-powered-by: Express
@@ -31,31 +21,18 @@ http_interactions:
       strict-transport-security: max-age=31536000;includeSubDomains;preload
       referrer-policy: no-referrer-when-downgrade
     body:
-      encoding: ''
-      file: no
       string: '[{"matchingName":"Bubo bubo","nameType":"MX.scientificName","id":"MX.28965","scientificName":"Bubo
         bubo","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"en":"Eurasian
         Eagle-owl","fi":"huuhkaja","se":"lidnu","sv":"berguv"},"informalGroups":[{"id":"MVL.1","name":{"en":"Birds","fi":"Linnut","sv":"Fåglar"}},{"id":"MVL.1141","name":{"en":"Birds
         of prey and owls","fi":"Petolinnut ja pöllöt","sv":"Rovfåglar och ugglor"}},{"id":"MVL.1161","name":{"en":"Owls","fi":"Pöllöt","sv":"Ugglor"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}]'
-  recorded_at: 2025-04-15 06:27:57 GMT
-  recorded_with: vcr/1.7.0, webmockr/2.0.0
+  recorded_at: 2025-08-22 08:48:05
 - request:
-    method: get
+    method: GET
     uri: https://api.laji.fi/v0/taxa/search?query=Otter&matchType=exact&limit=1&personEmail=noreply%40laji.fi&access_token=<finbif_token>
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      Content-Type: ''
-      Accept: application/json
   response:
-    status:
-      status_code: 200
-      category: Success
-      reason: OK
-      message: 'Success: (200) OK'
+    status: 200
     headers:
-      date: Tue, 15 Apr 2025 06:27:57 GMT
+      date: Fri, 22 Aug 2025 08:48:05 GMT
       content-type: application/json; charset=utf-8
       content-length: '435'
       x-powered-by: Express
@@ -71,9 +48,7 @@ http_interactions:
       strict-transport-security: max-age=31536000;includeSubDomains;preload
       referrer-policy: no-referrer-when-downgrade
     body:
-      encoding: ''
-      file: no
       string: '[{"matchingName":"Otter","nameType":"MX.vernacularName","id":"MX.47169","scientificName":"Lutra
         lutra","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"en":"Otter","fi":"saukko","sv":"utter"},"informalGroups":[{"id":"MVL.2","name":{"en":"Mammals","fi":"Nisäkkäät","sv":"Däggdjur"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}]'
-  recorded_at: 2025-04-15 06:27:57 GMT
-  recorded_with: vcr/1.7.0, webmockr/2.0.0
+  recorded_at: 2025-08-22 08:48:05
+recorded_with: VCR-vcr/2.0.0

@@ -1,5 +1,13 @@
 # News for Package <span class="pkg">finbif</span>
 
+# finbif 0.9.11
+
+## MINOR IMPROVEMENTS
+
+   - Added capacity to import new DarwinCore archive formatted FinBIF
+     download files.
+   - Added new variables and filters from upstream API (undocumented).
+   
 # finbif 0.9.10
 
 ## MINOR IMPROVEMENTS

@@ -1,21 +1,11 @@
 http_interactions:
 - request:
-    method: get
+    method: GET
     uri: https://api.laji.fi/v0/warehouse/query/unit/list?selected=unit.unitId%2Cunit.linkings.taxon.informalTaxonGroups&page=1&pageSize=5&access_token=<finbif_token>
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      Content-Type: ''
-      Accept: application/json
   response:
-    status:
-      status_code: 200
-      category: Success
-      reason: OK
-      message: 'Success: (200) OK'
+    status: 200
     headers:
-      date: Tue, 15 Apr 2025 06:27:06 GMT
+      date: Fri, 22 Aug 2025 08:45:58 GMT
       content-type: application/json;charset=utf-8
       transfer-encoding: chunked
       access-control-allow-origin: '*'
@@ -26,28 +16,15 @@ http_interactions:
       strict-transport-security: max-age=31536000;includeSubDomains;preload
       referrer-policy: no-referrer-when-downgrade
     body:
-      encoding: ''
-      file: no
-      string: '{"currentPage":1,"nextPage":2,"lastPage":10962993,"pageSize":5,"total":54814965,"cacheTimestamp":1744698367,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/JX.2261995#3"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/JX.2261996#3"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.237"]}},"unitId":"http://tun.fi/JX.2261998#18"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.238"]}},"unitId":"http://tun.fi/JX.2261998#9"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.238"]}},"unitId":"http://tun.fi/JX.2261998#6"}}]}'
-  recorded_at: 2025-04-15 06:27:06 GMT
-  recorded_with: vcr/1.7.0, webmockr/2.0.0
+      string: '{"currentPage":1,"nextPage":2,"lastPage":11265992,"pageSize":5,"total":56329960,"cacheTimestamp":1755852358,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/JX.2330945#3"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/JX.2330944#3"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/JX.2330934#3"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/JX.2330931#3"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/JX.2330930#3"}}]}'
+  recorded_at: 2025-08-22 08:45:58
 - request:
-    method: get
+    method: GET
     uri: https://api.laji.fi/v0/warehouse/query/unit/list?selected=unit.unitId%2Cunit.linkings.taxon.informalTaxonGroups&page=2&pageSize=5&access_token=<finbif_token>
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      Content-Type: ''
-      Accept: application/json
   response:
-    status:
-      status_code: 200
-      category: Success
-      reason: OK
-      message: 'Success: (200) OK'
+    status: 200
     headers:
-      date: Tue, 15 Apr 2025 06:27:06 GMT
+      date: Fri, 22 Aug 2025 08:46:28 GMT
       content-type: application/json;charset=utf-8
       transfer-encoding: chunked
       access-control-allow-origin: '*'
@@ -58,28 +35,15 @@ http_interactions:
       strict-transport-security: max-age=31536000;includeSubDomains;preload
       referrer-policy: no-referrer-when-downgrade
     body:
-      encoding: ''
-      file: no
-      string: '{"currentPage":2,"prevPage":1,"nextPage":3,"lastPage":10962993,"pageSize":5,"total":54814965,"cacheTimestamp":1744698396,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.183","http://tun.fi/MVL.237"]}},"unitId":"http://tun.fi/JX.2261998#15"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.183","http://tun.fi/MVL.237"]}},"unitId":"http://tun.fi/JX.2261998#21"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.237"]}},"unitId":"http://tun.fi/JX.2261998#3"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.183","http://tun.fi/MVL.237"]}},"unitId":"http://tun.fi/JX.2261998#12"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1","http://tun.fi/MVL.1241"]}},"unitId":"http://tun.fi/JX.2261997#3"}}]}'
-  recorded_at: 2025-04-15 06:27:06 GMT
-  recorded_with: vcr/1.7.0, webmockr/2.0.0
+      string: '{"currentPage":2,"prevPage":1,"nextPage":3,"lastPage":11265992,"pageSize":5,"total":56329960,"cacheTimestamp":1755852388,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1","http://tun.fi/MVL.1141","http://tun.fi/MVL.1162"]}},"unitId":"http://tun.fi/HR.6258/Havikset.net.PjqWjpxsiiY#U"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.343"]}},"unitId":"http://tun.fi/JX.2330927#3"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.238"]}},"unitId":"http://tun.fi/JX.2330838#27"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.183","http://tun.fi/MVL.237"]}},"unitId":"http://tun.fi/JX.2330838#15"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.183","http://tun.fi/MVL.237"]}},"unitId":"http://tun.fi/JX.2330838#9"}}]}'
+  recorded_at: 2025-08-22 08:46:28
 - request:
-    method: get
+    method: GET
     uri: https://api.laji.fi/v0/warehouse/query/unit/list?selected=unit.unitId%2Cunit.linkings.taxon.informalTaxonGroups&page=3&pageSize=5&access_token=<finbif_token>
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      Content-Type: ''
-      Accept: application/json
   response:
-    status:
-      status_code: 200
-      category: Success
-      reason: OK
-      message: 'Success: (200) OK'
+    status: 200
     headers:
-      date: Tue, 15 Apr 2025 06:27:06 GMT
+      date: Fri, 22 Aug 2025 08:46:59 GMT
       content-type: application/json;charset=utf-8
       transfer-encoding: chunked
       access-control-allow-origin: '*'
@@ -90,8 +54,6 @@ http_interactions:
       strict-transport-security: max-age=31536000;includeSubDomains;preload
       referrer-policy: no-referrer-when-downgrade
     body:
-      encoding: ''
-      file: no
-      string: '{"currentPage":3,"prevPage":2,"nextPage":4,"lastPage":10962993,"pageSize":5,"total":54814965,"cacheTimestamp":1744698426,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/KE.176/67fdf5eed5de71e57bbcf4a7#Unit5"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/JX.2261994#17"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/JX.2261994#14"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1"]}},"unitId":"http://tun.fi/JX.2261994#3"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.1","http://tun.fi/MVL.1241"]}},"unitId":"http://tun.fi/JX.2261994#20"}}]}'
-  recorded_at: 2025-04-15 06:27:06 GMT
-  recorded_with: vcr/1.7.0, webmockr/2.0.0
+      string: '{"currentPage":3,"prevPage":2,"nextPage":4,"lastPage":11265992,"pageSize":5,"total":56329960,"cacheTimestamp":1755852419,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.238"]}},"unitId":"http://tun.fi/JX.2330838#23"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.237"]}},"unitId":"http://tun.fi/JX.2330838#3"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.238"]}},"unitId":"http://tun.fi/JX.2330838#25"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.184","http://tun.fi/MVL.237"]}},"unitId":"http://tun.fi/JX.2330838#17"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.232","http://tun.fi/MVL.31","http://tun.fi/MVL.184","http://tun.fi/MVL.237"]}},"unitId":"http://tun.fi/JX.2330838#7"}}]}'
+  recorded_at: 2025-08-22 08:46:59
+recorded_with: VCR-vcr/2.0.0
