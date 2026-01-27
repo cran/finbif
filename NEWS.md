@@ -1,5 +1,10 @@
 # News for Package <span class="pkg">finbif</span>
 
+# finbif 0.9.12
+
+   - Added a new function to renew access tokens.
+   - Fixed issue with fetching collection metadata due to upstream API changes
+
 # finbif 0.9.11
 
 ## MINOR IMPROVEMENTS
