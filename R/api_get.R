@@ -1,6 +1,8 @@
 #' @noRd
-#' @importFrom digest digest
-#' @importFrom httr content RETRY
+#' @importFrom secretbase shake256
+#' @importFrom httr2 req_error req_headers req_perform req_retry request
+#' @importFrom httr2 req_url_query req_user_agent resp_body_string
+#' @importFrom httr2 resp_body_json
 #' @importFrom jsonlite validate
 #' @importFrom utils packageVersion
 api_get <- function(obj) {
@@ -8,18 +10,18 @@ api_get <- function(obj) {
   fb_restricted_access_token <- get_restricted_access_token(obj)
 
   url <- getOption("finbif_api_url")
-  version <- getOption("finbif_api_version")
 
   path <- obj[["path"]]
   query <- obj[["query"]]
+  lang <- obj[["lang"]]
 
   obj[["timeout"]] <- get_timeout(obj)
 
   hash <- NULL
 
   if (obj[["cache"]][[1L]] > 0) {
-    query_list <- list(url, version, path, query)
-    hash <- digest::digest(query_list)
+    query_list <- list(url, path, query)
+    hash <- secretbase::shake256(query_list, 128L)
     fcp <- getOption("finbif_cache_path")
 
     if (is.null(fcp)) {
@@ -113,16 +115,6 @@ api_get <- function(obj) {
   allow <- getOption("finbif_allow_query")
   stopifnot("Request not cached and option:finbif_allow_query = FALSE" = allow)
 
-  query <- add_email(query)
-  fb_restricted_access_token_par <- list(
-    permissionToken = fb_restricted_access_token
-  )
-  query <- switch(
-    fb_restricted_access_token,
-    unset = query,
-    c(query, fb_restricted_access_token_par)
-  )
-
   Sys.sleep(1 / getOption("finbif_rate_limit"))
 
   private_api <- Sys.getenv("FINBIF_PRIVATE_API", "unset")
@@ -136,7 +128,7 @@ api_get <- function(obj) {
   url_path <- switch(
     tolower(use_private_api),
     true = sprintf("https://%s/api/%s", private_api, path),
-    sprintf("%s/%s/%s", url, version, path)
+    sprintf("%s/%s", url, path)
   )
   url_path <- switch(
     path,
@@ -144,69 +136,80 @@ api_get <- function(obj) {
     url_path
   )
 
+  req <- httr2::request(url_path)
+
+  query <- add_email(query)
+
+  req <- do.call(function(...) httr2::req_url_query(req, ...), as.list(query))
+
   pkg_version <- utils::packageVersion("finbif")
   calling_fun <- get_calling_function("finbif")
   agent <- paste0("https://github.com/luomus/finbif#", pkg_version)
   agent <- paste0(agent, ":", calling_fun)
-  agent <- list(useragent = Sys.getenv("FINBIF_USER_AGENT", agent))
-  config <- list(headers = c(Accept = "application/json"), options = agent)
 
-  fb_access_token_par <- list(access_token = fb_access_token)
-  query <- switch(use_private_api, true = query, c(query, fb_access_token_par))
+  req <- httr2::req_user_agent(req, Sys.getenv("FINBIF_USER_AGENT", agent))
 
-  resp <- httr::RETRY(
-    "GET",
-    url_path,
-    structure(config, class = "request"),
-    query = switch(path, swagger = list(), query),
-    times = getOption("finbif_retry_times"),
-    pause_base = getOption("finbif_retry_pause_base"),
-    pause_cap = getOption("finbif_retry_pause_cap"),
-    pause_min = getOption("finbif_retry_pause_min"),
-    terminate_on = 404L
+  req <- httr2::req_headers(req, Accept = "application/json")
+  req <- httr2::req_headers(req, `Accept-Language` = lang)
+  req <- httr2::req_headers(
+    req, `API-version` = getOption("finbif_api_version")
   )
 
-  fb_access_token_str <- paste0("&access_token=", fb_access_token)
-  notoken <- gsub(fb_access_token_str, "", resp[["url"]])
-  email <- getOption("finbif_email")
-  email_str <- paste0("&personEmail=", email)
-  notoken <- gsub(email_str, "", notoken)
-  fb_restricted_access_token_str <- paste0(
-    "&permissionToken=", fb_restricted_access_token
+  req <- switch(
+    use_private_api,
+    true = req,
+    httr2::req_headers(
+      req, Authorization = sprintf("Bearer %s", fb_access_token)
+    )
   )
-  notoken <- gsub(fb_restricted_access_token_str, "", notoken)
-  resp[["url"]] <- notoken
-  resp[[c("request", "url")]] <- notoken
 
-  txt <- httr::content(resp, type = "text", encoding = "UTF-8")
+  req <- switch(
+    fb_restricted_access_token,
+    unset = req,
+    httr2::req_headers(req, `Permission-Token` = fb_restricted_access_token)
+  )
+
+  pause_base <- getOption("finbif_retry_pause_base")
+  pause_cap <- getOption("finbif_retry_pause_cap")
+  pause_min <- getOption("finbif_retry_pause_min")
+
+  req <- httr2::req_retry(
+    req,
+    max_tries = getOption("finbif_retry_times"),
+    backoff = function(x) pmax(pause_min, pmin(pause_cap, pause_base^x))
+  )
+
+  req <- httr2::req_error(req, is_error = function(resp) FALSE)
+
+  resp <- httr2::req_perform(req)
+
+  txt <- httr2::resp_body_string(resp, encoding = "UTF-8")
 
   if (!jsonlite::validate(txt)) {
     obj <- NULL
-    err_msg <- paste("API response parsing failed", notoken, txt, sep = "\n")
-    stop(err_msg, call. = FALSE)
-  }
-
-  if (!identical(resp[["status_code"]], 200L)) {
-    parsed <- httr::content(resp)
-    obj <- NULL
-    err_msg <- paste0(
-      "API request failed [",
-      resp[["status_code"]],
-      "]\n",
-      notoken,
-      "\n",
-      parsed[["message"]]
+    err_msg <- paste(
+      "API response parsing failed", resp[["url"]], txt, sep = "\n"
     )
     stop(err_msg, call. = FALSE)
   }
 
-  obj[["content"]] <- httr::content(resp)
+  if (!identical(resp[["status_code"]], 200L)) obj <- NULL
+
+  check_status(resp)
+
+  obj[["content"]] <- httr2::resp_body_json(resp)
   obj[["response"]] <- resp
   obj[["hash"]] <- hash
   obj[["from_cache"]] <- FALSE
 
   debug_msg(
-    "INFO [", format(Sys.time()), "] ", "Request made to: ", notoken, " ", hash
+    "INFO [",
+    format(Sys.time()),
+    "] ",
+    "Request made to: ",
+    resp[["url"]],
+    " ",
+    hash
   )
 
   structure(obj, class = "finbif_api")

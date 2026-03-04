@@ -213,6 +213,23 @@ cache_is_valid <- function(timeout, created) {
   timeout_secs > difftime(Sys.time(), created, units = "secs")
 }
 
+
+#' @noRd
+#' @importFrom httr2 resp_body_json
+check_status <- function(res) {
+  if (!identical(res[["status_code"]], 200L)) {
+    msg <- paste0(
+      "API request failed [",
+      res[["status_code"]],
+      "]\n",
+      res[["url"]],
+      "\n",
+      httr2::resp_body_json(res)[["message"]]
+    )
+    stop(msg, call. = FALSE)
+  }
+}
+
 # random sampling --------------------------------------------------------------
 #' @noRd
 sample_with_seed <- function(
@@ -223,7 +240,7 @@ sample_with_seed <- function(
     oldseed <- get(".Random.seed", 1L)
 
     on.exit({
-      assign(".Random.seed", oldseed, 1L)
+      assign(".Random.seed", oldseed, 1L) #nolint
     })
 
   }
@@ -238,11 +255,11 @@ sample_with_seed <- function(
   sample.int(n)
 }
 
-#' @importFrom digest digest
+#' @importFrom secretbase shake256
 #' @noRd
 gen_seed <- function(x) {
   hash <- lapply(x, getElement, "hash")
-  hash <- digest::digest(hash)
+  hash <- secretbase::shake256(hash, 128L)
   hash <- substr(hash, 1L, 7L)
   strtoi(hash, 16L)
 }

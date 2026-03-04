@@ -32,52 +32,50 @@ finbif_request_token <- function(email, quiet = FALSE) {
 #' @rdname finbif_request_token
 finbif_renew_token <- function(email, quiet = FALSE) {
 
-   token(email, quiet, path = "api-users/renew")
+  token(email, quiet, path = "api-users/renew")
 
 }
 
-#' @importFrom httr content RETRY
-#' @importFrom utils packageVersion
+#' @importFrom httr2 req_error req_headers req_perform req_retry request
+#' @importFrom httr2 req_url_query req_user_agent resp_body_json
 token <- function(email, quiet = FALSE, path) {
   fb_access_token <- Sys.getenv("FINBIF_ACCESS_TOKEN")
 
   if (identical(fb_access_token, "")) {
     allow <- getOption("finbif_allow_query")
-    stopifnot("Option:finbif_allow_query = FALSE" = allow)
+    stopifnot("Option: finbif_allow_query = FALSE" = allow)
 
     url <- getOption("finbif_api_url")
-    version <- getOption("finbif_api_version")
+
+    req <- httr2::request(sprintf("%s/%s", url, path))
+
+    req <- httr2::req_body_json(req, list(email = email))
 
     pkg_version <- utils::packageVersion("finbif")
     agent <- paste0("https://github.com/luomus/finbif#", pkg_version)
-    config <- list(
-      headers = c(Accept = "application/json"),
-      options =  list(useragent = agent)
+
+    req <- httr2::req_user_agent(req, Sys.getenv("FINBIF_USER_AGENT", agent))
+
+    req <- httr2::req_headers(req, Accept = "application/json")
+    req <- httr2::req_headers(
+      req, `API-version` = getOption("finbif_api_version")
     )
 
-    resp <- httr::RETRY(
-      "POST",
-      sprintf("%s/%s/%s", url, version, path),
-      structure(config, class = "request"),
-      body = list(email = email),
-      encode = "json",
-      times = getOption("finbif_retry_times"),
-      pause_base = getOption("finbif_retry_pause_base"),
-      pause_cap = getOption("finbif_retry_pause_cap"),
-      pause_min = getOption("finbif_retry_pause_min"),
-      quiet = quiet,
-      terminate_on = c(404L, 422L)
+    pause_base <- getOption("finbif_retry_pause_base")
+    pause_cap <- getOption("finbif_retry_pause_cap")
+    pause_min <- getOption("finbif_retry_pause_min")
+
+    req <- httr2::req_retry(
+      req,
+      max_tries = getOption("finbif_retry_times"),
+      backoff = function(x) pmax(pause_min, pmin(pause_cap, pause_base^x))
     )
 
-    parsed <- httr::content(resp)
+    req <- httr2::req_error(req, is_error = function(resp) FALSE)
 
-    if (!identical(resp[["status_code"]], 200L)) {
-      error <- parsed[["error"]]
-      msg <- paste0(
-        "API request failed [", resp[["status_code"]], "]\n", error[["message"]]
-      )
-      stop(msg, call. = FALSE)
-    }
+    resp <- httr2::req_perform(req)
+
+    check_status(resp)
 
     if (!quiet) {
       message(
@@ -85,7 +83,9 @@ token <- function(email, quiet = FALSE, path) {
       )
     }
 
-    ans <- list(content = parsed, path = "api-users", response = resp)
+    ans <- list(
+      content = httr2::resp_body_json(resp), path = "api-users", response = resp
+    )
     ans <- structure(ans, class = "finbif_api")
 
   } else {

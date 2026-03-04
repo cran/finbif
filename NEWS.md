@@ -1,9 +1,27 @@
 # News for Package <span class="pkg">finbif</span>
 
+# finbif 0.9.13
+
+## MINOR IMPROVEMENTS
+
+   - Package now uses version 1 of upstream API.
+   - A collection ID Qname is used if there is no collection code.
+
+## BUG FIXES
+
+   - Fixed an error in the formatting of iso8061 dates.
+   - Fixed an error triggered if collection code is requested without
+     institution code.
+
 # finbif 0.9.12
 
+## MINOR IMPROVEMENTS
+
    - Added a new function to renew access tokens.
-   - Fixed issue with fetching collection metadata due to upstream API changes
+
+## BUG FIXES
+
+   - Fixed issue with fetching collection metadata due to upstream API changes.
 
 # finbif 0.9.11
 
@@ -12,7 +30,7 @@
    - Added capacity to import new DarwinCore archive formatted FinBIF
      download files.
    - Added new variables and filters from upstream API (undocumented).
-   
+
 # finbif 0.9.10
 
 ## MINOR IMPROVEMENTS

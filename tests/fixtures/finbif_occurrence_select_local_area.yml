@@ -1,11 +1,11 @@
 http_interactions:
 - request:
     method: GET
-    uri: https://api.laji.fi/v0/warehouse/query/unit/list?selected=unit.unitId%2Cgathering.interpretations.finnishMunicipality%2Cgathering.municipality&page=1&pageSize=5&access_token=<finbif_token>
+    uri: https://api.laji.fi/warehouse/query/unit/list?selected=unit.unitId%2Cgathering.interpretations.finnishMunicipality%2Cgathering.municipality&page=1&pageSize=5
   response:
     status: 200
     headers:
-      date: Tue, 27 Jan 2026 01:54:03 GMT
+      date: Wed, 04 Mar 2026 11:12:12 GMT
       content-type: application/json;charset=utf-8
       access-control-allow-origin: '*'
       via: 1.0 dw.laji.fi
@@ -15,6 +15,6 @@ http_interactions:
       strict-transport-security: max-age=31536000;includeSubDomains;preload
       referrer-policy: no-referrer-when-downgrade
     body:
-      string: '{"currentPage":1,"nextPage":2,"lastPage":11821039,"pageSize":5,"total":59105195,"cacheTimestamp":1769478843,"results":[{"unit":{"unitId":"http://tun.fi/JX.2399812#9"},"gathering":{"interpretations":{"finnishMunicipality":"http://tun.fi/ML.453"}}},{"unit":{"unitId":"http://tun.fi/JX.2399812#3"},"gathering":{"interpretations":{"finnishMunicipality":"http://tun.fi/ML.434"}}},{"unit":{"unitId":"http://tun.fi/JX.2399812#6"},"gathering":{"interpretations":{"finnishMunicipality":"http://tun.fi/ML.434"}}},{"unit":{"unitId":"http://tun.fi/KE.176/6977a871d5defb28104be68c#Unit1"},"gathering":{"interpretations":{"finnishMunicipality":"http://tun.fi/ML.479"},"municipality":"Mustasaari"}},{"unit":{"unitId":"http://tun.fi/KE.176/69779207d5defb28104be68b#Unit1"},"gathering":{"interpretations":{"finnishMunicipality":"http://tun.fi/ML.665"},"municipality":"Parainen"}}]}'
-  recorded_at: 2026-01-27 01:54:03
+      string: '{"currentPage":1,"nextPage":2,"lastPage":11867461,"pageSize":5,"total":59337305,"cacheTimestamp":1772622732,"results":[{"unit":{"unitId":"http://id.herb.oulu.fi/MY.10079421"},"gathering":{"interpretations":{"finnishMunicipality":"http://tun.fi/ML.660"},"municipality":"Helsinki"}},{"unit":{"unitId":"http://id.herb.oulu.fi/MY.10079425"},"gathering":{"interpretations":{"finnishMunicipality":"http://tun.fi/ML.390"},"municipality":"Tuusula"}},{"unit":{"unitId":"http://id.herb.oulu.fi/MY.10079429"},"gathering":{"interpretations":{"finnishMunicipality":"http://tun.fi/ML.649"},"municipality":"Pori"}},{"unit":{"unitId":"http://id.herb.oulu.fi/MY.10079433"},"gathering":{"interpretations":{"finnishMunicipality":"http://tun.fi/ML.415"},"municipality":"Vesilahti"}},{"unit":{"unitId":"http://id.herb.oulu.fi/MY.10079437"},"gathering":{"interpretations":{"finnishMunicipality":"http://tun.fi/ML.544"},"municipality":"Hämeenlinna"}}]}'
+  recorded_at: 2026-03-04 11:12:12
 recorded_with: VCR-vcr/2.1.0

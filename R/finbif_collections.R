@@ -25,7 +25,6 @@
 #' collections <- finbif_collections()
 #'
 #' }
-#' @importFrom httr content
 #' @export
 finbif_collections <- function(
   filter,
@@ -41,14 +40,13 @@ finbif_collections <- function(
   swagger <- api_get(swagger)
   swagger <- swagger[[c("content", "components", "schemas")]]
 
-  col_md_nms <- swagger[[c("Collection", "properties")]]
-  col_md_nms <- c(col_md_nms, swagger[[c("collection", "properties")]])
+  col_md_nms <- swagger[[c("SensitiveCollection", "properties")]]
   col_md_nms <- names(col_md_nms)
-  col_md_nms <- unique(col_md_nms)
   col_md_nms <- grep("@", col_md_nms, value = TRUE, invert = TRUE)
 
   col_md <- list(
-    qry = c(lang = locale),
+    qry = NULL,
+    lang = locale,
     path = "collections",
     nms = col_md_nms,
     id = "id",
@@ -69,6 +67,7 @@ finbif_collections <- function(
   finbif_warehouse_query <- getOption("finbif_warehouse_query")
   col_counts <- list(
     qry = qry,
+    lang = locale,
     path = paste0(finbif_warehouse_query, "unit/aggregate"),
     nms = col_count_nms,
     id = "aggregateBy",
@@ -176,6 +175,7 @@ get_collections <- function(col_obj) {
   page_args <- list(page = page, pageSize = page_size)
   qry <- c(col_obj[["qry"]], page_args)
   cache <- col_obj[["cache"]]
+  lang <- col_obj[["lang"]]
   collections_list <- list()
 
   cond <- TRUE
@@ -183,7 +183,9 @@ get_collections <- function(col_obj) {
   while (cond) {
     page <- page + 1L
     qry[["page"]] <- page
-    query_obj <- list(path = col_obj[["path"]], query = qry, cache = cache)
+    query_obj <- list(
+      path = col_obj[["path"]], query = qry, cache = cache, lang = lang
+    )
     resp <- api_get(query_obj)
     collections_list[[page]] <- resp
     cond <- resp[[c("content", "total")]] > page * page_size
