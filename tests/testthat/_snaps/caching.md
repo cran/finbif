@@ -4,7 +4,7 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 59337305
+      Records available: 59646558
       A data.frame [10 x 12]
          record_id      scientific_name abundance lat_wgs84 lon_wgs84
       1        …21 Polytrichum juniper…        NA  60.17967  24.91463
@@ -27,7 +27,7 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 59337305
+      Records available: 59646558
       A data.frame [10 x 12]
          record_id      scientific_name abundance lat_wgs84 lon_wgs84
       1        …21 Polytrichum juniper…        NA  60.17967  24.91463
@@ -50,7 +50,7 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 59337305
+      Records available: 59646558
       A data.frame [10 x 12]
          record_id      scientific_name abundance lat_wgs84 lon_wgs84
       1        …21 Polytrichum juniper…        NA  60.17967  24.91463

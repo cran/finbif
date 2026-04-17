@@ -16,28 +16,16 @@
 #' # Request a token for example@email.com
 #' finbif_request_token("example@email.com")
 #'
-#' Sys.unsetenv("FINBIF_ACCESS_TOKEN")
-#'
-#' finbif_renew_token("example@email.com")
-#'
 #' }
 #' @export
 finbif_request_token <- function(email, quiet = FALSE) {
 
-  token(email, quiet, path = "api-users")
-
-}
-
-#' @export
-#' @rdname finbif_request_token
-finbif_renew_token <- function(email, quiet = FALSE) {
-
-  token(email, quiet, path = "api-users/renew")
+  token(email, quiet, path = "api-user")
 
 }
 
 #' @importFrom httr2 req_error req_headers req_perform req_retry request
-#' @importFrom httr2 req_url_query req_user_agent resp_body_json
+#' @importFrom httr2 req_url_query req_user_agent
 token <- function(email, quiet = FALSE, path) {
   fb_access_token <- Sys.getenv("FINBIF_ACCESS_TOKEN")
 
@@ -75,7 +63,7 @@ token <- function(email, quiet = FALSE, path) {
 
     resp <- httr2::req_perform(req)
 
-    check_status(resp)
+    check_status(resp, 201L)
 
     if (!quiet) {
       message(
@@ -83,9 +71,7 @@ token <- function(email, quiet = FALSE, path) {
       )
     }
 
-    ans <- list(
-      content = httr2::resp_body_json(resp), path = "api-users", response = resp
-    )
+    ans <- list(content = list(), path = "api-user", response = resp)
     ans <- structure(ans, class = "finbif_api")
 
   } else {

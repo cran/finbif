@@ -44,52 +44,105 @@ finbif_collections <- function(
   col_md_nms <- names(col_md_nms)
   col_md_nms <- grep("@", col_md_nms, value = TRUE, invert = TRUE)
 
-  col_md <- list(
-    qry = NULL,
-    lang = locale,
-    path = "collections",
-    nms = col_md_nms,
-    id = "id",
-    cache = cache
-  )
-  col_md <- get_collections(col_md)
-
   col_count_nms <- swagger[[c("WarehouseDwQuery_AggregateRow", "properties")]]
   col_count_nms <- names(col_count_nms)
   col_count_nms <- unique(col_count_nms)
   col_count_nms <- grep("@", col_count_nms, value = TRUE, invert = TRUE)
 
-  qry <- list(
-    aggregateBy = "document.collectionId",
-    onlyCount = FALSE,
-    pessimisticDateRangeHandling = TRUE
+  col_nms <- c(col_md_nms, col_count_nms)
+
+  col_nms_snk <- sub("\\.", "_", col_nms)
+  col_nms_snk <- gsub("([a-z])([A-Z])", "\\1_\\L\\2", col_nms_snk, perl = TRUE)
+  col_nms_snk <- tolower(col_nms_snk)
+
+  col_type <- c(
+    rep("md", length(col_md_nms)), rep("count", length(col_count_nms))
   )
-  finbif_warehouse_query <- getOption("finbif_warehouse_query")
-  col_counts <- list(
-    qry = qry,
+
+  col_df <- data.frame(nms = col_nms, type = col_type)
+
+  rownames(col_df) <- col_nms_snk
+
+  cols <- c(
+    "collection_name",
+    "abbreviation",
+    "description",
+    "online_url",
+    "has_children",
+    "is_part_of",
+    "data_quality",
+    "methods",
+    "collection_type",
+    "taxonomic_coverage",
+    "geographic_coverage",
+    "temporal_coverage",
+    "secure_level",
+    "count"
+  )
+
+  if (!missing(select)) {
+    cols_seq <- seq_along(col_nms)
+    cols_seq <- as.list(cols_seq)
+    names(cols_seq) <- col_nms_snk
+    call <- substitute(select)
+    cols <- eval(call, cols_seq, parent.frame())
+
+    if (is.null(cols) || all_na(cols)) cols <- col_nms_snk
+  }
+
+  cols <- rownames(col_df[cols, ])
+
+  col_df <- col_df[unique(c("id", "aggregate_by", cols)), ]
+
+  col_md <- list(
+    qry = NULL,
     lang = locale,
-    path = paste0(finbif_warehouse_query, "unit/aggregate"),
-    nms = col_count_nms,
-    id = "aggregateBy",
+    path = "collections",
+    nms = col_df[col_df[["type"]] == "md", "nms"],
+    id = "id",
     cache = cache
   )
-  col_counts <- get_collections(col_counts)
-  collections <- merge(
-    col_md, col_counts, by.x = "id", by.y = "aggregate_by", all.x = TRUE
-  )
 
-  descriptions <- collections[["description"]]
-  collections[["data_description"]] <- descriptions
-  data_quality_description <- collections[["data_quality_description"]]
-  na_data_quality_description <- is.na(data_quality_description)
-  descriptions_with_quality <- paste(
-    descriptions, data_quality_description, sep = "\nData quality: "
-  )
-  collections[["description"]] <- ifelse(
-    na_data_quality_description, descriptions, descriptions_with_quality
-  )
+  collections <- get_collections(col_md)
+
+  if ("count" %in% col_df[["type"]]) {
+    qry <- list(
+      aggregateBy = "document.collectionId",
+      onlyCount = FALSE,
+      pessimisticDateRangeHandling = TRUE
+    )
+
+    col_counts <- list(
+      qry = qry,
+      lang = locale,
+      path = paste0(getOption("finbif_warehouse_query"), "unit/aggregate"),
+      nms = col_df[col_df[["type"]] == "count", "nms"],
+      id = "aggregateBy",
+      cache = cache
+    )
+    col_counts <- get_collections(col_counts)
+
+    collections <- merge(
+      collections, col_counts, by.x = "id", by.y = "aggregate_by", all.x = TRUE
+    )
+    cols <- setdiff(cols, "aggregate_by")
+  }
+
+  if ("description" %in% cols && "data_quality_description" %in% cols) {
+    descriptions <- collections[["description"]]
+    data_quality_description <- collections[["data_quality_description"]]
+    na_data_quality_description <- is.na(data_quality_description)
+    descriptions_with_quality <- paste(
+      descriptions, data_quality_description, sep = "\nData quality: "
+    )
+
+    collections[["description"]] <- ifelse(
+      na_data_quality_description, descriptions, descriptions_with_quality
+    )
+  }
 
   row.names(collections) <- collections[["id"]]
+
   has_children <- collections[["has_children"]]
   has_children <- has_children & !is.na(has_children)
 
@@ -116,50 +169,25 @@ finbif_collections <- function(
     ind <- ind & !has_children
   }
 
-  collections <- collections[ind, ]
+  if (!getOption("finbif_use_all_collections")) {
+    ind <- ind & !collections[["id"]] %in% without_collections()
+    ind <- ind & !collections[["is_part_of"]] %in% without_collections()
+  }
+
+  collections <- collections[ind, , drop = FALSE]
+
   n_collections <- nrow(collections)
   rows <- rep_len(TRUE, n_collections)
 
-  parent_frame <- parent.frame()
-
   if (!missing(filter)) {
     call <- substitute(filter)
-    rows <- eval(call, collections, parent_frame)
+    rows <- eval(call, collections, parent.frame())
 
     if (!is.logical(rows)) {
       deferrable_error("Collections filter must be a logical vector")
     }
 
     rows <- rows & !is.na(rows)
-  }
-
-  cols <- c(
-    "collection_name",
-    "abbreviation",
-    "description",
-    "online_url",
-    "has_children",
-    "is_part_of",
-    "data_quality",
-    "methods",
-    "collection_type",
-    "taxonomic_coverage",
-    "geographic_coverage",
-    "temporal_coverage",
-    "secure_level",
-    "count"
-  )
-
-  if (!missing(select)) {
-    cols_seq <- seq_along(collections)
-    cols_seq <- as.list(cols_seq)
-    names(cols_seq) <- names(collections)
-    call <- substitute(select)
-    cols <- eval(call, cols_seq, parent_frame)
-
-    if (is.null(cols) || all_na(cols)) {
-      cols <- TRUE
-    }
   }
 
   structure(
@@ -192,7 +220,7 @@ get_collections <- function(col_obj) {
   }
 
   for (i in c("content", "results")) {
-    collections_list <- lapply(collections_list, getElement, i)
+    collections_list <- lapply(collections_list, "[[", i)
   }
 
   collections_list <- do.call(c, collections_list)
@@ -212,7 +240,7 @@ get_collections <- function(col_obj) {
   collections <- list()
 
   for (nm in col_obj[["nms"]]) {
-    collections[[nm]] <- lapply(collections_list, getElement, nm)
+    collections[[nm]] <- lapply(collections_list, "[[", nm)
   }
 
   lth_of_els <- lapply(collections, lapply, length)

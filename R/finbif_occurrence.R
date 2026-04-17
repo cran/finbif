@@ -109,7 +109,7 @@ finbif_occurrence <- function(
   count_only = FALSE,
   quiet = getOption("finbif_hide_progress"),
   cache = getOption("finbif_use_cache"),
-  dwc = FALSE,
+  dwc = getOption("finbif_use_dwc"),
   date_time_method = NULL,
   check_taxa = TRUE,
   on_check_fail = c("warn", "error"),
@@ -720,40 +720,52 @@ compute_epsg <- function(fb_occurrence_df) {
     epsg_vars <- c(vnt["computed_var_epsg", ], vnt["computed_var_fp_epsg", ])
     select_user <- attr(fb_occurrence_df, "column_names", TRUE)
 
-    crs <- c(computed_var_epsg = "", computed_var_fp_epsg = "footprint")
+    crs <- c(
+      computed_var_epsg = "^(?:(?!footprint).)+",
+      computed_var_fp_epsg = "footprint"
+    )
     crs_nms <- names(crs)
 
     sq <- seq_along(crs)
     sq <- sq[epsg_vars %in% select_user]
 
-    select_user <- match(select_user, vnt[[1L]])
-    select_user <- var_names[select_user, , drop = FALSE]
-    select_user <- row.names(select_user)
-    select_user <- var_names[select_user, "translated_var"]
+    select_user_native <- match(select_user, vnt[[1L]])
+    select_user_native <- var_names[select_user_native, , drop = FALSE]
+    select_user_native <- row.names(select_user_native)
+    select_user_native <- var_names[select_user_native, "translated_var"]
 
     epsgs <- c(euref = "euref", ykj = "ykj", wgs84 = "wgs84")
 
     for (i in sq) {
+      crs_i <- NA_character_
       epsg <- epsgs
       epsg[] <- paste0(crs[[i]], "_", epsgs, "$")
-      epsg <- lapply(epsg, grepl, select_user)
-      epsg <- lapply(epsg, c, TRUE)
-      epsg <- lapply(epsg, which)
-      epsg <- vapply(epsg, min, 0L, USE.NAMES = TRUE)
-      epsg <- which.min(epsg)
+      epsg <- lapply(epsg, grepl, select_user_native, perl = TRUE)
 
+      if (any(unlist(epsg))) {
+        epsg <- lapply(epsg, c, TRUE)
+        epsg <- lapply(epsg, which)
+        epsg <- vapply(epsg, min, 0L, USE.NAMES = TRUE)
+        min_epsg <- which.min(epsg)
+        which_field <- select_user[epsg[min_epsg]]
+        which_epsg <- names(min_epsg)
+
+        crs_i <- switch(
+          which_epsg,
+          euref = "EPSG:3067",
+          ykj = "EPSG:2393",
+          wgs84 = "EPSG:4326",
+          NA_character_
+        )
+        crs_i <- rep(crs_i, nrow(fb_occurrence_df))
+        crs_i <- ifelse(
+          is.na(fb_occurrence_df[[which_field]]), NA_character_, crs_i
+        )
+      }
       crs_nm_i <- crs_nms[[i]]
       crs_nm_i <- var_names[[crs_nm_i, vtype]]
 
-      crs_i <- switch(
-        names(epsg),
-        euref = "EPSG:3067",
-        ykj = "EPSG:2393",
-        wgs84 = "EPSG:4326",
-        NA_character_
-      )
-
-      fb_occurrence_df[[crs_nm_i]] <- rep(crs_i, nrow(fb_occurrence_df))
+      fb_occurrence_df[[crs_nm_i]] <- as.character(crs_i)
     }
   }
 

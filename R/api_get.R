@@ -20,7 +20,7 @@ api_get <- function(obj) {
   hash <- NULL
 
   if (obj[["cache"]][[1L]] > 0) {
-    query_list <- list(url, path, query)
+    query_list <- list(url, path, query, lang)
     hash <- secretbase::shake256(query_list, 128L)
     fcp <- getOption("finbif_cache_path")
 
@@ -195,7 +195,7 @@ api_get <- function(obj) {
 
   if (!identical(resp[["status_code"]], 200L)) obj <- NULL
 
-  check_status(resp)
+  check_status(resp, 200L)
 
   obj[["content"]] <- httr2::resp_body_json(resp)
   obj[["response"]] <- resp

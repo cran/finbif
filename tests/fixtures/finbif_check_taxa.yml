@@ -5,7 +5,7 @@ http_interactions:
   response:
     status: 200
     headers:
-      date: Wed, 04 Mar 2026 11:08:35 GMT
+      date: Fri, 17 Apr 2026 12:06:26 GMT
       content-type: application/json; charset=utf-8
       content-length: '498'
       x-powered-by: Express
@@ -20,14 +20,14 @@ http_interactions:
       string: '{"results":[{"matchingName":"Cygnus cygnus","nameType":"MX.scientificName","id":"MX.26280","checklist":"MR.1","scientificName":"Cygnus
         cygnus","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":"Whooper
         Swan","informalGroups":[{"id":"MVL.1","name":"Birds"},{"id":"MVL.1241","name":"Waterbirds"}],"kingdomScientificName":"Animalia","type":"exactMatches"}],"@context":"https://api.laji.fi/context/taxon-search-en"}'
-  recorded_at: 2026-03-04 11:08:35
+  recorded_at: 2026-04-17 12:06:26
 - request:
     method: GET
     uri: https://api.laji.fi/taxa/search?query=not_a_taxa&matchType=exact&limit=1
   response:
     status: 200
     headers:
-      date: Wed, 04 Mar 2026 11:08:36 GMT
+      date: Fri, 17 Apr 2026 12:06:27 GMT
       content-type: application/json; charset=utf-8
       content-length: '72'
       x-powered-by: Express
@@ -40,5 +40,5 @@ http_interactions:
       referrer-policy: no-referrer-when-downgrade
     body:
       string: '{"results":[],"@context":"http://schema.laji.fi/context/generic.jsonld"}'
-  recorded_at: 2026-03-04 11:08:36
+  recorded_at: 2026-04-17 12:06:27
 recorded_with: VCR-vcr/2.1.0

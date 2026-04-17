@@ -216,8 +216,8 @@ cache_is_valid <- function(timeout, created) {
 
 #' @noRd
 #' @importFrom httr2 resp_body_json
-check_status <- function(res) {
-  if (!identical(res[["status_code"]], 200L)) {
+check_status <- function(res, code) {
+  if (!identical(res[["status_code"]], code)) {
     msg <- paste0(
       "API request failed [",
       res[["status_code"]],
@@ -398,4 +398,9 @@ with_locale <- function(
   }
 
   ans
+}
+
+#' @noRd
+without_collections <- function() {
+  c("HR.3671", "HR.4852", "HR.3151", "HR.6563")
 }
