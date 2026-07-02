@@ -4,6 +4,7 @@
 #'
 #' @aliases fb_clear_cache
 #'
+#' @return NULL invisibly
 #' @examples \dontrun{
 #'
 #' finbif_clear_cache()
@@ -32,3 +33,6 @@ finbif_clear_cache <- function() {
 
   invisible(NULL)
 }
+
+#' @export fb_clear_cache
+fb_clear_cache <- finbif_clear_cache

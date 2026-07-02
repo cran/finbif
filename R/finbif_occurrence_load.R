@@ -37,11 +37,6 @@
 #'   will be interpreted as FALSE. Argument is ignored if `drop_na` is TRUE for
 #'   all variables explicitly or via recycling. To only drop some
 #'   missing/`NA`-data facts use `drop_na` argument.
-#' @param locale Character. One of the supported two-letter ISO 639-1 language
-#'   codes. Current supported languages are English, Finnish and Swedish. For
-#'   data where more than one language is available the language denoted by
-#'   `locale` will be preferred while falling back to the other languages in the
-#'   order indicated above.
 #' @param skip Integer. The number of lines of the data file to skip before
 #'   beginning to read data (not including the header).
 #' @inheritParams finbif_occurrence
@@ -93,9 +88,11 @@ finbif_occurrence_load <- function(
   col_names <- var_names[[var_type]]
   deselect <- character()
 
+  select <- fix_dwc_in(select)
+
   if (all_cols) {
     deselect <- grep("^-", select, value = TRUE)
-    deselect <- gsub("-", "", deselect)
+    deselect <- gsub("-", "", deselect, fixed = TRUE)
     deselect <- match(deselect, col_names)
     deselect <- row.names(var_names[deselect, ])
     select <- "default_vars"
@@ -110,7 +107,7 @@ finbif_occurrence_load <- function(
     select <- infer_selection(fb_records_obj)
   })
 
-  fact_types <- vapply(facts, length, 0L) > 0L
+  fact_types <- lengths(facts) > 0L
   fact_types <- which(fact_types)
   fact_types <- names(fact_types)
 
@@ -188,7 +185,11 @@ finbif_occurrence_load <- function(
   select[["user"]] <- names(fb_occurrence_df)
   n_recs <- attr(fb_occurrence_df, "nrow", TRUE)
 
-  if (!all_cols) {
+  if (all_cols) {
+    select_user_keep <- !duplicated(select[["user"]])
+    select[["user"]] <- select[["user"]][select_user_keep]
+    fb_occurrence_df <- fb_occurrence_df[, select_user_keep, drop = FALSE]
+  } else {
     select[["user"]] <- select_user
 
     datetime_obj <- list(date_time_method = date_time_method, n = n_recs)
@@ -220,10 +221,6 @@ finbif_occurrence_load <- function(
       fb_occurrence_df[[extra_var]] <- cast_to_type(na, type)
     }
 
-  } else {
-    select_user_keep <- !duplicated(select[["user"]])
-    select[["user"]] <- select[["user"]][select_user_keep]
-    fb_occurrence_df <- fb_occurrence_df[, select_user_keep, drop = FALSE]
   }
 
   attr(fb_occurrence_df, "file_cols") <- NULL
@@ -282,6 +279,10 @@ finbif_occurrence_load <- function(
   }
 
   select_user <- name_chr_vec(select[["user"]])
+  select_user <- fix_dwc_out(select_user)
+
+  names(fb_occurrence_df) <- fix_dwc_out(names(fb_occurrence_df))
+
   fb_occurrence_df <- fb_occurrence_df[, select_user, drop = FALSE]
 
   attr(fb_occurrence_df, "column_names") <- select_user
@@ -289,6 +290,9 @@ finbif_occurrence_load <- function(
 
   drop_na_col(fb_occurrence_df)
 }
+
+#' @export fb_occurrence_load
+fb_occurrence_load <- finbif_occurrence_load
 
 #' @noRd
 #' @importFrom utils read.delim unzip
@@ -301,7 +305,7 @@ read_finbif_tsv <- function(fb_occurrence_obj) {
   }
 
   tsv <- basename(file)
-  tsv <- gsub("zip", "tsv", tsv)
+  tsv <- sub("zip", "tsv", tsv, fixed = TRUE)
 
   facts <- fb_occurrence_obj[["facts"]]
 
@@ -319,7 +323,7 @@ read_finbif_tsv <- function(fb_occurrence_obj) {
     "Facts can only be of types: record, event and/or document" = valid_facts
   )
 
-  file <- gsub("rows_", tsv_prefix, file)
+  file <- sub("rows_", tsv_prefix, file, fixed = TRUE)
   fb_occurrence_obj[["file"]] <- file
   fb_occurrence_obj[["tsv"]] <-  paste0(tsv_prefix, tsv)
 
@@ -493,12 +497,15 @@ get_zip <- function(fb_occurrenc_obj) {
         return(fb_occurrenc_obj)
       }
 
-      on.exit({
-        if (!is.null(write_file)) {
-          cache_obj <- list(data = write_file, hash = hash, timeout = Inf)
-          set_cache(cache_obj)
-        }
-      })
+      on.exit(
+        {
+          if (!is.null(write_file)) {
+            cache_obj <- list(data = write_file, hash = hash, timeout = Inf)
+            set_cache(cache_obj)
+          }
+        },
+        add = TRUE
+      )
     } else if (is.character(fcp)) {
       file_name <- paste0("finbif_dwnld_cache_file_", hash)
       write_file <- file.path(fcp, file_name)
@@ -664,7 +671,7 @@ dt_read <- function(fb_occurrence_obj) {
       utils::unzip(zip_input, files = zip_tsv, exdir = dir, unzip = unzip)
 
       if (!fb_occurrence_obj[["keep_tsv"]]) {
-        on.exit(unlink(args_input))
+        on.exit(unlink(args_input), add = TRUE)
       }
 
     }
@@ -702,13 +709,7 @@ dt_read <- function(fb_occurrence_obj) {
   args[["nrows"]] <- as.double(fb_occurrence_obj[["n"]])
   args[["check.names"]] <- TRUE
 
-  skip_n <- 1
-
-  if (fb_occurrence_obj[["is_dwc"]] && fb_occurrence_obj[["facts"]] == "none") {
-    skip_n <- 3
-  }
-
-  args[["skip"]] <- skip + skip_n
+  args[["skip"]] <- skip + get_skip(fb_occurrence_obj)
   args[["header"]] <- FALSE
 
   df <- structure(
@@ -776,17 +777,12 @@ rd_read <- function(fb_occurrence_obj) {
 
   n <- as.integer(fb_occurrence_obj[["n"]])
 
-  skip_n <- 1
-
-  if (fb_occurrence_obj[["is_dwc"]] && fb_occurrence_obj[["facts"]] == "none") {
-    skip_n <- 3
-  }
-
   no_rows <- identical(fb_occurrence_obj[["nrows"]], 0L)
 
   if (identical(n, 0L) || inherits(con, "textConnection") || no_rows) {
     df <- df[0L, ]
   } else {
+    skip_n <- get_skip(fb_occurrence_obj)
     df <- utils::read.delim(
       open_tsv_connection(connection_obj),
       header = FALSE,
@@ -874,7 +870,7 @@ spread_facts <-  function(facts) {
 
   if (any(na_ind)) {
     missing_facts <- select[na_ind]
-    warning <- paste(missing_facts, collapse = ", ")
+    warning <- toString(missing_facts)
     warning(
       "Selected fact(s) - ",
       warning,
@@ -885,7 +881,9 @@ spread_facts <-  function(facts) {
     missing_facts <- missing_facts[!isTRUE(drop_facts_na)]
   }
 
-  if (!all(na_ind)) {
+  if (all(na_ind)) {
+    facts <- facts[, id_col, drop = FALSE]
+  } else {
     select <- select[!na_ind]
     facts <- facts[select_facts %in% select, ]
     facts[["Fact"]] <- paste(type, "fact_", facts[["Fact"]], sep = "_")
@@ -917,8 +915,6 @@ spread_facts <-  function(facts) {
     facts <- structure(
       fact_list, class = "data.frame", row.names = seq_along(ids)
     )
-  } else {
-    facts <- facts[, id_col, drop = FALSE]
   }
 
   for (mf in missing_facts) {
@@ -987,7 +983,7 @@ convert_col_type <- function(col) {
 #' @noRd
 paste_col <- function(x) {
   x[is.na(x)] <- ""
-  paste(x, collapse = ", ")
+  toString(x)
 }
 
 #' @noRd
@@ -996,7 +992,7 @@ infer_file_vars <- function(cols) {
     file_vars <- sysdata(list(which = "lite_download_file_vars"))
 
     locale <- lapply(file_vars, intersect, cols)
-    locale <- vapply(locale, length, 0L)
+    locale <- lengths(locale)
     locale <- locale == max(locale)
     locale <- which(locale)
 
@@ -1032,7 +1028,7 @@ nlines <- function(fb_occurrence_obj) {
   )
 
   con <- open_tsv_connection(connection_obj)
-  on.exit(close(con))
+  on.exit(close(con), add = TRUE)
 
   n <- -1L
 
@@ -1271,4 +1267,25 @@ split_col <- function(split_obj) {
   split_cols <- do.call(rbind, split_cols)
 
   apply(split_cols, 2L, c, simplify = FALSE)
+}
+
+#' @noRd
+fix_dwc_in <- function(x) {
+  x <- sub("available", "availableDate", x, fixed = TRUE)
+  sub("DNA_sequence", "dnaSequence", x, fixed = TRUE)
+}
+
+#' @noRd
+fix_dwc_out <- function(x) {
+  x <- sub("availableDate", "available", x, fixed = TRUE)
+  sub("dnaSequence", "DNA_sequence", x, fixed = TRUE)
+}
+
+#' @noRd
+get_skip <- function(x) {
+  if (x[["is_dwc"]] && x[["facts"]] == "none") {
+    3
+  } else {
+    1
+  }
 }

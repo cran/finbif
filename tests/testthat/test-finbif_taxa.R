@@ -28,11 +28,11 @@ test_that("searching for taxa works", {
 
     })
 
-    expect_equal(bubo_bubo, "Eurasian Eagle-owl")
+    expect_identical(bubo_bubo, "Eurasian Eagle-owl")
 
-    expect_equal(otter, "Lutra lutra")
+    expect_identical(otter, "Lutra lutra")
 
-    expect_equal(otter_id, "MX.47169")
+    expect_identical(otter_id, "MX.47169")
 
   }
 
@@ -77,9 +77,12 @@ test_that("invalid json triggers error", {
       list(file = f)
     )
 
-    while (!file.exists(f) || length(url <- readLines(f, warn = FALSE)) < 2L) {}
+    while (!file.exists(f) || length(readLines(f, warn = FALSE)) < 2L) {}
 
-    options(finbif_api_url = sub("/$", "", url[[1L]]), finbif_rate_limit = Inf)
+    options(
+      finbif_api_url = sub("/$", "", readLines(f, warn = FALSE)[[1L]]),
+      finbif_rate_limit = Inf
+    )
 
     expect_error(finbif_taxa("Invalid JSON"), "API response parsing failed")
 

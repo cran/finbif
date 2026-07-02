@@ -4,6 +4,7 @@
 #'
 #' @aliases fb_update_cache
 #'
+#' @return NULL invisibly
 #' @examples \dontrun{
 #'
 #' finbif_update_cache()
@@ -49,3 +50,6 @@ finbif_update_cache <- function() {
 
   invisible(NULL)
 }
+
+#' @export fb_update_cache
+fb_update_cache <- finbif_update_cache

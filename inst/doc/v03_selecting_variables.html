@@ -378,7 +378,7 @@ records. See <code>?variables</code> for details.</p>
 desired variables in the <code>select</code> argument.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="at">genus  =</span> <span class="st">&quot;Falco&quot;</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;scientific_name&quot;</span>, <span class="st">&quot;life_stage&quot;</span>, <span class="st">&quot;sex&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;scientificName&quot;</span>, <span class="st">&quot;lifeStage&quot;</span>, <span class="st">&quot;sex&quot;</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>)</span></code></pre></div>
 <details closed>
 <summary>
@@ -386,19 +386,19 @@ Click to show/hide output.
 </summary>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; Records available: 342668</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; Records available: 473067</span></span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 3]</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt;         scientific_name life_stage sex</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; 1  Falco columbarius L…         NA  NA</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; 2  Falco tinnunculus L…         NA  NA</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; 3  Falco tinnunculus L…         NA  NA</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 4  Falco subbuteo Linn…         NA  NA</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 5  Falco tinnunculus L…         NA  NA</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; 6  Falco subbuteo Linn…         NA  NA</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; 7  Falco tinnunculus L…         NA  NA</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; 8  Falco tinnunculus L…         NA  NA</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; 9  Falco tinnunculus L…         NA  NA</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; 10 Falco subbuteo Linn…         NA  NA</span></span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt;          scientificName lifeStage    sex</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; 1  Falco rusticolus Li…      &lt;NA&gt; Female</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; 2  Falco peregrinus Tu…      &lt;NA&gt;   &lt;NA&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; 3  Falco subbuteo Linn…      &lt;NA&gt;   &lt;NA&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 4  Falco columbarius L…      &lt;NA&gt;   &lt;NA&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 5  Falco columbarius L…      &lt;NA&gt;   &lt;NA&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; 6  Falco tinnunculus L…      &lt;NA&gt;   &lt;NA&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; 7  Falco columbarius L…      &lt;NA&gt; Female</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; 8  Falco tinnunculus L…      &lt;NA&gt; Female</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; 9  Falco tinnunculus L…      &lt;NA&gt; Female</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; 10 Falco vespertinus L…  juvenile   &lt;NA&gt;</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -406,29 +406,30 @@ Click to show/hide output.
 <h3>Extra variables</h3>
 <p>To get extra variables as well as the default set, specify the extra
 variables in addition to the keyword <code>&quot;default_vars&quot;</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;default_vars&quot;</span>, <span class="st">&quot;life_stage&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;default_vars&quot;</span>, <span class="st">&quot;lifeStage&quot;</span>))</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; Records available: 47159747</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; Records available: 60179991</span></span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 13]</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt;                                 record_id      scientific_name abundance lat_wgs84 lon_wgs84</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; 1                           …JX.1594385#3 Sciurus vulgaris Li…  1         60.23584  25.05693</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; 2  …KE.176/64895825d5de884fa20e297d#Unit1 Heracleum persicum …        NA  61.08302  22.38983</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; 3                           …JX.1594382#9 Hirundo rustica Lin…        NA  64.12716  23.99111</span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; 4                          …JX.1594382#37 Pica pica (Linnaeus…        NA  64.12716  23.99111</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; 5                          …JX.1594382#49 Muscicapa striata (…        NA  64.12716  23.99111</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; 6                          …JX.1594382#39 Larus canus Linnaeu…        NA  64.12716  23.99111</span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; 7                           …JX.1594382#5 Emberiza citrinella…        NA  64.12716  23.99111</span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; 8                          …JX.1594382#31 Ficedula hypoleuca …        NA  64.12716  23.99111</span></span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; 9                          …JX.1594382#41 Alauda arvensis Lin…        NA  64.12716  23.99111</span></span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; 10                         …JX.1594382#21 Numenius arquata (L…        NA  64.12716  23.99111</span></span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 8 more variables:</span></span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; date_time, coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality, life_stage</span></span></code></pre></div>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt;    occurrenceID       scientificName individualCount decimalLatitude decimalLongitude</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; 1           …21 Polytrichum juniper…              NA  60.17967        24.914629      </span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; 2           …25 Polytrichum juniper…              NA  60.373472       24.993816      </span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; 3           …29 Polytrichum juniper…              NA  61.612783       21.44191       </span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; 4           …33 Polytrichum juniper…              NA  61.322069       23.513515      </span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; 5           …37 Polytrichum juniper…              NA  61.249458       25.040691      </span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; 6           …41 Polytrichum juniper…              NA  62.605448       25.925676      </span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; 7           …45 Polytrichum juniper…              NA  62.22789        30.629365      </span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; 8           …49 Polytrichum juniper…              NA  66.004079       28.202282      </span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; 9           …53 Polytrichum juniper…              NA  69.049179       20.812003      </span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; 10          …57 Polytrichum pilifer…              NA  60.373472       24.993816      </span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 8 more variables:</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; eventDateTime, coordinateUncertaintyInMeters, hasIssues, requiresVerification,</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; requiresIdentification, occurrenceReliability, identificationVerificationStatus,</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; lifeStage</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -443,40 +444,29 @@ default ordering is <code>date_start</code> descending, then
 <h3>Ascending order</h3>
 <p>By default occurrence records are ordered by variables in ascending
 order.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="st">&quot;Cygnus cygnus&quot;</span>, <span class="at">order_by =</span> <span class="st">&quot;abundance&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="st">&quot;Cygnus cygnus&quot;</span>, <span class="at">order_by =</span> <span class="st">&quot;individualCount&quot;</span>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; Records available: 95730</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; Records available: 139837</span></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;                     record_id      scientific_name abundance lat_wgs84 lon_wgs84</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; 1         …KE.67/9403350#Unit Cygnus cygnus (Linn…  1         60.41667  16      </span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; 2  …HR.3691/OBS810893905_Unit Cygnus cygnus (Linn…        NA  61.56563  29.56771</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; 3             …JX.1026351#259 Cygnus cygnus (Linn…  1         65.89416  28.90961</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; 4               …JX.1025175#3 Cygnus cygnus (Linn…  1         61.83248  23.40816</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; 5         …KE.67/9069501#Unit Cygnus cygnus (Linn…  1         52.71667  1.55    </span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; 6               …JX.1252188#3 Cygnus cygnus (Linn…        NA  60.17258  24.27095</span></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; 7         …KE.67/9465507#Unit Cygnus cygnus (Linn…  1         61.8      22.76667</span></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; 8         …KE.67/9607357#Unit Cygnus cygnus (Linn…  1         63.13333  22.43333</span></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; 9               …MHU.10961285 Cygnus cygnus (Linn…        NA  64.97813  24.74932</span></span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; 10 …HR.3691/OBS886590077_Unit Cygnus cygnus (Linn…        NA  61.27566  22.557  </span></span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt;              date_time</span></span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt; 1  1997-04-01 13:00:00</span></span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt; 2  2007-05-18 12:00:00</span></span>
-<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt; 3  2013-06-24 03:12:00</span></span>
-<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="co">#&gt; 4  2014-06-08 03:45:00</span></span>
-<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; 5  1997-01-03 14:00:00</span></span>
-<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt; 6  2021-05-23 06:15:00</span></span>
-<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="co">#&gt; 7  2000-03-22 12:00:00</span></span>
-<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="co">#&gt; 8  2003-06-07 12:00:00</span></span>
-<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="co">#&gt; 9  2008-07-12 12:00:00</span></span>
-<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="co">#&gt; 10 2020-03-31 12:00:00</span></span>
-<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 6 more variables:</span></span>
-<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;    occurrenceID       scientificName individualCount decimalLatitude decimalLongitude</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; 1      …0745928 Cygnus cygnus (Linn…              NA  66              29.25          </span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; 2      …0745932 Cygnus cygnus (Linn…              NA              NA               NA</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; 3      …0745937 Cygnus cygnus (Linn…              NA              NA               NA</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; 4      …0745941 Cygnus cygnus (Linn…              NA  60.17           25             </span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; 5      …0745945 Cygnus cygnus (Linn…              NA  60.17           25             </span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; 6      …0745949 Cygnus cygnus (Linn…              NA  60.17           25             </span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; 7      …5552466 Cygnus cygnus (Linn…  1               67.773235       25.050461      </span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; 8      …5552474 Cygnus cygnus (Linn…  1               68.713901       22.787894      </span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; 9      …6082839 Cygnus cygnus (Linn…  1                           NA               NA</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; 10     …7079647 Cygnus cygnus (Linn…              NA  61.85           23.5           </span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 7 more variables:</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt; eventDateTime, coordinateUncertaintyInMeters, hasIssues, requiresVerification,</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt; requiresIdentification, occurrenceReliability, identificationVerificationStatus</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -484,29 +474,30 @@ Click to show/hide output.
 <h3>Descending order</h3>
 <p>You can switch to descending order by prefixing the variable with a
 dash.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="st">&quot;Cygnus cygnus&quot;</span>, <span class="at">order_by =</span> <span class="st">&quot;-abundance&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="st">&quot;Cygnus cygnus&quot;</span>, <span class="at">order_by =</span> <span class="st">&quot;-individualCount&quot;</span>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; Records available: 95730</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; Records available: 139837</span></span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt;                      record_id      scientific_name abundance lat_wgs84 lon_wgs84</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; 1                 …MHU.2981587 Cygnus cygnus (Linn…  6000      64.4     -14.54   </span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; 2  …HR.3691/OBS1101526155_Unit Cygnus cygnus (Linn…  1760      62.16389  21.45786</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; 3   …HR.3691/OBS604642304_Unit Cygnus cygnus (Linn…  1753      64.50736  24.27894</span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; 4   …HR.3691/OBS663568887_Unit Cygnus cygnus (Linn…  1600      65.98787  24.06341</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; 5                …MHU.28815250 Cygnus cygnus (Linn…  1500            NA        NA</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; 6   …HR.3691/OBS671353848_Unit Cygnus cygnus (Linn…  1361      64.71656  24.53188</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; 7                …JX.1357345#5 Cygnus cygnus (Linn…  1300      64.8465   25.2883 </span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; 8                …JX.1398409#3 Cygnus cygnus (Linn…  1280      64.8448   25.2816 </span></span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; 9                …MHU.28815110 Cygnus cygnus (Linn…  1200            NA        NA</span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; 10 …HR.3691/OBS1119137190_Unit Cygnus cygnus (Linn…  1163      64.71656  24.53188</span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 7 more variables:</span></span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; date_time, coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt;                   occurrenceID       scientificName individualCount decimalLatitude</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; 1                 …MHU.2981587 Cygnus cygnus (Linn…  6000            64.4          </span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; 2  …HR.3691/OBS2052501157_Unit Cygnus cygnus (Linn…  2065            64.50736      </span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; 3  …HR.3691/OBS2052518008_Unit Cygnus cygnus (Linn…  2065            64.50736      </span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; 4  …HR.3691/OBS1101526155_Unit Cygnus cygnus (Linn…  1760            62.16389      </span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; 5   …HR.3691/OBS604642304_Unit Cygnus cygnus (Linn…  1753            64.50736      </span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; 6   …HR.3691/OBS663568887_Unit Cygnus cygnus (Linn…  1600            65.98787      </span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; 7  …HR.3691/OBS1399623409_Unit Cygnus cygnus (Linn…  1580            64.50736      </span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; 8                …MHU.28815250 Cygnus cygnus (Linn…  1500                        NA</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; 9   …HR.3691/OBS671353848_Unit Cygnus cygnus (Linn…  1361            64.71656      </span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; 10 …HR.3691/OBS1686954463_Unit Cygnus cygnus (Linn…  1333            64.50734      </span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 8 more variables:</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; decimalLongitude, eventDateTime, coordinateUncertaintyInMeters, hasIssues,</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; requiresVerification, requiresIdentification, occurrenceReliability,</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt; identificationVerificationStatus</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -514,31 +505,31 @@ Click to show/hide output.
 <h3>Multiple variables</h3>
 <p>You can specify multiple variables to order by. Sorting primacy is
 from left to right.</p>
-<pre class="details"><code>finbif_occurrence(
-  &quot;Cygnus olor&quot;, order_by = c(&quot;finnish_municipality_id&quot;, &quot;-abundance&quot;)
-)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="st">&quot;Cygnus olor&quot;</span>, <span class="at">order_by =</span> <span class="fu">c</span>(<span class="st">&quot;finnishCountyID&quot;</span>, <span class="st">&quot;-individualCount&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>)</span></code></pre></div>
 <details closed>
 <summary>
 Click to show/hide output.
 </summary>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a></span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; Records available: 56359</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; Records available: 63246</span></span>
 <span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt;    record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; 1  …12015253 Cygnus olor (J.F. G…  2500            NA        NA 2008-08-17 12:00:00</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt; 2  …13633876 Cygnus olor (J.F. G…  1500            NA        NA 2008-10-03 12:00:00</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; 3    …780984 Cygnus olor (J.F. G…  1300            NA        NA 2006-02-14 12:00:00</span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt; 4    …781416 Cygnus olor (J.F. G…  1300            NA        NA 2006-02-14 12:00:00</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt; 5   …2062563 Cygnus olor (J.F. G…  1200            NA        NA 2006-12-19 12:00:00</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; 6  …10352894 Cygnus olor (J.F. G…  1100            NA        NA 2008-06-28 12:00:00</span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt; 7    …927797 Cygnus olor (J.F. G…  1050            NA        NA 2006-04-05 12:00:00</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt; 8   …3110953 Cygnus olor (J.F. G…  960             NA        NA 2007-10-06 12:00:00</span></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; 9  …26309317 Cygnus olor (J.F. G…  900             NA        NA 2009-07-08 12:00:00</span></span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt; 10  …1260385 Cygnus olor (J.F. G…  800       58.66     23.57    2006-04-26 18:00:00</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 6 more variables:</span></span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt;    occurrenceID       scientificName individualCount decimalLatitude decimalLongitude</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; 1     …12015253 Cygnus olor (J.F. G…  2500                        NA               NA</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt; 2     …13633876 Cygnus olor (J.F. G…  1500                        NA               NA</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; 3       …780984 Cygnus olor (J.F. G…  1300                        NA               NA</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt; 4       …781416 Cygnus olor (J.F. G…  1300                        NA               NA</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt; 5      …2062563 Cygnus olor (J.F. G…  1200                        NA               NA</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; 6     …10352894 Cygnus olor (J.F. G…  1100                        NA               NA</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt; 7       …927797 Cygnus olor (J.F. G…  1050                        NA               NA</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt; 8      …3110953 Cygnus olor (J.F. G…  960                         NA               NA</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; 9     …26309317 Cygnus olor (J.F. G…  900                         NA               NA</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt; 10     …1260385 Cygnus olor (J.F. G…  800             58.66           23.57          </span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 7 more variables:</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt; eventDateTime, coordinateUncertaintyInMeters, hasIssues, requiresVerification,</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt; requiresIdentification, occurrenceReliability, identificationVerificationStatus</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -554,22 +545,23 @@ Click to show/hide output.
 </summary>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a></span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt; Records available: 47159747</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt; Records available: 60182673</span></span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt;                      record_id      scientific_name abundance lat_wgs84 lon_wgs84</span></span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">#&gt; 1          …KE.67/5632630#Unit Ficedula hypoleuca …  1         61.74637  22.77479</span></span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">#&gt; 2                   …MHU.40397      Prunus padus L.        NA  60.28016  20.25637</span></span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt; 3                 …JX.775148#3 Yezognophos vittari…  1         60.44245  27.006  </span></span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt; 4         …KE.67/11580538#Unit Cyanistes caeruleus…  1         60.32754  24.64944</span></span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt; 5                …JX.328070#23 Pechipogo strigilat…        NA  61.54883  21.64192</span></span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt; 6   …HR.3691/OBS889952298_Unit Parus major Linnaeu…  5         66.6165   24.68816</span></span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; 7               …JX.1025818#50 Garrulus glandarius…  1         63.43302  27.74526</span></span>
-<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt; 8  …HR.3691/OBS1104249688_Unit Alauda arvensis Lin…        NA  60.05577  24.06798</span></span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt; 9          …KE.67/8616657#Unit Cyanistes caeruleus…  1         61.5      24.83333</span></span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt; 10                …JX.101375#9 Poecile montanus (C…  7         63.09517  23.1341 </span></span>
-<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 7 more variables:</span></span>
-<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="co">#&gt; date_time, coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt;                                         occurrenceID       scientificName individualCount</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">#&gt; 1  …KE.881/ff60ea35-ef67-4380-b3d7-d65bd80068db_Unit Empetrum nigrum ste…  1             </span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">#&gt; 2                                       …MKC.3874933 Gymnocarpium dryopt…              NA</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt; 3                         …KE.921/LGE.557997/1295765 Chara baltica A.Bru…              NA</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt; 4                                     …JX.1417206#64 Micracanthia margin…  2             </span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt; 5                                      …MHU.29367059 Mareca penelope (Li…              NA</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt; 6                                      …MKC.31354972 Ranunculus acris su…              NA</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; 7                                 …KE.67/120384#Unit Circus cyaneus (Lin…  1             </span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt; 8                                      …MHU.14434664 Columba palumbus Li…              NA</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt; 9                               …KE.67/11306334#Unit Erithacus rubecula …  1             </span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt; 10                                    …JX.1350290#11 Rhyncolus elongatus…  4             </span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 9 more variables:</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="co">#&gt; decimalLatitude, decimalLongitude, eventDateTime, coordinateUncertaintyInMeters,</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="co">#&gt; hasIssues, requiresVerification, requiresIdentification, occurrenceReliability,</span></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="co">#&gt; identificationVerificationStatus</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>

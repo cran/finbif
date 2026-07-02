@@ -5,7 +5,7 @@ http_interactions:
   response:
     status: 200
     headers:
-      date: Fri, 17 Apr 2026 12:09:57 GMT
+      date: Thu, 02 Jul 2026 11:39:58 GMT
       content-type: application/json;charset=utf-8
       access-control-allow-origin: '*'
       via: 1.0 dw.laji.fi
@@ -15,15 +15,15 @@ http_interactions:
       strict-transport-security: max-age=31536000;includeSubDomains;preload
       referrer-policy: no-referrer-when-downgrade
     body:
-      string: '{"currentPage":1,"nextPage":2,"lastPage":11929343,"pageSize":5,"total":59646711,"cacheTimestamp":1776427797,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079421"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079425"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079429"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079433"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079437"}}]}'
-  recorded_at: 2026-04-17 12:09:57
+      string: '{"currentPage":1,"nextPage":2,"lastPage":12067851,"pageSize":5,"total":60339254,"cacheTimestamp":1782992398,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079421"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079425"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079429"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079433"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079437"}}]}'
+  recorded_at: 2026-07-02 11:39:57
 - request:
     method: GET
     uri: https://api.laji.fi/warehouse/query/unit/list?selected=unit.unitId%2Cunit.linkings.taxon.informalTaxonGroups&page=2&pageSize=5
   response:
     status: 200
     headers:
-      date: Fri, 17 Apr 2026 12:10:49 GMT
+      date: Thu, 02 Jul 2026 11:40:34 GMT
       content-type: application/json;charset=utf-8
       access-control-allow-origin: '*'
       via: 1.0 dw.laji.fi
@@ -33,15 +33,15 @@ http_interactions:
       strict-transport-security: max-age=31536000;includeSubDomains;preload
       referrer-policy: no-referrer-when-downgrade
     body:
-      string: '{"currentPage":2,"prevPage":1,"nextPage":3,"lastPage":11929343,"pageSize":5,"total":59646711,"cacheTimestamp":1776427849,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079441"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079445"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079449"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079453"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079457"}}]}'
-  recorded_at: 2026-04-17 12:10:49
+      string: '{"currentPage":2,"prevPage":1,"nextPage":3,"lastPage":12067891,"pageSize":5,"total":60339455,"cacheTimestamp":1782992434,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079441"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079445"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079449"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079453"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079457"}}]}'
+  recorded_at: 2026-07-02 11:40:33
 - request:
     method: GET
     uri: https://api.laji.fi/warehouse/query/unit/list?selected=unit.unitId%2Cunit.linkings.taxon.informalTaxonGroups&page=3&pageSize=5
   response:
     status: 200
     headers:
-      date: Fri, 17 Apr 2026 12:11:10 GMT
+      date: Thu, 02 Jul 2026 11:41:05 GMT
       content-type: application/json;charset=utf-8
       access-control-allow-origin: '*'
       via: 1.0 dw.laji.fi
@@ -51,6 +51,6 @@ http_interactions:
       strict-transport-security: max-age=31536000;includeSubDomains;preload
       referrer-policy: no-referrer-when-downgrade
     body:
-      string: '{"currentPage":3,"prevPage":2,"nextPage":4,"lastPage":11929343,"pageSize":5,"total":59646711,"cacheTimestamp":1776427870,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079461"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079465"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079469"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079473"}},{"unit":{"unitId":"http://id.herb.oulu.fi/MY.10079476"}}]}'
-  recorded_at: 2026-04-17 12:11:10
+      string: '{"currentPage":3,"prevPage":2,"nextPage":4,"lastPage":12067891,"pageSize":5,"total":60339455,"cacheTimestamp":1782992465,"results":[{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079461"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079465"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079469"}},{"unit":{"linkings":{"taxon":{"informalTaxonGroups":["http://tun.fi/MVL.23","http://tun.fi/MVL.561"]}},"unitId":"http://id.herb.oulu.fi/MY.10079473"}},{"unit":{"unitId":"http://id.herb.oulu.fi/MY.10079476"}}]}'
+  recorded_at: 2026-07-02 11:41:05
 recorded_with: VCR-vcr/2.1.0

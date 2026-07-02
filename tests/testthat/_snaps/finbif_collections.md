@@ -145,7 +145,7 @@
       HR.121  World               MY.hierarchyT… <NA>            
       HR.1247 Eurasia             MY.hierarchyT… <NA>            
       HR.128  World               MY.hierarchyT… <NA>            
-      HR.1547 Mostly Eurasian     <NA>           HAMBI           
+      HR.1547 Mostly Eurasian     MY.hierarchyT… HAMBI           
       HR.1627 World wide          MY.hierarchyT… <NA>            
       HR.1915 <NA>                MY.hierarchyT… <NA>            
       HR.1989 World               MY.hierarchyT… <NA>            
@@ -327,56 +327,56 @@
       HR.4171 NA                                                                                                                                                                                                                                                      
       HR.5896 NA                                                                                                                                                                                                                                                      
               count    gathering_count secured_count oldest_record newest_record
-      HR.1127     1302 NA              NA            <NA>          <NA>         
-      HR.1207        0 NA              NA            <NA>          <NA>         
-      HR.121      6085 NA              NA            <NA>          <NA>         
-      HR.1247    27926 NA              NA            <NA>          <NA>         
-      HR.128  17857883 NA              NA            <NA>          <NA>         
-      HR.1547     1957 NA               0            1999-07-01    2017-02-28   
-      HR.1627    18870 NA              NA            <NA>          <NA>         
-      HR.1915    83518 NA              NA            <NA>          <NA>         
-      HR.1989  5027587 NA              NA            <NA>          <NA>         
-      HR.217         0 NA              NA            <NA>          <NA>         
-      HR.3551  2400224 NA              NA            <NA>          <NA>         
-      HR.3552  3015945 NA              NA            <NA>          <NA>         
-      HR.3778  8608878 NA              NA            <NA>          <NA>         
-      HR.3811        0 NA              NA            <NA>          <NA>         
-      HR.4171       15 NA              NA            <NA>          <NA>         
-      HR.5896    35965 NA              NA            <NA>          <NA>         
+      HR.1127     1603 NA              NA            NA            NA           
+      HR.1207        0 NA              NA            NA            NA           
+      HR.121      6085 NA              NA            NA            NA           
+      HR.1247    27926 NA              NA            NA            NA           
+      HR.128  17923364 NA              NA            NA            NA           
+      HR.1547     6809 NA              NA            NA            NA           
+      HR.1627    18870 NA              NA            NA            NA           
+      HR.1915    83519 NA              NA            NA            NA           
+      HR.1989  5282588 NA              NA            NA            NA           
+      HR.217         0 NA              NA            NA            NA           
+      HR.3551  2413360 NA              NA            NA            NA           
+      HR.3552  3045330 NA              NA            NA            NA           
+      HR.3778  8624635 NA              NA            NA            NA           
+      HR.3811        0 NA              NA            NA            NA           
+      HR.4171       15 NA              NA            NA            NA           
+      HR.5896    35965 NA              NA            NA            NA           
               first_load_date_min first_load_date_max individual_count_sum
-      HR.1127 <NA>                <NA>                  NA                
-      HR.1207 <NA>                <NA>                  NA                
-      HR.121  <NA>                <NA>                  NA                
-      HR.1247 <NA>                <NA>                  NA                
-      HR.128  <NA>                <NA>                  NA                
-      HR.1547 2018-01-17          2018-07-26          1957                
-      HR.1627 <NA>                <NA>                  NA                
-      HR.1915 <NA>                <NA>                  NA                
-      HR.1989 <NA>                <NA>                  NA                
-      HR.217  <NA>                <NA>                  NA                
-      HR.3551 <NA>                <NA>                  NA                
-      HR.3552 <NA>                <NA>                  NA                
-      HR.3778 <NA>                <NA>                  NA                
-      HR.3811 <NA>                <NA>                  NA                
-      HR.4171 <NA>                <NA>                  NA                
-      HR.5896 <NA>                <NA>                  NA                
+      HR.1127 NA                  NA                  NA                  
+      HR.1207 NA                  NA                  NA                  
+      HR.121  NA                  NA                  NA                  
+      HR.1247 NA                  NA                  NA                  
+      HR.128  NA                  NA                  NA                  
+      HR.1547 NA                  NA                  NA                  
+      HR.1627 NA                  NA                  NA                  
+      HR.1915 NA                  NA                  NA                  
+      HR.1989 NA                  NA                  NA                  
+      HR.217  NA                  NA                  NA                  
+      HR.3551 NA                  NA                  NA                  
+      HR.3552 NA                  NA                  NA                  
+      HR.3778 NA                  NA                  NA                  
+      HR.3811 NA                  NA                  NA                  
+      HR.4171 NA                  NA                  NA                  
+      HR.5896 NA                  NA                  NA                  
               individual_count_max record_quality_max red_list_status_max
-      HR.1127 NA                   <NA>               NA                 
-      HR.1207 NA                   <NA>               NA                 
-      HR.121  NA                   <NA>               NA                 
-      HR.1247 NA                   <NA>               NA                 
-      HR.128  NA                   <NA>               NA                 
-      HR.1547  1                   NEUTRAL            NA                 
-      HR.1627 NA                   <NA>               NA                 
-      HR.1915 NA                   <NA>               NA                 
-      HR.1989 NA                   <NA>               NA                 
-      HR.217  NA                   <NA>               NA                 
-      HR.3551 NA                   <NA>               NA                 
-      HR.3552 NA                   <NA>               NA                 
-      HR.3778 NA                   <NA>               NA                 
-      HR.3811 NA                   <NA>               NA                 
-      HR.4171 NA                   <NA>               NA                 
-      HR.5896 NA                   <NA>               NA                 
+      HR.1127 NA                   NA                 NA                 
+      HR.1207 NA                   NA                 NA                 
+      HR.121  NA                   NA                 NA                 
+      HR.1247 NA                   NA                 NA                 
+      HR.128  NA                   NA                 NA                 
+      HR.1547 NA                   NA                 NA                 
+      HR.1627 NA                   NA                 NA                 
+      HR.1915 NA                   NA                 NA                 
+      HR.1989 NA                   NA                 NA                 
+      HR.217  NA                   NA                 NA                 
+      HR.3551 NA                   NA                 NA                 
+      HR.3552 NA                   NA                 NA                 
+      HR.3778 NA                   NA                 NA                 
+      HR.3811 NA                   NA                 NA                 
+      HR.4171 NA                   NA                 NA                 
+      HR.5896 NA                   NA                 NA                 
               species_count taxon_count line_length_sum pair_count_sum pair_count_max
       HR.1127 NA            NA          NA              NA             NA            
       HR.1207 NA            NA          NA              NA             NA            

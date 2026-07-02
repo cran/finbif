@@ -435,117 +435,107 @@ be returned when using partial matching.</p>
 Click to show/hide output.
 </summary>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; [[1]]$matchingName</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula pendula var. pendula&quot;</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; [[1]]$nameType</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.scientificName&quot;</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt; [[1]]$id</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.37994&quot;</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt; [[1]]$scientificName</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula pendula var. pendula&quot;</span></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt; [[1]]$taxonRank</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.variety&quot;</span></span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt; [[1]]$cursiveName</span></span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">#&gt; [[1]]$finnish</span></span>
-<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="co">#&gt; [[1]]$species</span></span>
-<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a><span class="co">#&gt; [[1]]$vernacularName</span></span>
-<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a><span class="co">#&gt; [[1]]$vernacularName$sv</span></span>
-<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a><span class="co">#&gt; [1] &quot;vanlig vårtbjörk&quot;</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt; $results</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; $results[[1]]</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$matchingName</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula pendula var. pendula&quot;</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$nameType</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.scientificName&quot;</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$id</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.37994&quot;</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$checklist</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MR.1&quot;</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$scientificName</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula pendula var. pendula&quot;</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$taxonRank</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.variety&quot;</span></span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$cursiveName</span></span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$finnish</span></span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$species</span></span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
 <span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a><span class="co">#&gt; [[1]]$vernacularName$fi</span></span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$vernacularName</span></span>
 <span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a><span class="co">#&gt; [1] &quot;vihtakoivu&quot;</span></span>
 <span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups</span></span>
-<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]</span></span>
-<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$id</span></span>
-<span id="cb10-38"><a href="#cb10-38" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MVL.343&quot;</span></span>
-<span id="cb10-39"><a href="#cb10-39" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-40"><a href="#cb10-40" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name</span></span>
-<span id="cb10-41"><a href="#cb10-41" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name$fi</span></span>
-<span id="cb10-42"><a href="#cb10-42" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Putkilokasvit&quot;</span></span>
+<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$informalGroups</span></span>
+<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$informalGroups[[1]]</span></span>
+<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$informalGroups[[1]]$id</span></span>
+<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MVL.343&quot;</span></span>
+<span id="cb10-38"><a href="#cb10-38" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-39"><a href="#cb10-39" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$informalGroups[[1]]$name</span></span>
+<span id="cb10-40"><a href="#cb10-40" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vascular plants&quot;</span></span>
+<span id="cb10-41"><a href="#cb10-41" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-42"><a href="#cb10-42" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb10-43"><a href="#cb10-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-44"><a href="#cb10-44" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name$en</span></span>
-<span id="cb10-45"><a href="#cb10-45" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vascular plants&quot;</span></span>
+<span id="cb10-44"><a href="#cb10-44" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$kingdomScientificName</span></span>
+<span id="cb10-45"><a href="#cb10-45" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Plantae&quot;</span></span>
 <span id="cb10-46"><a href="#cb10-46" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-47"><a href="#cb10-47" tabindex="-1"></a><span class="co">#&gt; [[1]]$informalGroups[[1]]$name$sv</span></span>
-<span id="cb10-48"><a href="#cb10-48" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Kärlväxter&quot;</span></span>
+<span id="cb10-47"><a href="#cb10-47" tabindex="-1"></a><span class="co">#&gt; $results[[1]]$type</span></span>
+<span id="cb10-48"><a href="#cb10-48" tabindex="-1"></a><span class="co">#&gt; [1] &quot;partialMatches&quot;</span></span>
 <span id="cb10-49"><a href="#cb10-49" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb10-50"><a href="#cb10-50" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-51"><a href="#cb10-51" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-52"><a href="#cb10-52" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-53"><a href="#cb10-53" tabindex="-1"></a><span class="co">#&gt; [[1]]$kingdomScientificName</span></span>
-<span id="cb10-54"><a href="#cb10-54" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Plantae&quot;</span></span>
-<span id="cb10-55"><a href="#cb10-55" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-56"><a href="#cb10-56" tabindex="-1"></a><span class="co">#&gt; [[1]]$type</span></span>
-<span id="cb10-57"><a href="#cb10-57" tabindex="-1"></a><span class="co">#&gt; [1] &quot;partialMatches&quot;</span></span>
-<span id="cb10-58"><a href="#cb10-58" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-59"><a href="#cb10-59" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-60"><a href="#cb10-60" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
-<span id="cb10-61"><a href="#cb10-61" tabindex="-1"></a><span class="co">#&gt; [[2]]$matchingName</span></span>
-<span id="cb10-62"><a href="#cb10-62" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula nana × pendula&quot;</span></span>
+<span id="cb10-51"><a href="#cb10-51" tabindex="-1"></a><span class="co">#&gt; $results[[2]]</span></span>
+<span id="cb10-52"><a href="#cb10-52" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$matchingName</span></span>
+<span id="cb10-53"><a href="#cb10-53" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula pendula × pubescens&quot;</span></span>
+<span id="cb10-54"><a href="#cb10-54" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-55"><a href="#cb10-55" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$nameType</span></span>
+<span id="cb10-56"><a href="#cb10-56" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.scientificName&quot;</span></span>
+<span id="cb10-57"><a href="#cb10-57" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-58"><a href="#cb10-58" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$id</span></span>
+<span id="cb10-59"><a href="#cb10-59" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.37998&quot;</span></span>
+<span id="cb10-60"><a href="#cb10-60" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-61"><a href="#cb10-61" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$checklist</span></span>
+<span id="cb10-62"><a href="#cb10-62" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MR.1&quot;</span></span>
 <span id="cb10-63"><a href="#cb10-63" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-64"><a href="#cb10-64" tabindex="-1"></a><span class="co">#&gt; [[2]]$nameType</span></span>
-<span id="cb10-65"><a href="#cb10-65" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.scientificName&quot;</span></span>
+<span id="cb10-64"><a href="#cb10-64" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$scientificName</span></span>
+<span id="cb10-65"><a href="#cb10-65" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula pendula × pubescens&quot;</span></span>
 <span id="cb10-66"><a href="#cb10-66" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-67"><a href="#cb10-67" tabindex="-1"></a><span class="co">#&gt; [[2]]$id</span></span>
-<span id="cb10-68"><a href="#cb10-68" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.38005&quot;</span></span>
+<span id="cb10-67"><a href="#cb10-67" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$taxonRank</span></span>
+<span id="cb10-68"><a href="#cb10-68" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.infragenericHybrid&quot;</span></span>
 <span id="cb10-69"><a href="#cb10-69" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-70"><a href="#cb10-70" tabindex="-1"></a><span class="co">#&gt; [[2]]$scientificName</span></span>
-<span id="cb10-71"><a href="#cb10-71" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Betula nana × pendula&quot;</span></span>
+<span id="cb10-70"><a href="#cb10-70" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$cursiveName</span></span>
+<span id="cb10-71"><a href="#cb10-71" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
 <span id="cb10-72"><a href="#cb10-72" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-73"><a href="#cb10-73" tabindex="-1"></a><span class="co">#&gt; [[2]]$taxonRank</span></span>
-<span id="cb10-74"><a href="#cb10-74" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MX.infragenericHybrid&quot;</span></span>
+<span id="cb10-73"><a href="#cb10-73" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$finnish</span></span>
+<span id="cb10-74"><a href="#cb10-74" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
 <span id="cb10-75"><a href="#cb10-75" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-76"><a href="#cb10-76" tabindex="-1"></a><span class="co">#&gt; [[2]]$cursiveName</span></span>
+<span id="cb10-76"><a href="#cb10-76" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$species</span></span>
 <span id="cb10-77"><a href="#cb10-77" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
 <span id="cb10-78"><a href="#cb10-78" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-79"><a href="#cb10-79" tabindex="-1"></a><span class="co">#&gt; [[2]]$finnish</span></span>
-<span id="cb10-80"><a href="#cb10-80" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb10-79"><a href="#cb10-79" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$vernacularName</span></span>
+<span id="cb10-80"><a href="#cb10-80" tabindex="-1"></a><span class="co">#&gt; [1] &quot;hybridikoivu&quot;</span></span>
 <span id="cb10-81"><a href="#cb10-81" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-82"><a href="#cb10-82" tabindex="-1"></a><span class="co">#&gt; [[2]]$species</span></span>
-<span id="cb10-83"><a href="#cb10-83" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb10-84"><a href="#cb10-84" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-85"><a href="#cb10-85" tabindex="-1"></a><span class="co">#&gt; [[2]]$vernacularName</span></span>
-<span id="cb10-86"><a href="#cb10-86" tabindex="-1"></a><span class="co">#&gt; named list()</span></span>
-<span id="cb10-87"><a href="#cb10-87" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-88"><a href="#cb10-88" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups</span></span>
-<span id="cb10-89"><a href="#cb10-89" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]</span></span>
-<span id="cb10-90"><a href="#cb10-90" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$id</span></span>
-<span id="cb10-91"><a href="#cb10-91" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MVL.343&quot;</span></span>
-<span id="cb10-92"><a href="#cb10-92" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-93"><a href="#cb10-93" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name</span></span>
-<span id="cb10-94"><a href="#cb10-94" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name$fi</span></span>
-<span id="cb10-95"><a href="#cb10-95" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Putkilokasvit&quot;</span></span>
-<span id="cb10-96"><a href="#cb10-96" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-97"><a href="#cb10-97" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name$en</span></span>
-<span id="cb10-98"><a href="#cb10-98" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vascular plants&quot;</span></span>
+<span id="cb10-82"><a href="#cb10-82" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$informalGroups</span></span>
+<span id="cb10-83"><a href="#cb10-83" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$informalGroups[[1]]</span></span>
+<span id="cb10-84"><a href="#cb10-84" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$informalGroups[[1]]$id</span></span>
+<span id="cb10-85"><a href="#cb10-85" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MVL.343&quot;</span></span>
+<span id="cb10-86"><a href="#cb10-86" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-87"><a href="#cb10-87" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$informalGroups[[1]]$name</span></span>
+<span id="cb10-88"><a href="#cb10-88" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Vascular plants&quot;</span></span>
+<span id="cb10-89"><a href="#cb10-89" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-90"><a href="#cb10-90" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-91"><a href="#cb10-91" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-92"><a href="#cb10-92" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$kingdomScientificName</span></span>
+<span id="cb10-93"><a href="#cb10-93" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Plantae&quot;</span></span>
+<span id="cb10-94"><a href="#cb10-94" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-95"><a href="#cb10-95" tabindex="-1"></a><span class="co">#&gt; $results[[2]]$type</span></span>
+<span id="cb10-96"><a href="#cb10-96" tabindex="-1"></a><span class="co">#&gt; [1] &quot;partialMatches&quot;</span></span>
+<span id="cb10-97"><a href="#cb10-97" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-98"><a href="#cb10-98" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb10-99"><a href="#cb10-99" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-100"><a href="#cb10-100" tabindex="-1"></a><span class="co">#&gt; [[2]]$informalGroups[[1]]$name$sv</span></span>
-<span id="cb10-101"><a href="#cb10-101" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Kärlväxter&quot;</span></span>
-<span id="cb10-102"><a href="#cb10-102" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-103"><a href="#cb10-103" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-104"><a href="#cb10-104" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-105"><a href="#cb10-105" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-106"><a href="#cb10-106" tabindex="-1"></a><span class="co">#&gt; [[2]]$kingdomScientificName</span></span>
-<span id="cb10-107"><a href="#cb10-107" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Plantae&quot;</span></span>
-<span id="cb10-108"><a href="#cb10-108" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-109"><a href="#cb10-109" tabindex="-1"></a><span class="co">#&gt; [[2]]$type</span></span>
-<span id="cb10-110"><a href="#cb10-110" tabindex="-1"></a><span class="co">#&gt; [1] &quot;partialMatches&quot;</span></span>
-<span id="cb10-111"><a href="#cb10-111" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-112"><a href="#cb10-112" tabindex="-1"></a><span class="co">#&gt; </span></span></code></pre></div>
+<span id="cb10-100"><a href="#cb10-100" tabindex="-1"></a><span class="co">#&gt; $`@context`</span></span>
+<span id="cb10-101"><a href="#cb10-101" tabindex="-1"></a><span class="co">#&gt; [1] &quot;https://api.laji.fi/context/taxon-search-en&quot;</span></span>
+<span id="cb10-102"><a href="#cb10-102" tabindex="-1"></a><span class="co">#&gt; </span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>
@@ -556,22 +546,22 @@ Click to show/hide output.
 function.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(<span class="st">&quot;Cygnus cygnus&quot;</span>, <span class="at">n =</span> <span class="dv">100</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 100</span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; Records available: 95730</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; Records available: 139837</span></span>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [100 x 12]</span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt;                   record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; 1            …JX.1594164#13 Cygnus cygnus (Linn…        NA  64.94473  26.67958 2023-06-13 14:33:00</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; 2  …HR.4412/6489172c9ddda_U Cygnus cygnus (Linn…        NA  61.74701  23.11493 2023-06-13 12:00:00</span></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; 3  …HR.4412/64891730060a4_U Cygnus cygnus (Linn…        NA  61.38348  22.97288 2023-06-13 12:00:00</span></span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; 4  …HR.4412/648917378a3b6_U Cygnus cygnus (Linn…        NA  62.76028  24.15774 2023-06-13 12:00:00</span></span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; 5  …HR.4412/6489175adc05f_U Cygnus cygnus (Linn…        NA  60.78752  21.39263 2023-06-13 12:00:00</span></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; 6  …HR.4412/6489173a1db9b_U Cygnus cygnus (Linn…        NA  64.31374  26.68643 2023-06-13 12:00:00</span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; 7  …HR.4412/648917456a396_U Cygnus cygnus (Linn…        NA  61.87986  25.19067 2023-06-13 12:00:00</span></span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; 8  …HR.4412/648917454912b_U Cygnus cygnus (Linn…        NA  60.42215  24.00099 2023-06-13 12:00:00</span></span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt; 9  …HR.4412/64891750e74e7_U Cygnus cygnus (Linn…        NA  63.86383  27.70835 2023-06-13 12:00:00</span></span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; 10 …HR.4412/64891741330f8_U Cygnus cygnus (Linn…        NA  61.74701  23.11493 2023-06-13 12:00:00</span></span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; ...with 90 more records and 6 more variables:</span></span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt;    occurrenceID       scientificName individualCount decimalLatitude decimalLongitude</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; 1      …0745928 Cygnus cygnus (Linn…              NA  66              29.25          </span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; 2      …0745932 Cygnus cygnus (Linn…              NA              NA               NA</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; 3      …0745937 Cygnus cygnus (Linn…              NA              NA               NA</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; 4      …0745941 Cygnus cygnus (Linn…              NA  60.17           25             </span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; 5      …0745945 Cygnus cygnus (Linn…              NA  60.17           25             </span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; 6      …0745949 Cygnus cygnus (Linn…              NA  60.17           25             </span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; 7      …5552466 Cygnus cygnus (Linn…  1               67.773235       25.050461      </span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; 8      …5552470 Cygnus cygnus (Linn…  4               69.063377       27.11982       </span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt; 9      …5552474 Cygnus cygnus (Linn…  1               68.713901       22.787894      </span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; 10     …5559118 Cygnus cygnus (Linn…  3                           NA               NA</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; ...with 90 more records and 7 more variables:</span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; eventDateTime, coordinateUncertaintyInMeters, hasIssues, requiresVerification,</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; requiresIdentification, occurrenceReliability, identificationVerificationStatus</span></span></code></pre></div>
 <p>You can search for multiple taxa at once and filter the records with
 the <code>filter</code> argument.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">finbif_occurrence</span>(</span>
@@ -585,22 +575,22 @@ Click to show/hide output.
 </summary>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; Records available: 47293</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; Records available: 87466</span></span>
 <span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt;               record_id      scientific_name abundance lat_wgs84 lon_wgs84           date_time</span></span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; 1  …HR.3211/167194019-U Cygnus olor (J.F. G…        NA  60.12778  24.69528 2023-06-13 12:00:00</span></span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt; 2        …JX.1593978#37 Cygnus olor (J.F. G…  10        60.428    22.20038 2023-06-13 12:00:00</span></span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt; 3        …JX.1594262#19 Cygnus olor (J.F. G…  5         61.60789  21.51679 2023-06-13 12:00:00</span></span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt; 4        …JX.1594262#17 Cygnus cygnus (Linn…  5         61.60789  21.51679 2023-06-13 12:00:00</span></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; 5       …JX.1594053#296 Cygnus cygnus (Linn…  1         63.62644  23.70806 2023-06-13 03:10:00</span></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; 6        …JX.1594054#93 Cygnus cygnus (Linn…  1         63.63403  24.21195 2023-06-13 03:08:00</span></span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; 7       …JX.1593931#255 Cygnus cygnus (Linn…  2         64.5582   27.78468 2023-06-13 05:03:00</span></span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; 8         …JX.1593916#3 Cygnus cygnus (Linn…  2         66.11897  25.93173 2023-06-13 12:00:00</span></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt; 9        …JX.1593873#63 Cygnus cygnus (Linn…  2         65.72167  27.94208 2023-06-13 09:27:00</span></span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; 10 …HR.3211/167071964-U Cygnus olor (J.F. G…        NA  60.18156  24.93153 2023-06-12 12:00:00</span></span>
-<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 6 more variables:</span></span>
-<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt; coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt;    occurrenceID       scientificName individualCount decimalLatitude decimalLongitude</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; 1        …33947 Cygnus cygnus (Linn…              NA  63.4            33.39          </span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt; 2        …33951 Cygnus cygnus (Linn…              NA  63.4            33.39          </span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt; 3        …35003 Cygnus cygnus (Linn…              NA  63.4            33.39          </span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt; 4        …39895 Cygnus cygnus (Linn…              NA  61.2            22.7           </span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; 5        …40419 Cygnus olor (J.F. G…              NA  60.36           26.77          </span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; 6        …41419 Cygnus cygnus (Linn…              NA  60.33           25.67          </span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; 7        …41535 Cygnus cygnus (Linn…              NA  61.29           25.83          </span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; 8        …43347 Cygnus cygnus (Linn…              NA  60.571967       27.489174      </span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt; 9        …43371 Cygnus olor (J.F. G…              NA  60.4517         23.9772        </span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; 10       …43491 Cygnus cygnus (Linn…              NA  60.3249         25.7125        </span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 7 more variables:</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt; eventDateTime, coordinateUncertaintyInMeters, hasIssues, requiresVerification,</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="co">#&gt; requiresIdentification, occurrenceReliability, identificationVerificationStatus</span></span></code></pre></div>
 </details>
 <p><br></p>
 <p>See <code>?filters</code> and <code>vignette(&quot;v05_filtering&quot;)</code>
@@ -617,22 +607,23 @@ Click to show/hide output.
 </summary>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a></span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#&gt; Records downloaded: 10</span></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt; Records available: 21748016</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt; Records available: 29078618</span></span>
 <span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt; A data.frame [10 x 12]</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt;                      record_id      scientific_name abundance lat_wgs84 lon_wgs84</span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; 1  …HR.3691/OBS1143679721_Unit Aythya marila (Linn…  11        59.9815   24.39929</span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; 2          …KE.67/1662813#Unit Fringilla coelebs L…  1         59.83333  19.93333</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; 3             …KE.8_1165614#90 Poecile montanus (C…  6         62.44825  29.92951</span></span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; 4         …KE.67/12308933#Unit Prunella modularis …  1         61.67291  22.25931</span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; 5          …KE.67/9586054#Unit Larus argentatus Po…  1         50.85     6.833333</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; 6          …KE.67/8576210#Unit Periparus ater (Lin…  1         60.2      19.33333</span></span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; 7          …KE.67/9862495#Unit Prunella modularis …  1         61.13488  24.39512</span></span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; 8          …KE.67/4669401#Unit Larus argentatus Po…  1         60.01667  24.61667</span></span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt; 9               …JX.1031300#61 Motacilla alba Linn…        NA  62.12915  30.16957</span></span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; 10        …KE.67/11492752#Unit Bombycilla garrulus…  1         62.67061  30.93362</span></span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more record and 7 more variables:</span></span>
-<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; date_time, coordinates_uncertainty, any_issues, requires_verification, requires_identification,</span></span>
-<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt; record_reliability, record_quality</span></span></code></pre></div>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt;            occurrenceID       scientificName individualCount decimalLatitude</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; 1        …JX.1026053#46 Anthus trivialis (L…  1               64.300242     </span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; 2      …KE.8_1044172#41 Turdus merula Linna…  1               60.458446     </span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; 3   …KE.67/2710655#Unit Rallus aquaticus Li…  1               60.197895     </span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; 4    …KE.67/507788#Unit Parus major Linnaeu…  1               60.237614     </span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; 5        …HR.49/41446_U Astur gentilis (Lin…  1               62.229788     </span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; 6    …KE.67/353020#Unit Parus major Linnaeu…  1               60.266667     </span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; 7  …KE.67/12431497#Unit Riparia riparia (Li…  1               61.072328     </span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; 8          …JX.94072#20 Poecile montanus (C…  12              60.788433     </span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt; 9       …JX.1247883#256 Grus grus (Linnaeus…  1               64.562534     </span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; 10 …KE.67/14598103#Unit Coloeus monedula (L…  1               62.782648     </span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; ...with 0 more records and 8 more variables:</span></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; decimalLongitude, eventDateTime, coordinateUncertaintyInMeters, hasIssues,</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt; requiresVerification, requiresIdentification, occurrenceReliability,</span></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt; identificationVerificationStatus</span></span></code></pre></div>
 </details>
 <p><br></p>
 </div>

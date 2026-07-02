@@ -5,7 +5,7 @@ http_interactions:
   response:
     status: 200
     headers:
-      date: Fri, 17 Apr 2026 12:12:49 GMT
+      date: Thu, 02 Jul 2026 11:42:07 GMT
       content-type: application/json; charset=utf-8
       content-length: '732'
       x-powered-by: Express
@@ -21,14 +21,14 @@ http_interactions:
         bubo","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"en":"Eurasian
         Eagle-owl","fi":"huuhkaja","se":"lidnu","sv":"berguv"},"informalGroups":[{"id":"MVL.1","name":{"en":"Birds","fi":"Linnut","sv":"Fåglar"}},{"id":"MVL.1141","name":{"en":"Birds
         of prey and owls","fi":"Petolinnut ja pöllöt","sv":"Rovfåglar och ugglor"}},{"id":"MVL.1161","name":{"en":"Owls","fi":"Pöllöt","sv":"Ugglor"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}],"@context":"https://api.laji.fi/context/taxon-search-multi"}'
-  recorded_at: 2026-04-17 12:12:49
+  recorded_at: 2026-07-02 11:42:06
 - request:
     method: GET
     uri: https://api.laji.fi/taxa/search?query=Otter&matchType=exact&limit=1&personEmail=noreply%40laji.fi
   response:
     status: 200
     headers:
-      date: Fri, 17 Apr 2026 12:12:49 GMT
+      date: Thu, 02 Jul 2026 11:42:08 GMT
       content-type: application/json; charset=utf-8
       content-length: '526'
       x-powered-by: Express
@@ -42,5 +42,5 @@ http_interactions:
     body:
       string: '{"results":[{"matchingName":"Otter","nameType":"MX.vernacularName","id":"MX.47169","checklist":"MR.1","scientificName":"Lutra
         lutra","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"en":"Otter","fi":"saukko","sv":"utter"},"informalGroups":[{"id":"MVL.2","name":{"en":"Mammals","fi":"Nisäkkäät","sv":"Däggdjur"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}],"@context":"https://api.laji.fi/context/taxon-search-multi"}'
-  recorded_at: 2026-04-17 12:12:49
+  recorded_at: 2026-07-02 11:42:07
 recorded_with: VCR-vcr/2.1.0

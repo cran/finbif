@@ -5,7 +5,7 @@ http_interactions:
   response:
     status: 200
     headers:
-      date: Fri, 17 Apr 2026 12:13:20 GMT
+      date: Thu, 02 Jul 2026 11:42:36 GMT
       content-type: application/json;charset=utf-8
       access-control-allow-origin: '*'
       via: 1.0 dw.laji.fi
@@ -15,6 +15,6 @@ http_interactions:
       strict-transport-security: max-age=31536000;includeSubDomains;preload
       referrer-policy: no-referrer-when-downgrade
     body:
-      string: '{"currentPage":1,"nextPage":2,"lastPage":59646712,"pageSize":1,"total":59646712,"cacheTimestamp":1776428000,"results":[{"unit":{"unitId":"http://tun.fi/JX.2433655#3"},"document":{"loadDate":"2026-04-17"}}]}'
-  recorded_at: 2026-04-17 12:13:20
+      string: '{"currentPage":1,"nextPage":2,"lastPage":60339456,"pageSize":1,"total":60339456,"cacheTimestamp":1782992556,"results":[{"unit":{"unitId":"http://tun.fi/KE.176/6a464e84d5de3da682852661#Unit1"},"document":{"loadDate":"2026-07-02"}}]}'
+  recorded_at: 2026-07-02 11:42:35
 recorded_with: VCR-vcr/2.1.0

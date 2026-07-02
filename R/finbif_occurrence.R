@@ -41,11 +41,6 @@
 #' @param seed Integer. Set a seed for randomly sampling records.
 #' @param exclude_na Logical. Should records where all selected variables have
 #'   non-NA values only be returned.
-#' @param locale Character. One of the supported two-letter ISO 639-1 language
-#'   codes. Current supported languages are English, Finnish and Swedish. For
-#'   data where more than one language is available the language denoted by
-#'   `locale` will be preferred while falling back to the other languages in the
-#'   order indicated above.
 #' @param date_time_method Character. Passed to `lutz::tz_lookup_coords()` when
 #'   `date_time` and/or `duration` variables have been selected. Default is
 #'   `"fast"` when  less than 100,000 records are requested and `"none"` when
@@ -77,6 +72,8 @@
 #' @param restricted_api Character. If using a restricted data API token in
 #'   addition to a personal access token, a string indicating the name of an
 #'   environment variable storing the restricted data API token.
+#' @inheritParams finbif_taxa
+#'
 #' @return A `data.frame`. If `count_only =  TRUE` an integer.
 #' @examples \dontrun{
 #'
@@ -157,6 +154,9 @@ finbif_occurrence <- function(
 
   occurrence(fb_records_obj)
 }
+
+#' @export fb_occurrence
+fb_occurrence <- finbif_occurrence
 
 #' @noRd
 occurrence <- function(fb_records_obj) {
@@ -246,6 +246,7 @@ occurrence <- function(fb_records_obj) {
   fb_occurrence_df <- compute_region(fb_occurrence_df)
   fb_occurrence_df <- compute_municipality(fb_occurrence_df)
   fb_occurrence_df <- compute_local_area(fb_occurrence_df)
+  fb_occurrence_df <- compute_material_entity_type(fb_occurrence_df)
   fb_occurrence_df <- compute_codes(fb_occurrence_df)
   fb_occurrence_df <- extract_facts(fb_occurrence_df)
 
@@ -266,7 +267,7 @@ use_multi_req <- function(fb_records_obj) {
   nms <- names(filter)
   fnames <- sysdata(list(which = "filter_names"))
   no_name <- is.null(nms) || !any(nms %in% fnames[["translated_filter"]])
-  filters_has_no_length <- vapply(filter, length, 0L) < 1L
+  filters_has_no_length <- lengths(filter) < 1L
   filter_names <- lapply(filter, names)
   filter_names_are_char <- vapply(filter_names, is.character, NA)
   named <- all(filters_has_no_length | filter_names_are_char)
@@ -286,15 +287,35 @@ records_list_data_frame <- function(x) {
   url <- vapply(df, attr, "", "url", TRUE)
   time <- lapply(df, attr, "time", TRUE)
   df <- do.call(rbind, df)
+  aggregate <- attr(x, "aggregate", TRUE)
+  select <- attr(x, "select", TRUE)
 
-  record_id <- switch(
-    xi[["aggregate"]][[1L]], none = "unit.unitId", xi[["select_query"]]
-  )
-
+  record_id <- switch(aggregate[[1L]], none = "unit.unitId", select)
   record_id <- do.call(paste, df[, record_id, drop = FALSE])
+
   dups <- duplicated(record_id)
   df <- df[!dups, , drop = FALSE]
   record_id <- record_id[!dups]
+
+  if (aggregate[[1L]] != "none") {
+    locale <- attr(x, "locale", TRUE)
+    cache <- attr(x, "cache", TRUE)
+    var_names <- sysdata(list(which = "var_names"))
+
+    for (col in select) {
+      if (var_names[[col, "localised"]]) {
+        labels_obj <- list(
+          col = col,
+          var_names = var_names,
+          locale = locale,
+          cache = cache,
+          labels = df[[col]]
+        )
+        df[[col]] <- localise_labels(labels_obj)
+      }
+    }
+  }
+
   s <- seq_len(attr(x, "nrec_dnld", TRUE))
   cache <- attr(x, "cache", TRUE)
 
@@ -371,8 +392,8 @@ select_taxa <- function(fb_records_obj) {
 
       if (any(taxa_invalid)) {
         invalid_taxa_names <- names(taxa[taxa_invalid])
-        msg <- sub("\\.", " - ", invalid_taxa_names)
-        msg <- paste(msg, collapse = ", ")
+        msg <- sub(".", " - ", invalid_taxa_names, fixed = TRUE)
+        msg <- toString(msg)
         msg <- paste(
           "Cannot find the following taxa in the FinBIF taxonomy.",
           "Please check you are using accepted names and not synonyms or",
@@ -649,10 +670,10 @@ compute_vars_from_id <- function(fb_occurrence_df) {
 
   for (i in seq_along(cols)) {
     col_i <- cols[[i]]
-    id_var_name <- paste0(col_i, suffix)
+    id_var_name <- paste0(sub("Name", "", col_i, fixed = TRUE), suffix)
 
     if (add && id_var_name %in% colnames) {
-      if (identical(id_var_name, "collection_id")) {
+      if (id_var_name %in% c("collection_id", "datasetID")) {
 
         ptrn <- "collection_name"
         metadata <- finbif_collections(
@@ -789,7 +810,7 @@ compute_abundance <- function(fb_occurrence_df) {
     count_var <- vnms[["unit.interpretations.individualCount", vtype]]
     count <- fb_occurrence_df[[count_var]]
     verbatim_var <- vnms[["unit.abundanceString", vtype]]
-    has_one <- grepl("1", fb_occurrence_df[[verbatim_var]])
+    has_one <- grepl("1", fb_occurrence_df[[verbatim_var]], fixed = TRUE)
     has_one <- ifelse(has_one, 1L, NA_integer_)
     abundance <- ifelse(count == 1L, has_one, count)
 
@@ -1101,6 +1122,41 @@ compute_local_area <- function(fb_occurrence_df) {
 }
 
 #' @noRd
+compute_material_entity_type <- function(fb_occurrence_df) {
+  dwc <- attr(fb_occurrence_df, "dwc", TRUE)
+  vtype <- col_type_string(dwc)
+  var_names <- sysdata(list(which = "var_names"))
+  met_var <- var_names[["computed_var_material_entity_type", vtype]]
+  add <- attr(fb_occurrence_df, "include_new_cols", TRUE)
+
+  if (add && met_var %in% attr(fb_occurrence_df, "column_names", TRUE)) {
+    met <- c(
+      SUBFOSSIL_AMBER_INCLUSION_SPECIMEN = "FossilSpecimen",
+      FOSSIL_SPECIMEN = "FossilSpecimen",
+      MATERIAL_SAMPLE = "MaterialSample",
+      MATERIAL_SAMPLE_AIR = "EnvironmentalSample",
+      MATERIAL_SAMPLE_SOIL = "EnvironmentalSample",
+      MATERIAL_SAMPLE_WATER = "EnvironmentalSample",
+      MICROBIAL_SPECIMEN = "MicrobialSpecimen",
+      PRESERVED_SPECIMEN = "PreservedSpecimen",
+      SUBFOSSIL_SPECIMEN = "FossilSpecimen"
+    )
+    rb_terms <- finbif_metadata(
+      "record_basis",
+      attr(fb_occurrence_df, "locale", TRUE),
+      attr(fb_occurrence_df, "cache", TRUE)[[2L]]
+    )
+    rb_terms <- structure(rownames(rb_terms), names = rb_terms[["name"]])
+    rb_var <- var_names[["unit.recordBasis", vtype]]
+    rb <- fb_occurrence_df[[rb_var]]
+    rb <- rb_terms[rb]
+    fb_occurrence_df[[met_var]] <- unname(met[rb])
+  }
+
+  fb_occurrence_df
+}
+
+#' @noRd
 multi_req <- function(fb_records_obj) {
   filters <- fb_records_obj[["filter"]]
   filter_num <- seq_along(filters)
@@ -1314,13 +1370,21 @@ finbif_last_mod <- function(
   }
 
   res <- finbif_occurrence(
-    ..., filter = filter, select = "load_date", order_by = "-load_date", n = 1L
+    ...,
+    filter = filter,
+    select = "documentLoadedDate",
+    order_by = "-documentLoadedDate",
+    n = 1L,
+    dwc = TRUE
   )
   ans <- as.Date(character())
 
   if (nrow(res) > 0L) {
-    ans <- as.Date(res[[1L, "load_date"]])
+    ans <- as.Date(res[[1L, "documentLoadedDate"]])
   }
 
   ans
 }
+
+#' @export fb_last_mod
+fb_last_mod <- finbif_last_mod

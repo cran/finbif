@@ -15,9 +15,8 @@
 #' @param nmin Integer. Filter collections by number of records. Only return
 #'   information on collections with greater than value specified. If `NA` then
 #'   return information on all collections.
-#' @param cache Logical or Integer. If `TRUE` or a number greater than zero,
-#'   then data-caching will be used. If not logical then cache will be
-#'   invalidated after the number of hours indicated by the argument.
+#' @inheritParams finbif_taxa
+#'
 #' @return A data.frame.
 #' @examples \dontrun{
 #'
@@ -42,16 +41,18 @@ finbif_collections <- function(
 
   col_md_nms <- swagger[[c("SensitiveCollection", "properties")]]
   col_md_nms <- names(col_md_nms)
-  col_md_nms <- grep("@", col_md_nms, value = TRUE, invert = TRUE)
+  col_md_nms <- grep("@", col_md_nms, value = TRUE, invert = TRUE, fixed = TRUE)
 
   col_count_nms <- swagger[[c("WarehouseDwQuery_AggregateRow", "properties")]]
   col_count_nms <- names(col_count_nms)
   col_count_nms <- unique(col_count_nms)
-  col_count_nms <- grep("@", col_count_nms, value = TRUE, invert = TRUE)
+  col_count_nms <- grep(
+    "@", col_count_nms, value = TRUE, invert = TRUE, fixed = TRUE
+  )
 
   col_nms <- c(col_md_nms, col_count_nms)
 
-  col_nms_snk <- sub("\\.", "_", col_nms)
+  col_nms_snk <- sub(".", "_", col_nms, fixed = TRUE)
   col_nms_snk <- gsub("([a-z])([A-Z])", "\\1_\\L\\2", col_nms_snk, perl = TRUE)
   col_nms_snk <- tolower(col_nms_snk)
 
@@ -92,7 +93,19 @@ finbif_collections <- function(
 
   cols <- rownames(col_df[cols, ])
 
-  col_df <- col_df[unique(c("id", "aggregate_by", cols)), ]
+  col_df <- col_df[
+    unique(
+      c(
+        "id",
+        "aggregate_by",
+        "count",
+        "is_part_of",
+        "has_children",
+        "collection_type",
+        cols
+      )
+    ),
+  ]
 
   col_md <- list(
     qry = NULL,
@@ -105,41 +118,28 @@ finbif_collections <- function(
 
   collections <- get_collections(col_md)
 
-  if ("count" %in% col_df[["type"]]) {
-    qry <- list(
-      aggregateBy = "document.collectionId",
-      onlyCount = FALSE,
-      pessimisticDateRangeHandling = TRUE
-    )
+  qry <- list(
+    aggregateBy = "document.collectionId",
+    onlyCount = FALSE,
+    pessimisticDateRangeHandling = TRUE
+  )
 
-    col_counts <- list(
-      qry = qry,
-      lang = locale,
-      path = paste0(getOption("finbif_warehouse_query"), "unit/aggregate"),
-      nms = col_df[col_df[["type"]] == "count", "nms"],
-      id = "aggregateBy",
-      cache = cache
-    )
-    col_counts <- get_collections(col_counts)
+  col_counts <- list(
+    qry = qry,
+    lang = locale,
+    path = paste0(getOption("finbif_warehouse_query"), "unit/aggregate"),
+    nms = col_df[col_df[["type"]] == "count", "nms"],
+    id = "aggregateBy",
+    cache = cache
+  )
+  col_counts <- get_collections(col_counts)
 
-    collections <- merge(
-      collections, col_counts, by.x = "id", by.y = "aggregate_by", all.x = TRUE
-    )
-    cols <- setdiff(cols, "aggregate_by")
-  }
+  collections <- merge(
+    collections, col_counts, by.x = "id", by.y = "aggregate_by", all.x = TRUE
+  )
+  cols <- setdiff(cols, "aggregate_by")
 
-  if ("description" %in% cols && "data_quality_description" %in% cols) {
-    descriptions <- collections[["description"]]
-    data_quality_description <- collections[["data_quality_description"]]
-    na_data_quality_description <- is.na(data_quality_description)
-    descriptions_with_quality <- paste(
-      descriptions, data_quality_description, sep = "\nData quality: "
-    )
-
-    collections[["description"]] <- ifelse(
-      na_data_quality_description, descriptions, descriptions_with_quality
-    )
-  }
+  collections[["description"]] <- combine_description(cols, collections)
 
   row.names(collections) <- collections[["id"]]
 
@@ -172,6 +172,8 @@ finbif_collections <- function(
   if (!getOption("finbif_use_all_collections")) {
     ind <- ind & !collections[["id"]] %in% without_collections()
     ind <- ind & !collections[["is_part_of"]] %in% without_collections()
+    ind <- ind & !grepl("gbif", collections[["id"]], fixed = TRUE)
+    ind <- ind & !grepl("Garden|Trait|Living", collections[["collection_type"]])
   }
 
   collections <- collections[ind, , drop = FALSE]
@@ -195,6 +197,9 @@ finbif_collections <- function(
     class = c("finbif_collections", "finbif_metadata_df", "data.frame")
   )
 }
+
+#' @export fb_collections
+fb_collections <- finbif_collections
 
 #' @noRd
 get_collections <- function(col_obj) {
@@ -257,8 +262,26 @@ get_collections <- function(col_obj) {
   id <- col_obj[["id"]]
   collections[[id]] <- sub("^http:\\/\\/tun\\.fi\\/", "", collections[[id]])
   col_names <- names(collections)
-  col_names <- sub("\\.", "_", col_names)
+  col_names <- sub(".", "_", col_names, fixed = TRUE)
   col_names <- gsub("([a-z])([A-Z])", "\\1_\\L\\2", col_names, perl = TRUE)
   col_names <- tolower(col_names)
   structure(collections, names = col_names)
+}
+
+#' @noRd
+combine_description <- function(x, collections) {
+  if ("description" %in% x && "data_quality_description" %in% x) {
+    descriptions <- collections[["description"]]
+    data_quality_description <- collections[["data_quality_description"]]
+    na_data_quality_description <- is.na(data_quality_description)
+    descriptions_with_quality <- paste(
+      descriptions, data_quality_description, sep = "\nData quality: "
+    )
+
+    ifelse(
+      na_data_quality_description, descriptions, descriptions_with_quality
+    )
+  } else {
+    collections[["description"]]
+  }
 }

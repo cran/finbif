@@ -32,7 +32,7 @@ api_get <- function(obj) {
         return(cached_obj)
       }
 
-      on.exit(cache_obj(obj))
+      on.exit(cache_obj(obj), add = TRUE)
 
     } else if (is.character(fcp)) {
       cache_file_name <- paste0("finbif_cache_file_", hash)
@@ -52,26 +52,12 @@ api_get <- function(obj) {
 
       }
 
-      on.exit(save_obj(obj))
+      on.exit(save_obj(obj), add = TRUE)
 
     } else {
       stopifnot("Package {DBI} needed to use a DB cache" = has_pkgs("DBI"))
 
-      if (!DBI::dbExistsTable(fcp, "finbif_cache")) {
-        blob <- list()
-        blob <- structure(
-          blob,
-          ptype = raw(),
-          class = c("blob", "vctrs_list_of", "vctrs_vctr", "list")
-        )
-        init <- data.frame(
-          hash = character(),
-          created = as.POSIXct(numeric()),
-          timeout = numeric(),
-          blob = blob
-        )
-        DBI::dbWriteTable(fcp, "finbif_cache", init)
-      } else {
+      if (DBI::dbExistsTable(fcp, "finbif_cache")) {
         db_query <- sprintf(
           "SELECT * FROM finbif_cache WHERE hash = '%s'", hash
         )
@@ -104,11 +90,25 @@ api_get <- function(obj) {
             )
             DBI::dbExecute(fcp, db_query)
           }
-
         }
+      } else {
+        blob <- list()
+        blob <- structure(
+          blob,
+          ptype = raw(),
+          class = c("blob", "vctrs_list_of", "vctrs_vctr", "list")
+        )
+        init <- data.frame(
+          hash = character(),
+          created = as.POSIXct(numeric()),
+          timeout = numeric(),
+          blob = blob,
+          stringsAsFactors = FALSE
+        )
+        DBI::dbWriteTable(fcp, "finbif_cache", init)
       }
 
-      on.exit(append_obj(obj))
+      on.exit(append_obj(obj), add = TRUE)
     }
   }
 
@@ -238,7 +238,7 @@ get_calling_function <- function(pkg) {
 
   if (length(args) > 0L) {
     type <- vapply(args, typeof, "")
-    len <- vapply(args, length, 0L)
+    len <- lengths(as.list(args))
     arg_nms <- names(args)
     arg_nm_strs <- paste0(arg_nms, "=", type, "<", len, ">")
   }

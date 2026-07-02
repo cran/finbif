@@ -1,5 +1,5 @@
 #' @noRd
-.onLoad <- function(libname, pkgname) {
+.onLoad <- function(libname, pkgname) { # nocov start
   op_finbif <- list(
     finbif_api_url = "https://api.laji.fi",
     finbif_dl_url = "https://dw.laji.fi/download",
@@ -20,7 +20,7 @@
     finbif_timeout_offset = 0,
     finbif_tz = Sys.timezone(),
     finbif_locale = get_locale(),
-    finbif_use_dwc = FALSE,
+    finbif_use_dwc = TRUE,
     finbif_use_all_collections = FALSE
   )
   op <- options()
@@ -34,13 +34,23 @@
 }
 
 #' @noRd
-#' @exportPattern ^fb
-fns <- ls(pattern = "^finbif")
+get_locale <- function() {
+  ans <- "en"
+  supported <- sysdata(list(which = "supported_langs"))
+  matches <- name_chr_vec(c(unname(supported), supported))
+  env <- Sys.getenv(c("LANGUAGE", "LANG"))
+  collate <- Sys.getlocale("LC_COLLATE")
 
-for (fn in fns) {
-  new_name <- gsub("finbif", "fb", fn)
-  fn_obj <- get(fn)
-  assign(new_name, fn_obj)
-}
+  for (l in c(env, collate)) {
+    reg <- regexpr(".+?(?=[[:punct:]])", l, perl = TRUE)
+    l <- regmatches(l, reg)
 
-rm(fn, fns, new_name, fn_obj)
+    if (isTRUE(l %in% names(matches))) {
+      ans <- matches[[l]]
+      break
+    }
+
+  }
+
+  ans
+} # nocov end

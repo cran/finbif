@@ -30,22 +30,22 @@ test_that("fetching occurrences works", {
             "Birds",
             select = c(
               "default_vars",
-              "-record_id",
-              "duration",
-              "date_time_ISO8601",
-              "collection",
-              "primary_habitat",
-              "epsg",
-              "occurrence_status",
-              "citation",
-              "collection_code",
-              "red_list_status",
-              "region",
-              "informal_groups",
-              "common_name",
-              "restriction_reason",
-              "atlas_code",
-              "atlas_class",
+              "-occurrenceID",
+              "samplingEffort",
+              "eventDate",
+              "datasetName",
+              "primaryHabitat",
+              "geodeticDatum",
+              "occurrenceStatus",
+              "bibliographicCitation",
+              "collectionCode",
+              "redListStatus",
+              "stateProvince",
+              "informalTaxonGroups",
+              "vernacularName",
+              "informationWithheld",
+              "atlasCode",
+              "atlasClass",
               "country"
             ),
             filter = list(
@@ -80,7 +80,7 @@ test_that("fetching occurrences works", {
           set1 = c(collection = "HR.778"),
           set2 = c(collection = "HR.778")
         ),
-        select = c("municipality", "local_area"),
+        select = c("county", "municipality"),
         filter_col = "set",
         quiet = TRUE
       )
@@ -90,12 +90,13 @@ test_that("fetching occurrences works", {
       plants <- finbif_occurrence(
         "Plants",
         select = c(
-          "threatened_status",
-          "orig_taxon_rank"
+          "threatenedStatus",
+          "originalTaxonRank",
+          "materialEntityType"
         ),
         filter = list(
           date_range_ymd = 2023,
-          has_value = "record_id",
+          has_value = "occurrenceID",
           quality_issues = "without_issues",
           finnish_occurrence_status_neg = "extinct",
           subset = c(1, floor(count / 50))
@@ -167,7 +168,7 @@ test_that("fetching occurrences works", {
 
     expect_match(coord_filter_error, "Cannot request less than 1 record")
 
-    expect_equal(
+    expect_identical(
       invalid_taxa_error[[1L]],
       paste(
         "Error : Cannot find the following taxa in the FinBIF",
@@ -176,7 +177,7 @@ test_that("fetching occurrences works", {
       )
     )
 
-    expect_equal(
+    expect_identical(
       invalid_taxa_warn[[1L]],
       paste(
         "Error : (converted from warning) Cannot find the following taxa in",
@@ -188,9 +189,9 @@ test_that("fetching occurrences works", {
 
     vcr::use_cassette("finbif_occurrence_print", {
 
-      capture.output(
-        occ_print <- suppressMessages(
-          print(finbif_occurrence(select = "informal_groups", n = 11))
+      occ_print <- capture.output(
+        suppressMessages(
+          print(finbif_occurrence(select = "informalTaxonGroups", n = 11))
         )
       )
 
@@ -270,7 +271,7 @@ test_that("fetching occurrences with date filters works", {
 
     expect_snapshot(date_filters)
 
-    expect_equal(
+    expect_identical(
       date_error[[1]],
       "Error : 1 error occurred:\n  - Can't parse one or more specified dates\n"
     )
@@ -308,7 +309,7 @@ test_that("fetching aggregated occurrences works", {
     vcr::use_cassette("finbif_occurrence_aggregate", {
 
       record_basis_count <- finbif_occurrence(
-        select = "record_basis",
+        select = "basisOfRecord",
         filter = list(coordinates = list(c(60.4, 61), c(22, 22.5), "wgs84", 1)),
         aggregate = "records",
         count_only = TRUE
@@ -326,7 +327,7 @@ test_that("fetching aggregated occurrences works", {
       aggregate_error <- try(
         finbif_occurrence(
           "Birds",
-          select = "-event_id",
+          select = "-eventID",
           aggregate = c("events", "species"),
           check_taxa = FALSE
         ),
@@ -381,11 +382,11 @@ test_that("fetching local area works", {
 
     vcr::use_cassette("finbif_occurrence_select_local_area", {
 
-      local_area <- finbif_occurrence(select = "local_area", n = 5)
+      local_area <- finbif_occurrence(select = "municipality", n = 5)
 
     })
 
-    expect_type(local_area$local_area, "character")
+    expect_type(local_area$municipality, "character")
 
   }
 
@@ -421,7 +422,7 @@ test_that("can compute a var from id when there are zero records", {
 
       no_record_compute_id <- finbif_occurrence(
         filter = list(collection = "HR.121", informal_groups = "Myriapods"),
-        select = "finnish_municipality"
+        select = "finnishCounty"
       )
 
     })

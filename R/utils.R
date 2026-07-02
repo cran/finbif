@@ -183,7 +183,7 @@ cast_to_type <- function(
     double = as.double(x),
     integer = as.integer(x),
     logical = as.logical(x),
-    gsub("\r\n", "\n", as.character(x))
+    gsub("\r\n", "\n", as.character(x), fixed = TRUE)
   )
 }
 
@@ -230,6 +230,11 @@ check_status <- function(res, code) {
   }
 }
 
+#' @noRd
+without_collections <- function() {
+  c("HR.3671", "HR.4852", "HR.3151", "HR.6563", "HR.7400")
+}
+
 # random sampling --------------------------------------------------------------
 #' @noRd
 sample_with_seed <- function(
@@ -239,9 +244,12 @@ sample_with_seed <- function(
   if (exists(".Random.seed", 1L)) {
     oldseed <- get(".Random.seed", 1L)
 
-    on.exit({
-      assign(".Random.seed", oldseed, 1L) #nolint
-    })
+    on.exit(
+      {
+        assign(".Random.seed", oldseed, 1L) #nolint
+      },
+      add = TRUE
+    )
 
   }
 
@@ -356,28 +364,6 @@ conditionMessage.dfrd_errors <- function(c) {
 
 # localization -----------------------------------------------------------------
 #' @noRd
-get_locale <- function() {
-  ans <- "en"
-  supported <- sysdata(list(which = "supported_langs"))
-  matches <- name_chr_vec(c(unname(supported), supported))
-  env <- Sys.getenv(c("LANGUAGE", "LANG"))
-  collate <- Sys.getlocale("LC_COLLATE")
-
-  for (l in c(env, collate)) {
-    reg <- regexpr(".+?(?=[[:punct:]])", l, perl = TRUE)
-    l <- regmatches(l, reg)
-
-    if (isTRUE(l %in% names(matches))) {
-      ans <- matches[[l]]
-      break
-    }
-
-  }
-
-  ans
-}
-
-#' @noRd
 with_locale <- function(
   x,
   locale = getOption("finbif_locale")
@@ -398,9 +384,4 @@ with_locale <- function(
   }
 
   ans
-}
-
-#' @noRd
-without_collections <- function() {
-  c("HR.3671", "HR.4852", "HR.3151", "HR.6563")
 }

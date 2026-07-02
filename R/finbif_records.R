@@ -161,16 +161,10 @@ process_cols <- function(x) {
     if (aggregated) {
       ans <- vapply(x, getElement, NA_character_, col)
       ans <- ifelse(ans == "", NA_character_, ans)
-
-      if (localised) {
-        labels_obj[["labels"]] <- ans
-        ans <- localise_labels(labels_obj)
-      }
-
       ans <- cast_to_type(ans, type)
 
     } else {
-      col_els <- strsplit(col, "\\.")
+      col_els <- strsplit(col, ".", fixed = TRUE)
       col_els <- col_els[[1L]]
 
       if (single) {
@@ -360,12 +354,15 @@ infer_selection <- function(fb_records_obj) {
       select_computed <- select[vars_computed_from_id]
       vars_computed_from_id <- var_names[select_computed, ]
       n_computed <- nrow(vars_computed_from_id)
+      computed_names <- row.names(vars_computed_from_id)
 
       for (i in seq_len(n_computed)) {
-        computed_names <- row.names(vars_computed_from_id)
         computed_var <- vars_computed_from_id[i, var_type]
         suffix <- switch(var_type, translated_var = "_id", dwc = "ID")
-        select_vars[["x"]] <- paste0(computed_var, suffix)
+        select_vars[["x"]] <- paste0(
+          sub("Name", "", computed_var, fixed = TRUE),
+          suffix
+        )
         select[[match(computed_names[[i]], select)]] <- translate(select_vars)
       }
 
@@ -468,6 +465,10 @@ infer_computed_vars <- function(fb_records_obj) {
         "gathering.interpretations.finnishMunicipality",
         "gathering.municipality"
       )
+    ),
+    material_entity_type = list(
+      vars = "computed_var_material_entity_type",
+      select_names = "unit.recordBasis"
     )
   )
 
@@ -608,7 +609,7 @@ get_extra_pages <- function(fb_records_list) {
     max <- floor(n / max_size)
     pb <- utils::txtProgressBar(0L, max, style = 3L)
     utils::setTxtProgressBar(pb, i)
-    on.exit(close(pb))
+    on.exit(close(pb), add = TRUE)
   }
 
   query <- attr(fb_records_list, "query", TRUE)
@@ -686,7 +687,7 @@ parse_filters <- function(fb_records_obj) {
 
   if (!getOption("finbif_use_all_collections")) {
     op <- options()
-    on.exit(options(op))
+    on.exit(options(op), add = TRUE)
 
     options(finbif_use_all_collections = TRUE)
 
@@ -745,7 +746,7 @@ parse_filters <- function(fb_records_obj) {
       } else {
 
         op <- options()
-        on.exit(options(op))
+        on.exit(options(op), add = TRUE)
 
         options(finbif_use_all_collections = TRUE)
 
@@ -858,14 +859,14 @@ translate <- function(translation_obj) {
 
     if (anyNA(ind)) {
       for (err in x[is.na(ind)]) {
-        translation <- gsub("_", " ", translation)
+        translation <- gsub("_", " ", translation, fixed = TRUE)
         deferrable_error(paste0("Invalid name in ", translation, ": ", err))
       }
     }
 
     ans <- row.names(trsltn)
     ans <- ans[ind]
-    ans <- ans[!grepl("DUPLICATE", ans)]
+    ans <- ans[!grepl("DUPLICATE", ans, fixed = TRUE)]
   }
 
   ans
@@ -971,7 +972,7 @@ na_exclude <- function(fb_records_obj) {
 
   if (fb_records_obj[["exclude_na"]]) {
     select_param <- fb_records_obj[["select_param"]]
-    has_value <- strsplit(query[[select_param]], ",")
+    has_value <- strsplit(query[[select_param]], ",", fixed = TRUE)
     has_value <- c(hasValue = has_value)
 
     v <- sysdata(list(which = "var_names"))
