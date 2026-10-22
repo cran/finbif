@@ -89,7 +89,7 @@
 #' # Filter the records
 #' finbif_occurrence(
 #'   species = "Cygnus cygnus",
-#'   filter = list(coordinate_accuracy_max = 100)
+#'   filter = list(coordinate_uncertainty_max = 100)
 #' )
 #'
 #' }
@@ -247,7 +247,10 @@ occurrence <- function(fb_records_obj) {
   fb_occurrence_df <- compute_municipality(fb_occurrence_df)
   fb_occurrence_df <- compute_local_area(fb_occurrence_df)
   fb_occurrence_df <- compute_material_entity_type(fb_occurrence_df)
+  fb_occurrence_df <- compute_information_withheld(fb_occurrence_df)
+  fb_occurrence_df <- compute_data_generalizations(fb_occurrence_df)
   fb_occurrence_df <- compute_codes(fb_occurrence_df)
+  fb_occurrence_df <- compute_modified(fb_occurrence_df)
   fb_occurrence_df <- extract_facts(fb_occurrence_df)
 
   class(fb_occurrence_df) <- c("finbif_occ", "data.frame")
@@ -585,75 +588,101 @@ compute_iso8601 <- function(fb_occurrence_df) {
   iso8601_var <- var_names["computed_var_date_time_ISO8601", vtype]
 
   if (iso8601_var %in% attr(fb_occurrence_df, "column_names", TRUE)) {
-    ds <- attr(fb_occurrence_df, "date_time_start", TRUE)
-    dsna <- is.na(ds)
-    de <- attr(fb_occurrence_df, "date_time_end", TRUE)
-    dena <- is.na(de)
-    duration_na <- dsna | dena
-    duration_length <- length(duration_na)
-    iso8601s <- rep_len(NA_integer_, duration_length)
-    tzone <- attr(fb_occurrence_df, "tzone", TRUE)
-
-    iso8601s <- as.POSIXct(iso8601s, tzone)
-    iso8601e <- iso8601s
-    iso8601s[!duration_na] <- ds[!duration_na]
-    iso8601e[!duration_na] <- de[!duration_na]
-    iso8601s <- format(iso8601s, "%FT%T%z")
-    iso8601e <- format(iso8601e, "%FT%T%z")
-    iso8601 <- paste(iso8601s, iso8601e, sep = "/")
-
-    hour_start <- var_names["gathering.hourBegin", vtype]
-    hour_start <- fb_occurrence_df[[hour_start]]
-
-    minute_start <- var_names["gathering.minutesBegin", vtype]
-    minute_start <- fb_occurrence_df[[minute_start]]
-
+    event_date_start <- var_names["gathering.eventDate.begin", vtype]
+    event_date_end <- var_names["gathering.eventDate.end", vtype]
+    hour_begin <- var_names["gathering.hourBegin", vtype]
     hour_end <- var_names["gathering.hourEnd", vtype]
-    hour_end <- fb_occurrence_df[[hour_end]]
-
+    minute_begin <- var_names["gathering.minutesBegin", vtype]
     minute_end <- var_names["gathering.minutesEnd", vtype]
-    minute_end <- fb_occurrence_df[[minute_end]]
 
-    no_start_time <- is.na(hour_start) & is.na(minute_start)
-    no_end_time <- is.na(hour_end) & is.na(minute_end)
+    times <- mapply(
+      list,
+      event_date_start = as.Date(fb_occurrence_df[[event_date_start]]),
+      event_date_end = as.Date(fb_occurrence_df[[event_date_end]]),
+      hour_begin  = fb_occurrence_df[[hour_begin]],
+      hour_end = fb_occurrence_df[[hour_end]],
+      minute_begin = fb_occurrence_df[[minute_begin]],
+      minute_end = fb_occurrence_df[[minute_end]],
+      SIMPLIFY = FALSE
+    )
 
-    date_start <- var_names["gathering.eventDate.begin", vtype]
-    date_start <- fb_occurrence_df[[date_start]]
-
-    date_end <- var_names["gathering.eventDate.end", vtype]
-    date_end <- fb_occurrence_df[[date_end]]
-
-    ds_time <- as.POSIXct(date_start)
-    de_time <- as.POSIXct(date_end)
-    ds_time <- format(ds_time, "%FT%T%z")
-    de_time  <- format(de_time, "%FT%T%z")
-
-    format_interval <- paste(ds_time, de_time, sep = "/")
-    iso8601 <- ifelse(no_start_time | no_end_time, format_interval, iso8601)
-
-    dates_equal <- date_start == date_end
-    no_end_date <-  is.na(date_end) | dates_equal
-    no_end <- no_end_time & no_end_date
-    use_start <- no_end | ds == de
-    format_start <- format(ds, "%FT%T%z")
-    iso8601 <- ifelse(use_start, format_start, iso8601)
-
-    fmt_start_ymd <- as.Date(date_start)
-    fmt_start_ymd <- format(fmt_start_ymd, "%FT%T%z")
-    iso8601 <- ifelse(no_start_time & no_end_date, fmt_start_ymd, iso8601)
-
-    iso8601_na <- is.na(iso8601)
-    date_intvl <- paste(date_start, date_end, sep = "/")
-    date_intvl <- ifelse(dates_equal, date_start, date_intvl)
-
-    fb_occurrence_df[[iso8601_var]] <- ifelse(iso8601_na, date_intvl, iso8601)
+    fb_occurrence_df[[iso8601_var]] <- vapply(times, get_iso8061, "")
   }
 
   fb_occurrence_df
 }
 
 #' @noRd
+get_iso8061 <- function(times) {
+  event_date_start <- times[["event_date_start"]]
+  event_date_end <- times[["event_date_end"]]
+  hour_begin <- times[["hour_begin"]]
+  hour_end <- times[["hour_end"]]
+  minute_begin <- times[["minute_begin"]]
+  minute_end <- times[["minute_end"]]
 
+  begin_year <- identical(format(event_date_start, "%m%d"), "0101")
+  end_year <- identical(format(event_date_end, "%m%d"), "1231")
+
+  begin_month <- identical(format(event_date_start, "%d"), "01")
+  end_month <- identical(format(event_date_end + 1L, "%d"), "01")
+
+  begin <- NA_character_
+  end <- NA_character_
+
+  if (is.finite(minute_begin)) {
+    begin <- sprintf("%sT%02d:%02d", event_date_start, hour_begin, minute_begin)
+
+    if (is.finite(minute_end)) {
+      end <- sprintf("%sT%02d:%02d", event_date_end, hour_end, minute_end)
+    }
+  } else if (is.finite(hour_begin)) {
+    begin <- sprintf("%sT%02d", event_date_start, hour_begin)
+
+    if (is.finite(hour_end)) {
+      end <- sprintf("%sT%02d", event_date_end, hour_end)
+    }
+  } else if (begin_year && end_year) {
+    begin <- substr(event_date_start, 1L, 4L)
+    end <- substr(event_date_end, 1L, 4L)
+
+  } else if (begin_month && end_month) {
+    begin <- substr(event_date_start, 1L, 7L)
+    end <- substr(event_date_end, 1L, 7L)
+    end <- truncate_end(end, begin)
+
+  } else if (is.finite(event_date_start)) {
+    begin <- event_date_start
+    end <- event_date_end
+    end <- truncate_end(end, begin)
+
+  }
+  if (identical(begin, end)) {
+    end <- NA_character_
+  }
+  if (is.na(end)) {
+    as.character(begin)
+
+  } else {
+    sprintf("%s/%s", begin, end)
+  }
+}
+
+#' @noRd
+truncate_end <- function(end, begin) {
+  same_year <- identical(substr(begin, 1L, 4L), substr(end, 1L, 4L))
+
+  if (same_year && !identical(begin, end)) {
+    end <- substr(end, 6L, 10L)
+
+    if (identical(substr(begin, 6L, 7L), substr(end, 1L, 2L))) {
+      end <- substr(end, 4L, 5L)
+    }
+  }
+  end
+}
+
+#' @noRd
 compute_vars_from_id <- function(fb_occurrence_df) {
   locale <- attr(fb_occurrence_df, "locale", TRUE)
   cache <- attr(fb_occurrence_df, "cache", TRUE)
@@ -822,8 +851,8 @@ compute_abundance <- function(fb_occurrence_df) {
       stat <- switch(
         attr(fb_occurrence_df, "locale", TRUE),
         fi = c("paikalla", "poissa"),
-        sv = c("n\u00e4rvarande", "fr\u00e5nvarande"),
-        c("present", "absent")
+        sv = c("N\u00e4rvarande", "Fr\u00e5nvarande"),
+        c("Present", "Absent")
       )
 
       is_p <- is.na(abundance) | abundance > 0L
@@ -1139,18 +1168,274 @@ compute_material_entity_type <- function(fb_occurrence_df) {
       MATERIAL_SAMPLE_WATER = "EnvironmentalSample",
       MICROBIAL_SPECIMEN = "MicrobialSpecimen",
       PRESERVED_SPECIMEN = "PreservedSpecimen",
-      SUBFOSSIL_SPECIMEN = "FossilSpecimen"
+      SUBFOSSIL_SPECIMEN = "FossilSpecimen",
+      `http://tun.fi/MY.preservationPinned` = "PinnedSpecimen",
+      `http://tun.fi/MY.preservationStuffed` = "TaxidermiedSpecimen",
+      `http://tun.fi/MY.preservationSlide` = "MicroscopeSlide",
+      `http://tun.fi/MY.preservationSlideCanadaBalsam` = "MicroscopeSlide",
+      `http://tun.fi/MY.preservationSlideEuparal` = "MicroscopeSlide",
+      `http://tun.fi/MY.preservationSlidePolyviol` = "MicroscopeSlide"
     )
+
     rb_terms <- finbif_metadata(
       "record_basis",
       attr(fb_occurrence_df, "locale", TRUE),
       attr(fb_occurrence_df, "cache", TRUE)[[2L]]
     )
     rb_terms <- structure(rownames(rb_terms), names = rb_terms[["name"]])
+
     rb_var <- var_names[["unit.recordBasis", vtype]]
+
     rb <- fb_occurrence_df[[rb_var]]
     rb <- rb_terms[rb]
-    fb_occurrence_df[[met_var]] <- unname(met[rb])
+
+    fact_names <- var_names[["document.facts.fact", vtype]]
+    fact_values <- var_names[["document.facts.value", vtype]]
+
+    which_preservation <- lapply(
+      fb_occurrence_df[[fact_names]],
+      match,
+      "http://tun.fi/MY.preservation",
+      nomatch = 0
+    )
+
+    preservation <- mapply(
+      extract_fact,
+      fb_occurrence_df[[fact_values]],
+      lapply(which_preservation, as.logical),
+      SIMPLIFY = FALSE,
+      USE.NAMES = FALSE
+    )
+    preservation <- lapply(preservation, function(x) x[[1L]])
+    preservation <- met[unlist(preservation)]
+
+    fb_occurrence_df[[met_var]] <- ifelse(
+      is.na(preservation), unname(met[rb]), preservation
+    )
+  }
+
+  fb_occurrence_df
+}
+
+#' @noRd
+compute_information_withheld <- function(fb_occurrence_df) {
+  dwc <- attr(fb_occurrence_df, "dwc", TRUE)
+  vtype <- col_type_string(dwc)
+  var_names <- sysdata(list(which = "var_names"))
+  iw_var <- var_names[["computed_var_information_withheld", vtype]]
+  add <- attr(fb_occurrence_df, "include_new_cols", TRUE)
+
+  if (add && iw_var %in% attr(fb_occurrence_df, "column_names", TRUE)) {
+    rlv <- var_names[["document.secureLevel", vtype]]
+    restriction_level <- fb_occurrence_df[[rlv]]
+    level_none <- restriction_level == "NONE"
+
+    rrv <- var_names[["document.secureReasons", vtype]]
+    restriction_reasons <- fb_occurrence_df[[rrv]]
+    rr_terms <- finbif_metadata(
+      "restriction_reason",
+      attr(fb_occurrence_df, "locale", TRUE),
+      attr(fb_occurrence_df, "cache", TRUE)[[2L]]
+    )
+    rr_terms <- structure(rownames(rr_terms), names = rr_terms[["name"]])
+    restriction_reasons <- lapply(restriction_reasons, function(x) rr_terms[x])
+
+    reason_custom <- vapply(
+      restriction_reasons, function(x) "CUSTOM" %in% x, NA
+    )
+    reason_user <- vapply(
+      restriction_reasons, function(x) "USER_HIDDEN" %in% x, NA
+    )
+    reason_location <- vapply(
+      restriction_reasons, function(x) "USER_HIDDEN_LOCATION" %in% x, NA
+    )
+    reason_time <- vapply(
+      restriction_reasons, function(x) "USER_HIDDEN_TIME" %in% x, NA
+    )
+    reason_name <- vapply(
+      restriction_reasons, function(x) "USER_PERSON_NAMES_HIDDEN" %in% x, NA
+    )
+    reason_none <- lapply(restriction_reasons, is.na)
+    reason_none <- vapply(reason_none, isTRUE, NA)
+
+    restricted <- !reason_none | !level_none
+
+    pdv <- var_names[["document.partial", vtype]]
+    partial_doc <- fb_occurrence_df[[pdv]]
+
+    conditions <- mapply(
+      list,
+      reason_name = reason_name,
+      reason_time = reason_time,
+      reason_location = reason_location,
+      reason_time_name = reason_time & reason_name,
+      reason_location_name = reason_location & reason_name,
+      reason_location_time = reason_location & reason_time,
+      reason_location_time_name = reason_location & reason_time & reason_name,
+      reason_user = reason_user,
+      reason_custom = reason_custom,
+      restricted = restricted,
+      partial_doc = partial_doc,
+      level_none = level_none,
+      SIMPLIFY = FALSE
+    )
+
+    fb_occurrence_df[[iw_var]] <- vapply(conditions, get_statement, "")
+  }
+  fb_occurrence_df
+}
+
+#' @noRd
+get_statement <- function(conditions) {
+  partial_doc <- conditions[["partial_doc"]]
+  level_none  <- conditions[["level_none"]]
+
+  all_withheld <-
+    "Location, time, personally identifiable and other information withheld."
+  other_occurrence_withheld <- paste(
+    "Event and/or parent event of this occurrence has had one or more",
+    "occurrences withheld or disassociated by identifier obsfucation."
+  )
+
+  statement <- NA_character_
+
+  if (conditions[["restricted"]]) {
+    statement <- get_statement_from_reason(conditions)
+    if (partial_doc) {
+      if (level_none) {
+        statement <- paste(statement, other_occurrence_withheld)
+
+      } else {
+        statement <- paste(
+          all_withheld,
+          "Event and/or parent event identifiers of this occurrence have been",
+          "obsfucated."
+        )
+      }
+    } else {
+      if (!level_none) {
+        statement <- all_withheld
+      }
+    }
+  } else {
+    if (partial_doc) {
+      statement <- other_occurrence_withheld
+    }
+  }
+  statement
+}
+
+#'@noRd
+get_statement_from_reason <- function(conditions) {
+  statement <- NA_character_
+
+  if (conditions[["reason_name"]]) {
+    statement <- "Personally identifiable information withheld."
+  }
+  if (conditions[["reason_time"]]) {
+    statement <- "Time information withheld."
+  }
+  if (conditions[["reason_location"]]) {
+    statement <- "Location information withheld."
+  }
+  if (conditions[["reason_time_name"]]) {
+    statement <- "Time and personally identifiable information withheld."
+  }
+  if (conditions[["reason_location_name"]]) {
+    statement <- "Location and personally identifiable information withheld."
+  }
+  if (conditions[["reason_location_time"]]) {
+    statement <- "Location and time information withheld."
+  }
+  if (conditions[["reason_location_time_name"]]) {
+    statement <-
+      "Location, time and personally identifiable information withheld."
+  }
+  if (conditions[["reason_user"]]) {
+    statement <- "Location and/or personally identifiable information withheld."
+  }
+  if (conditions[["reason_custom"]]) {
+    statement <- paste(
+      "One or more of location, time, personally identifiable and/or other",
+      "information withheld."
+    )
+  }
+  statement
+}
+
+#' @noRd
+compute_data_generalizations <- function(fb_occurrence_df) {
+  dwc <- attr(fb_occurrence_df, "dwc", TRUE)
+  vtype <- col_type_string(dwc)
+  var_names <- sysdata(list(which = "var_names"))
+  dg_var <- var_names[["computed_var_data_generalizations", vtype]]
+  add <- attr(fb_occurrence_df, "include_new_cols", TRUE)
+
+  if (add && dg_var %in% attr(fb_occurrence_df, "column_names", TRUE)) {
+    rlv <- var_names[["document.secureLevel", vtype]]
+    cv <- var_names[["gathering.interpretations.country", vtype]]
+
+    conditions <- mapply(
+      list,
+      country_id = fb_occurrence_df[[cv]],
+      restriction_level = fb_occurrence_df[[rlv]],
+      SIMPLIFY = FALSE
+    )
+
+    fb_occurrence_df[[dg_var]] <- vapply(
+      conditions, get_generalization_statement, ""
+    )
+  }
+  fb_occurrence_df
+}
+
+#' @noRd
+get_generalization_statement <- function(conditions) {
+  restriction_level <- conditions[["restriction_level"]]
+  statement <- NA_character_
+
+  if (grepl("KM", restriction_level, fixed = TRUE)) {
+    restriction_level <- sub("KM", "", restriction_level, fixed = TRUE)
+    restriction_level <- as.integer(restriction_level)
+    type <- " degree"
+    scale <- sub("0.", ".", restriction_level / 100L, fixed = TRUE)
+    epsg <- 4326L
+
+    if (identical(conditions[["country_id"]], "http://tun.fi/ML.206")) {
+      type <- "km"
+      scale <- restriction_level
+      epsg <- 2393L
+    }
+    statement <- paste(
+      "Coordinates generalized from original. Generalized coordinates are the",
+      "centroid of a regular %1$s%2$s grid cell (EPSG:%3$s) closest to the",
+      "centroid of the original location. Original location footprint geometry",
+      "replaced by vertices of the %1$s%2$s grid cell."
+    )
+    statement <- sprintf(statement, scale, type, epsg)
+  }
+  statement
+}
+
+#' @noRd
+compute_modified <- function(fb_occurrence_df) {
+  dwc <- attr(fb_occurrence_df, "dwc", TRUE)
+  vtype <- col_type_string(dwc)
+  vn <- sysdata(list(which = "var_names"))
+
+  modified_var <- vn[["computed_var_modified", vtype]]
+  add <- attr(fb_occurrence_df, "include_new_cols", TRUE)
+
+  if (add && modified_var %in% attr(fb_occurrence_df, "column_names", TRUE)) {
+    md <- vn[["document.modifiedDate", vtype]]
+    md <- fb_occurrence_df[[md]]
+
+    fld <- vn[["document.firstLoadDate", vtype]]
+    fld <- fb_occurrence_df[[fld]]
+
+    na <- is.na(md)
+
+    fb_occurrence_df[[modified_var]] <- ifelse(na, fld, md)
   }
 
   fb_occurrence_df

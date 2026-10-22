@@ -28,6 +28,7 @@
       KE.383  KE.383  Lintulauta                 Talvilintujen ruokintapai…
       KE.1201 KE.1201 LoLIFE APP                 <NA>                      
       KE.176  KE.176  Löydös                     An open form to report fo…
+      KE.2001 KE.2001 Metabarcoding Data Toolki… <NA>                      
       KE.1221 KE.1221 Mobile Nature Notebook     <NA>                      
       KE.481  KE.481  NAFI (old data)            <NA>                      
       KE.167  KE.167  National vascular plant d… <NA>                      
@@ -560,8 +561,8 @@
       ML.254 EK   South Karelia       
       ML.259 EP   South Ostrobothnia  
       ML.257 ES   South Savo          
+      ML.252 V    Southwest Finland   
       ML.253 U    Uusimaa             
-      ML.252 V    Varsinais-Suomi     
       ML.251 A    Åland               
 
 ---

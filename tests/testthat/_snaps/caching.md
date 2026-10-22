@@ -4,7 +4,7 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 60339254
+      Records available: 61211220
       A data.frame [10 x 12]
          occurrenceID       scientificName individualCount decimalLatitude
       1           …21 Polytrichum juniper…              NA  60.17967      
@@ -28,7 +28,7 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 60339254
+      Records available: 61211220
       A data.frame [10 x 12]
          occurrenceID       scientificName individualCount decimalLatitude
       1           …21 Polytrichum juniper…              NA  60.17967      
@@ -52,7 +52,7 @@
       cached
     Output
       Records downloaded: 10
-      Records available: 60339254
+      Records available: 61211220
       A data.frame [10 x 12]
          occurrenceID       scientificName individualCount decimalLatitude
       1           …21 Polytrichum juniper…              NA  60.17967      

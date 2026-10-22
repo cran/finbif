@@ -44,9 +44,11 @@ test_that("fetching occurrences works", {
               "informalTaxonGroups",
               "vernacularName",
               "informationWithheld",
+              "dataGeneralizations",
               "atlasCode",
               "atlasClass",
-              "country"
+              "country",
+              "modified"
             ),
             filter = list(
               c(date_range_ymd = 2023),
@@ -386,7 +388,7 @@ test_that("fetching local area works", {
 
     })
 
-    expect_type(local_area$municipality, "character")
+    expect_type(local_area[["municipality"]], "character")
 
   }
 
@@ -436,5 +438,49 @@ test_that("can compute a var from id when there are zero records", {
   options(finbif_cache_path = NULL)
 
   options(op)
+
+})
+
+test_that("getting statements works", {
+
+  conditions <- list(
+    restricted = TRUE,
+    partial_doc = TRUE,
+    level_none = TRUE,
+    reason_name = TRUE,
+    reason_time = TRUE,
+    reason_location = TRUE,
+    reason_time_name = TRUE,
+    reason_location_name = TRUE,
+    reason_location_time = TRUE,
+    reason_location_time_name = TRUE,
+    reason_user = TRUE,
+    reason_custom = TRUE
+  )
+
+  statement <- get_statement(conditions)
+
+  expect_identical(
+    statement,
+    paste(
+      "One or more of location, time, personally identifiable and/or other",
+      "information withheld. Event and/or parent event of this occurrence",
+      "has had one or more occurrences withheld or disassociated by identifier",
+      "obsfucation."
+    )
+  )
+
+  conditions[["level_none"]] <- FALSE
+
+  statement <- get_statement(conditions)
+
+  expect_identical(
+    statement,
+    paste(
+      "Location, time, personally identifiable and other information withheld.",
+      "Event and/or parent event identifiers of this occurrence have been",
+      "obsfucated."
+    )
+  )
 
 })

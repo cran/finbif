@@ -468,7 +468,33 @@ infer_computed_vars <- function(fb_records_obj) {
     ),
     material_entity_type = list(
       vars = "computed_var_material_entity_type",
-      select_names = "unit.recordBasis"
+      select_names = c(
+        "unit.recordBasis",
+        "document.facts.fact",
+        "document.facts.value"
+      )
+    ),
+    information_withheld = list(
+      vars = "computed_var_information_withheld",
+      select_names = c(
+        "document.secureReasons",
+        "document.secureLevel",
+        "document.partial"
+      )
+    ),
+    data_generalizations = list(
+      vars = "computed_var_data_generalizations",
+      select_names = c(
+        "document.secureLevel",
+        "gathering.interpretations.country"
+      )
+    ),
+    modified = list(
+      vars = "computed_var_modified",
+      select_names = c(
+        "document.modifiedDate",
+        "document.firstLoadDate"
+      )
     )
   )
 

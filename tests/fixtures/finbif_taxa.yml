@@ -5,12 +5,12 @@ http_interactions:
   response:
     status: 200
     headers:
-      date: Thu, 02 Jul 2026 11:42:07 GMT
+      date: Thu, 22 Oct 2026 08:03:23 GMT
       content-type: application/json; charset=utf-8
-      content-length: '732'
+      content-length: '756'
       x-powered-by: Express
       access-control-allow-origin: '*'
-      etag: W/"2dc-Z7lP4+O3+h2sqvNRorD6GVLnvu0"
+      etag: W/"2f4-LRxPcjMGv3sKrQM1JY0FHnZZikw"
       cache-control: public
       x-xss-protection: 1;mode=block
       x-content-type-options: nosniff
@@ -18,22 +18,22 @@ http_interactions:
       referrer-policy: no-referrer-when-downgrade
     body:
       string: '{"results":[{"matchingName":"Bubo bubo","nameType":"MX.scientificName","id":"MX.28965","checklist":"MR.1","scientificName":"Bubo
-        bubo","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"en":"Eurasian
+        bubo","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"invasiveSpecies":false,"vernacularName":{"en":"Eurasian
         Eagle-owl","fi":"huuhkaja","se":"lidnu","sv":"berguv"},"informalGroups":[{"id":"MVL.1","name":{"en":"Birds","fi":"Linnut","sv":"Fåglar"}},{"id":"MVL.1141","name":{"en":"Birds
         of prey and owls","fi":"Petolinnut ja pöllöt","sv":"Rovfåglar och ugglor"}},{"id":"MVL.1161","name":{"en":"Owls","fi":"Pöllöt","sv":"Ugglor"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}],"@context":"https://api.laji.fi/context/taxon-search-multi"}'
-  recorded_at: 2026-07-02 11:42:06
+  recorded_at: 2026-10-22 08:03:23
 - request:
     method: GET
     uri: https://api.laji.fi/taxa/search?query=Otter&matchType=exact&limit=1&personEmail=noreply%40laji.fi
   response:
     status: 200
     headers:
-      date: Thu, 02 Jul 2026 11:42:08 GMT
+      date: Thu, 22 Oct 2026 08:03:23 GMT
       content-type: application/json; charset=utf-8
-      content-length: '526'
+      content-length: '550'
       x-powered-by: Express
       access-control-allow-origin: '*'
-      etag: W/"20e-RzY9mJ8F7byBJtFNg09K/ofm1m4"
+      etag: W/"226-E4ieWlLNmkn1jl9gRB82rKyvKQk"
       cache-control: public
       x-xss-protection: 1;mode=block
       x-content-type-options: nosniff
@@ -41,6 +41,6 @@ http_interactions:
       referrer-policy: no-referrer-when-downgrade
     body:
       string: '{"results":[{"matchingName":"Otter","nameType":"MX.vernacularName","id":"MX.47169","checklist":"MR.1","scientificName":"Lutra
-        lutra","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"vernacularName":{"en":"Otter","fi":"saukko","sv":"utter"},"informalGroups":[{"id":"MVL.2","name":{"en":"Mammals","fi":"Nisäkkäät","sv":"Däggdjur"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}],"@context":"https://api.laji.fi/context/taxon-search-multi"}'
-  recorded_at: 2026-07-02 11:42:07
+        lutra","scientificNameAuthorship":"(Linnaeus, 1758)","taxonRank":"MX.species","cursiveName":true,"finnish":true,"species":true,"invasiveSpecies":false,"vernacularName":{"en":"Otter","fi":"saukko","sv":"utter"},"informalGroups":[{"id":"MVL.2","name":{"en":"Mammals","fi":"Nisäkkäät","sv":"Däggdjur"}}],"kingdomScientificName":"Animalia","type":"exactMatches"}],"@context":"https://api.laji.fi/context/taxon-search-multi"}'
+  recorded_at: 2026-10-22 08:03:23
 recorded_with: VCR-vcr/2.1.0

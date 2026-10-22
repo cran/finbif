@@ -122,27 +122,27 @@
       HR.3811 NA             Collection… <NA>           NA 
       HR.4171 NA             Natural Hi… 0              NA 
       HR.5896 NA             Data sourc… <NA>           NA 
-              download_request_handler              edit_notes gbif_doi
-      HR.1127 MA.116                                NA         NA      
-      HR.1207 MA.172                                NA         NA      
-      HR.121  MA.186                                NA         NA      
-      HR.1247 MA.161                                NA         NA      
-      HR.128  MA.167, MA.44, MA.75907, MA.9         NA         NA      
-      HR.1547 MA.203                                NA         NA      
-      HR.1627 MA.9                                  NA         NA      
-      HR.1915 MA.2114, MA.44008, MA.53327, MA.93687 NA         NA      
-      HR.1989 MA.167, MA.44, MA.75907, MA.9         NA         NA      
-      HR.217  MA.22749                              NA         NA      
-      HR.3551 MA.110484, MA.39268                   NA         NA      
-      HR.3552 MA.167, MA.44, MA.75907, MA.9         NA         NA      
-      HR.3778 MA.167, MA.44, MA.75907, MA.9         NA         NA      
-      HR.3811 MA.702                                NA         NA      
-      HR.4171 MA.49989                              NA         NA      
-      HR.5896 MA.38028                              NA         NA      
+              download_request_handler                         edit_notes gbif_doi
+      HR.1127 MA.116                                           NA         NA      
+      HR.1207 MA.172                                           NA         NA      
+      HR.121  MA.186                                           NA         NA      
+      HR.1247 MA.161                                           NA         NA      
+      HR.128  MA.167, MA.44, MA.75907, MA.9                    NA         NA      
+      HR.1547 MA.203                                           NA         NA      
+      HR.1627 MA.167, MA.9                                     NA         NA      
+      HR.1915 MA.118405, MA.2114, MA.44008, MA.53327, MA.93687 NA         NA      
+      HR.1989 MA.167, MA.44, MA.75907, MA.9                    NA         NA      
+      HR.217  MA.22749                                         NA         NA      
+      HR.3551 MA.110484, MA.39268                              NA         NA      
+      HR.3552 MA.167, MA.44, MA.75907, MA.9                    NA         NA      
+      HR.3778 MA.167, MA.44, MA.75907, MA.9                    NA         NA      
+      HR.3811 MA.702                                           NA         NA      
+      HR.4171 MA.49989                                         NA         NA      
+      HR.5896 MA.38028                                         NA         NA      
               geographic_coverage hierarchy_type institution_code
       HR.1127 World               MY.hierarchyT… KUO             
       HR.1207 <NA>                MY.hierarchyT… <NA>            
-      HR.121  World               MY.hierarchyT… <NA>            
+      HR.121  World               MY.hierarchyT… KKM             
       HR.1247 Eurasia             MY.hierarchyT… <NA>            
       HR.128  World               MY.hierarchyT… <NA>            
       HR.1547 Mostly Eurasian     MY.hierarchyT… HAMBI           
@@ -154,7 +154,7 @@
       HR.3552 <NA>                MY.hierarchyT… <NA>            
       HR.3778 <NA>                MY.hierarchyT… <NA>            
       HR.3811 <NA>                MY.hierarchyT… <NA>            
-      HR.4171 mostly East Uusimaa MY.hierarchyT… <NA>            
+      HR.4171 mostly East Uusimaa MY.hierarchyT… PRV             
       HR.5896 <NA>                MY.hierarchyT… <NA>            
               intellectual_description intellectual_owner intellectual_rights
       HR.1127 NA                       Kuopio Natural Hi… MY.intellectualRig…
@@ -196,7 +196,7 @@
       HR.121  MY.metadataSta… <NA>      <NA>      https://w… Mäenpää, Mari     
       HR.1247 MY.metadataSta… <NA>      <NA>      <NA>       Torniainen, Jyrki 
       HR.128  <NA>            <NA>      <NA>      http://ww… Kankaanpää, Paula 
-      HR.1547 MY.metadataSta… Natural … <NA>      http://ww… Oivanen, Pekka    
+      HR.1547 MY.metadataSta… Natural … <NA>      https://w… Oivanen, Pekka    
       HR.1627 MY.metadataSta… <NA>      <NA>      <NA>       Sääksjärvi, Ilari 
       HR.1915 MY.metadataSta… <NA>      <NA>      <NA>       Holmala, Katja    
       HR.1989 MY.metadataSta… <NA>      <NA>      <NA>       Sahla, Matti      
@@ -248,8 +248,8 @@
       HR.1247 1850-             <NA>       2015-12-02T… 2024-10-14… MOS.2820
       HR.128  <NA>              <NA>       2012-10-10T… 2026-02-02… MOS.3620
       HR.1547 1964-             500        2016-07-04T… 2023-09-15… MOS.3020
-      HR.1627 <NA>              <NA>       2016-09-06T… 2025-07-25… MOS.2180
-      HR.1915 <NA>              <NA>       2017-01-13T… 2025-02-10… MOS.3680
+      HR.1627 <NA>              <NA>       2016-09-06T… 2026-10-13… MOS.2180
+      HR.1915 <NA>              <NA>       2017-01-13T… 2026-09-24… MOS.3680
       HR.1989 <NA>              <NA>       2017-01-25T… 2025-09-01… MOS.1016
       HR.217  <NA>              <NA>       2013-09-20T… 2023-09-15… MOS.95  
       HR.3551 <NA>              <NA>       2020-05-28T… 2026-02-04… MOS.1057
@@ -315,7 +315,7 @@
       HR.121  https://www.kokkola.fi/en/leisure/museums/kieppi-kokkola-museum-of-natural-history/, https://www.kokkola.fi/sv/fritid/museer/kieppi-karleby-naturhistoriska-museum/, https://www.kokkola.fi/vapaa-aika/museot/kieppi-kokkolan-luonnontieteellinen-museo/
       HR.1247 NA                                                                                                                                                                                                                                                      
       HR.128  http://www.luomus.fi, http://www.luomus.fi/english, http://www.luomus.fi/svenska                                                                                                                                                                        
-      HR.1547 http://www.helsinki.fi/hambi/, http://www.helsinki.fi/hambi/HAMBI_eng/mainpage_eng/index.html                                                                                                                                                           
+      HR.1547 https://www.helsinki.fi/hambi/                                                                                                                                                                                                                          
       HR.1627 NA                                                                                                                                                                                                                                                      
       HR.1915 NA                                                                                                                                                                                                                                                      
       HR.1989 NA                                                                                                                                                                                                                                                      
@@ -327,19 +327,19 @@
       HR.4171 NA                                                                                                                                                                                                                                                      
       HR.5896 NA                                                                                                                                                                                                                                                      
               count    gathering_count secured_count oldest_record newest_record
-      HR.1127     1603 NA              NA            NA            NA           
+      HR.1127     2473 NA              NA            NA            NA           
       HR.1207        0 NA              NA            NA            NA           
       HR.121      6085 NA              NA            NA            NA           
-      HR.1247    27926 NA              NA            NA            NA           
-      HR.128  17923364 NA              NA            NA            NA           
-      HR.1547     6809 NA              NA            NA            NA           
+      HR.1247      356 NA              NA            NA            NA           
+      HR.128  18093538 NA              NA            NA            NA           
+      HR.1547     6939 NA              NA            NA            NA           
       HR.1627    18870 NA              NA            NA            NA           
-      HR.1915    83519 NA              NA            NA            NA           
-      HR.1989  5282588 NA              NA            NA            NA           
+      HR.1915    83541 NA              NA            NA            NA           
+      HR.1989  5687203 NA              NA            NA            NA           
       HR.217         0 NA              NA            NA            NA           
-      HR.3551  2413360 NA              NA            NA            NA           
-      HR.3552  3045330 NA              NA            NA            NA           
-      HR.3778  8624635 NA              NA            NA            NA           
+      HR.3551  2502248 NA              NA            NA            NA           
+      HR.3552  3089937 NA              NA            NA            NA           
+      HR.3778  8667049 NA              NA            NA            NA           
       HR.3811        0 NA              NA            NA            NA           
       HR.4171       15 NA              NA            NA            NA           
       HR.5896    35965 NA              NA            NA            NA           
